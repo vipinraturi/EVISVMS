@@ -1,0 +1,246 @@
+﻿@*@{
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }*@
+
+<div class="row top_tiles">
+    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="tile-stats">
+            <a href="javascript:void(0)" id="lnkVisitorCheckIn">
+                <div class="icon" style="color:#f2ece9"><i class="fa fa-user-plus fa-1"></i></div>
+                <div class="count">3</div>
+                <h3>Checked-In visitors</h3>
+                <p>checked-In visitors</p>
+            </a>
+        </div>
+    </div>
+    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="tile-stats">
+            <a href="javascript:void(0)" id="lnkTotalVisitor">
+                <div class="icon" style="color:#f2ece9"><i class="fa fa-users fa-1"></i></div>
+                <div class="count">14</div>
+                <h3>Visitors</h3>
+                <p>Total visitors current day</p>
+            </a>
+        </div>
+    </div>
+    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="tile-stats">
+            <a href="javascript:void(0)" id="lnkBuilding">
+                <div class="icon" style="color:#f2ece9"><i class="fa fa-building-o"></i></div>
+                <div class="count">3</div>
+                <h3>Building</h3>
+                <p>Total bulding</p>
+            </a>
+        </div>
+    </div>
+    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="tile-stats">
+            <a href="javascript:void(0)" id="lnkGates">
+                <div class="icon" style="color:#f2ece9"><i class="fa fa-outdent"></i></div>
+                <div class="count">12</div>
+                <h3>Gates</h3>
+                <p>Total gates</p>
+            </a>
+        </div>
+    </div>
+    
+
+</div>
+
+
+<div class="row">
+
+    <div class="col-md-8 col-xs-12">
+        <canvas id="canvas"></canvas>
+    </div>
+    <div class="col-md-4 col-xs-12">
+        <div id="map_canvas" style="height:400px;"></div>
+
+        <h4 style=" text-align:center;">Bulding locations</h4>
+    </div>
+</div>
+
+<br />
+<style type="text/css">
+    .infoDiv {
+        height: 80px;
+        width: 150px;
+        font-size: small;
+        -webkit-user-select: none;
+        background-color: white;
+        color: black;
+    }
+</style>
+
+<script>
+    var config = {
+        type: 'bar',
+        fontColor: '#fff',
+        data: {
+            labels: ["12/06", "13/06", "14/06", "15/06", "16/06", "17/06", "18/06"],
+            fontColor: '#fff',
+            datasets: [{
+                label: "",
+                fontColor: '#fff',
+                data: [1, 10, 25, 40, 30, 14, 23],
+                fill: false,
+                backgroundColor:'#fff'
+            }]
+        },
+        options: {
+            responsive: true,
+            font: '#fff',
+            elements: { rectangle: { borderWidth: 2, borderColor:'#fff', borderSkipped: 'bottom' } },
+            title: {
+                display: true,
+                fontColor: '#fff',
+                text: 'Visitors/Week',
+
+            },
+            legend: {
+                display: false,
+                labels: {
+                    fontColor: 'rgb(255, 99, 132)'
+                }
+            },
+            tooltips: {
+                mode: 'label',
+                callbacks: {
+                    // beforeTitle: function() {
+                    //     return '...beforeTitle';
+                    // },
+                    // afterTitle: function() {
+                    //     return '...afterTitle';
+                    // },
+                    // beforeBody: function() {
+                    //     return '...beforeBody';
+                    // },
+                    // afterBody: function() {
+                    //     return '...afterBody';
+                    // },
+                    // beforeFooter: function() {
+                    //     return '...beforeFooter';
+                    // },
+                    // footer: function() {
+                    //     return 'Footer';
+                    // },
+                    // afterFooter: function() {
+                    //     return '...afterFooter';
+                    // },
+                }
+            },
+            hover: {
+                mode: ''
+            },
+            scales: {
+                xAxes: [{
+                    display: true,
+                    fontColor: '#fff',
+                    scaleLabel: {
+                        display: true,
+                        fontColor: '#fff',
+                        labelString: 'Date'
+
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'No. of Visitors',
+                        fontColor: '#fff'
+                    },
+                    ticks: {
+                        suggestedMin: 0,
+                        suggestedMax: 50
+                    }
+                }]
+            }
+
+        }
+    };
+
+
+
+    $.each(config.data.datasets, function (i, dataset) {
+
+        dataset.borderColor = 'rgba(255,255,255,1)';
+        //alert(dataset.borderColor);
+        dataset.backgroundColor = 'rgba(255,99,45,0.5)';
+        dataset.pointBorderColor = 'rgba(255,255,255,0.7)';
+        dataset.pointBackgroundColor = 'rgba(255,255,255,0.5)';
+        dataset.pointBorderWidth = 2;
+    });
+    $(document).ready(function () {
+
+        var ctx = document.getElementById("canvas").getContext("2d");
+        window.myLine = new Chart(ctx, config);
+        // Initialize();
+    });
+
+
+    // Where all the fun happens
+
+
+    // Google has tweaked their interface somewhat - this tells the api to use that new UI
+    google.maps.visualRefresh = true;
+    var UAE = new google.maps.LatLng(25.204849, 55.270783);
+
+    // These are options that set initial zoom level, where the map is centered globally to start, and the type of map to show
+    var mapOptions = {
+        zoom: 7,
+        center: UAE,
+        mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
+    };
+
+    // This makes the div with id "map_canvas" a google map
+    var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+
+    // This shows adding a simple pin "marker" - United Arab Emirates!
+    var myLatlng = new google.maps.LatLng(25.204849, 55.270783);
+
+    var marker = new google.maps.Marker({
+        position: myLatlng,
+        map: map,
+        title: 'United Arab Emirates'
+    });
+
+    // You can make markers different colors...  google it up!
+    marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
+
+    // a sample list of JSON encoded data of places to visit in United Arab Emirates
+    // you can either make up a JSON list server side, or call it from a controller using JSONResult
+    var data = [
+              { "Id": 1, "PlaceName": "Burj Khalifa", "OpeningHours": "7-10", "GeoLong": "25.2048", "GeoLat": "55.2708" },
+              { "Id": 2, "PlaceName": "Sheikh Sayad Mosque ", "OpeningHours": "7-4", "GeoLong": "24.2992", "GeoLat": "54.6973" },
+              { "Id": 3, "PlaceName": "Emirates Wheel", "OpeningHours": "9-7", "GeoLong": "25.3223", "GeoLat": "55.5136" },
+              { "Id": 4, "PlaceName": "Khor fakkan Beach", "OpeningHours": "8-12", "GeoLong": "25.4111", "GeoLat": "56.2482" },
+              { "Id": 5, "PlaceName": "Al Barsha", "OpeningHours": "10-10", "GeoLong": "25.0838", "GeoLat": "55.2204" }
+
+    ];
+
+    // Using the JQuery "each" selector to iterate through the JSON list and drop marker pins
+    $.each(data, function (i, item) {
+        var marker = new google.maps.Marker({
+            'position': new google.maps.LatLng(item.GeoLong, item.GeoLat),
+            'map': map,
+            'title': item.PlaceName
+        });
+
+        // Make the marker-pin blue!
+        marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png')
+
+        // put in some information about each json object - in this case, the opening hours.
+        var infowindow = new google.maps.InfoWindow({
+            content: "<div class='infoDiv'><h4>" + item.PlaceName + "</h4>" + "<div><h5>Opening hours: " + item.OpeningHours + "</h5></div></div>"
+        });
+
+        // finally hook up an "OnClick" listener to the map so it pops up out info-window when the marker-pin is clicked!
+        google.maps.event.addListener(marker, 'click', function () {
+            infowindow.open(map, marker);
+        });
+
+    })
+
+
+</script>

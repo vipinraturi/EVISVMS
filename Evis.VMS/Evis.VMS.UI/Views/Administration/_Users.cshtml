@@ -1,0 +1,194 @@
+﻿
+<ol class="breadcrumb">
+    <li><a href="#" class="a-color">Administration</a></li>
+    <li><a href="#" class="a-color">Users</a></li>
+</ol>
+<div class="row">
+    <div class="col-md-6 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Create / Update User</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content leftcontent">
+                <form class="form-horizontal form-label-left input_mask">
+
+                    <div class="form-group col-md-3 col-sm-3 col-xs-12 pull-right">
+                        <div class="profile_img">
+                            <!-- end of image cropping -->
+                            <div id="crop-avatar">
+                                <!-- Current avatar -->
+                                <img class="img-responsive avatar-view" src="../images/avatar.jpg" alt="Avatar" style="height: 120px;" title="Change the avatar" data-toggle="modal" data-target="#avatar-modal">
+                                <!-- Cropping modal -->
+                                <div class="modal fade" id="avatar-modal" aria-hidden="true" aria-labelledby="avatar-modal-label" role="dialog" tabindex="-1">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+
+                                            <div class="modal-header">
+                                                <button class="close" data-dismiss="modal" type="button">&times;</button>
+                                                <h4 class="modal-title" id="avatar-modal-label">Change Avatar</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="avatar-body">
+                                                    <!-- Upload image and data -->
+                                                    <div class="avatar-upload">
+                                                        <input class="avatar-src" name="avatar_src" type="hidden">
+                                                        <input class="avatar-data" name="avatar_data" type="hidden">
+                                                        <label for="avatarInput"> Upload Image</label>
+                                                        <input class="avatar-input" id="avatarInput" name="avatar_file" type="file">
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-md-9">
+                                                            <div class="avatar-wrapper"></div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="avatar-preview preview-lg"></div>
+                                                            <div class="avatar-preview preview-md"></div>
+                                                            <div class="avatar-preview preview-sm"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row avatar-btns">
+                                                        <div class="col-md-3">
+                                                            <button class="btn btn-primary btn-block avatar-save" type="submit">Upload</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+                                            </div>
+                                            @*</form>*@
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.modal -->
+                                <!-- Loading state -->
+                                <div class="loading" aria-label="Loading" role="img" tabindex="-1"></div>
+                            </div>
+                            <!-- end of image cropping -->
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-9 col-sm-9 col-xs-12">
+                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Organization <span class="mandatoryField">*</span></label>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                            @*<select id="ddlOrganization" class="form-control"  >
+                                <option value="0">-- Select --</option>
+                                <option value="1">Company 1</option>
+                                <option value="2">Company 2</option>
+                                <option value="3">Company 3</option>
+                            </select>*@
+                            <select class="form-control" data-bind="options: Organizations, optionsText: 'CompanyName', optionsValue: 'Id', value: OrganizationId, optionsCaption: '-- Select --'"></select>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-9 col-sm-9 col-xs-12">
+                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Full Name <span class="mandatoryField">*</span></label>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                            <input id="txtFirstName" type="text" class="form-control" placeholder="Full Name" data-bind="value: FullName"  />
+                            <span class="fa fa-user favwhite form-control-feedback right" aria-hidden="true"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-9 col-sm-9 col-xs-12">
+                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Email Id <span class="mandatoryField">*</span></label>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                            <input id="txtEmailId" type="text" class="form-control" placeholder="Email Id" data-bind="value: Email"  />
+                            <span class="fa fa-envelope-o favwhite form-control-feedback right" aria-hidden="true"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact No. <span class="mandatoryField">*</span></label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input id="txtContactNo" type="text" class="form-control" placeholder="Contact No" data-bind="value: ContactNumber"  />
+                            <span class="fa fa-phone favwhite form-control-feedback right" aria-hidden="true"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Gender <span class="mandatoryField">*</span></label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            @*<select id="DDBGender" class="form-control" >
+                                <option value="0">-- Select --</option>
+                                <option value="1">Male</option>
+                                <option value="2">Female</option>
+                                <option value="3">other</option>
+                            </select>*@
+                            <select class="form-control" data-bind="options: Genders, optionsText: 'Name', optionsValue: 'Id', value: GenderId, optionsCaption: '-- Select --'"></select>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Role <span class="mandatoryField">*</span></label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            @*<select id="DDBRole" class="form-control"  >
+                                <option value="0">-- Select --</option>
+                                <option value="1">Supervisor</option>
+                                <option value="2">Security</option>
+                            </select>*@
+                            <select class="form-control" data-bind="options: Roles, optionsText: 'Name', optionsValue: 'Id', value: RoleId, optionsCaption: '-- Select --'"></select>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-primary" data-bind="click: ResetUser.bind()">Reset <i class="fa fa-refresh"></i></button>
+                            <button type="submit" class="btn btn-success" data-bind="click: SaveUser">Save <i class="fa fa-save"></i></button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Manage Users</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="col-md-5 col-sm-5 col-xs-12  pull-right top_search">
+                    <div class="input-group">
+                        <input id="txtGlobalSearch" type="text" class="form-control" placeholder="Global Search"
+                               data-bind="value: GlobalSearch" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" data-bind="click: GetAllUsers.bind()"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                </div>
+                <form class="form-horizontal form-label-left">
+                    <table class="table jambo_table">
+                        <thead>
+                            <tr>
+                                <th style="width: 1%">#</th>
+                                <th style="width: 12%"><a href="#" onclick="DataGrid.Sort('UserName')" class="sortCol">Username</a> </th>
+                                @*<th style="width: 10%">EmailId</th>*@
+                                <th style="width: 12%"><a href="#" onclick="DataGrid.Sort('ContactNumber')" class="sortCol">Contact No</a></th>
+                                <th style="width: 12%"><a href="#" onclick="DataGrid.Sort('RoleName')" class="sortCol">Role Name</a></th>
+                                <th style="width: 14%"></th>
+                            </tr>
+                        </thead>
+                        <tbody data-bind="foreach: DataGrid.DataRows">
+                            <tr>
+                                <th scope="row" data-bind="text: $index() +1"></th>
+                                <td data-bind="text: UserName"></td>
+                                <td data-bind="text: ContactNumber"></td>
+                                <td data-bind="text: RoleName"></td>
+                                <td>
+                                    <a href="#" class="btn  btn-s" data-bind="click: EditUser.bind($data)" title="click here to view or edit record."><i class="fa fa-pencil"></i></a>
+                                    <a href="#" class="btn  btn-s" data-bind="click: DeleteUser.bind($data)" title="click here to delete record."><i class="fa fa-trash-o"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tr class="blank_row" data-bind="visible: (DataGrid.DataRows().length == 0)"><td colspan="10">No data, Add new records.</td></tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>

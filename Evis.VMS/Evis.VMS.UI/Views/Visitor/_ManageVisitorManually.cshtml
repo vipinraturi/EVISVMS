@@ -1,0 +1,227 @@
+﻿
+
+<ol class="breadcrumb">
+    <li><a href="#" class="a-color">Visitor Management</a></li>
+    <li><a href="#" class="a-color">Manage Visitor</a></li>
+</ol>
+<div class="row">
+    <div class="col-md-6 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Add Visitor</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content leftcontent ">
+                <form class="form-horizontal form-label-left input_mask">
+
+                    <div class="form-group col-md-3 col-sm-3 col-xs-12 pull-right">
+                        <div class="profile_img">
+                            <!-- end of image cropping -->
+                            <div id="crop-avatar">
+                                <!-- Current avatar -->
+                                <img class="img-responsive avatar-view" src="../images/avatar.jpg" alt="Avatar" style="height: 120px;" title="Change the avatar" data-toggle="modal" data-target="#avatar-modal">
+                                <!-- Cropping modal -->
+                                <div class="modal fade" id="avatar-modal" aria-hidden="true" aria-labelledby="avatar-modal-label" role="dialog" tabindex="-1">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+
+                                            <div class="modal-header">
+                                                <button class="close" data-dismiss="modal" type="button">&times;</button>
+                                                <h4 class="modal-title" id="avatar-modal-label">Change Avatar</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="avatar-body">
+                                                    <!-- Upload image and data -->
+                                                    <div class="avatar-upload">
+                                                        <input class="avatar-src" name="avatar_src" type="hidden">
+                                                        <input class="avatar-data" name="avatar_data" type="hidden">
+                                                        <label for="avatarInput"> Upload Image</label>
+                                                        <input class="avatar-input" id="avatarInput" name="avatar_file" type="file">
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-md-9">
+                                                            <div class="avatar-wrapper"></div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="avatar-preview preview-lg"></div>
+                                                            <div class="avatar-preview preview-md"></div>
+                                                            <div class="avatar-preview preview-sm"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row avatar-btns">
+                                                        <div class="col-md-3">
+                                                            <button class="btn btn-primary btn-block avatar-save" type="submit">Upload</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+                                            </div>
+                                            @*</form>*@
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.modal -->
+                                <!-- Loading state -->
+                                <div class="loading" aria-label="Loading" role="img" tabindex="-1"></div>
+                            </div>
+                            <!-- end of image cropping -->
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-9 col-sm-9 col-xs-12">
+                        <label class=" control-label col-md-4 col-sm-4 col-xs-12">
+                            Visitor's Name
+                        </label>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                            <input id="txtFirstName"  type="text" data-bind="value: VisitorName" class="form-control" placeholder="Anith Raj" />
+                            <span class="fa fa-user favwhite form-control-feedback right" aria-hidden="true"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-9 col-sm-9 col-xs-12">
+                        <label class=" control-label col-md-4 col-sm-4 col-xs-12">
+                            Email Address
+                        </label>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                            <input id="txtFirstName"  type="text" data-bind="value: EmailAddress" class="form-control" placeholder="AnithRaj@gmail.com" />
+                            <span class="fa fa-user favwhite form-control-feedback right" aria-hidden="true"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-9 col-sm-9 col-xs-12">
+                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Gender</label>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                            <select id="ddlGender" class="form-control" data-bind="value: Gender">
+                                <option value="-1">--Select--</option>
+                                <option value="1">Male</option>
+                                <option value="2">Female</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-9 col-sm-9 col-xs-12">
+                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Date Of Birth</label>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                            <input id="" readonly="readonly" type="text" data-bind="value: DOB" class="form-control" placeholder="Indian" />
+                            <span class="fa fa-calendar favwhite form-control-feedback right" aria-hidden="true"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Type Of Cards <span class="mandatoryField">*</span></label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <select id="DDBTypeOfCards" class="form-control" data-bind="value: TypeOfCard">
+                                <option value="-1">--Select--</option>
+                                <option value="1">Emirates ID</option>
+                                <option value="2">Driving Licence</option>
+                                <option value="3">Others</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">ID Number</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input id="" readonly="readonly" type="text" data-bind="value: IdNo" class="form-control" placeholder="XXX-999-000-111" />
+                            <span class="fa fa-simplybuilt favwhite form-control-feedback right" aria-hidden="true"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Nationality</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <select id="ddlGender" class="form-control" data-bind="value: Nationality">
+                                <option value="-1">--Select--</option>
+                                <option value="1">Indian</option>
+                                <option value="2">American</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Number <span class="mandatoryField">*</span></label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input id="txtContactNo" type="text" data-bind="value: ContactNo" class="form-control" placeholder="Contact Number" />
+                            <span class="fa fa-phone favwhite form-control-feedback right" aria-hidden="true"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Address</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <textarea id="txtAddress" class="form-control" data-bind="value: ContactAddress" rows="3" placeholder="Contact Address" style="resize: none;"></textarea>
+                            <span class="fa fa-home favwhite form-control-feedback right" aria-hidden="true"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                        <div class="col-md-offset-7">
+                            <button type="button" class="btn btn-success pull-right" data-bind="click: SaveVisitor.bind()">
+                                Save <i class="fa fa-save"></i>
+                            </button> 
+                            <button type="button" class="btn btn-primary pull-right" data-bind="click: ResetVisitor.bind()">
+                                Reset
+                                <i class="fa fa-refresh"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="col-md-6 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Manage Visitors</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="col-md-5 col-sm-5 col-xs-12  pull-right top_search">
+                    <div class="input-group">
+                        <input id="txtGlobalSearch" type="text" class="form-control" placeholder="Global Search"
+                               data-bind="value: GlobalSearch" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" data-bind="click: GetAllVisitor.bind()"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                </div>
+                <form class="form-horizontal form-label-left">
+                    <table class="table jambo_table">
+                        <thead>
+                            <tr>
+                                <th style="width: 1%">#</th>
+                                <th style="width: 15%"> <a href="#" class="sortCol">Visitor's Name</a> </th>
+                                <th style="width: 15%"> <a href="#" class="sortCol">Nationality</a></th>
+                                <th style="width: 13%"><a href="#"  class="sortCol">Contact Number</a></th>
+                                <th style="width: 17%"></th>
+                            </tr>
+                        </thead>
+            
+                        <tbody data-bind="foreach: DataGrid.DataRows">
+                            <tr>
+                                <th scope="row" data-bind="text: $index() +1"></th>
+                                <td data-bind="text: VisitorName"></td>
+                                <td data-bind="text: EmailAddress"></td>
+                                <td data-bind="text: ContactNo"></td>
+                                <td>
+                                    <a href="#" class="btn  btn-s" data-bind="click: EditVisitor.bind($data)" title="click here to view or edit record."><i class="fa fa-pencil"></i></a>
+                                    <a href="#" class="btn  btn-s" data-bind="click: DeleteVisitor.bind($data)" title="click here to delete record."><i class="fa fa-trash-o"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+

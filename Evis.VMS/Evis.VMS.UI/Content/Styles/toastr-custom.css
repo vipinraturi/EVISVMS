@@ -1,0 +1,8 @@
+﻿.toast-custom {
+    top: 20px; /* 46px topbar + 12px toastr margin*/
+    right: 12px;
+}
+
+#toast-container > .toast-success {
+  background-color: #45b6af;
+}

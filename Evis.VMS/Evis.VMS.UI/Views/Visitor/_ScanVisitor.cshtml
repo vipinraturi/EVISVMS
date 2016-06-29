@@ -1,0 +1,151 @@
+﻿<ol class="breadcrumb">
+    <li><a href="#" class="a-color">Visitor Management</a></li>
+    <li><a href="#" class="a-color">Add Visitor</a></li>
+</ol>
+<div class="row">
+
+
+    <div class="col-md-6 col-sm-6 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Drop Your Images Here</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <p>Drag multiple files to the box below for multi upload or click to select files.</p>
+                <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)" class="dropzone dz-clickable" style="text-align:center">
+                    @*Drag & Drop Here*@
+                    <div class="col-sm-6">
+                        <div class="profile_img">
+                            <!-- end of image cropping -->
+                            <div id="crop-avatar">
+                                <!-- Current avatar -->
+                                <img class="img-responsive avatar-view" src="../images/emid.jpg" alt="Avatar" title="Change the avatar">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="profile_img">
+                            <!-- end of image cropping -->
+                            <div id="crop-avatar">
+                                <!-- Current avatar -->
+                                <img class="img-responsive avatar-view" src="../images/emid2.jpg" alt="Avatar" title="Change the avatar" data-toggle="modal" data-target="#avatar-modal">
+                            </div>
+                            <!-- end of image cropping -->
+                        </div>
+                    </div>
+                </div>
+            
+            
+                @*<p>Drag multiple files to the box below for multi upload or click to select files.</p>
+                <form action="#" class="dropzone dz-clickable"></form>
+                <br />
+                <br />
+                <br />
+                <br />*@
+            </div>
+        </div>
+    </div>
+    @*<div class="col-md-6 col-xs-12">
+        <div class="x_panel" style="height: 400px;">
+            <div class="x_title">
+                <h2>Visitor's Document</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+               
+
+                <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)" style="text-align:center">
+                    Drag & Drop Here
+                    <br />
+                    Upload
+                </div>
+                <div class="col-sm-6">
+                    <div class="profile_img">
+                        <!-- end of image cropping -->
+                        <div id="crop-avatar">
+                            <!-- Current avatar -->
+                            <img class="img-responsive avatar-view" src="../images/picture.jpg" alt="Avatar" title="Change the avatar" >
+                           
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="profile_img">
+                        <!-- end of image cropping -->
+                        <div id="crop-avatar">
+                            <!-- Current avatar -->
+                            <img class="img-responsive avatar-view" src="../images/picture.jpg" alt="Avatar" title="Change the avatar" data-toggle="modal" data-target="#avatar-modal">
+                        </div>
+                        <!-- end of image cropping -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+
+
+    <div class="col-md-6 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Add Visitor</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <form class="form-horizontal form-label-left input_mask">
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Visitor's Name</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input id="txtFirstName" readonly="readonly" type="text" class="form-control" placeholder="Anith Raj"   />
+                            <span class="fa fa-user favwhite form-control-feedback right" aria-hidden="true"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Gender</label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input id="" readonly="readonly" type="text" class="form-control" placeholder="Male"  />
+                                <span class="fa fa-mars favwhite form-control-feedback right" aria-hidden="true"></span>
+                            </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Date Of Birth</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input id="" readonly="readonly" type="text" class="form-control" placeholder="10th July 1989" />
+                            <span class="fa fa-calendar favwhite form-control-feedback right" aria-hidden="true"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">ID Number</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input id="" readonly="readonly" type="text" class="form-control" placeholder="XXX-999-000-111" />
+                            <span class="fa fa-simplybuilt favwhite form-control-feedback right" aria-hidden="true"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Nationality</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input id="" readonly="readonly" type="text" class="form-control" placeholder="Indian" />
+                            <span class="fa fa-flag favwhite form-control-feedback right" aria-hidden="true"></span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="form-group">
+                        <div class="col-md-offset-7">
+                            <button type="button"  id="btnCompleteRegister" class="btn btn-success pull-right">Continue Registration</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+

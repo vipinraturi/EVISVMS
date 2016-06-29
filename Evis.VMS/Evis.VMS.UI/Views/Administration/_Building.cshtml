@@ -1,0 +1,220 @@
+﻿<ol class="breadcrumb">
+    <li><a href="#" class="a-color">Administration</a></li>
+    <li><a href="#" class="a-color">Building</a></li>
+</ol>
+
+<div class="row">
+
+    <div class="col-md-6 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Create / Update Building</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content leftcontent">
+
+                <form class="form-horizontal form-label-left input_mask">
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Organization <span class="mandatoryField">*</span></label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <select id="ddlOrganization" class="form-control" required="required">
+                                <option value="0">--Select--</option>
+                                <option value="1">Company 1</option>
+                                <option value="2">Company 2</option>
+                                <option value="3">Company 3</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Building Name <span class="mandatoryField">*</span></label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input id="txtBuildingName" type="text" class="form-control" placeholder="Building Name"  required="required" />
+                            <span class="fa fa-building favwhite form-control-feedback right" aria-hidden="true"></span>
+                        </div>
+                    </div>
+
+                  
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Country <span class="mandatoryField">*</span></label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <select id="DDBCountry" class="form-control"  required="required">
+                                <option value="0">--Select--</option>
+                                <option value="1">Bangladesh</option>
+                                <option value="2">India</option>
+                                <option value="3">Nepal</option>
+                                <option value="4">Pakistan</option>
+                                <option value="5">United Arab Emirates</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">State <span class="mandatoryField">*</span></label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <select id="DDBState" class="form-control"  required="required">
+                                <option value="0">--Select--</option>
+                                <option value="1">Abu Dhabi</option>
+                                <option value="2">Dubai</option>
+                                <option value="3">Sharjah</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">City <span class="mandatoryField">*</span></label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input id="txtCity" type="text" class="form-control" placeholder="City" required="required" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Address <span class="mandatoryField">*</span></label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <textarea id="txtAddress" class="form-control" rows="3" placeholder="Contact Address" style="resize: none;"></textarea>
+                            <span class="fa fa-home favwhite form-control-feedback right" aria-hidden="true"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">PO Box <span class="mandatoryField">*</span></label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input id="txtPOBox" type="text" class="form-control" placeholder="PO Box" required="required" />
+                            <span class="fa fa-envelope-o favwhite form-control-feedback right" aria-hidden="true"></span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="form-group">
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-primary">Reset <i class="fa fa-refresh"></i></button>
+                            <button type="submit" class="btn btn-success">Save <i class="fa fa-save"></i></button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Manage Building</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="col-md-5 col-sm-5 col-xs-12  pull-right top_search">
+                    <div class="input-group">
+                        <input id="txtGlobalSearch" type="text" class="form-control" placeholder="Global Search"
+                               />
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                </div>
+                <form class="form-horizontal form-label-left">
+                    <table class="table jambo_table">
+                        <thead>
+                            <tr>
+                                <th style="width: 1%">#</th>
+                                <th style="width: 12%">Building Name</th>
+                                <th style="width: 12%">Country</th>
+                                <th style="width: 12%">Location</th>
+                                <th style="width: 14%"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td><a>Tigher</a></td>
+                                <td>UAE</td>
+                                <td>Al Barsa</td>
+                                <td>
+                                    <a href="#" class="btn  btn-s"><i class="fa fa-pencil"></i></a>
+                                    <a href="#" class="btn btn-s"><i class="fa fa-trash-o"></i></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td><a>Tigher</a></td>
+                                <td>UAE</td>
+                                <td>Al Barsa</td>
+                                <td>
+                                    <a href="#" class="btn  btn-s"><i class="fa fa-pencil"></i></a>
+                                    <a href="#" class="btn btn-s"><i class="fa fa-trash-o"></i></a>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>3</td>
+                                <td><a>Tigher</a></td>
+                                <td>UAE</td>
+                                <td>Al Barsa</td>
+                                <td>
+                                    <a href="#" class="btn  btn-s"><i class="fa fa-pencil"></i></a>
+                                    <a href="#" class="btn btn-s"><i class="fa fa-trash-o"></i></a>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>4</td>
+                                <td><a>Tigher</a></td>
+                                <td>UAE</td>
+                                <td>Al Barsa</td>
+                                <td>
+                                    <a href="#" class="btn  btn-s"><i class="fa fa-pencil"></i></a>
+                                    <a href="#" class="btn btn-s"><i class="fa fa-trash-o"></i></a>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>5</td>
+                                <td><a>Tigher</a></td>
+                                <td>UAE</td>
+                                <td>Al Barsa</td>
+                                <td>
+                                    <a href="#" class="btn  btn-s"><i class="fa fa-pencil"></i></a>
+                                    <a href="#" class="btn btn-s"><i class="fa fa-trash-o"></i></a>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>6</td>
+                                <td><a>Tigher</a></td>
+                                <td>UAE</td>
+                                <td>Al Barsa</td>
+                                <td>
+                                    <a href="#" class="btn  btn-s"><i class="fa fa-pencil"></i></a>
+                                    <a href="#" class="btn btn-s"><i class="fa fa-trash-o"></i></a>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>7</td>
+                                <td><a>Tigher</a></td>
+                                <td>UAE</td>
+                                <td>Al Barsa</td>
+                                <td>
+                                    <a href="#" class="btn  btn-s"><i class="fa fa-pencil"></i></a>
+                                    <a href="#" class="btn btn-s"><i class="fa fa-trash-o"></i></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>8</td>
+                                <td><a>Tigher</a></td>
+                                <td>UAE</td>
+                                <td>Al Barsa</td>
+                                <td>
+                                    <a href="#" class="btn  btn-s"><i class="fa fa-pencil"></i></a>
+                                    <a href="#" class="btn btn-s"><i class="fa fa-trash-o"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>

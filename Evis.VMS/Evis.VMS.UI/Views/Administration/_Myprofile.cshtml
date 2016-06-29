@@ -1,0 +1,170 @@
+﻿<ol class="breadcrumb">
+    <li><a href="#" class="a-color">Administration</a></li>
+    <li><a href="#" class="a-color">My Profile</a></li>
+</ol>
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>My Profile</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="col-md-3 col-sm-3 col-xs-12 profile_left">
+                    <div class="profile_img">
+                        <!-- end of image cropping -->
+                        <div id="crop-avatar">
+                            <!-- Current avatar -->
+                            <img class="img-responsive avatar-view" src="../images/avatar.jpg" style="height: 225px;" alt="Avatar" title="Change the avatar" data-toggle="modal" data-target="#avatar-modal">
+                            <!-- Cropping modal -->
+                            <div class="modal fade" id="avatar-modal" aria-hidden="true" aria-labelledby="avatar-modal-label" role="dialog" tabindex="-1">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <form class="avatar-form" action="javascript:void(0)" enctype="multipart/form-data" method="post">
+                                            @*crop.php*@
+                                            <div class="modal-header">
+                                                <button class="close" data-dismiss="modal" type="button">&times;</button>
+                                                <h4 class="modal-title" id="avatar-modal-label">Change Avatar</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="avatar-body">
+                                                    <!-- Upload image and data -->
+                                                    <div class="avatar-upload">
+                                                        <input class="avatar-src" name="avatar_src" type="hidden">
+                                                        <input class="avatar-data" name="avatar_data" type="hidden">
+                                                        <label for="avatarInput" style="color:black"> Upload Image</label>
+                                                        <input class="avatar-input" id="avatarInput" name="avatar_file" type="file">
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-md-9">
+                                                            @*<div class="avatar-wrapper"></div>*@
+                                                            <img id="myImg" src="#" alt="your image" class="avatar-wrapper" />
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="avatar-preview preview-lg"></div>
+                                                            <div class="avatar-preview preview-md"></div>
+                                                            <div class="avatar-preview preview-sm"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row avatar-btns">
+                                                        <div class="col-md-3">
+                                                            <button class="btn btn-primary btn-block avatar-save" type="submit">Upload</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.modal -->
+                            <!-- Loading state -->
+                            <div class="loading" aria-label="Loading" role="img" tabindex="-1"></div>
+                        </div>
+                        <!-- end of image cropping -->
+                    </div>
+                    <h3 data-bind="text: User().FullName, visible: true"></h3>
+                    <ul class="list-unstyled user_data">
+                        <li>
+                            <i class="fa fa-map-marker user-profile-icon"></i> <span data-bind="text: User().ContactAddress, visible: true"></span>
+                        </li>
+                        <li>
+                            <i class="fa fa-briefcase user-profile-icon"></i> Supervisor
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-6 col-sm-9 col-xs-12">
+                    <form class="form-horizontal form-label-left input_mask">
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12"> First Name<span class="mandatoryField">*</span></label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input id="txtFirstName" type="text" class="form-control" placeholder="Full Name" required="required" data-bind="value: User().FullName" />
+                                <span class="fa fa-user favwhite form-control-feedback right" aria-hidden="true"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Email Address <span class="mandatoryField">*</span></label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input id="txtEmailAddress" type="text" class="form-control" placeholder="Email Address" required="required" data-bind="value: User().Email" disabled />
+                                <span class="fa fa-envelope favwhite form-control-feedback right" aria-hidden="true"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Number <span class="mandatoryField">*</span></label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input id="txtContactNo" type="text" class="form-control" placeholder="Contact Number" required="required" data-bind="value: User().PhoneNumber" />
+                                <span class="fa fa-phone favwhite form-control-feedback right" aria-hidden="true"></span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Gender <span class="mandatoryField">*</span></label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <p>
+                                    <label class="col-md-4 col-sm-4 col-xs-12">
+                                        <input type="radio" class="iradio_flat-green" name="gender" id="genderMale" value="Male" checked="" disabled />
+                                        Male
+                                    </label> 
+                                    <label class="col-md-4 col-sm-4 col-xs-12">
+                                        <input type="radio" class="iradio_flat-green" name="gender" id="genderFemale" value="Female" disabled />
+                                        Female
+                                    </label>
+                                    <label class="col-md-4 col-sm-4 col-xs-12">
+                                        <input type="radio" class="iradio_flat-green" name="gender" id="genderOthers" value="Others" disabled />
+                                        Others
+                                    </label>
+                                </p>
+                                @*<div data-bind="visible: wantsSpam">
+                                        Preferred flavors of spam:
+                                        <div><input type="checkbox" value="cherry" data-bind="checked: spamFlavors" /> Cherry</div>
+                                        <div><input type="checkbox" value="almond" data-bind="checked: spamFlavors" /> Almond</div>
+                                        <div><input type="checkbox" value="msg" data-bind="checked: spamFlavors" /> Monosodium Glutamate</div>
+                                    </div>*@
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Role<span class="mandatoryField">*</span></label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <select disabled class="form-control" data-bind="options: Roles, optionsText: 'Name', optionsValue: 'Id', value: 'RoleId'"></select>
+                                @*<select disabled class="form-control" data-bind="options: Roles, optionsText: 'Name', optionsValue: 'Id', optionsCaption: 'Choose one...', value: SelectedRole, valueAllowUnset: true"></select>*@
+                                @*<select data-bind="options: availableCountries, optionsText: 'countryName', value: selectedCountry, optionsCaption: 'Choose...'"></select>*@
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Address <span class="mandatoryField">*</span></label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <textarea id="txtAddress" class="form-control" rows="3" placeholder="Contact Address" style="resize: none;" data-bind="value: User().ContactAddress"></textarea>
+                                <span class="fa fa-home favwhite form-control-feedback right" aria-hidden="true"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="pull-right">
+                                <button type="button" class="btn btn-primary" data-bind="click: ResetMyProfile.bind()">Reset <i class="fa fa-refresh"></i></button>
+                                <button type="submit" class="btn btn-success" data-bind="click: SaveMyProfile">Update <i class="fa fa-save"></i> </button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+   
+</script>
+

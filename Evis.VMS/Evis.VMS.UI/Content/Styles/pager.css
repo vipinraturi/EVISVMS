@@ -1,0 +1,94 @@
+﻿/*TABLE.grdTbl TH, TABLE.grdTbl TD{
+	padding:10px 20px;
+}
+THEAD.grdTblHead TH{
+	background-color:#ccc;
+}
+TABLE.grdTbl TR:nth-child(2n+1) {
+    background-color: lightcyan !important;
+}
+UL.grdPager{
+	direction: ltr;
+	list-style-type: none;	
+}
+UL.grdPager LI{
+	display:inline;
+}
+A:link.sortCol, A:visited.sortCol, A:active.sortCol {
+    color: white;
+    
+}*/
+ /*Anith*/
+    /*text-decoration: underline;*/
+
+.pagerWrap {
+    margin: 20px 0;
+    height: 25px;
+}
+.pagerNumWrap {
+    /*float: left;*/
+     /*Anith*/
+    float:right;
+    height: 25px;
+}
+.pagerNumWrap SPAN {
+    float: left; 
+    height: 25px; 
+    padding:3px 5px;
+}
+.pagerNumWrap SELECT {
+    float: left; 
+    height: 25px;
+}
+UL.grdLinePager{
+	direction: ltr;
+	list-style-type: none;
+    padding: 0;
+    margin: 0;
+    margin-right: 20px;
+    width: auto;
+    float: left;
+}
+UL.grdLinePager LI{
+	display:inline-block;
+    height: 25px;
+    width: 25px;
+}
+LI.liBgCur {
+    height:30px;
+    width: 175px !important;
+    padding: 0;
+    margin: 0;
+}
+LI.liBgCur INPUT {
+    width: 25px;
+    margin: 0;
+}
+LI.liBgCur INPUT, 
+LI.liBgCur SPAN {
+    display: block;
+    float: left;
+    padding: 3px 5px;
+}
+LI.liBgFirst A, 
+LI.liBgPrev A, 
+LI.liBGNext A, 
+LI.liBGLast A {
+    display: block;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 25px;
+    height: 25px;
+}
+LI.liBgFirst A{
+    background-image: url(/Images/first-item-icon.png);
+}
+LI.liBgPrev A {
+    background-image: url(/Images/prev-item-icon.png);
+}
+LI.liBGNext A {
+    background-image: url(/Images/next-item-icon.png);
+}
+LI.liBGLast A {
+    background-image: url(/Images/last-item-icon.png);
+}

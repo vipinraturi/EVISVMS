@@ -1,0 +1,102 @@
+/********************************************************************************
+ * Company Name : Visitor's Management System
+ * Team Name    : Evis Dev Team
+ * Author       : Junaid Ameen
+ * Created On   : 22/06/2016
+ * Description  : 
+ *******************************************************************************/
+
+namespace Evis.VMS.Data.Migrations
+{
+    using System;
+    using System.Data.Entity;
+    using System.Data.Entity.Migrations;
+    using System.Linq;
+    using Evis.VMS.Data.DBContext;
+    using Evis.VMS.Data.Model.Entities;
+
+    internal sealed class Configuration : DbMigrationsConfiguration<Evis.VMS.Data.DBContext.VMSContext>
+    {
+        public Configuration()
+        {
+            AutomaticMigrationsEnabled = true;
+        }
+
+        protected override void Seed(VMSContext context)
+        {
+            GenerateGender(context);
+
+            GenerateRoles(context);
+
+            GenerateSystemAdmin(context);
+            context.SaveChanges();
+        }
+
+        private static void GenerateGender(VMSContext context)
+        {
+            context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT LookUpType OFF");
+            context.LookUpType.Add(new LookUpType { Id = 1, TypeName = "Gender", TypeCode = "Gender", Description = "Gender", IsActive = true });
+            context.LookUpType.Add(new LookUpType { Id = 2, TypeName = "Nationality", TypeCode = "Nationality", Description = "Nationality", IsActive = true });
+            context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT LookUpType ON");
+            //context.SaveChanges();
+
+            context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT LookUpValues OFF");
+            context.LookUpValues.Add(new LookUpValues { Id = 1, LookUpTypeId = 1, LookUpValue = "Male", Description = "Male", IsActive = true });
+            context.LookUpValues.Add(new LookUpValues { Id = 2, LookUpTypeId = 1, LookUpValue = "Female", Description = "Female", IsActive = true });
+            context.LookUpValues.Add(new LookUpValues { Id = 3, LookUpTypeId = 1, LookUpValue = "Others", Description = "Other", IsActive = true });
+
+            context.LookUpValues.Add(new LookUpValues { Id = 4, LookUpTypeId = 2, LookUpValue = "India", Description = "India", IsActive = true });
+            context.LookUpValues.Add(new LookUpValues { Id = 5, LookUpTypeId = 2, LookUpValue = "UAE", Description = "UAE", IsActive = true });
+            context.LookUpValues.Add(new LookUpValues { Id = 6, LookUpTypeId = 2, LookUpValue = "Saudi Arabia", Description = "Saudi Arabia", IsActive = true });
+            context.LookUpValues.Add(new LookUpValues { Id = 7, LookUpTypeId = 2, LookUpValue = "Oman", Description = "Oman", IsActive = true });
+            context.LookUpValues.Add(new LookUpValues { Id = 8, LookUpTypeId = 2, LookUpValue = "Qatar", Description = "Qatar", IsActive = true });
+            context.LookUpValues.Add(new LookUpValues { Id = 9, LookUpTypeId = 2, LookUpValue = "Bahrain", Description = "Bahrain", IsActive = true });
+            context.LookUpValues.Add(new LookUpValues { Id = 10, LookUpTypeId = 2, LookUpValue = "Kuwait", Description = "Kuwait", IsActive = true });
+            context.LookUpValues.Add(new LookUpValues { Id = 11, LookUpTypeId = 2, LookUpValue = "Others", Description = "Others", IsActive = true });
+            context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT LookUpValues ON");
+        }
+
+        private static void GenerateRoles(VMSContext context)
+        {
+            context.Roles.Add(new ApplicationRole { Name = "Supervisor", Description = "Supervisor" });
+            context.Roles.Add(new ApplicationRole { Name = "Security", Description = "Security" });
+        }
+
+        private void GenerateSystemAdmin(VMSContext context)
+        {
+            var systemAdminrole = context.Roles.Add(new ApplicationRole { Name = "SuperAdmin", Description = "SuperAdmin" });
+
+            var newSystemAdminUser = new ApplicationUser
+            {
+                FullName = "Super Admin",
+                Email = "superadmin@evisuae.com",
+                PhoneNumber = "1234567890",
+                UserName = "superadmin@evisuae.com",
+                GenderId = 1,
+                Nationality = 3,
+                IsActive = true,
+                EmailConfirmed = false,
+                PhoneNumberConfirmed = false,
+                TwoFactorEnabled = false,
+                LockoutEnabled = false,
+                AccessFailedCount = 0,
+                SecurityStamp = System.Guid.NewGuid().ToString()
+            };
+
+            var passwordHash = new Microsoft.AspNet.Identity.PasswordHasher();
+            var hashedPassword = passwordHash.HashPassword("Admin@123");
+            newSystemAdminUser.PasswordHash = hashedPassword;
+
+            var systemAdminUser = context.Users.Add(newSystemAdminUser);
+
+            systemAdminUser.Roles.Add(
+                new Microsoft.AspNet.Identity.EntityFramework.IdentityUserRole
+                {
+                    UserId = systemAdminUser.Id,
+                    RoleId = systemAdminrole.Id
+                });
+
+            context.Users.AddOrUpdate(systemAdminUser);
+        }
+    }
+}

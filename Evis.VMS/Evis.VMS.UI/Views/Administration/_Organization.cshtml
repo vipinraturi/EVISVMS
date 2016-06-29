@@ -1,0 +1,142 @@
+﻿@{
+    ViewBag.Title = "_Organization";
+}
+
+<ol class="breadcrumb">
+    <li><a href="#" class="a-color">Administration</a></li>
+    <li><a href="#" class="a-color">Organization</a></li>
+</ol>
+<div class="row">
+    <div class="col-md-6 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Create / Update Organization</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content leftcontent">
+                <form class="form-horizontal form-label-left input_mask">
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Company Name <span class="mandatoryField">*</span></label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input id="txtCompanyName" type="text" class="form-control" placeholder="Company Name" data-bind="value: CompanyName" />
+                            <span class="fa fa-suitcase favwhite form-control-feedback right" aria-hidden="true"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Email Address <span class="mandatoryField">*</span></label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input id="txtEmail" type="text" class="form-control" placeholder="Email Address" data-bind="value: Email" />
+                            <span class="fa fa-envelope favwhite form-control-feedback right" aria-hidden="true"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Number <span class="mandatoryField">*</span></label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input id="txtContactNumber" type="text" class="form-control" placeholder="Contact Number" data-bind="value: ContactNumber" />
+                            <span class="fa fa-phone favwhite form-control-feedback right" aria-hidden="true"></span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Address <span class="mandatoryField">*</span></label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <textarea id="txtAddress" class="form-control" rows="3" placeholder="Contact Address" data-bind="value: ContactAddress" style="resize: none;"></textarea>
+                            <span class="fa fa-home favwhite form-control-feedback right" aria-hidden="true"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">PO Box <span class="mandatoryField">*</span></label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input id="txtPostalCode" type="text" class="form-control" placeholder="PO Box" data-bind="value: POBox" />
+                            <span class="fa fa-envelope-o favwhite form-control-feedback right" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Fax  Number </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input id="txtFaxNo" type="text" class="form-control" placeholder="Fax Number" data-bind="value: FaxNumber" />
+                            <span class="fa fa-fax favwhite form-control-feedback right" aria-hidden="true"></span>
+                        </div>
+                    </div>
+
+
+                   
+
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Website</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input id="txtWebsite" type="text" class="form-control" placeholder="Website URL" data-bind="value: WebSite" />
+                            <span class="fa fa-globe favwhite form-control-feedback right" aria-hidden="true"></span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="form-group">
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-primary" data-bind="click: ResetOrganization.bind()">Reset <i class="fa fa-refresh"></i></button>
+                            <button type="button" class="btn btn-success" data-bind="click: SaveOrganization">Save <i class="fa fa-save"></i></button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Manage Organization</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div class="col-md-5 col-sm-5 col-xs-12  pull-right top_search" >
+                    <div class="input-group">
+                        <input id="txtGlobalSearch" type="text" class="form-control" placeholder="Global Search"
+                               data-bind="value: GlobalSearch" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" data-bind="click: GetAllOrganizations.bind()"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
+                </div>
+                <form class="form-horizontal form-label-left">
+                    <table class="table jambo_table">
+                        <thead >
+                            <tr>
+                                <th style="width: 1%">#</th>
+                                <th style="width: 25%"> <a href="#" onclick="DataGrid.Sort('CompanyName')" class="sortCol">Name</a> </th>
+                                <th style="width: 25%"> <a href="#" onclick="DataGrid.Sort('Email')" class="sortCol">Email Address</a></th>
+                                <th style="width: 24%"><a href="#" onclick="DataGrid.Sort('ContactNumber')" class="sortCol">Contact No</a></th>
+                                <th style="width: 25%"></th>
+                            </tr>
+                        </thead>
+                        <tbody data-bind="foreach: DataGrid.DataRows">
+                            <tr>
+                                <th scope="row" data-bind="text: $index() +1"></th>
+                                <td data-bind="text: CompanyName"></td>
+                                <td data-bind="text: Email"></td>
+                                <td data-bind="text: ContactNumber"></td>
+                                <td>
+                                    <a href="#" class="btn  btn-s" data-bind="click: EditOrganization.bind($data)" title="click here to view or edit record."><i class="fa fa-pencil"></i></a>
+                                    <a href="#" class="btn  btn-s" data-bind="click: DeleteOrganization.bind($data)" title="click here to delete record."><i class="fa fa-trash-o"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tr class="blank_row" data-bind="visible: (DataGrid.DataRows().length == 0)"><td colspan="10">No data, Add new records.</td></tr>
+
+                    </table>
+                    @Html.Partial("_Pager")
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

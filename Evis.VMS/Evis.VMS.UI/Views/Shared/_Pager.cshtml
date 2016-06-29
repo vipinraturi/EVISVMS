@@ -1,0 +1,23 @@
+﻿
+<div class="pagerWrap">
+    <ul class="grdLinePager">
+        <li class="liBgFirst"><a href="#" onclick="DataGrid.FlipPage(1)"></a></li>
+        <li class="liBgPrev"><a href="#" data-bind="click: function () { DataGrid.FlipPage(DataGrid.GridParams.pageIndex() - 1)  }"></a></li>
+        <li class="liBgCur">
+            <input data-bind="value: DataGrid.GridParams.requestedPage" type="text" style="background-color:transparent !important;" />
+            <span>of total</span>
+            <span data-bind="text: DataGrid.GridParams.totalPages()"></span>
+            <span> pages</span>
+        </li>
+        <li class="liBGNext"><a href="#" data-bind="click: function () { DataGrid.FlipPage(DataGrid.GridParams.pageIndex() + 1) }"></a></li>
+        <li class="liBGLast"><a href="#" data-bind="click: function () { DataGrid.FlipPage(DataGrid.GridParams.totalPages()) }"></a></li>
+    </ul>
+    <div class="pagerNumWrap">
+        <span># of rows in page </span>
+        <select style="background-color:transparent !important; color:#fff !important;" data-bind="options: DataGrid.GridParams.pageSizeOptions, value: DataGrid.SelectedPageSizeOption "></select>
+    </div>
+    <!--this is for demo only. unhide it in style to view -->
+    <ul class="grdPager" data-bind="foreach: new Array(DataGrid.GridParams.totalPages())" style="display:none">
+        <li><a href='#' data-bind="click: function () { DataGrid.FlipPage($index() + 1) }, text: ($index() + 1), style: { color: ($index() + 1) == DataGrid.GridParams.pageIndex() ? 'black' : 'blue' } "></a></li>
+    </ul>
+</div>

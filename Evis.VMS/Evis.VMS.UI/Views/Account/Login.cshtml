@@ -1,0 +1,105 @@
+﻿@model Evis.VMS.UI.ViewModel.LoginVM
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>CEENEX VMS</title>
+    <link href="~/Content/Styles/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Styles/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/Styles/animate.min.css" rel="stylesheet" />
+    <link href="~/Content/Styles/custom.min.css" rel="stylesheet" />
+</head>
+<body class="login">
+    <div>
+        <a class="hiddenanchor" id="signup"></a>
+        <a class="hiddenanchor" id="signin"></a>
+        <div class="login_wrapper">
+            <div class="animate form login_form">
+                <section class="login_content">
+                    @using (Html.BeginForm("Login", "Account", new { ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+                    {
+                    @Html.AntiForgeryToken()
+                    <a href="javascript:void(0)" class="">
+                        <img src="~/images/logo3.png" class="logoimg" /><br />
+                        <span class="companyName-Span">CEENEX</span>
+                    </a>
+                    @*<h2>Welcome to Visitor Managemet System </h2>*@
+                    <div style="margin-top:8%;">
+                        @*<input type="text" class="form-control" placeholder="Username" required="" />*@
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "Username" })
+                        @Html.ValidationMessageFor(model => model.UserName, null, new { @class = "error" })
+                    </div>
+                    <div>
+                        @*<input type="password" class="form-control" placeholder="Password" required="" />*@
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", @placeholder = "Password" })
+                        @Html.ValidationMessageFor(model => model.Password, null, new { @class = "error" })
+                        @Html.ValidationMessage("authstatusmessage", new { @class = "error" })
+                    </div>
+                    <div>
+                        <a class="reset_pass linkwhite" href="#signup">Lost your password?</a>
+                        @*<a class="btn btn-success" href="/Home/Index">Log in</a>*@
+                        <button class="btn btn-success" type="submit" id="btnlogin">Log In</button>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="separator">
+                        @*<p class="change_link">
+                                New to site?
+                                <a href="#signup" class="to_register"> Create Account </a>
+                            </p>*@
+                        <div class="clearfix"></div>
+                        <br />
+                        <div>
+                            <h2>CEENEX VMS</h2>
+                            <p>©2016 All Rights Reserved. CEENEX SEE THE NEXT. Privacy and Terms</p>
+                        </div>
+                    </div>
+                    }
+                </section>
+            </div>
+            <div id="register" class="animate form registration_form">
+                <section class="login_content ">
+                    @using (Html.BeginForm("ForgotPassword", "Account", null, FormMethod.Post, new { role = "form" }))
+                    {
+
+                        <h1>Forgot &nbsp; Password</h1>
+                        <p class="change_link">
+                            You can Reset your Password here.
+                        </p>
+                        <div>
+                            @*<input type="email" class="form-control" placeholder="Email Address" required="" />*@
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Email Address" })
+                            @Html.ValidationMessageFor(model => model.Email, null, new { @class = "error" })
+                            @Html.ValidationMessage("errormessage", new { @class = "error" })
+                        </div>
+
+                        <div>
+                            <a href="#signin" class="reset_pass linkwhite"> Already a member ? Log in </a>
+                            @*<a class="btn btn-success" href="#signup">Send</a>*@
+                            <button class="btn btn-success" type="submit" id="btnSend">Send</button>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="separator">
+                            <div>
+                                <h1>CEENEX VMS</h1>
+                                <p>©2016 All Rights Reserved. CEENEX SEE THE NEXT. Privacy and Terms</p>
+                            </div>
+                        </div>
+                    }
+                </section>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script type="text/javascript">
+    var url = window.location.pathname.split("/");
+    var questions = url[2];
+    if (questions.toLowerCase() == "forgotpassword") {
+        window.location.hash = "#signup";
+    }
+</script>

@@ -1,0 +1,125 @@
+﻿@{
+    ViewBag.Title = "_Layout";
+}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>CEENEX VMS </title>
+    @Styles.Render("~/Content/css")
+  
+</head>
+<body class="nav-md">
+    <div class="loader-div" data-loader style="display:none">
+        <img src="~/images/Loader.gif" class="ajax-loader" />
+    </div>
+    <div class="container body">
+        <div class="main_container" >
+            <div class="col-md-3 left_col">
+                <div class="left_col scroll-view">
+                    <div class="navbar nav_title" style="border: 0;">
+                        <a href="/Home/Index" class="site_title">
+                            <img src="~/images/logo3.png" class="logoimg" /><br />
+                            <span class="companyName-Span">CEENEX VMS</span>
+                        </a>
+                    </div>
+
+                    <div class="clearfix"></div>
+                    <br />
+                    <!-- sidebar menu -->
+                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                        <div class="menu_section">
+                            <h3></h3>
+                            <ul class="nav side-menu">
+                                <li id="dashboard">
+                                    <a href="javascript:void(0)"><i class="fa fa-tachometer" aria-hidden="true"></i>Dashboard </a>
+
+                                </li>
+                                <li>
+                                    <a><i class="fa fa-home"></i>Administration <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li id="organization"><a href="javascript:void(0)">Organization </a></li>
+                                        <li id="buildings"><a href="javascript:void(0)">Buildings</a></li>
+                                        <li id="gates"><a href="javascript:void(0)">Gates</a></li>
+                                        <li id="newuser"><a href="javascript:void(0)">Users</a></li>
+                                        <li id="newshiftcreate"><a href="javascript:void(0)">New Shifts</a></li>
+                                        <li id="shiftassignment"><a href="javascript:void(0)">Shift Assignment</a></li>
+                                        @*<li id="themeSelection"><a href="javascript:void(0)">Theme Selection</a></li>*@
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a><i class="fa fa-car" aria-hidden="true"></i>Visitor Management <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li id="scanvisitor"><a href="javascript:void(0)">Scan a visitor</a></li>
+                                        <li id="managevisitor"><a href="javascript:void(0)">Manage Visitor</a></li>
+                                        <li id="visitorcheckin"><a href="javascript:void(0)">Visitor Check-In & Checkout</a></li>
+                                    </ul>
+                                </li>
+
+                                <li>
+                                    <a><i class="fa fa-bar-chart-o"></i>Reporting<span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li id="visitordetailsreport"><a href="javascript:void(0)">Visitor Details</a></li>
+                                        <li id="shiftdetailsreport"><a href="javascript:void(0)">Shift Details</a></li>
+                                    </ul>
+                                </li>
+                                <li id="myprofile">
+                                    <a href="javascript:void(0)"><i class="fa fa-user" aria-hidden="true"></i>My profile</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /sidebar menu -->
+                </div>
+            </div>
+
+            <!-- top navigation -->
+            <div class="top_nav">
+                <div class="nav_menu">
+                    <nav class="" role="navigation">
+                        <div class="nav toggle">
+                            <a id="menu_toggle"><i class="fa fa-bars" style="color:white !important;"></i></a>
+
+                        </div>
+
+
+
+                        <ul class="nav navbar-nav navbar-right">
+
+                            <li class="">
+                                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                    <img src="~/images/avatar.jpg" alt="">Tintu John
+
+                                    <span style="padding-left: 5px;" class=" fa fa-angle-down"></span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-usermenu pull-right">
+                                    <li class="myprofile"><a href="/Account/LogOff">Profile</a></li>
+                                    <li><a href="/Account/LogOut"><i class="fa fa-sign-out pull-right"></i>Log Out</a></li>
+                                </ul>
+                            </li>
+
+
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <!-- /top navigation -->
+            <!-- page content -->
+                @RenderBody()
+            <!-- /page content -->
+            <!-- footer content -->
+            <footer class="footer-background">
+                <div class="text-center">
+                    Copyright © 2016 VMS-Visitor Management System - CEENEX All rights reserved
+                </div>
+                <div class="clearfix"></div>
+            </footer>
+            <!-- /footer content -->
+        </div>
+    </div>
+    @Scripts.Render("~/bundles/js")
+    @Scripts.Render("~/bundles/knockout")
+    @Scripts.Render("~/bundles/app")
+</body>
+
+</html>
