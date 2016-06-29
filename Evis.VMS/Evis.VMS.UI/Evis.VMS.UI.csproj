@@ -324,6 +324,9 @@
     <Content Include="Content\Scripts\plugins\jquery-1.10.2.min.map" />
     <Content Include="images\1.png" />
     <Content Include="images\4.jpg" />
+    <Content Include="images\5.jpg" />
+    <Content Include="images\6.jpg" />
+    <Content Include="images\7.jpg" />
     <Content Include="images\american-express.png" />
     <Content Include="images\avatar.jpg" />
     <Content Include="images\back_disabled.png" />
