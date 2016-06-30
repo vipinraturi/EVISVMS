@@ -20,4 +20,20 @@
         //alert("Applying theme4");
         changetheme("theme4");
     }
+    self.Theme5 = function () {
+        //alert("Applying theme4");
+        changetheme("theme5");
+    }
+    self.Theme6 = function () {
+        //alert("Applying theme4");
+        changetheme("theme6");
+    }
+    self.Theme7 = function () {
+        //alert("Applying theme4");
+        changetheme("theme7");
+    }
+    self.Theme8 = function () {
+        //alert("Applying theme4");
+        changetheme("theme8");
+    }
 }

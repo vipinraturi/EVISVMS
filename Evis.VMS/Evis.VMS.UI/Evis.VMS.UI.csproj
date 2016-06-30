@@ -316,6 +316,10 @@
     <Content Include="Content\Styles\custom_theme1.css" />
     <Content Include="Content\Styles\custom_theme2.css" />
     <Content Include="Content\Styles\custom_theme3.css" />
+    <Content Include="Content\Styles\custom_theme6.css" />
+    <Content Include="Content\Styles\custom_theme7.css" />
+    <Content Include="Content\Styles\custom_theme8.css" />
+    <Content Include="Content\Styles\custom_theme5.css" />
     <Content Include="Content\Styles\custom_theme4.css" />
     <Content Include="Content\Styles\dropzone.min.css" />
     <Content Include="Content\Styles\font-awesome.min.css" />
@@ -339,7 +343,15 @@
     <Content Include="images\back_disabled.png" />
     <Content Include="images\back_enabled.png" />
     <Content Include="images\back_enabled_hover.png" />
+    <Content Include="images\blur-bg-black.jpg" />
+    <Content Include="images\blur-bg-blue.jpg" />
+    <Content Include="images\blur-bg-bluecombo.jpg" />
     <Content Include="images\blur-bg-blurred.jpg" />
+    <Content Include="images\blur-bg-fullblack.jpg" />
+    <Content Include="images\blur-bg-redblue.jpg" />
+    <Content Include="images\blur-bg-vibge.jpg" />
+    <Content Include="images\blur-bg-violet.jpg" />
+    <Content Include="images\blur-bg-yellowblack.jpg" />
     <Content Include="images\blur-bg.jpg" />
     <Content Include="images\bootstrap-colorpicker\alpha-horizontal.png" />
     <Content Include="images\bootstrap-colorpicker\alpha.png" />

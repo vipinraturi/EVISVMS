@@ -54,6 +54,38 @@ namespace Evis.VMS.UI
                "~/Content/Styles/toastr.min.css",
                "~/Content/Styles/toastr-custom.css"
                 ));
+            bundles.Add(new StyleBundle("~/Content/theme5").Include(
+             "~/Content/Styles/green.css",
+               "~/Content/Styles/custom_theme5.css",
+             "~/Content/Styles/dropzone.min.css",
+             "~/Content/Styles/pager.css",
+             "~/Content/Styles/toastr.min.css",
+             "~/Content/Styles/toastr-custom.css"
+              ));
+            bundles.Add(new StyleBundle("~/Content/theme6").Include(
+             "~/Content/Styles/green.css",
+               "~/Content/Styles/custom_theme6.css",
+             "~/Content/Styles/dropzone.min.css",
+             "~/Content/Styles/pager.css",
+             "~/Content/Styles/toastr.min.css",
+             "~/Content/Styles/toastr-custom.css"
+              ));
+            bundles.Add(new StyleBundle("~/Content/theme7").Include(
+             "~/Content/Styles/green.css",
+               "~/Content/Styles/custom_theme7.css",
+             "~/Content/Styles/dropzone.min.css",
+             "~/Content/Styles/pager.css",
+             "~/Content/Styles/toastr.min.css",
+             "~/Content/Styles/toastr-custom.css"
+              ));
+            bundles.Add(new StyleBundle("~/Content/theme8").Include(
+             "~/Content/Styles/green.css",
+               "~/Content/Styles/custom_theme8.css",
+             "~/Content/Styles/dropzone.min.css",
+             "~/Content/Styles/pager.css",
+             "~/Content/Styles/toastr.min.css",
+             "~/Content/Styles/toastr-custom.css"
+              ));
 
             var bundle = new ScriptBundle("~/bundles/js")
                 .Include("~/Content/Scripts/plugins/jquery.min.js")

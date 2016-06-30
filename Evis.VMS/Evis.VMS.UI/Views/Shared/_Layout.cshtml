@@ -10,27 +10,47 @@
     <link rel="Stylesheet" href="@Url.Content("~/Content/theme1")" id="styleTheme" />
 
     <script type="text/javascript">
-        function changetheme(themeName) {
-            $('.loader-div').show();
-            var thestyle = document.getElementById("styleTheme");
-            switch (themeName) {
-                case "theme1":
-                    thestyle.href = "@Url.Content("~/Content/theme1")";
+    function changetheme(themeName) {
+        $('.loader-div').show();
+        var thestyle = document.getElementById("styleTheme");
+        switch (themeName) {
+            case "theme1":
+                thestyle.href = "@Url.Content("~/Content/theme1")";
+                alert("Applying theme one");
+                break;
+            case "theme2":
+                thestyle.href = "@Url.Content("~/Content/theme2")";
+                alert("Applying theme two");
+                break;
+            case "theme3":
+                thestyle.href = "@Url.Content("~/Content/theme3")";
+                alert("Applying theme three");
+                break;
+            case "theme4":
+                thestyle.href = "@Url.Content("~/Content/theme4")";
+                alert("Applying theme 4");
+                break;
+            case "theme5":
+                thestyle.href = "@Url.Content("~/Content/theme5")";
+                    alert("Applying theme 5");
                     break;
-                case "theme2":
-                    thestyle.href = "@Url.Content("~/Content/theme2")";
+                case "theme6":
+                    thestyle.href = "@Url.Content("~/Content/theme6")";
+                    alert("Applying theme 6");
                     break;
-                case "theme3":
-                    thestyle.href = "@Url.Content("~/Content/theme3")";
-                    break;
+                case "theme7":
+                        thestyle.href = "@Url.Content("~/Content/theme7")";
+                        alert("Applying theme 7");
+                        break;
                 default:
-                    thestyle.href = "@Url.Content("~/Content/theme4")";
-                    break;
-            }
-            $('.loader-div').hide();
-
+                    thestyle.href = "@Url.Content("~/Content/theme8")";
+                alert("Applying theme 8");
+                break;
         }
-        setInterval(changetheme, (30 * 60 * 1000));
+        $('.loader-div').hide();
+
+    }
+    setInterval(changetheme, (30 * 60 * 1000));
     </script>
 
 </head>
