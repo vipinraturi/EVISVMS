@@ -10,6 +10,9 @@ ApplyCustomBinding = function (elementName) {
         case 'organization':
             BindingViewModel("/Administration/_Organization", OrganizationViewModel());
             break;
+        case 'myorganization':
+            BindingViewModel("/Administration/_MyOrganization", MyOrganizationViewModel());
+            break;
         case 'buildings':
             BindingViewModel("/Administration/_Building", BuildingViewModel());
             break;

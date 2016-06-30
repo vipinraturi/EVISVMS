@@ -11,17 +11,15 @@
         AttachClickEvent($(this).attr('class'));
     });
 
+    $('.myorganization').click(function () {
+        AttachClickEvent($(this).attr('class'));
+    });
+
     AttachClickEvent = function (currentItem) {
         if (currentItem != undefined && currentItem != "") {
             ApplyCustomBinding(currentItem);
         }
     }
-
-  
-
-    
-    
-    
 
     toastr.options = {
         "closeButton": true,

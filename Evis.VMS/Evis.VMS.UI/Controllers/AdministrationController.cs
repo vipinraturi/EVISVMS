@@ -26,6 +26,11 @@ namespace Evis.VMS.UI.Controllers
             return View();
         }
 
+        public ActionResult _MyOrganization()
+        {
+            return View();
+        }
+
         public ActionResult _Building()
         {
             return View();
