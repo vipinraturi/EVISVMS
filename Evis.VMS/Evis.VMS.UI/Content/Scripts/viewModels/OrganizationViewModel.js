@@ -5,7 +5,7 @@ function OrganizationViewModel() {
 
     //self.Organizations = ko.observable();
     //AjaxCall('/Api/Administration/GetOrganizationsData', null, 'POST', function (data) {
-    //    debugger;
+    //    
     //    self.Organizations(data);
     //})
 
@@ -21,20 +21,26 @@ function OrganizationViewModel() {
     });
 
 
-    
+
     self.Id = ko.observable(0);
     self.CompanyName = ko.observable().extend({
         required: true,
         deferValidation: true
     });
-    self.Email = ko.observable('').extend({ required: true, minLength: 2, maxLength: 40, email: { message: "Invalid email" } });
+    self.CityId = ko.observable(0).extend({ required: true });
+    self.EmailId = ko.observable('').extend({ required: true, minLength: 2, maxLength: 40, email: { message: "Invalid email" } });
     self.ContactNumber = ko.observable('').extend({ required: true, number: { message: "Numbers only" } });
     self.ContactAddress = ko.observable('').extend({ required: true });
     self.FaxNumber = ko.observable('').extend({ required: true });
-    self.POBox = ko.observable('').extend({ required: true });
+    self.ZipCode = ko.observable('').extend({ required: true });
     self.WebSite = ko.observable('').extend({ required: true });
     self.GlobalSearch = ko.observable('');
     self.IsInsert = ko.observable(true);
+
+    self.Cities = ko.observableArray();
+    AjaxCall('/Api/Administration/GetCities', null, 'GET', function (data) {
+        self.Cities(data);
+    })
 
 
     self.DataGrid = new RIT.eW.DataGridAjax('/Api/Administration/GetOrganizationsData', 7);
@@ -57,14 +63,15 @@ function OrganizationViewModel() {
         }
         else {
             var data = new Object();
-            //debugger;
+            //
             data.Id = self.Id(),
             data.CompanyName = self.CompanyName(),
-            data.Email = self.Email(),
+            data.CityId = self.CityId(),
+            data.EmailId = self.EmailId(),
             data.ContactNumber = self.ContactNumber(),
             data.ContactAddress = self.ContactAddress(),
             data.FaxNumber = self.FaxNumber(),
-            data.POBox = self.POBox(),
+            data.ZipCode = self.ZipCode(),
             data.WebSite = self.WebSite()
             data.IsInsert = self.IsInsert();
 
@@ -81,11 +88,12 @@ function OrganizationViewModel() {
         self.IsInsert(true);
         self.GlobalSearch('');
         self.CompanyName('');
-        self.Email('');
+        self.CityId(0);
+        self.EmailId('');
         self.ContactAddress('');
         self.FaxNumber('');
         self.ContactNumber('');
-        self.POBox('');
+        self.ZipCode('');
         self.WebSite('');
         ApplyCustomBinding('organization');
     }
@@ -101,16 +109,17 @@ function OrganizationViewModel() {
     }
 
     self.EditOrganization = function (tableItem) {
-        //debugger;
+        debugger;
         if (tableItem != undefined) {
             self.IsInsert(false);
             self.Id(tableItem.Id);
             self.CompanyName(tableItem.CompanyName);
-            self.Email(tableItem.Email);
+            self.CityId(tableItem.CityId);
+            self.EmailId(tableItem.EmailId);
             self.ContactAddress(tableItem.ContactAddress);
             self.FaxNumber(tableItem.FaxNumber);
             self.ContactNumber(tableItem.ContactNumber);
-            self.POBox(tableItem.POBox);
+            self.ZipCode(tableItem.ZipCode);
             self.WebSite(tableItem.WebSite);
         }
     }

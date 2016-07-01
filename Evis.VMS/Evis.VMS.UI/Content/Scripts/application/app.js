@@ -11,6 +11,10 @@
         AttachClickEvent($(this).attr('class'));
     });
 
+    $('.changepassword').click(function () {
+        AttachClickEvent($(this).attr('class'));
+    });
+
     $('.myorganization').click(function () {
         AttachClickEvent($(this).attr('class'));
     });

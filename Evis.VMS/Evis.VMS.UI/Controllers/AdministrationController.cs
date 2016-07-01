@@ -62,6 +62,10 @@ namespace Evis.VMS.UI.Controllers
             return View();
         }
 
+        public ActionResult _ChangePassword()
+        {
+            return View();
+        }
         public ActionResult _ThemeSelection()
         {
             return View();

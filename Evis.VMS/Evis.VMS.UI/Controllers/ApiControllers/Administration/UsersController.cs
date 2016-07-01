@@ -16,6 +16,8 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Web;
+using Microsoft.AspNet.Identity;
 using System.Web.Http;
 
 namespace Evis.VMS.UI.Controllers.ApiControllers
@@ -32,16 +34,27 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
         [Route("~/Api/Users/GetAllOrganizations")]
         [HttpGet]
-        public IEnumerable<Organization> GetAllOrganizations()
+        public IEnumerable<GeneralDropDownVM> GetAllOrganizations()
         {
-            return _genericService.Organization.GetAll();
+            var organizations = _genericService.Organization.GetAll().Where(x => x.IsActive == true).Select(x => new GeneralDropDownVM { Id = x.Id, Name = x.CompanyName });
+            return organizations;
+        }
+
+
+        [Route("~/Api/Users/GetAllCountries")]
+        [HttpGet]
+        public IEnumerable<GeneralDropDownVM> GetAllCountries()
+        {
+            var result = _genericService.LookUpValues.GetAll().Where(x => x.LookUpType.TypeName == "Country" && x.IsActive == true && x.LookUpType.IsActive == true)
+                .Select(y => new GeneralDropDownVM { Id = y.Id, Name = y.LookUpValue });
+            return result;
         }
         [Route("~/Api/Users/GetUsersData")]
         [HttpPost]
         public async Task<string> GetUsersData(string globalSearch, int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC")
         {
             var getUsers = await _userService.GetAllAsync();
-            var usersList = getUsers.ToList();
+            var usersList = getUsers.Where(x => x.IsActive == true && x.Organization.IsActive == true).ToList();
 
             var getRoles = await _applicationRoleService.GetAllAsync();
             var rolesList = getRoles.ToList();
@@ -58,7 +71,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                               UserName = users.UserName,
                               RoleId = roles.Id,
                               RoleName = roles.Name,
-                              OrganizationId = users.OrganizationId
+                              OrganizationId = users.OrganizationId,
+                              Nationality = users.Nationality
 
                           }).ToList();
 
@@ -109,6 +123,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 user.Email = user.UserName = usersVM.Email;
                 user.PhoneNumber = usersVM.ContactNumber;
                 user.GenderId = usersVM.GenderId;
+                user.Nationality = usersVM.Nationality;
                 await _userService.InsertAsync(user, "password", usersVM.RoleId);
             }
             else
@@ -121,6 +136,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     existingUser.Email = existingUser.UserName = usersVM.Email;
                     existingUser.PhoneNumber = usersVM.ContactNumber;
                     existingUser.GenderId = usersVM.GenderId;
+                    existingUser.Nationality = usersVM.Nationality;
                     await _userService.UpdateAsync(existingUser, usersVM.RoleId);
                 }
             }
@@ -128,20 +144,45 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             return new ReturnResult { Message = "Success", Success = true };
         }
 
-        [Route("~/Api/Administration/DeleteUser")]
+        [Route("~/Api/User/DeleteUser")]
         [HttpPost]
         public async Task<ReturnResult> DeleteUser([FromBody] UsersVM usersVM)
         {
             if (usersVM != null)
             {
                 var existingUser = await _userService.GetAsync(x => x.Id == usersVM.UserId);
-                existingUser.IsActive = false;
-                await _userService.UpdateAsync(existingUser, string.Empty);
-                _genericService.Commit();
-                return new ReturnResult { Message = "Success", Success = true };
+                if (existingUser != null)
+                {
+                    existingUser.IsActive = false;
+                    await _userService.UpdateAsync(existingUser, string.Empty);
+                    _genericService.Commit();
+                    return new ReturnResult { Message = "Success", Success = true };
+                }
             }
             return new ReturnResult { Message = "Failure", Success = false };
         }
 
+        [Route("~/Api/User/ChangePassword")]
+        [HttpPost]
+        public async Task<ReturnResult> ChangePassword(ChangePasswordVM changePasswordVM)
+        {
+            if (changePasswordVM != null && !string.IsNullOrEmpty(changePasswordVM.Password))
+            {
+                string userName = HttpContext.Current.User.Identity.GetUserName();
+                var user = await _userService.FindAsync(userName, changePasswordVM.Password);
+
+                if (user != null)
+                {
+                    var passwordHash = new Microsoft.AspNet.Identity.PasswordHasher();
+                    var hashedPassword = passwordHash.HashPassword(changePasswordVM.NewPassword);
+                    user.PasswordHash = hashedPassword;
+                    await _userService.UpdateAsync(user, string.Empty);
+                    return new ReturnResult { Message = "Password changed successfully!!", Success = true };
+                }
+                return new ReturnResult { Message = "Current entered password is incorrect, please enter the correct password!!", Success = false };
+            }
+            return new ReturnResult { Message = "Current entered password cannot be empty", Success = false };
+        }
     }
+
 }

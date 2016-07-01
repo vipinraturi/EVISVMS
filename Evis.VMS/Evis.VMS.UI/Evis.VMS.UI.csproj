@@ -223,6 +223,7 @@
     <Compile Include="HelperClasses\OrganizationHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModel\GeneralDropDownVM.cs" />
     <Compile Include="ViewModel\LoginVM.cs" />
     <Compile Include="ViewModel\MyOrganizationVM.cs" />
     <Compile Include="ViewModel\VisitorCheckInCheckOutVM.cs" />
@@ -294,6 +295,7 @@
     <Content Include="Content\Scripts\plugins\respond.min.js" />
     <None Include="Content\Scripts\plugins\_references.js" />
     <Content Include="Content\Scripts\plugins\validator.min.js" />
+    <Content Include="Content\Scripts\viewModels\ChangePasswordViewModel.js" />
     <Content Include="Content\Scripts\viewModels\MyProfileViewModel.js" />
     <Content Include="Content\Scripts\viewModels\BuildingViewModel.js" />
     <Content Include="Content\Scripts\viewModels\MyOrganizationViewModel.js" />
@@ -425,6 +427,7 @@
     <Content Include="Views\Administration\_ThemeSelection.cshtml" />
     <None Include="Properties\PublishProfiles\SGHVMS.pubxml" />
     <Content Include="Views\Administration\_MyOrganization.cshtml" />
+    <Content Include="Views\Administration\_ChangePassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

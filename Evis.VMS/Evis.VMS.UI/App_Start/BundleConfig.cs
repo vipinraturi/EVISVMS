@@ -119,7 +119,7 @@ namespace Evis.VMS.UI
               "~/Content/Scripts/viewModels/DashboardViewModel.js",
               "~/Content/Scripts/viewModels/GatesViewModel.js",
               "~/Content/Scripts/viewModels/MyProfileViewModel.js",
-               
+              "~/Content/Scripts/viewModels/ChangePasswordViewModel.js",
               "~/Content/Scripts/viewModels/OrganizationViewModel.js",
               "~/Content/Scripts/viewModels/MyOrganizationViewModel.js",
               "~/Content/Scripts/viewModels/ScanVisitorViewModel.js",

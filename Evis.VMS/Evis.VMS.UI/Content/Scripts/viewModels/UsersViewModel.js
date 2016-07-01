@@ -1,7 +1,7 @@
 ﻿function UsersViewModel() {
     var self = this;
 
-    self.UserId = ko.observable(0);
+    self.UserId = ko.observable('');
     self.FullName = ko.observable('').extend({
         required: true,
         deferValidation: true
@@ -13,6 +13,7 @@
     self.GenderId = ko.observable(0).extend({ required: true });
     self.OrganizationId = ko.observable(0).extend({ required: true });
     self.RoleName = ko.observable('').extend({ required: true });
+    self.Nationality = ko.observable(0).extend({ required: true });
 
     self.GlobalSearch = ko.observable('');
 
@@ -25,27 +26,20 @@
     AjaxCall('/Api/Users/GetAllOrganizations', null, 'GET', function (data) {
         debugger;
         self.Organizations(data);
-        //data.forEach(function (v, i) {
-        //    debugger;
-        //    self.Organizations.push({ Id: v.Id, CompanyName: v.CompanyName });
-        //});
-    })
+    });
 
-    //var Gender = {
-    //    Id: self.Id,
-    //    Name: self.Name
-    //}
+    self.Countries = ko.observableArray();
+    AjaxCall('/Api/Users/GetAllCountries', null, 'GET', function (data) {
+        debugger;
+        self.Countries(data);
+        Countries
+    });
 
     self.Genders = ko.observableArray();
     AjaxCall('/Api/MyProfile/GetGender', null, 'GET', function (data) {
         debugger;
         self.Genders(data);
-    })
-
-    //var Role = {
-    //    Id: self.Id,
-    //    Name: self.Name
-    //}
+    });
 
     self.Roles = ko.observableArray();
     AjaxCall('/Api/Users/GetRoles', null, 'GET', function (data) {
@@ -91,6 +85,7 @@
         data.Email = self.Email(),
         data.ContactNumber = self.ContactNumber(),
         data.GenderId = self.GenderId(),
+        data.Nationality = self.Nationality(),
         data.RoleId = self.RoleId();
 
         //// display any error messages if we have them
@@ -102,7 +97,7 @@
     }
 
     self.EditUser = function (tableItem) {
-        //debugger;
+        debugger;
         if (tableItem != undefined) {
             self.UserId(tableItem.UserId);
             self.OrganizationId(tableItem.OrganizationId);
@@ -111,13 +106,14 @@
             self.ContactNumber(tableItem.ContactNumber);
             self.GenderId(tableItem.GenderId);
             self.RoleId(tableItem.RoleId);
+            self.Nationality(tableItem.Nationality);
         }
     }
 
     self.DeleteUser = function (tableItem) {
         var message = confirm("Are you sure, you want to delete selected user!");
         if (message == true) {
-            AjaxCall('/Api/Administration/DeleteUser', tableItem, 'POST', function () {
+            AjaxCall('/Api/User/DeleteUser', tableItem, 'POST', function () {
                 toastr.success('User deleted successfully!!')
                 ApplyCustomBinding('newuser');
             });
@@ -133,7 +129,8 @@
         self.RoleId('');
         self.RoleName('');
         self.GlobalSearch('');
-        self.OrganizationId(0)
+        self.OrganizationId(0);
+        self.Nationality(0);
         ApplyCustomBinding('newuser');
     }
 

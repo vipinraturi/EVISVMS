@@ -28,8 +28,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         [HttpPut]
         public async Task<ReturnResult> SaveMyProfile([FromBody] MyProfileVM myProfileVM)
         {
-            string userId = "2d410275-a905-4476-af21-91c577fa66b0";
-
+            string userId = HttpContext.Current.User.Identity.GetUserId();
             var currentUser = await _userService.GetAsync(x => x.Id == userId);
             currentUser.FullName = myProfileVM.FullName;
             currentUser.PhoneNumber = myProfileVM.PhoneNumber;
@@ -44,19 +43,19 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         [HttpGet]
         public async Task<ApplicationUser> GetMyProfile()
         {
-            // To do
-            //var userId = HttpContext.Current.User.Identity.GetUserId();
-            string userId = "2d410275-a905-4476-af21-91c577fa66b0";
+            string userId = HttpContext.Current.User.Identity.GetUserId();
             var currentUser = await _userService.GetAsync(x => x.Id == userId);
             return currentUser;
         }
 
-        //[Route("~/Api/MyProfile/GetGender")]
-        //[HttpGet]
-        //public IQueryable<GenderVM> GetGender()
-        //{
-        //    return _genericService.Gender.GetAll();
-        //}
+        [Route("~/Api/MyProfile/GetGender")]
+        [HttpGet]
+        public IQueryable<GeneralDropDownVM> GetGender()
+        {
+            var genders = _genericService.LookUpValues.GetAll().Where(x => x.LookUpType.TypeName == "Gender" && x.IsActive == true && x.LookUpType.IsActive == true)
+                .Select(y => new GeneralDropDownVM { Id = y.Id, Name = y.LookUpValue });
+            return genders;
+        }
 
         [Route("~/Api/MyProfile/GetAllRoles")]
         [HttpGet]
