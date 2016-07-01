@@ -351,6 +351,9 @@
     <Content Include="images\blur-bg-redblue.jpg" />
     <Content Include="images\blur-bg-vibge.jpg" />
     <Content Include="images\blur-bg-violet.jpg" />
+    <Content Include="images\blur-bg-white.jpg" />
+    <Content Include="images\blur-bg-white1.jpg" />
+    <Content Include="images\blur-bg-Whiteblack.jpg" />
     <Content Include="images\blur-bg-yellowblack.jpg" />
     <Content Include="images\blur-bg.jpg" />
     <Content Include="images\bootstrap-colorpicker\alpha-horizontal.png" />
