@@ -30,6 +30,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         {
             if (organization.Id == 0)
             {
+                organization.IsActive = true;
                 _genericService.Organization.Insert(organization);
             }
             else
@@ -44,6 +45,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     existingOrg.ZipCode = organization.ZipCode;
                     existingOrg.FaxNumber = existingOrg.FaxNumber;
                     existingOrg.WebSite = existingOrg.WebSite;
+                    organization.IsActive = true;
                     _genericService.Organization.Update(existingOrg);
                 }
             }
@@ -55,7 +57,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         [HttpPost]
         public string GetOrganizationsData(string globalSearch, int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC")
         {
-            var organizationsList = _genericService.Organization.GetAll().ToList();
+            var organizationsList = _genericService.Organization.GetAll().Where(x => x.IsActive == true).ToList();
 
             if (organizationsList.Count() > 0)
             {
@@ -102,9 +104,14 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         {
             if (organization != null)
             {
-                _genericService.Organization.Delete(organization);
-                _genericService.Commit();
-                return new ReturnResult { Message = "Success", Success = true };
+                var orgToDelete = _genericService.Organization.GetAll().Where(x => x.Id == organization.Id).FirstOrDefault();
+                if (orgToDelete != null)
+                {
+                    organization.IsActive = false;
+                    _genericService.Organization.Update(orgToDelete);
+                    _genericService.Commit();
+                    return new ReturnResult { Message = "Success", Success = true };
+                }
             }
             return new ReturnResult { Message = "Failure", Success = false };
         }
@@ -119,5 +126,16 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             }
             return null;
         }
+
+
+        [Route("~/Api/Administration/GetCities")]
+        [HttpGet]
+        public IQueryable<GeneralDropDownVM> GetCities()
+        {
+            var result = _genericService.LookUpValues.GetAll().Where(x => x.LookUpType.TypeName == "City" && x.IsActive == true && x.LookUpType.IsActive == true)
+                .Select(y => new GeneralDropDownVM { Id = y.Id, Name = y.LookUpValue });
+            return result;
+        }
     }
+
 }

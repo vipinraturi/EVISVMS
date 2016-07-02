@@ -9,25 +9,15 @@
     self.GenderId = ko.observable(0);
     self.RoleId = ko.observable('');
     self.IsInsert = ko.observable(true);
-
+    self.Nationality = ko.observable('');
     //self.errors = ko.validation.group(self);
-
-
-    var Gender = {
-        Id: self.Id,
-        Name: self.Name
-    }
 
     self.Genders = ko.observableArray();
     AjaxCall('/Api/MyProfile/GetGender', null, 'GET', function (data) {
         debugger;
-        self.Genders(ko.toJSON(data));
+        self.Genders(data);
     })
 
-    var Role = {
-        Id: self.Id,
-        Name: self.Name
-    }
 
     self.Roles = ko.observableArray();
     AjaxCall('/Api/MyProfile/GetAllRoles', null, 'GET', function (data) {
@@ -48,8 +38,9 @@
     AjaxCall('/Api/MyProfile/GetMyProfile', null, 'GET', function (data) {
         debugger;
         self.User(data);
-        //self.RoleId(data.Roles[0].RoleId);
+        self.GenderId = self.User().GenderId;
         self.RoleId = ko.observable(data.Roles[0].RoleId);
+        self.Nationality = ko.observable(data.CountryMaster.LookUpValue);
     })
 
 

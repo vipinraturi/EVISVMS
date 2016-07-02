@@ -70,7 +70,7 @@
                     <h3 data-bind="text: User().FullName, visible: true"></h3>
                     <ul class="list-unstyled user_data">
                         <li>
-                            <i class="fa fa-map-marker user-profile-icon"></i> <span data-bind="text: User().ContactAddress, visible: true"></span>
+                            <i class="fa fa-map-marker user-profile-icon"></i> <span data-bind="text: Nationality, visible: true"></span>
                         </li>
                         <li>
                             <i class="fa fa-briefcase user-profile-icon"></i> Supervisor
@@ -81,9 +81,9 @@
                     <form class="form-horizontal form-label-left input_mask">
 
                         <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12"> First Name<span class="mandatoryField">*</span></label>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12"> Full Name<span class="mandatoryField">*</span></label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
-                                <input id="txtFirstName" type="text" class="form-control" placeholder="Full Name" required="required" data-bind="value: User().FullName" />
+                                <input id="txtFirstName" type="text" maxlength="100" class="form-control" placeholder="Full Name" required="required" data-bind="value: User().FullName" />
                                 <span class="fa fa-user favwhite form-control-feedback right" aria-hidden="true"></span>
                             </div>
                         </div>
@@ -91,7 +91,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Email Address <span class="mandatoryField">*</span></label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
-                                <input id="txtEmailAddress" type="text" class="form-control" placeholder="Email Address" required="required" data-bind="value: User().Email" disabled />
+                                <input id="txtEmailAddress" type="text" maxlength="50" class="form-control" placeholder="Email Address" required="required" data-bind="value: User().Email" disabled />
                                 <span class="fa fa-envelope favwhite form-control-feedback right" aria-hidden="true"></span>
                             </div>
                         </div>
@@ -99,7 +99,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Number <span class="mandatoryField">*</span></label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
-                                <input id="txtContactNo" type="text" class="form-control" placeholder="Contact Number" required="required" data-bind="value: User().PhoneNumber" />
+                                <input id="txtContactNo" type="text" maxlength="15" class="form-control" placeholder="Contact Number" required="required" data-bind="value: User().PhoneNumber" />
                                 <span class="fa fa-phone favwhite form-control-feedback right" aria-hidden="true"></span>
                             </div>
 
@@ -109,20 +109,24 @@
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Gender <span class="mandatoryField">*</span></label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
-                                <p>
-                                    <label class="col-md-4 col-sm-4 col-xs-12">
-                                        <input type="radio" class="iradio_flat-green" name="gender" id="genderMale" value="Male" checked="" disabled />
-                                        Male
-                                    </label> 
-                                    <label class="col-md-4 col-sm-4 col-xs-12">
-                                        <input type="radio" class="iradio_flat-green" name="gender" id="genderFemale" value="Female" disabled />
-                                        Female
-                                    </label>
-                                    <label class="col-md-4 col-sm-4 col-xs-12">
-                                        <input type="radio" class="iradio_flat-green" name="gender" id="genderOthers" value="Others" disabled />
-                                        Others
-                                    </label>
-                                </p>
+                                <select class="form-control" data-bind="options: Genders, optionsText: 'Name', optionsValue: 'Id', value: GenderId"></select>
+                                @*<p>
+                                        <label class="col-md-4 col-sm-4 col-xs-12">
+                                            <input type="radio" class="iradio_flat-green" name="gender" id="genderMale" data-bind="GenderId: 1"
+                                                   value="Male" disabled />
+                                            Male
+                                        </label>
+                                        <label class="col-md-4 col-sm-4 col-xs-12">
+                                            <input type="radio" class="iradio_flat-green" name="gender" id="genderFemale" data-bind="GenderId: 2"
+                                                   value="Female" disabled />
+                                            Female
+                                        </label>
+                                        <label class="col-md-4 col-sm-4 col-xs-12">
+                                            <input type="radio" class="iradio_flat-green" name="gender" id="genderOthers" data-bind="GenderId: 3"
+                                                   value="Others" disabled />
+                                            Others
+                                        </label>
+                                    </p>*@
                                 @*<div data-bind="visible: wantsSpam">
                                         Preferred flavors of spam:
                                         <div><input type="checkbox" value="cherry" data-bind="checked: spamFlavors" /> Cherry</div>
@@ -136,7 +140,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Role<span class="mandatoryField">*</span></label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
-                                <select disabled class="form-control" data-bind="options: Roles, optionsText: 'Name', optionsValue: 'Id', value: 'RoleId'"></select>
+                                <select class="form-control" data-bind="options: Roles, optionsText: 'Name', optionsValue: 'Id', value: RoleId"></select>
                                 @*<select disabled class="form-control" data-bind="options: Roles, optionsText: 'Name', optionsValue: 'Id', optionsCaption: 'Choose one...', value: SelectedRole, valueAllowUnset: true"></select>*@
                                 @*<select data-bind="options: availableCountries, optionsText: 'countryName', value: selectedCountry, optionsCaption: 'Choose...'"></select>*@
                             </div>
@@ -144,7 +148,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Address <span class="mandatoryField">*</span></label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
-                                <textarea id="txtAddress" class="form-control" rows="3" placeholder="Contact Address" style="resize: none;" data-bind="value: User().ContactAddress"></textarea>
+                                <textarea id="txtAddress" class="form-control" rows="3" maxlength="100" placeholder="Contact Address" style="resize: none;" data-bind="value: User().ContactAddress"></textarea>
                                 <span class="fa fa-home favwhite form-control-feedback right" aria-hidden="true"></span>
                             </div>
                         </div>
@@ -165,6 +169,6 @@
 
 
 <script type="text/javascript">
-   
+
 </script>
 

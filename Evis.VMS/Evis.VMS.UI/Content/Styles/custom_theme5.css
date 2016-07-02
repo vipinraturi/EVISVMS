@@ -547,7 +547,8 @@ h1, .h1, h2, .h2, h3, .h3 {
 
 a {
     /*Anith*/
-    color: #fff !important;
+    /*color: #fff !important;*/
+      color: #34495e !important;
     /*color: #5A738E;*/
     text-decoration: none;
 }
@@ -717,6 +718,7 @@ a {
     text-shadow: rgba(0,0,0,0.25) 0 -1px 0;
     background: linear-gradient(#fff, #fff),#2A3F54;
     box-shadow: rgba(0,0,0,0.25) 0 1px 0,inset rgba(255,255,255,0.16) 0 1px 0;
+    color: #34495e!important;
 }
 
 .navbar-brand, .navbar-nav > li > a {
@@ -2035,7 +2037,7 @@ h4.graph_title {
     position: relative;
     display: block;
     margin-bottom: 12px;
-    border: 1px solid #E4E4E4;
+    border: 1px solid #34495e;
     -webkit-border-radius: 5px;
     overflow: hidden;
     padding-bottom: 5px;
@@ -2084,6 +2086,7 @@ h4.graph_title {
             line-height: 0;
             vertical-align: bottom;
             padding: 0;
+            color: #34495e !important;
         }
 
     .tile-stats .count {
@@ -2101,7 +2104,7 @@ h4.graph_title {
     }
 
     .tile-stats h3 {
-        color: #BAB8B8;
+        color: #34495e;
     }
 
     .tile-stats p {
@@ -5175,7 +5178,7 @@ ul.notifications {
 }
 
 .a-color {
-    color: #1ABB9C !important;
+    color: #34495e  !important;
 }
 
 select option {
@@ -5294,3 +5297,26 @@ select option {
     color: #34495e !important;
     border: 1px solid #34495e !important;
 }
+
+ .form-control::-moz-placeholder {
+        /*Anith*/
+         /*color: #999;*/
+          color:#34495e !important;
+        opacity: 3 !important;
+    }
+
+    .form-control:-ms-input-placeholder {
+         /*Anith*/
+        /*color: #999;*/
+        color:#34495e !important;
+    }
+
+    .form-control::-webkit-input-placeholder {
+          /*Anith*/
+         /*color: #999;*/
+        color:#34495e !important;
+    }
+
+    .whitebrush{
+        color: white;
+    }

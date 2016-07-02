@@ -31,6 +31,9 @@ ApplyCustomBinding = function (elementName) {
         case 'myprofile':
             BindingViewModel("/Administration/_Myprofile", MyProfileViewModel());
             break;
+        case 'changepassword':
+            BindingViewModel("/Administration/_ChangePassword", ChangePasswordViewModel());
+            break;
         case 'themeSelection':
             BindingViewModel("/Administration/_ThemeSelection", ThemeSelectionViewModel());
             break;

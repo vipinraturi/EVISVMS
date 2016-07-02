@@ -31,6 +31,8 @@ namespace Evis.VMS.UI.ViewModel
         public string RoleName { get; set; }
 
         public int? OrganizationId { get; set; }
+
+        public int Nationality { get; set; }
         
     }
 }

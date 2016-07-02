@@ -2963,20 +2963,20 @@ output {
     .form-control::-moz-placeholder {
         /*Anith*/
          /*color: #999;*/
-          color:#ddd;
-        opacity: 3;
+          color:#eeecec;
+        opacity: 10 !important;
     }
 
     .form-control:-ms-input-placeholder {
          /*Anith*/
         /*color: #999;*/
-        color:#ddd;
+        color:#eeecec;
     }
 
     .form-control::-webkit-input-placeholder {
           /*Anith*/
          /*color: #999;*/
-        color:#ddd;
+        color:#eeecec;
     }
 
     .form-control::-ms-expand {
@@ -2986,7 +2986,7 @@ output {
 
     .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
         /*background-color: #eee;*/
-        opacity: 1;
+        opacity: 3;
     }
 
     .form-control[disabled], fieldset[disabled] .form-control {

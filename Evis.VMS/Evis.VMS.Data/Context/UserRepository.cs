@@ -64,8 +64,9 @@ namespace Evis.VMS.Data.Context
             user.TwoFactorEnabled = false;
             user.LockoutEnabled = false;
             user.AccessFailedCount = 0;
+            user.IsActive = true;
 
-            var test = await _userManager.CreateAsync(user, password);
+            await _userManager.CreateAsync(user, password);
         }
 
         public async Task<ApplicationUser> UpdateAsync(ApplicationUser user, string userRole)

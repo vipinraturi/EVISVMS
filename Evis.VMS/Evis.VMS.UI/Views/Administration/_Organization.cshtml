@@ -18,15 +18,22 @@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Company Name <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtCompanyName" type="text" class="form-control" placeholder="Company Name" data-bind="value: CompanyName" />
+                            <input id="txtCompanyName" type="text" class="form-control" maxlength="100" placeholder="Company Name" data-bind="value: CompanyName" />
                             <span class="fa fa-suitcase favwhite form-control-feedback right" aria-hidden="true"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">City <span class="mandatoryField">*</span></label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <select class="form-control" data-bind="options: Cities, optionsText: 'Name', optionsValue: 'Id', value: CityId, optionsCaption: '-- Select --'"></select>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Email Address <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtEmail" type="text" class="form-control" placeholder="Email Address" data-bind="value: Email" />
+                            <input id="txtEmail" type="text" class="form-control" maxlength="50" placeholder="Email Address" data-bind="value: EmailId" />
                             <span class="fa fa-envelope favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
@@ -34,7 +41,7 @@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Number <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtContactNumber" type="text" class="form-control" placeholder="Contact Number" data-bind="value: ContactNumber" />
+                            <input id="txtContactNumber" type="text" maxlength="15" class="form-control" placeholder="Contact Number" data-bind="value: ContactNumber" />
                             <span class="fa fa-phone favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
 
@@ -44,7 +51,7 @@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Address <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <textarea id="txtAddress" class="form-control" rows="3" placeholder="Contact Address" data-bind="value: ContactAddress" style="resize: none;"></textarea>
+                            <textarea id="txtAddress" class="form-control" maxlength="200" rows="3" placeholder="Contact Address" data-bind="value: ContactAddress" style="resize: none;"></textarea>
                             <span class="fa fa-home favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
@@ -52,38 +59,30 @@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">PO Box <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtPostalCode" type="text" class="form-control" placeholder="PO Box" data-bind="value: POBox" />
+                            <input id="txtPostalCode" type="text" maxlength="8" class="form-control" placeholder="PO Box" data-bind="value: ZipCode" />
                             <span class="fa fa-envelope-o favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Fax  Number </label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtFaxNo" type="text" class="form-control" placeholder="Fax Number" data-bind="value: FaxNumber" />
+                            <input id="txtFaxNo" type="text" maxlength="15" class="form-control" placeholder="Fax Number" data-bind="value: FaxNumber" />
                             <span class="fa fa-fax favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
-
-
-                   
-
-
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Website</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtWebsite" type="text" class="form-control" placeholder="Website URL" data-bind="value: WebSite" />
+                            <input id="txtWebsite" type="text" class="form-control" maxlength="50" placeholder="Website URL" data-bind="value: WebSite" />
                             <span class="fa fa-globe favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
-
-                    
                     <div class="form-group">
                         <div class="pull-right">
                             <button type="button" class="btn btn-primary" data-bind="click: ResetOrganization.bind()">Reset <i class="fa fa-refresh"></i></button>
                             <button type="button" class="btn btn-success" data-bind="click: SaveOrganization">Save <i class="fa fa-save"></i></button>
                         </div>
                     </div>
-
                 </form>
             </div>
         </div>
@@ -96,7 +95,7 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-                <div class="col-md-5 col-sm-5 col-xs-12  pull-right top_search" >
+                <div class="col-md-5 col-sm-5 col-xs-12  pull-right top_search">
                     <div class="input-group">
                         <input id="txtGlobalSearch" type="text" class="form-control" placeholder="Global Search"
                                data-bind="value: GlobalSearch" />
@@ -107,11 +106,11 @@
                 </div>
                 <form class="form-horizontal form-label-left">
                     <table class="table jambo_table">
-                        <thead >
+                        <thead>
                             <tr>
                                 <th style="width: 1%">#</th>
                                 <th style="width: 25%"> <a href="#" onclick="DataGrid.Sort('CompanyName')" class="sortCol">Name</a> </th>
-                                <th style="width: 25%"> <a href="#" onclick="DataGrid.Sort('Email')" class="sortCol">Email Address</a></th>
+                                <th style="width: 25%"> <a href="#" onclick="DataGrid.Sort('EmailId')" class="sortCol">Email Address</a></th>
                                 <th style="width: 24%"><a href="#" onclick="DataGrid.Sort('ContactNumber')" class="sortCol">Contact No</a></th>
                                 <th style="width: 25%"></th>
                             </tr>
@@ -120,11 +119,11 @@
                             <tr>
                                 <th scope="row" data-bind="text: $index() +1"></th>
                                 <td data-bind="text: CompanyName"></td>
-                                <td data-bind="text: Email"></td>
+                                <td data-bind="text: EmailId"></td>
                                 <td data-bind="text: ContactNumber"></td>
                                 <td>
-                                    <a href="#" class="btn  btn-s" data-bind="click: EditOrganization.bind($data)" title="click here to view or edit record."><i class="fa fa-pencil"></i></a>
-                                    <a href="#" class="btn  btn-s" data-bind="click: DeleteOrganization.bind($data)" title="click here to delete record."><i class="fa fa-trash-o"></i></a>
+                                    <a href="#" data-bind="click: EditOrganization.bind($data)" title="click here to view or edit record."><i class="fa fa-pencil"></i></a>
+                                    <a href="#" data-bind="click: DeleteOrganization.bind($data)" title="click here to delete record."><i class="fa fa-trash-o"></i></a>
                                 </td>
                             </tr>
                         </tbody>
