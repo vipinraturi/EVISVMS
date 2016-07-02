@@ -223,6 +223,7 @@
     <Compile Include="HelperClasses\OrganizationHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModel\GeneralDropDownVM.cs" />
     <Compile Include="ViewModel\LoginVM.cs" />
     <Compile Include="ViewModel\MyOrganizationVM.cs" />
     <Compile Include="ViewModel\VisitorCheckInCheckOutVM.cs" />
