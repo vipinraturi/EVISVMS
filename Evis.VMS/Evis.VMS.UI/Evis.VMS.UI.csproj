@@ -328,6 +328,7 @@
     <Content Include="Content\Styles\green.css" />
     <Content Include="Content\Styles\green.png" />
     <Content Include="Content\Styles\jquery-jvectormap-2.0.3.css" />
+    <Content Include="Content\Styles\Logincustom.min.css" />
     <Content Include="Content\Styles\pager.css" />
     <Content Include="Content\Styles\toastr-custom.css" />
     <Content Include="Content\Styles\toastr.min.css" />
