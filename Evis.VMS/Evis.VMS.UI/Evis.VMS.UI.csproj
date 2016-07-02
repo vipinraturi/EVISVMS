@@ -276,6 +276,7 @@
     <Content Include="Content\Scripts\plugins\jquery-jvectormap-2.0.3.min.js" />
     <Content Include="Content\Scripts\plugins\jquery-jvectormap-us-aea-en.js" />
     <Content Include="Content\Scripts\plugins\jquery-jvectormap-world-mill-en.js" />
+    <Content Include="Content\Scripts\plugins\jquery-ui.js" />
     <Content Include="Content\Scripts\plugins\jquery.flot.js" />
     <Content Include="Content\Scripts\plugins\jquery.flot.orderBars.js" />
     <Content Include="Content\Scripts\plugins\jquery.flot.pie.js" />
@@ -328,6 +329,7 @@
     <Content Include="Content\Styles\green.css" />
     <Content Include="Content\Styles\green.png" />
     <Content Include="Content\Styles\jquery-jvectormap-2.0.3.css" />
+    <Content Include="Content\Styles\jquery-ui.css" />
     <Content Include="Content\Styles\Logincustom.min.css" />
     <Content Include="Content\Styles\pager.css" />
     <Content Include="Content\Styles\toastr-custom.css" />
@@ -492,7 +494,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>63864</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:37589/</IISUrl>
+          <IISUrl>http://localhost:39831/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

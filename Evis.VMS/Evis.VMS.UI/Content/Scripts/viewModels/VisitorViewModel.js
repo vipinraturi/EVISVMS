@@ -129,5 +129,5 @@ function VisitorViewModel() {
     }
 
     self.GetAllVisitor();
-
+    $('#dateDOB').datepicker();
 }
