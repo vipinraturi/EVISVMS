@@ -128,11 +128,20 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         }
 
 
-        [Route("~/Api/Administration/GetCities")]
+        [Route("~/Api/Administration/GetCountries")]
         [HttpGet]
-        public IQueryable<GeneralDropDownVM> GetCities()
+        public IQueryable<GeneralDropDownVM> GetCountries()
         {
-            var result = _genericService.LookUpValues.GetAll().Where(x => x.LookUpType.TypeName == "City" && x.IsActive == true && x.LookUpType.IsActive == true)
+            var result = _genericService.LookUpValues.GetAll().Where(x => x.LookUpType.TypeName == "Country" && x.IsActive == true && x.LookUpType.IsActive == true)
+                .Select(y => new GeneralDropDownVM { Id = y.Id, Name = y.LookUpValue });
+            return result;
+        }
+
+        [Route("~/Api/Administration/GetStatesOrCities")]
+        [HttpGet]
+        public IQueryable<GeneralDropDownVM> GetStatesOrCities(int id)
+        {
+            var result = _genericService.LookUpValues.GetAll().Where(x => x.ParentId == id && x.IsActive == true && x.LookUpType.IsActive == true)
                 .Select(y => new GeneralDropDownVM { Id = y.Id, Name = y.LookUpValue });
             return result;
         }

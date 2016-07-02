@@ -27,6 +27,8 @@ function OrganizationViewModel() {
         required: true,
         deferValidation: true
     });
+    self.CountryId = ko.observable(0).extend({ required: true });
+    self.StateId = ko.observable(0).extend({ required: true });
     self.CityId = ko.observable(0).extend({ required: true });
     self.EmailId = ko.observable('').extend({ required: true, minLength: 2, maxLength: 40, email: { message: "Invalid email" } });
     self.ContactNumber = ko.observable('').extend({ required: true, number: { message: "Numbers only" } });
@@ -37,10 +39,26 @@ function OrganizationViewModel() {
     self.GlobalSearch = ko.observable('');
     self.IsInsert = ko.observable(true);
 
+    self.Countries = ko.observableArray();
+    AjaxCall('/Api/Administration/GetCountries', null, 'GET', function (data) {
+        self.Countries(data);
+    });
+
+    self.States = ko.observableArray();
+    self.LoadStates = function () {
+        debugger;
+        AjaxCall('/Api/Administration/GetStatesOrCities?id=' + self.CountryId(), null, 'GET', function (data) {
+            self.States(data);
+        });
+    }
+
     self.Cities = ko.observableArray();
-    AjaxCall('/Api/Administration/GetCities', null, 'GET', function (data) {
-        self.Cities(data);
-    })
+    self.LoadCities = function () {
+        debugger;
+        AjaxCall('/Api/Administration/GetStatesOrCities?id=' + self.StateId(), null, 'GET', function (data) {
+            self.Cities(data);
+        });
+    }
 
 
     self.DataGrid = new RIT.eW.DataGridAjax('/Api/Administration/GetOrganizationsData', 7);
@@ -114,6 +132,8 @@ function OrganizationViewModel() {
             self.IsInsert(false);
             self.Id(tableItem.Id);
             self.CompanyName(tableItem.CompanyName);
+            self.CountryId(tableItem.CityMaster.ParentValues.ParentId);
+            self.StateId(tableItem.CityMaster.ParentId);
             self.CityId(tableItem.CityId);
             self.EmailId(tableItem.EmailId);
             self.ContactAddress(tableItem.ContactAddress);
