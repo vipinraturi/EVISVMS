@@ -548,7 +548,7 @@ h1, .h1, h2, .h2, h3, .h3 {
 a {
     /*Anith*/
     /*color: #fff !important;*/
-      color: #34495e !important;
+      color: #34495e;
     /*color: #5A738E;*/
     text-decoration: none;
 }
@@ -653,7 +653,7 @@ a {
 .nav-md ul.nav.child_menu li:before {
     /*Anith*/
     /*background: #425668;*/
-    background: #fff;
+    background: #34495e;
     bottom: auto;
     content: "";
     height: 8px;
@@ -669,7 +669,7 @@ a {
 .nav-md ul.nav.child_menu li:after {
     /*Anith*/
     /*border-left: 1px solid #425668;*/
-    border-left: 1px solid #fff;
+    border-left: 1px solid #34495e;
     bottom: 0;
     content: "";
     left: 27px;
@@ -1340,7 +1340,7 @@ table.jambo_table {
         /*background: rgba(38,185,154,0.07);
         border-top: 1px solid rgba(38,185,154,0.11);
         border-bottom: 1px solid rgba(38,185,154,0.11);*/
-        color: #1ABB9C;
+        color: #fff;
     }
 
     table.jambo_table tbody tr.selected {
@@ -5241,6 +5241,7 @@ select option {
 .companyName-Span {
     padding-left: 5px;
     font-size: large;
+    color: #34495e;
 }
 
 .inputdisable {
@@ -5317,6 +5318,6 @@ select option {
         color:#34495e !important;
     }
 
-    .whitebrush{
-        color: white;
+    .togglemenu{
+        color: #34495e !important;
     }

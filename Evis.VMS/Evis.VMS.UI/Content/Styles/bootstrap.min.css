@@ -2963,20 +2963,20 @@ output {
     .form-control::-moz-placeholder {
         /*Anith*/
          /*color: #999;*/
-          color:#eeecec;
+          color:#ddd;
         opacity: 10 !important;
     }
 
     .form-control:-ms-input-placeholder {
          /*Anith*/
         /*color: #999;*/
-        color:#eeecec;
+        color:#ddd;
     }
 
     .form-control::-webkit-input-placeholder {
           /*Anith*/
          /*color: #999;*/
-        color:#eeecec;
+        color:#ddd;
     }
 
     .form-control::-ms-expand {

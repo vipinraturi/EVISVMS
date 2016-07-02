@@ -1337,7 +1337,7 @@ table.jambo_table {
         /*background: rgba(38,185,154,0.07);
         border-top: 1px solid rgba(38,185,154,0.11);
         border-bottom: 1px solid rgba(38,185,154,0.11);*/
-        color: #1ABB9C;
+        color: black;
     }
 
     table.jambo_table tbody tr.selected {
@@ -5287,3 +5287,6 @@ select option {
     padding-left: 5px;
     padding-top: 5px;
 }*/
+  .togglemenu{
+        color: #fff !important;
+    }
