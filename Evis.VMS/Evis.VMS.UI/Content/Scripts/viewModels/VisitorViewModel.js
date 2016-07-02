@@ -2,10 +2,11 @@
 function VisitorViewModel() {
 
     var self = this;
+    Id = ko.observable(0);
     VisitorName = ko.observable('').extend({ required: true });
-    EmailAddress = ko.observable('').extend({ required: true });
+    EmailAddress = ko.observable('').extend({ required: true, email: { message: "Invalid email" } });
     Gender = ko.observable(-1).extend({ required: true });
-    DOB = ko.observable('').extend({ required: true });
+    DOB = ko.observable('');
     TypeOfCard = ko.observable(-1).extend({ required: true });
     IdNo = ko.observable('').extend({ required: true });
     Nationality = ko.observable(-1).extend({ required: true });
@@ -14,6 +15,17 @@ function VisitorViewModel() {
 
     self.GlobalSearch = ko.observable('');
     self.IsInsert = ko.observable(true);
+    self.Genders = ko.observableArray([
+        { Text: 'Male', Id: 1 },
+        { Text: 'Female', Id: 2 }
+
+    ]);
+    self.TypeOfCards = ko.observableArray([
+        { Text: 'Emirates ID', Id: 1 },
+        { Text: 'Driving Licence', Id: 2 },
+        { Text: 'Others', Id: 3 }
+    ]);
+
 
 
     self.DataGrid = new RIT.eW.DataGridAjax('/Api/Visitor/GetVisitorData', 7);
@@ -27,7 +39,7 @@ function VisitorViewModel() {
     }
 
     self.SaveVisitor = function () {
-        //debugger;
+        ////debugger;
         if (self.errors().length > 0) {
             self.errors.showAllMessages(true);
             this.errors().forEach(function (data) {
@@ -36,15 +48,28 @@ function VisitorViewModel() {
         }
         else {
             var data = new Object();
-            //debugger;
-            data.CompanyId = self.CompanyId(),
-            data.CompanyName = self.CompanyName(),
+            ////debugger;
+
+            //VisitorName = ko.observable('').extend({ required: true });
+            //EmailAddress = ko.observable('').extend({ required: true });
+            //Gender = ko.observable(-1).extend({ required: true });
+            //DOB = ko.observable('');
+            //TypeOfCard = ko.observable(-1).extend({ required: true });
+            //IdNo = ko.observable('').extend({ required: true });
+            //Nationality = ko.observable(-1).extend({ required: true });
+            //ContactNo = ko.observable('').extend({ required: true });
+            //ContactAddress = ko.observable('');
+
+
+            data.VisitorName = self.VisitorName(),
             data.EmailAddress = self.EmailAddress(),
-            data.ContactNo = self.ContactNo(),
-            data.Address = self.Address(),
-            data.FaxNo = self.FaxNo(),
-            data.ZipCode = self.ZipCode(),
-            data.WebSite = self.WebSite()
+            data.Gender = self.Gender(),
+            data.DOB = self.DOB(),
+            data.TypeOfCard = self.TypeOfCard(),
+            data.IdNo = self.IdNo(),
+            data.Nationality = self.Nationality()
+            data.ContactNo = self.ContactNo()
+            data.ContactAddress = self.ContactAddress()
             data.IsInsert = self.IsInsert();
 
             //// display any error messages if we have them
