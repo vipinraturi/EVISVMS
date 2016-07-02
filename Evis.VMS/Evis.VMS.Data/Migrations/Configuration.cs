@@ -35,16 +35,24 @@ namespace Evis.VMS.Data.Migrations
         private static void GenerateGender(VMSContext context)
         {
             context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT LookUpType OFF");
+            //For Gender
             context.LookUpType.Add(new LookUpType { Id = 1, TypeName = "Gender", TypeCode = "Gender", Description = "Gender", IsActive = true });
-            context.LookUpType.Add(new LookUpType { Id = 2, TypeName = "Nationality", TypeCode = "Nationality", Description = "Nationality", IsActive = true });
+            // For Country
+            context.LookUpType.Add(new LookUpType { Id = 2, TypeName = "Country", TypeCode = "Country", Description = "Country", IsActive = true });
+            // For State
+            context.LookUpType.Add(new LookUpType { Id = 3, TypeName = "State", TypeCode = "State", Description = "State", IsActive = true });
+            // For City
+            context.LookUpType.Add(new LookUpType { Id = 4, TypeName = "City", TypeCode = "City", Description = "City", IsActive = true });
             context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT LookUpType ON");
             //context.SaveChanges();
 
             context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT LookUpValues OFF");
+            // Inserting the gender values
             context.LookUpValues.Add(new LookUpValues { Id = 1, LookUpTypeId = 1, LookUpValue = "Male", Description = "Male", IsActive = true });
             context.LookUpValues.Add(new LookUpValues { Id = 2, LookUpTypeId = 1, LookUpValue = "Female", Description = "Female", IsActive = true });
             context.LookUpValues.Add(new LookUpValues { Id = 3, LookUpTypeId = 1, LookUpValue = "Others", Description = "Other", IsActive = true });
 
+            // Inserting the country values
             context.LookUpValues.Add(new LookUpValues { Id = 4, LookUpTypeId = 2, LookUpValue = "India", Description = "India", IsActive = true });
             context.LookUpValues.Add(new LookUpValues { Id = 5, LookUpTypeId = 2, LookUpValue = "UAE", Description = "UAE", IsActive = true });
             context.LookUpValues.Add(new LookUpValues { Id = 6, LookUpTypeId = 2, LookUpValue = "Saudi Arabia", Description = "Saudi Arabia", IsActive = true });
@@ -53,8 +61,37 @@ namespace Evis.VMS.Data.Migrations
             context.LookUpValues.Add(new LookUpValues { Id = 9, LookUpTypeId = 2, LookUpValue = "Bahrain", Description = "Bahrain", IsActive = true });
             context.LookUpValues.Add(new LookUpValues { Id = 10, LookUpTypeId = 2, LookUpValue = "Kuwait", Description = "Kuwait", IsActive = true });
             context.LookUpValues.Add(new LookUpValues { Id = 11, LookUpTypeId = 2, LookUpValue = "Others", Description = "Others", IsActive = true });
+
+            // Inserting the state values
+            context.LookUpValues.Add(new LookUpValues { Id = 12, LookUpTypeId = 3, LookUpValue = "Karnataka", Description = "Karnataka", IsActive = true, ParentId = 4 });
+            context.LookUpValues.Add(new LookUpValues { Id = 13, LookUpTypeId = 3, LookUpValue = "Kerala", Description = "Kerala", IsActive = true, ParentId = 4 });
+            context.LookUpValues.Add(new LookUpValues { Id = 14, LookUpTypeId = 3, LookUpValue = "Andhra Pradesh", Description = "Andhra Pradesh", IsActive = true, ParentId = 4 });
+            context.LookUpValues.Add(new LookUpValues { Id = 15, LookUpTypeId = 3, LookUpValue = "Tamil Nadu", Description = "Tamil Nadu", IsActive = true, ParentId = 4 });
+
+            context.LookUpValues.Add(new LookUpValues { Id = 16, LookUpTypeId = 3, LookUpValue = "Dubai", Description = "Dubai", IsActive = true, ParentId = 5 });
+            context.LookUpValues.Add(new LookUpValues { Id = 17, LookUpTypeId = 3, LookUpValue = "Abu Dhabi", Description = "Abu Dhabi", IsActive = true, ParentId = 5 });
+            context.LookUpValues.Add(new LookUpValues { Id = 18, LookUpTypeId = 3, LookUpValue = "Sharjah", Description = "Sharjah", IsActive = true, ParentId = 5 });
+            context.LookUpValues.Add(new LookUpValues { Id = 19, LookUpTypeId = 3, LookUpValue = "Ajmaan", Description = "Ajmaan", IsActive = true, ParentId = 5 });
+
+            context.LookUpValues.Add(new LookUpValues { Id = 20, LookUpTypeId = 3, LookUpValue = "Mecca", Description = "Mecca", IsActive = true, ParentId = 6 });
+            context.LookUpValues.Add(new LookUpValues { Id = 21, LookUpTypeId = 3, LookUpValue = "Madina", Description = "Madina", IsActive = true, ParentId = 6 });
+            context.LookUpValues.Add(new LookUpValues { Id = 22, LookUpTypeId = 3, LookUpValue = "Riyadh", Description = "Riyadh", IsActive = true, ParentId = 6 });
+            context.LookUpValues.Add(new LookUpValues { Id = 23, LookUpTypeId = 3, LookUpValue = "Dammam", Description = "Tamil Nadu", IsActive = true, ParentId = 6 });
+
+            // Inserting the city values
+            context.LookUpValues.Add(new LookUpValues { Id = 24, LookUpTypeId = 4, LookUpValue = "Mysore", Description = "Mysore", IsActive = true, ParentId = 12 });
+            context.LookUpValues.Add(new LookUpValues { Id = 25, LookUpTypeId = 4, LookUpValue = "Mandya", Description = "Mandya", IsActive = true, ParentId = 12 });
+            context.LookUpValues.Add(new LookUpValues { Id = 26, LookUpTypeId = 4, LookUpValue = "Bangalore", Description = "Bangalore", IsActive = true, ParentId = 12 });
+            context.LookUpValues.Add(new LookUpValues { Id = 27, LookUpTypeId = 4, LookUpValue = "Mangalore", Description = "Mangalore", IsActive = true, ParentId = 12 });
+
+            context.LookUpValues.Add(new LookUpValues { Id = 28, LookUpTypeId = 4, LookUpValue = "Dubai Medina City", Description = "Dubai Medina City", IsActive = true, ParentId = 16 });
+            context.LookUpValues.Add(new LookUpValues { Id = 29, LookUpTypeId = 4, LookUpValue = "Jabal Ali", Description = "Jabal Ali", IsActive = true, ParentId = 16 });
+            context.LookUpValues.Add(new LookUpValues { Id = 30, LookUpTypeId = 4, LookUpValue = "Al Barsha", Description = "Al Barsha", IsActive = true, ParentId = 16 });
+            context.LookUpValues.Add(new LookUpValues { Id = 31, LookUpTypeId = 4, LookUpValue = "Bur Dubai", Description = "Bur Dubai", IsActive = true, ParentId = 16 });
+
             context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT LookUpValues ON");
         }
+        
 
         private static void GenerateRoles(VMSContext context)
         {
