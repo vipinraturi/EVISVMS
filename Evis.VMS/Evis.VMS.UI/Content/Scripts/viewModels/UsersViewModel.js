@@ -24,31 +24,26 @@
 
     self.Organizations = ko.observableArray();
     AjaxCall('/Api/Users/GetAllOrganizations', null, 'GET', function (data) {
-        debugger;
         self.Organizations(data);
     });
 
     self.Countries = ko.observableArray();
     AjaxCall('/Api/Users/GetAllCountries', null, 'GET', function (data) {
-        debugger;
         self.Countries(data);
         Countries
     });
 
     self.Genders = ko.observableArray();
     AjaxCall('/Api/MyProfile/GetGender', null, 'GET', function (data) {
-        debugger;
         self.Genders(data);
     });
 
     self.Roles = ko.observableArray();
     AjaxCall('/Api/Users/GetRoles', null, 'GET', function (data) {
-        debugger;
         self.Roles(data);
     })
 
 
-    debugger;
     self.DataGrid = new RIT.eW.DataGridAjax('/Api/Users/GetUsersData', 7);
 
     self.UsersList = ko.observableArray([]);
@@ -69,7 +64,6 @@
     }
 
     self.SaveUser = function () {
-        debugger;
         //if (self.errors().length > 0) {
         //    self.errors.showAllMessages(true);
         //    this.errors().forEach(function (data) {
@@ -97,7 +91,6 @@
     }
 
     self.EditUser = function (tableItem) {
-        debugger;
         if (tableItem != undefined) {
             self.UserId(tableItem.UserId);
             self.OrganizationId(tableItem.OrganizationId);

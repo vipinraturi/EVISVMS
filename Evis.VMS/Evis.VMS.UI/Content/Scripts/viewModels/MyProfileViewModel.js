@@ -14,14 +14,12 @@
 
     self.Genders = ko.observableArray();
     AjaxCall('/Api/MyProfile/GetGender', null, 'GET', function (data) {
-        debugger;
         self.Genders(data);
     })
 
 
     self.Roles = ko.observableArray();
     AjaxCall('/Api/MyProfile/GetAllRoles', null, 'GET', function (data) {
-        debugger;
         self.Roles(data);
     })
 
@@ -36,7 +34,6 @@
 
     self.User = ko.observable(User);
     AjaxCall('/Api/MyProfile/GetMyProfile', null, 'GET', function (data) {
-        debugger;
         self.User(data);
         self.GenderId = self.User().GenderId;
         self.RoleId = ko.observable(data.Roles[0].RoleId);
@@ -69,7 +66,6 @@
 
 
     self.SaveMyProfile = function () {
-        debugger;
         //if (self.errors().length > 0) {
         //    self.errors.showAllMessages(true);
         //    self.errors().forEach(function (data) {
@@ -110,15 +106,12 @@
         //self.User().FullName('');
         //self.User().PhoneNumber('');
         //self.User().ContactAddress('');
-        debugger;
         ApplyCustomBinding('myprofile');
     }
 }
 
 $(function () {
-    debugger;
     $("#avatarInput").change(function () {
-        debugger;
         if (this.files && this.files[0]) {
             var reader = new FileReader();
             reader.onload = imageIsLoaded;
@@ -128,6 +121,5 @@ $(function () {
 });
 
 function imageIsLoaded(e) {
-    debugger;
     $('#myImg').attr('src', e.target.result);
 };

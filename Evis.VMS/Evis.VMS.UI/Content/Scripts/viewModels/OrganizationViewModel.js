@@ -2,6 +2,8 @@
 
 function OrganizationViewModel() {
     var self = this;
+    var stateId = 0;
+    var cityId = 0;
 
     //self.Organizations = ko.observable();
     //AjaxCall('/Api/Administration/GetOrganizationsData', null, 'POST', function (data) {
@@ -46,17 +48,19 @@ function OrganizationViewModel() {
 
     self.States = ko.observableArray();
     self.LoadStates = function () {
-        debugger;
         AjaxCall('/Api/Administration/GetStatesOrCities?id=' + self.CountryId(), null, 'GET', function (data) {
+            self.States(new Object());
             self.States(data);
+            self.StateId(stateId);
         });
     }
 
     self.Cities = ko.observableArray();
     self.LoadCities = function () {
-        debugger;
         AjaxCall('/Api/Administration/GetStatesOrCities?id=' + self.StateId(), null, 'GET', function (data) {
+            self.Cities(new Object());
             self.Cities(data);
+            self.CityId(cityId);
         });
     }
 
@@ -72,7 +76,6 @@ function OrganizationViewModel() {
     }
 
     self.SaveOrganization = function () {
-        debugger;
         if (self.errors().length > 0) {
             self.errors.showAllMessages(true);
             this.errors().forEach(function (data) {
@@ -127,14 +130,13 @@ function OrganizationViewModel() {
     }
 
     self.EditOrganization = function (tableItem) {
-        debugger;
         if (tableItem != undefined) {
             self.IsInsert(false);
             self.Id(tableItem.Id);
             self.CompanyName(tableItem.CompanyName);
             self.CountryId(tableItem.CityMaster.ParentValues.ParentId);
-            self.StateId(tableItem.CityMaster.ParentId);
-            self.CityId(tableItem.CityId);
+            stateId = tableItem.CityMaster.ParentId;
+            cityId = tableItem.CityId;
             self.EmailId(tableItem.EmailId);
             self.ContactAddress(tableItem.ContactAddress);
             self.FaxNumber(tableItem.FaxNumber);
