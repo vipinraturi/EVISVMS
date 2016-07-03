@@ -43,6 +43,9 @@ namespace Evis.VMS.Data.Migrations
             context.LookUpType.Add(new LookUpType { Id = 3, TypeName = "State", TypeCode = "State", Description = "State", IsActive = true });
             // For City
             context.LookUpType.Add(new LookUpType { Id = 4, TypeName = "City", TypeCode = "City", Description = "City", IsActive = true });
+            context.LookUpType.Add(new LookUpType { Id = 5, TypeName = "TypeOfCards", TypeCode = "TypeOfCards", Description = "Type Of Cards", IsActive = true });
+            context.LookUpType.Add(new LookUpType { Id = 6, TypeName = "Nationalities", TypeCode = "Nationalities", Description = "Nationalities", IsActive = true });
+
             context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT LookUpType ON");
             //context.SaveChanges();
 
@@ -88,6 +91,15 @@ namespace Evis.VMS.Data.Migrations
             context.LookUpValues.Add(new LookUpValues { Id = 29, LookUpTypeId = 4, LookUpValue = "Jabal Ali", Description = "Jabal Ali", IsActive = true, ParentId = 16 });
             context.LookUpValues.Add(new LookUpValues { Id = 30, LookUpTypeId = 4, LookUpValue = "Al Barsha", Description = "Al Barsha", IsActive = true, ParentId = 16 });
             context.LookUpValues.Add(new LookUpValues { Id = 31, LookUpTypeId = 4, LookUpValue = "Bur Dubai", Description = "Bur Dubai", IsActive = true, ParentId = 16 });
+
+            context.LookUpValues.Add(new LookUpValues { Id = 32, LookUpTypeId = 5, LookUpValue = "Emirates Id", Description = "Emirates Id", IsActive = true });
+            context.LookUpValues.Add(new LookUpValues { Id = 33, LookUpTypeId = 5, LookUpValue = "Driving Licence", Description = "Driving Licence", IsActive = true});
+            context.LookUpValues.Add(new LookUpValues { Id = 34, LookUpTypeId = 5, LookUpValue = "Others", Description = "Others", IsActive = true });
+
+            context.LookUpValues.Add(new LookUpValues { Id = 35, LookUpTypeId = 6, LookUpValue = "Emirates", Description = "Emirates", IsActive = true });
+            context.LookUpValues.Add(new LookUpValues { Id = 36, LookUpTypeId = 6, LookUpValue = "Indian", Description = "Indian", IsActive = true });
+            context.LookUpValues.Add(new LookUpValues { Id = 37, LookUpTypeId = 6, LookUpValue = "American", Description = "American", IsActive = true});
+            context.LookUpValues.Add(new LookUpValues { Id = 38, LookUpTypeId = 6, LookUpValue = "Other", Description = "Other", IsActive = true });
 
             context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT LookUpValues ON");
         }

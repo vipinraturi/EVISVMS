@@ -72,6 +72,10 @@ BindingViewModel = function (controllerUrl, viewModel) {
         ko.applyBindings(viewModel, $('#content')[0]);
         $('.loader-div').hide();
         DashboardBindEvent();
+
+        if (controllerUrl == "/Visitor/_ManageVisitorManually") {
+            $('#dateDOB').datepicker();
+        }
     });
 }
 

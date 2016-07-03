@@ -88,16 +88,9 @@
                         <label class="control-label col-md-4 col-sm-4 col-xs-12">Gender</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
 
-
-                            @*<select id="ddlGender" class="form-control" data-bind="value: Gender">
-                                    <option value="-1">--Select--</option>
-                                    <option value="1">Male</option>
-                                    <option value="2">Female</option>
-                                </select>*@
-
                             <select class="form-control" data-bind="options: Genders,
                                optionsText: function(item) {
-                                   return item.Text
+                                   return item.LookUpValue
                                },
                                optionsValue: 'Id',
                                value: Gender,
@@ -115,21 +108,13 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Type Of Cards <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
 
-                            <select class="form-control" data-bind="options: Genders,
+                            <select class="form-control" data-bind="options: TypeOfCards,
                                optionsText: function(item) {
-                                   return item.Text
+                                   return item.LookUpValue
                                },
                                optionsValue: 'Id',
                                value: TypeOfCard,
                                optionsCaption: 'Select'"></select>
-
-
-                            @*<select id="DDBTypeOfCards" class="form-control" data-bind="value: TypeOfCard">
-                                    <option value="-1">--Select--</option>
-                                    <option value="1">Emirates ID</option>
-                                    <option value="2">Driving Licence</option>
-                                    <option value="3">Others</option>
-                                </select>*@
                         </div>
                     </div>
                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
@@ -142,7 +127,13 @@
                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Nationality</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input type="text" class="form-control" data-bind="value: Nationality" />
+                            <select class="form-control" data-bind="options: Nationalities,
+                               optionsText: function(item) {
+                                   return item.LookUpValue
+                               },
+                               optionsValue: 'Id',
+                               value: Nationality,
+                               optionsCaption: 'Select'"></select>
                         </div>
                     </div>
                     <div class="form-group col-md-12 col-sm-12 col-xs-12">

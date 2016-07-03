@@ -6,7 +6,7 @@ function VisitorViewModel() {
     VisitorName = ko.observable('').extend({ required: true });
     EmailAddress = ko.observable('').extend({ required: true, email: { message: "Invalid email" } });
     Gender = ko.observable(-1).extend({ required: true });
-    DOB = ko.observable('');
+    DOB = ko.observable('').extend({ required: true });
     TypeOfCard = ko.observable(-1).extend({ required: true });
     IdNo = ko.observable('').extend({ required: true });
     Nationality = ko.observable(-1).extend({ required: true });
@@ -15,18 +15,16 @@ function VisitorViewModel() {
 
     self.GlobalSearch = ko.observable('');
     self.IsInsert = ko.observable(true);
-    self.Genders = ko.observableArray([
-        { Text: 'Male', Id: 1 },
-        { Text: 'Female', Id: 2 }
+    self.LookUpValues = ko.observableArray();
+    self.Genders = ko.observableArray();
+    self.TypeOfCards = ko.observableArray();
+    self.Nationalities = ko.observableArray();
 
-    ]);
-    self.TypeOfCards = ko.observableArray([
-        { Text: 'Emirates ID', Id: 1 },
-        { Text: 'Driving Licence', Id: 2 },
-        { Text: 'Others', Id: 3 }
-    ]);
-
-
+    //[
+    // { Text: 'Indian', Id: 1 },
+    // { Text: 'Emirate', Id: 2 },
+    // { Text: 'Others', Id: 3 }
+    //]
 
     self.DataGrid = new RIT.eW.DataGridAjax('/Api/Visitor/GetVisitorData', 7);
 
@@ -38,8 +36,32 @@ function VisitorViewModel() {
         self.DataGrid.GetData();
     }
 
+    self.LoadMasterData = function () {
+        var lookUpTypes = [];
+        lookUpTypes.push("Gender");
+        lookUpTypes.push("TypeOfCards");
+        lookUpTypes.push("Nationalities");
+
+        AjaxCall('/Api/Common/GetLookUpData', lookUpTypes, 'POST', function (data) {
+            self.LookUpValues(data);
+
+            self.Genders(ko.utils.arrayFilter(self.LookUpValues(), function (item) {
+                return item.LookUpType.TypeCode == "Gender";
+            }));
+
+            self.TypeOfCards(ko.utils.arrayFilter(self.LookUpValues(), function (item) {
+                return item.LookUpType.TypeCode == "TypeOfCards";
+            }));
+
+            self.Nationalities(ko.utils.arrayFilter(self.LookUpValues(), function (item) {
+                return item.LookUpType.TypeCode == "Nationalities";
+            }));
+            //debugger;
+        })
+    }
+
     self.SaveVisitor = function () {
-        ////debugger;
+        //debugger;
         if (self.errors().length > 0) {
             self.errors.showAllMessages(true);
             this.errors().forEach(function (data) {
@@ -49,17 +71,6 @@ function VisitorViewModel() {
         else {
             var data = new Object();
             ////debugger;
-
-            //VisitorName = ko.observable('').extend({ required: true });
-            //EmailAddress = ko.observable('').extend({ required: true });
-            //Gender = ko.observable(-1).extend({ required: true });
-            //DOB = ko.observable('');
-            //TypeOfCard = ko.observable(-1).extend({ required: true });
-            //IdNo = ko.observable('').extend({ required: true });
-            //Nationality = ko.observable(-1).extend({ required: true });
-            //ContactNo = ko.observable('').extend({ required: true });
-            //ContactAddress = ko.observable('');
-
 
             data.VisitorName = self.VisitorName(),
             data.EmailAddress = self.EmailAddress(),
@@ -102,6 +113,7 @@ function VisitorViewModel() {
             AjaxCall('/Api/Visitor/DeleteVisitor', tableItem, 'POST', function () {
                 toastr.success('Visitor deleted successfully!!')
                 ApplyCustomBinding('managevisitor');
+
             });
         }
     }
@@ -129,5 +141,6 @@ function VisitorViewModel() {
     }
 
     self.GetAllVisitor();
-    $('#dateDOB').datepicker();
+    self.LoadMasterData();
+
 }

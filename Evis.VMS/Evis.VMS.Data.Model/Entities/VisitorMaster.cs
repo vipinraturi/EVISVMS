@@ -42,7 +42,21 @@ namespace Evis.VMS.Data.Model.Entities
         [ForeignKey("GenderId")]
         public virtual LookUpValues GenderMaster { get; set; }
 
+        [ForeignKey("TypeOfCardId")]
+        public virtual LookUpValues TypeOfCard { get; set; }
+
+
+        public int TypeOfCardId { get; set; }
+
         [ForeignKey("CreatedBy")]
         public virtual ApplicationUser ApplicationUser { get; set; }
+
+        [MaxLength(250)]
+        public string Address { get; set; }
+
+        [MaxLength(20)]
+        public string IdNo { get; set; }
+
+
     }
 }

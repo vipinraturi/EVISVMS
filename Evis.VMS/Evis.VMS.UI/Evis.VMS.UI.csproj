@@ -194,6 +194,7 @@
     <Compile Include="Controllers\ApiControllers\Administration\OrganizationController.cs" />
     <Compile Include="Controllers\ApiControllers\Administration\AdministrationController.cs" />
     <Compile Include="Controllers\ApiControllers\BaseApiController.cs" />
+    <Compile Include="Controllers\ApiControllers\CommonController.cs" />
     <Compile Include="Controllers\ApiControllers\Dashboard\DashboardController.cs" />
     <Compile Include="Controllers\ApiControllers\Report\ShiftDetailsReportController.cs" />
     <Compile Include="Controllers\ApiControllers\Report\VisitorDetailsReportController.cs" />
@@ -225,6 +226,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModel\GeneralDropDownVM.cs" />
     <Compile Include="ViewModel\LoginVM.cs" />
+    <Compile Include="ViewModel\LookUpType.cs" />
     <Compile Include="ViewModel\MyOrganizationVM.cs" />
     <Compile Include="ViewModel\VisitorCheckInCheckOutVM.cs" />
     <Compile Include="ViewModel\VisitorDetailsVM.cs" />
