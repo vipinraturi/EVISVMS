@@ -6,8 +6,10 @@
  * Description  : 
  *******************************************************************************/
 
+using Evis.VMS.Data.Model.Entities;
 using Evis.VMS.UI.HelperClasses;
 using Evis.VMS.UI.ViewModel;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,8 +19,121 @@ using System.Web.Http;
 
 namespace Evis.VMS.UI.Controllers.ApiControllers
 {
-    public partial class AdministrationController 
+    public partial class AdministrationController
     {
-        
+        [Route("~/Api/Gates/SaveGate")]
+        [HttpPost]
+        public ReturnResult SaveGate([FromBody]  GateMaster GateMaster)
+        {
+            if (GateMaster.Id == 0)
+            {
+                GateMaster.IsActive = true;
+                _genericService.GateMaster.Insert(GateMaster);
+            }
+
+            else
+            {
+                var existinggate = _genericService.GateMaster.GetById(GateMaster.Id);
+                if (existinggate != null)
+                {
+                    existinggate.BuildingId = GateMaster.BuildingId;
+                    existinggate.GateNumber = GateMaster.GateNumber;
+                    GateMaster.IsActive = true;
+                    _genericService.GateMaster.Update(existinggate);
+                };
+            }
+            _genericService.Commit();
+            return new ReturnResult { Message = "Success", Success = true };
+        }
+        [Route("~/Api/Gates/GetAllGate")]
+        [HttpPost]
+        public string GetAllGate(string globalSearch, int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC")
+        {
+            var lstgateVM = _genericService.GateMaster.GetAll().Where(x => x.IsActive == true).ToList()
+                .Select(x => new GatesVM
+                {
+                    Id = x.Id,
+                    BuildingId = x.Id,
+                    GateNumber = x.GateNumber,
+                    BuildingName = x.BuildingMaster.BuildingName
+
+                })
+                .ToList();
+            if (lstgateVM.Count() > 0)
+            {
+                if (!string.IsNullOrEmpty(globalSearch))
+                {
+                    lstgateVM = lstgateVM.Where(item =>
+                        item.GateNumber.ToLower().Contains(globalSearch.ToLower())
+                        ).ToList();
+                }
+
+
+                bool sortAscending = (sortOrder == "ASC" ? true : false);
+                if (!string.IsNullOrEmpty(sortField))
+                {
+                    if (!sortAscending)
+                    {
+                        lstgateVM = lstgateVM
+                               .OrderBy(r => r.GetType().GetProperty(sortField).GetValue(r, null))
+                               .ToList();
+                    }
+                    else
+                    {
+                        lstgateVM = lstgateVM
+                               .OrderByDescending(r => r.GetType().GetProperty(sortField).GetValue(r, null))
+                               .ToList();
+                    }
+                }
+            }
+
+            var data = lstgateVM.Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToList();
+            var jsonData = JsonConvert.SerializeObject(data);
+            var total = lstgateVM.Count();
+            return JsonConvert.SerializeObject(new { totalRows = total, result = jsonData });
+        }
+        [Route("~/Api/Gates/GetAllBuildingDetails")]
+        [HttpGet]
+        public IList<BuildingMaster> GetAllBuildingDetails(int Id)
+        {
+            if (Id != 0)
+            {
+                var result = _genericService.BuildingMaster.GetAll().Where(x => x.Id == Id && x.Organization.IsActive == true && x.IsActive == true).ToList();
+                 //.Select(x => new GeneralDropDownVM
+                 //{
+                 //    Name = x.CityMaster.LookUpValue,
+                 //    Id = x.CityId
+                 //})
+                 //.ToList();
+                return result;
+            }
+            return null;
+        }
+        [Route("~/Api/Gates/DeleteGate")]
+        [HttpPost]
+        public ReturnResult DeleteGate([FromBody] GateMaster GateMaster)
+        {
+            if (GateMaster != null)
+            {
+                var GaterDelete = _genericService.GateMaster.GetAll().Where(x => x.Id == GateMaster.Id).FirstOrDefault();
+                if (GaterDelete != null)
+                {
+                    GateMaster.IsActive = false;
+                    _genericService.GateMaster.Update(GaterDelete);
+                    _genericService.Commit();
+                    return new ReturnResult { Message = "Success", Success = true };
+                }
+            }
+            return new ReturnResult { Message = "Failure", Success = false };
+        }
+        [Route("~/Api/Gates/GetAllBuilding")]
+        [HttpGet]
+        public IEnumerable<GeneralDropDownVM> GetAllBuilding()
+        {
+            var result = _genericService.BuildingMaster.GetAll().Where(x => x.IsActive == true)
+                .Select(y => new GeneralDropDownVM { Id = y.Id, Name = y.BuildingName });
+            return result;
+        }
+
     }
 }

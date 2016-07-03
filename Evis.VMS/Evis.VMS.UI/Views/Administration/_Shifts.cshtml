@@ -16,7 +16,7 @@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Shift Name <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtShiftName" type="text" class="form-control" placeholder="Shift Name" required="required" />
+                            <input id="txtShiftName" type="text" class="form-control" placeholder="Shift Name" required="required" data-bind="value:ShitfName" />
                             <span class="fa fa-building favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
@@ -25,7 +25,7 @@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Shift From Time <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtFromTime" type="text" class="form-control" placeholder="hh:mm:ss" required="required" />
+                            <input id="txtFromTime" type="text" class="form-control" placeholder="hh:mm:ss" required="required" data-bind="value:FromTime" />
                             <span class="fa fa-clock-o favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
@@ -33,16 +33,16 @@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Shift To Time <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtToTime" type="text" class="form-control" placeholder="hh:mm:ss" required="required" />
+                            <input id="txtToTime" type="text" class="form-control" placeholder="hh:mm:ss" required="required" data-bind="value:ToTime" />
                             <span class="fa fa-clock-o  favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
 
-                    
+
                     <div class="form-group">
                         <div class="pull-right">
-                            <button type="button" class="btn btn-primary">Reset <i class="fa fa-refresh"></i></button>
-                            <button type="submit" class="btn btn-success">Save <i class="fa fa-save"></i></button>
+                            <button type="button" class="btn btn-primary" data-bind="click: Resetswift.bind()">Reset <i class="fa fa-refresh"></i></button>
+                            <button type="button" class="btn btn-success" data-bind="click: Saveswift.bind()">Save <i class="fa fa-save"></i></button>
                         </div>
                     </div>
 
@@ -70,87 +70,27 @@
                     <table class="table jambo_table">
                         <thead>
                             <tr>
-                                <th style="width: 5%">#</th>
-                                <th style="width: 35%">Shift Name</th>
-                                <th style="width: 35%">Shift Time</th>
-                                <th style="width: 25%"></th>
-
+                                <th style="">#</th>
+                                <th style=""> <a href="#" onclick="DataGrid.Sort('ShitfName')" class="sortCol">ShiftName</a> </th>
+                                <th style=""> <a href="#" onclick="DataGrid.Sort('FromTime')" class="sortCol">To</a></th>
+                                <th style=""><a href="#" onclick="DataGrid.Sort('ToTime')" class="sortCol">From</a></th>
+                                <th style=""></th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody data-bind="foreach:DataGrid.DataRows">
                             <tr>
-                                <td>1</td>
-                                <td><a>Shift-1</a></td>
-
-                                <td>8 AM to 5 PM</td>
+                                <th scope="row" data-bind="text: $index() +1"></th>
+                                <td data-bind="text:ShitfName"></td>
+                                <td data-bind="text: FromTime"></td>
+                                <td data-bind="text: ToTime"></td>
                                 <td>
-                                    <a href="#" class="btn  btn-s"><i class="fa fa-pencil"></i></a>
-                                    <a href="#" class="btn btn-s"><i class="fa fa-trash-o"></i></a>
+                                    <a href="#" class="btn  btn-s" data-bind="click: Editswift.bind($data)" title="click here to view or edit record."><i class="fa fa-pencil"></i></a>
+                                    <a href="#" class="btn  btn-s" data-bind="click: DeleteSwift.bind($data)" title="click here to delete record."><i class="fa fa-trash-o"></i></a>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>2</td>
-                                <td><a>Shift-2</a></td>
-
-                                <td>8 AM to 5 PM</td>
-                                <td>
-                                    <a href="#" class="btn  btn-s"><i class="fa fa-pencil"></i></a>
-                                    <a href="#" class="btn btn-s"><i class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td><a>Shift-3</a></td>
-
-                                <td>8 AM to 5 PM</td>
-                                <td>
-                                    <a href="#" class="btn  btn-s"><i class="fa fa-pencil"></i></a>
-                                    <a href="#" class="btn btn-s"><i class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td><a>Shift-4</a></td>
-
-                                <td>8 AM to 5 PM</td>
-                                <td>
-                                    <a href="#" class="btn  btn-s"><i class="fa fa-pencil"></i></a>
-                                    <a href="#" class="btn btn-s"><i class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td><a>Shift-5</a></td>
-
-                                <td>8 AM to 5 PM</td>
-                                <td>
-                                    <a href="#" class="btn  btn-s"><i class="fa fa-pencil"></i></a>
-                                    <a href="#" class="btn btn-s"><i class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>6</td>
-                                <td><a>Shift-6</a></td>
-
-                                <td>8 AM to 5 PM</td>
-                                <td>
-                                    <a href="#" class="btn  btn-s"><i class="fa fa-pencil"></i></a>
-                                    <a href="#" class="btn btn-s"><i class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>7</td>
-                                <td><a>Shift-7</a></td>
-
-                                <td>8 AM to 5 PM</td>
-                                <td>
-                                    <a href="#" class="btn  btn-s"><i class="fa fa-pencil"></i></a>
-                                    <a href="#" class="btn btn-s"><i class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
-
                         </tbody>
                     </table>
+                    @Html.Partial("_Pager")
                 </form>
             </div>
         </div>

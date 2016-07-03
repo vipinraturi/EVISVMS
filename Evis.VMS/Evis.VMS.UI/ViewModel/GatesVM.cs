@@ -14,5 +14,12 @@ namespace Evis.VMS.UI.ViewModel
 {
     public class GatesVM
     {
+        public int Id { get; set; }
+        public int BuildingId { get; set; }
+        public int CityId { get; set; }
+        public string GateNumber { get; set; }
+        public string BuildingName { get; set; }
+
+        public string CityName { get; set; }
     }
 }

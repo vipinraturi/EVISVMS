@@ -17,78 +17,66 @@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Organization <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <select id="ddlOrganization" class="form-control" required="required">
-                                <option value="0">--Select--</option>
-                                <option value="1">Company 1</option>
-                                <option value="2">Company 2</option>
-                                <option value="3">Company 3</option>
-                            </select>
+                            @*<select id="ddlOrganization" class="form-control" required="required">
+                                    <option value="0">--Select--</option>
+                                    <option value="1">Company 1</option>
+                                    <option value="2">Company 2</option>
+                                    <option value="3">Company 3</option>
+                                </select>*@
+                            <select class="form-control" data-bind="options: Organizations, optionsText: 'Name', optionsValue: 'Id', value: OrganizationId, optionsCaption: '-- Select --'"></select>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Building Name <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtBuildingName" type="text" class="form-control" placeholder="Building Name"  required="required" />
+                            <input id="txtBuildingName" type="text" class="form-control" placeholder="Building Name" data-bind="value: BuildingName" required="required" />
                             <span class="fa fa-building favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
 
-                  
+
 
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Country <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <select id="DDBCountry" class="form-control"  required="required">
-                                <option value="0">--Select--</option>
-                                <option value="1">Bangladesh</option>
-                                <option value="2">India</option>
-                                <option value="3">Nepal</option>
-                                <option value="4">Pakistan</option>
-                                <option value="5">United Arab Emirates</option>
-                            </select>
+                            <select class="form-control" data-bind="options: Countries, optionsText: 'Name', optionsValue: 'Id', value: NationalityId, optionsCaption: '-- Select --', event:{ change: LoadStates()}"></select>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">State <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <select id="DDBState" class="form-control"  required="required">
-                                <option value="0">--Select--</option>
-                                <option value="1">Abu Dhabi</option>
-                                <option value="2">Dubai</option>
-                                <option value="3">Sharjah</option>
-                            </select>
+                            <select class="form-control" data-bind="options: State, optionsText: 'Name', optionsValue: 'Id', value: StateId, optionsCaption: '-- Select --', event:{ change: LoadCities()}"></select>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">City <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtCity" type="text" class="form-control" placeholder="City" required="required" />
+                            <select class="form-control" data-bind="options: City, optionsText: 'Name', optionsValue: 'Id', value: CityId, optionsCaption: '-- Select --'"></select>
                         </div>
                     </div>
-
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Address <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <textarea id="txtAddress" class="form-control" rows="3" placeholder="Contact Address" style="resize: none;"></textarea>
+                            <textarea id="txtAddress" class="form-control" rows="3" placeholder="Contact Address" style="resize: none;" data-bind="value: Address"></textarea>
                             <span class="fa fa-home favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">PO Box <span class="mandatoryField">*</span></label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Zip Code<span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtPOBox" type="text" class="form-control" placeholder="PO Box" required="required" />
+                            <input id="txtPOBox" type="text" class="form-control" placeholder="PO Box" required="required" data-bind="value:ZipCode" />
                             <span class="fa fa-envelope-o favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
 
-                    
+
                     <div class="form-group">
                         <div class="pull-right">
-                            <button type="button" class="btn btn-primary">Reset <i class="fa fa-refresh"></i></button>
-                            <button type="submit" class="btn btn-success">Save <i class="fa fa-save"></i></button>
+                            <button type="button" class="btn btn-primary" data-bind="click: ResetBuilding.bind()">Reset <i class="fa fa-refresh"></i></button>
+                            <button type="button" class="btn btn-success" data-bind="click: SaveBuilding">Save <i class="fa fa-save"></i></button>
                         </div>
                     </div>
 
@@ -106,8 +94,7 @@
             <div class="x_content">
                 <div class="col-md-5 col-sm-5 col-xs-12  pull-right top_search">
                     <div class="input-group">
-                        <input id="txtGlobalSearch" type="text" class="form-control" placeholder="Global Search"
-                               />
+                        <input id="txtGlobalSearch" type="text" class="form-control" placeholder="Global Search" />
                         <span class="input-group-btn">
                             <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
                         </span>
@@ -118,100 +105,27 @@
                         <thead>
                             <tr>
                                 <th style="width: 1%">#</th>
-                                <th style="width: 12%">Building Name</th>
-                                <th style="width: 12%">Country</th>
-                                <th style="width: 12%">Location</th>
-                                <th style="width: 14%"></th>
+                                <th style="width: 25%"> <a href="#" onclick="DataGrid.Sort('BuildingName')" class="sortCol">BuildingName</a> </th>
+                                <th style="width: 25%"> <a href="#" onclick="DataGrid.Sort('Address')" class="sortCol">Address</a></th>
+                                @*<th style="width: 24%"><a href="#" onclick="DataGrid.Sort('Address')" class="sortCol">Contact No</a></th>*@
+                                <th style="width: 25%"></th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody data-bind="foreach:DataGrid.DataRows">
                             <tr>
-                                <td>1</td>
-                                <td><a>Tigher</a></td>
-                                <td>UAE</td>
-                                <td>Al Barsa</td>
+                                <th scope="row" data-bind="text: $index() +1"></th>
+                                <td data-bind="text: BuildingName"></td>
+                                <td data-bind="text: Address"></td>
                                 <td>
-                                    <a href="#" class="btn  btn-s"><i class="fa fa-pencil"></i></a>
-                                    <a href="#" class="btn btn-s"><i class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td><a>Tigher</a></td>
-                                <td>UAE</td>
-                                <td>Al Barsa</td>
-                                <td>
-                                    <a href="#" class="btn  btn-s"><i class="fa fa-pencil"></i></a>
-                                    <a href="#" class="btn btn-s"><i class="fa fa-trash-o"></i></a>
+                                    <a href="#" class="btn  btn-s" data-bind="click: EditBuilding.bind($data)" title="click here to view or edit record."><i class="fa fa-pencil"></i></a>
+                                    <a href="#" class="btn  btn-s" data-bind="click: DeleteBuilding.bind($data)" title="click here to delete record."><i class="fa fa-trash-o"></i></a>
                                 </td>
                             </tr>
 
-                            <tr>
-                                <td>3</td>
-                                <td><a>Tigher</a></td>
-                                <td>UAE</td>
-                                <td>Al Barsa</td>
-                                <td>
-                                    <a href="#" class="btn  btn-s"><i class="fa fa-pencil"></i></a>
-                                    <a href="#" class="btn btn-s"><i class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>4</td>
-                                <td><a>Tigher</a></td>
-                                <td>UAE</td>
-                                <td>Al Barsa</td>
-                                <td>
-                                    <a href="#" class="btn  btn-s"><i class="fa fa-pencil"></i></a>
-                                    <a href="#" class="btn btn-s"><i class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>5</td>
-                                <td><a>Tigher</a></td>
-                                <td>UAE</td>
-                                <td>Al Barsa</td>
-                                <td>
-                                    <a href="#" class="btn  btn-s"><i class="fa fa-pencil"></i></a>
-                                    <a href="#" class="btn btn-s"><i class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>6</td>
-                                <td><a>Tigher</a></td>
-                                <td>UAE</td>
-                                <td>Al Barsa</td>
-                                <td>
-                                    <a href="#" class="btn  btn-s"><i class="fa fa-pencil"></i></a>
-                                    <a href="#" class="btn btn-s"><i class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>7</td>
-                                <td><a>Tigher</a></td>
-                                <td>UAE</td>
-                                <td>Al Barsa</td>
-                                <td>
-                                    <a href="#" class="btn  btn-s"><i class="fa fa-pencil"></i></a>
-                                    <a href="#" class="btn btn-s"><i class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>8</td>
-                                <td><a>Tigher</a></td>
-                                <td>UAE</td>
-                                <td>Al Barsa</td>
-                                <td>
-                                    <a href="#" class="btn  btn-s"><i class="fa fa-pencil"></i></a>
-                                    <a href="#" class="btn btn-s"><i class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
                         </tbody>
+                        <tr class="blank_row" data-bind="visible: (DataGrid.DataRows().length == 0)"><td colspan="10">No data, Add new records.</td></tr>
                     </table>
+                    @Html.Partial("_Pager")
                 </form>
             </div>
         </div>

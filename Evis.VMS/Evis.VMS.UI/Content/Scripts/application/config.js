@@ -92,6 +92,7 @@ DashboardBindEvent = function () {
         ApplyCustomBinding('gates');
 
     });
+
     $('#btnCompleteRegister').click(function () {
         ApplyCustomBinding('managevisitor');
     });

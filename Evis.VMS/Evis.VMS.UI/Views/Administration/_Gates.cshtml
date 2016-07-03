@@ -1,4 +1,5 @@
 ﻿
+
 <ol class="breadcrumb">
     <li><a href="#" class="a-color">Administration</a></li>
     <li><a href="#" class="a-color">Gates</a></li>
@@ -17,20 +18,15 @@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Building Name <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <select id="DDBBuilding" class="form-control" required="required">
-                                <option value="0">--Select--</option>
-                                <option value="1">Carrifour</option>
-                                <option value="2">Lulu</option>
-                                <option value="3">Tiger</option>
-                            </select>
+                            <select class="form-control" data-bind="options: Buildings, optionsText: 'Name' ,optionsValue: 'Id', value: BuildingId, optionsCaption: '-- Select --',event:{ change: BuildingChanged() }"></select>
                         </div>
                     </div>
 
-                
+
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Country </label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtCountry" type="text" class="form-control inputdisable"  placeholder="UAE" disabled />
+                            <input id="txtCountry" type="text" class="form-control inputdisable" placeholder="UAE" disabled data-bind="value:CountryName" />
                             <span class="fa fa-globe favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
@@ -38,7 +34,7 @@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">State </label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtState" type="text" class="form-control inputdisable"  placeholder="Dubai" disabled />
+                            <input id="txtState" type="text" class="form-control inputdisable" placeholder="Dubai" data-bind="value:StateName" />
                             <span class="fa fa-globe favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
@@ -46,32 +42,32 @@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">City </label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtCity" type="text" class="form-control inputdisable"  placeholder="Dubai" disabled />
+                            <input id="txtCity" type="text" class="form-control inputdisable" placeholder="Dubai" data-bind="value:CityName" disabled />
                             <span class="fa fa-globe favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Location </label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtLocation" type="text" class="form-control inputdisable"  placeholder="Al Barsha" disabled />
-                            <span class="fa fa-map-marker favwhite form-control-feedback right" aria-hidden="true"></span>
-                        </div>
-                    </div>
+                    @*<div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Location </label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input id="txtLocation" type="text" class="form-control inputdisable" placeholder="Al Barsha" data-bind="value:GateNumber" />
+                                <span class="fa fa-map-marker favwhite form-control-feedback right" aria-hidden="true"></span>
+                            </div>
+                        </div>*@
 
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Gate Number <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtGateNumber" type="text" class="form-control" placeholder="Gate Number" required="required" />
+                            <input id="txtGateNumber" type="text" class="form-control" placeholder="Gate Number" required="required" data-bind="value:GateNumber" />
                             <span class="fa fa-envelope-o favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
 
-                    
+
                     <div class="form-group">
                         <div class="pull-right">
-                            <button type="button" class="btn btn-primary">Reset <i class="fa fa-refresh"></i></button>
-                            <button type="submit" class="btn btn-success">Save <i class="fa fa-save"></i></button>
+                            <button type="button" class="btn btn-primary" data-bind="click: ResetGates.bind()">Reset <i class="fa fa-refresh"></i></button>
+                            <button type="button" class="btn btn-success" data-bind="click: SaveGate.bind()">Save <i class="fa fa-save"></i></button>
                         </div>
                     </div>
 
@@ -89,8 +85,7 @@
             <div class="x_content">
                 <div class="col-md-5 col-sm-5 col-xs-12  pull-right top_search">
                     <div class="input-group">
-                        <input id="txtGlobalSearch" type="text" class="form-control" placeholder="Global Search"
-                                />
+                        <input id="txtGlobalSearch" type="text" class="form-control" placeholder="Global Search" />
                         <span class="input-group-btn">
                             <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
                         </span>
@@ -100,106 +95,24 @@
                     <table class="table jambo_table">
                         <thead>
                             <tr>
-                                <th style="width: 1%">#</th>
-                                <th style="width: 10%">Gate No</th>
-                                <th style="width: 12%">Building</th>
-                                <th style="width: 12%">Country</th>
-                                <th style="width: 12%">Location</th>
-                                <th style="width: 14%"></th>
+                                <th style="">#</th>
+                                <th style=""> <a href="#" onclick="DataGrid.Sort('GateNumber')" class="sortCol">Gate No</a> </th>
+                                <th style=""> <a href="#" onclick="DataGrid.Sort('BuildingName')" class="sortCol">Building Name</a></th>
+                                @*<th style=""><a href="#" onclick="DataGrid.Sort('Country')" class="sortCol">Country</a></th>*@
+                                <th style=""><a href="#" onclick="DataGrid.Sort('Location')" class="sortCol">Location</a></th>
+                                <th style=""></th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody data-bind="foreach:DataGrid.DataRows">
                             <tr>
-                                <td>1</td>
-                                <td><a>GateNo-1</a></td>
-                                <td>Tigher</td>
-                                <td>UAE</td>
-                                <td>Al Barsa</td>
+                                <th scope="row" data-bind="text: $index() +1"></th>
+                                <td data-bind="text: GateNumber"></td>
+                                <td data-bind="text: BuildingName"></td>
+                                @*<td data-bind="text: Country"></td>*@
+                                @*<td data-bind="text: Location"></td>*@
                                 <td>
-                                    <a href="#" class="btn  btn-s"><i class="fa fa-pencil"></i></a>
-                                    <a href="#" class="btn btn-s"><i class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td><a>GateNo-2</a></td>
-                                <td>Tigher</td>
-                                <td>UAE</td>
-                                <td>Al Barsa</td>
-                                <td>
-                                    <a href="#" class="btn  btn-s"><i class="fa fa-pencil"></i></a>
-                                    <a href="#" class="btn btn-s"><i class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>3</td>
-                                <td><a>GateNo-3</a></td>
-                                <td>Tigher</td>
-                                <td>UAE</td>
-                                <td>Al Barsa</td>
-                                <td>
-                                    <a href="#" class="btn  btn-s"><i class="fa fa-pencil"></i></a>
-                                    <a href="#" class="btn btn-s"><i class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>4</td>
-                                <td><a>GateNo-4</a></td>
-                                <td>Tigher</td>
-                                <td>UAE</td>
-                                <td>Al Barsa</td>
-                                <td>
-                                    <a href="#" class="btn  btn-s"><i class="fa fa-pencil"></i></a>
-                                    <a href="#" class="btn btn-s"><i class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>5</td>
-                                <td><a>GateNo-5</a></td>
-                                <td>Tigher</td>
-                                <td>UAE</td>
-                                <td>Al Barsa</td>
-                                <td>
-                                    <a href="#" class="btn  btn-s"><i class="fa fa-pencil"></i></a>
-                                    <a href="#" class="btn btn-s"><i class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>6</td>
-                                <td><a>GateNo-6</a></td>
-                                <td>Tigher</td>
-                                <td>UAE</td>
-                                <td>Al Barsa</td>
-                                <td>
-                                    <a href="#" class="btn  btn-s"><i class="fa fa-pencil"></i></a>
-                                    <a href="#" class="btn btn-s"><i class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>7</td>
-                                <td><a>GateNo-7</a></td>
-                                <td>Tigher</td>
-                                <td>UAE</td>
-                                <td>Al Barsa</td>
-                                <td>
-                                    <a href="#" class="btn  btn-s"><i class="fa fa-pencil"></i></a>
-                                    <a href="#" class="btn btn-s"><i class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>8</td>
-                                <td><a>GateNo-8</a></td>
-                                <td>Tigher</td>
-                                <td>UAE</td>
-                                <td>Al Barsa</td>
-                                <td>
-                                    <a href="#" class="btn  btn-s"><i class="fa fa-pencil"></i></a>
-                                    <a href="#" class="btn btn-s"><i class="fa fa-trash-o"></i></a>
+                                    <a href="#" class="btn  btn-s" data-bind="click: EditGate.bind($data)" title="click here to view or edit record."><i class="fa fa-pencil"></i></a>
+                                    <a href="#" class="btn  btn-s" data-bind="click: DeleteGate.bind($data)" title="click here to delete record."><i class="fa fa-trash-o"></i></a>
                                 </td>
                             </tr>
                         </tbody>
@@ -210,3 +123,4 @@
     </div>
 
 </div>
+
