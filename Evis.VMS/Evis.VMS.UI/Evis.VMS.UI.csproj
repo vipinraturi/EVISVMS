@@ -298,6 +298,9 @@
     <Content Include="Content\Scripts\plugins\respond.min.js" />
     <None Include="Content\Scripts\plugins\_references.js" />
     <Content Include="Content\Scripts\plugins\validator.min.js" />
+    <Content Include="Content\Scripts\plugins\Webcam_Plugin\jquery.webcam.js" />
+    <Content Include="Content\Scripts\plugins\Webcam_Plugin\jscam.swf" />
+    <Content Include="Content\Scripts\plugins\Webcam_Plugin\jscam_canvas_only.swf" />
     <Content Include="Content\Scripts\viewModels\MyProfileViewModel.js" />
     <Content Include="Content\Scripts\viewModels\BuildingViewModel.js" />
     <Content Include="Content\Scripts\viewModels\MyOrganizationViewModel.js" />

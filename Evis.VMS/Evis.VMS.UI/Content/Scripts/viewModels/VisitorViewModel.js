@@ -140,6 +140,33 @@ function VisitorViewModel() {
         }
     }
 
+    self.SaveVisitorImage = function () {
+        var formData = new FormData();
+        var totalFiles = document.getElementById("avatarInputorVisitor").files.length;
+
+        for (var i = 0; i < totalFiles; i++) {
+            var file = document.getElementById("avatarInputorVisitor").files[i];
+            formData.append("avatarInput", file);
+        }
+
+        $.ajax({
+            type: "POST",
+            url: '/Visitor/SaveVisitorImage',
+            data: formData,
+            dataType: 'json',
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                debugger;
+                $('#imgUploaded').attr('src', response.FilePath);
+                toastr.success('Image uploaded');
+            },
+            error: function (error) {
+                alert("errror");
+            }
+        });
+    }
+
     self.GetAllVisitor();
     self.LoadMasterData();
 

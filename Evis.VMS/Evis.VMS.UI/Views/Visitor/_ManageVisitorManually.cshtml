@@ -1,4 +1,30 @@
-﻿@*<script src="~/Content/Scripts/plugins/jquery-ui.js"></script>*@
+﻿<script src="@Url.Content("~/Content/Scripts/plugins/Webcam_Plugin/jquery.webcam.js")">
+
+</script>
+<script>
+    $("#Camera").webcam({
+        width: 320,
+        height: 240,
+        mode: "save",
+        swffile: "@Url.Content("~/Content/Scripts/plugins/Webcam_Plugin/jscam.swf")",
+        onTick: function () { },
+        onSave: function () {
+        },
+        onCapture: function () {
+            webcam.save("@Url.Content("~/Visitor/Capture")/");
+            $('#webCamImage').attr('src', '/images/webCamImage.jpg');
+        },
+        debug: function () { },
+        onLoad: function () { }
+    });
+</script>
+
+<h2>Index</h2>
+
+<input type="button" value="Shoot!" onclick="webcam.capture();" />
+<div id="Camera"></div>
+<img id="webCamImage" />
+
 <ol class="breadcrumb">
     <li><a href="#" class="a-color">Visitor Management</a></li>
     <li><a href="#" class="a-color">Manage Visitor</a></li>
@@ -14,11 +40,10 @@
                 <form class="form-horizontal form-label-left input_mask">
                     <div class="form-group col-md-3 col-sm-3 col-xs-12 pull-right">
                         <div class="profile_img">
-                            <!-- end of image cropping -->
                             <div id="crop-avatar">
-                                <!-- Current avatar -->
-                                <img class="img-responsive avatar-view" src="../images/avatar.jpg" alt="Avatar" style="height: 120px;" title="Change the avatar" data-toggle="modal" data-target="#avatar-modal">
-                                <!-- Cropping modal -->
+                                <img class="img-responsive_Visitor avatar-view"
+                                     src="../images/avatar.jpg" alt="Avatar"
+                                     style="height: 120px;" title="Change the avatar" data-toggle="modal" data-target="#avatar-modal">
                                 <div class="modal fade" id="avatar-modal" aria-hidden="true" aria-labelledby="avatar-modal-label" role="dialog" tabindex="-1">
                                     <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
@@ -28,26 +53,23 @@
                                             </div>
                                             <div class="modal-body">
                                                 <div class="avatar-body">
-                                                    <!-- Upload image and data -->
                                                     <div class="avatar-upload">
-                                                        <input class="avatar-src" name="avatar_src" type="hidden">
-                                                        <input class="avatar-data" name="avatar_data" type="hidden">
-                                                        <label for="avatarInput"> Upload Image</label>
-                                                        <input class="avatar-input" id="avatarInput" name="avatar_file" type="file">
+                                                        <label for="avatarInput"> Upload Visitor Image</label>
+                                                        <input class="avatar-input" id="avatarInputorVisitor" name="avatarInputorVisitor" type="file">
                                                     </div>
                                                     <div class="row">
-                                                        <div class="col-md-9">
-                                                            <div class="avatar-wrapper"></div>
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <div class="avatar-preview preview-lg"></div>
-                                                            <div class="avatar-preview preview-md"></div>
-                                                            <div class="avatar-preview preview-sm"></div>
+                                                        <div class="col-md-12">
+                                                            <div class="avatar-wrapper">
+                                                                <img id="imgUploaded" />
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <div class="row avatar-btns">
                                                         <div class="col-md-3">
-                                                            <button class="btn btn-primary btn-block avatar-save" type="submit">Upload</button>
+                                                            <button class="btn btn-primary btn-block avatar-save" data-bind="click : SaveVisitorImage"
+                                                                    type="submit">
+                                                                Upload
+                                                            </button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -55,15 +77,11 @@
                                             <div class="modal-footer">
                                                 <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
                                             </div>
-                                            @*</form>*@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- /.modal -->
-                                <!-- Loading state -->
                                 <div class="loading" aria-label="Loading" role="img" tabindex="-1"></div>
                             </div>
-                            <!-- end of image cropping -->
                         </div>
                     </div>
                     <div class="form-group col-md-9 col-sm-9 col-xs-12">
@@ -87,7 +105,6 @@
                     <div class="form-group col-md-9 col-sm-9 col-xs-12">
                         <label class="control-label col-md-4 col-sm-4 col-xs-12">Gender</label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-
                             <select class="form-control" data-bind="options: Genders,
                                optionsText: function(item) {
                                    return item.LookUpValue
@@ -107,7 +124,6 @@
                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Type Of Cards <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-
                             <select class="form-control" data-bind="options: TypeOfCards,
                                optionsText: function(item) {
                                    return item.LookUpValue
@@ -150,7 +166,6 @@
                             <span class="fa fa-home favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
-
                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                         <div class="col-md-offset-7">
                             <button type="button" class="btn btn-success pull-right" data-bind="click: SaveVisitor.bind()">
@@ -166,7 +181,6 @@
             </div>
         </div>
     </div>
-
     <div class="col-md-6 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
@@ -194,7 +208,6 @@
                                 <th style="width: 17%"></th>
                             </tr>
                         </thead>
-
                         <tbody data-bind="foreach: DataGrid.DataRows">
                             <tr>
                                 <td scope="row" data-bind="text: $index() +1"></td>
@@ -206,7 +219,6 @@
                                     <a href="#" class="btn  btn-s" data-bind="click: DeleteVisitor.bind($data)" title="click here to delete record."><i class="fa fa-trash-o"></i></a>
                                 </td>
                             </tr>
-
                         </tbody>
                         <tbody data-bind="if: DataGrid.DataRows().length == 0">
                             <tr>
