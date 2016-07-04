@@ -18,7 +18,7 @@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Company Name <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtCompanyName" type="text" class="form-control" maxlength="100" placeholder="Company Name" data-bind="value: CompanyName" />
+                            <input id="txtCompanyName" type="text" class="form-control" maxlength="50" placeholder="Company Name" data-bind="value: CompanyName" />
                             <span class="fa fa-suitcase favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
@@ -65,7 +65,7 @@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Address <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <textarea id="txtAddress" class="form-control" maxlength="200" rows="3" placeholder="Contact Address" data-bind="value: ContactAddress" style="resize: none;"></textarea>
+                            <textarea id="txtAddress" class="form-control" maxlength="500" rows="3" placeholder="Contact Address" data-bind="value: ContactAddress" style="resize: none;"></textarea>
                             <span class="fa fa-home favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
@@ -141,8 +141,13 @@
                                 </td>
                             </tr>
                         </tbody>
-                        <tr class="blank_row" data-bind="visible: (DataGrid.DataRows().length == 0)"><td colspan="10">No data, Add new records.</td></tr>
-
+                        <tbody data-bind="if: DataGrid.DataRows().length == 0">
+                            <tr>
+                                <td colspan="5" style="text-align:center;">
+                                    No data found.
+                                </td>
+                            </tr>
+                        </tbody>
                     </table>
                     @Html.Partial("_Pager")
                 </form>

@@ -25,7 +25,7 @@ namespace Evis.VMS.Data.Model.Entities
         public int CityId { get; set; }
 
         [Required]
-        [MaxLength(200)]
+        [MaxLength(500)]
         public string Address { get; set; }
 
         [Required]

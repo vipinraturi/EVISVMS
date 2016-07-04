@@ -7,12 +7,16 @@
         deferValidation: true
     });
     self.Email = ko.observable('').extend({ required: true, maxLength: 25, email: { message: "Invalid email" } });
-    self.ContactNumber = ko.observable('').extend({ required: true, number: { message: "Numbers only" } });
-    self.UserName = ko.observable('').extend({ required: true });
-    self.RoleId = ko.observable('').extend({ required: true });
+    self.ContactNumber = ko.observable('').extend({
+        required: true,
+        pattern: {
+            message: 'Invalid phone number.',
+            params: /^([0-9\(\)\/\+ \-\.]*)$/
+        }
+    });
+    self.RoleId = ko.observable(undefined).extend({ required: true });
     self.GenderId = ko.observable(undefined).extend({ required: true });
     self.OrganizationId = ko.observable(undefined).extend({ required: true });
-    self.RoleName = ko.observable('').extend({ required: true });
     self.Nationality = ko.observable(undefined).extend({ required: true });
 
     self.GlobalSearch = ko.observable('');
@@ -64,30 +68,30 @@
     }
 
     self.SaveUser = function () {
-        //if (self.errors().length > 0) {
-        //    self.errors.showAllMessages(true);
-        //    this.errors().forEach(function (data) {
-        //        //toastr.warning(data);
-        //    });
-        //}
-        //else {
-        var data = new Object();
-        //debugger;
-        data.UserId = self.UserId(),
-        data.OrganizationId = self.OrganizationId(),
-        data.FullName = self.FullName(),
-        data.Email = self.Email(),
-        data.ContactNumber = self.ContactNumber(),
-        data.GenderId = self.GenderId(),
-        data.Nationality = self.Nationality(),
-        data.RoleId = self.RoleId();
+        if (self.errors().length > 0) {
+            self.errors.showAllMessages(true);
+            this.errors().forEach(function (data) {
+                //toastr.warning(data);
+            });
+        }
+        else {
+            var data = new Object();
+            //debugger;)
+            data.UserId = self.UserId(),
+            data.OrganizationId = self.OrganizationId(),
+            data.FullName = self.FullName(),
+            data.Email = self.Email(),
+            data.ContactNumber = self.ContactNumber(),
+            data.GenderId = self.GenderId(),
+            data.Nationality = self.Nationality(),
+            data.RoleId = self.RoleId();
 
-        //// display any error messages if we have them
-        AjaxCall('/Api/Users/SaveUser', data, 'POST', function () {
-            toastr.success('User saved successfully!!')
-            ApplyCustomBinding('newuser');
-        })
-        //}
+            //// display any error messages if we have them
+            AjaxCall('/Api/Users/SaveUser', data, 'POST', function () {
+                toastr.success('User saved successfully!!')
+                ApplyCustomBinding('newuser');
+            })
+        }
     }
 
     self.EditUser = function (tableItem) {
@@ -120,7 +124,6 @@
         self.GenderId(0);
         self.UserName('');
         self.RoleId('');
-        self.RoleName('');
         self.GlobalSearch('');
         self.OrganizationId(0);
         self.Nationality(0);

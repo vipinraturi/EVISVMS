@@ -33,7 +33,13 @@ function OrganizationViewModel() {
     self.StateId = ko.observable(undefined).extend({ required: true });
     self.CityId = ko.observable(undefined).extend({ required: true });
     self.EmailId = ko.observable('').extend({ required: true, minLength: 2, maxLength: 40, email: { message: "Invalid email" } });
-    self.ContactNumber = ko.observable('').extend({ required: true, number: { message: "Numbers only" } });
+    self.ContactNumber = ko.observable('').extend({
+        required: true,
+        pattern: {
+            message: 'Invalid phone number.',
+            params: /^([0-9\(\)\/\+ \-\.]*)$/
+        }
+    });
     self.ContactAddress = ko.observable('').extend({ required: true });
     self.FaxNumber = ko.observable('').extend({ required: true });
     self.ZipCode = ko.observable('').extend({ required: true });

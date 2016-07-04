@@ -107,7 +107,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 var orgToDelete = _genericService.Organization.GetAll().Where(x => x.Id == organization.Id).FirstOrDefault();
                 if (orgToDelete != null)
                 {
-                    organization.IsActive = false;
+                    orgToDelete.IsActive = false;
                     _genericService.Organization.Update(orgToDelete);
                     _genericService.Commit();
                     return new ReturnResult { Message = "Success", Success = true };

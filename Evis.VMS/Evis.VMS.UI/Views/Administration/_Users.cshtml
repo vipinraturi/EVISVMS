@@ -86,7 +86,7 @@
                     <div class="form-group col-md-9 col-sm-9 col-xs-12">
                         <label class="control-label col-md-4 col-sm-4 col-xs-12">Full Name <span class="mandatoryField">*</span></label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                            <input id="txtFirstName" type="text" maxlength="100" class="form-control" placeholder="Full Name" data-bind="value: FullName" />
+                            <input id="txtFirstName" type="text" maxlength="50" class="form-control" placeholder="Full Name" data-bind="value: FullName" />
                             <span class="fa fa-user favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
@@ -191,7 +191,13 @@
                                 </td>
                             </tr>
                         </tbody>
-                        <tr class="blank_row" data-bind="visible: (DataGrid.DataRows().length == 0)"><td colspan="10">No data, Add new records.</td></tr>
+                        <tbody data-bind="if: DataGrid.DataRows().length == 0">
+                            <tr>
+                                <td colspan="5" style="text-align:center;">
+                                    No data found.
+                                </td>
+                            </tr>
+                        </tbody>
                     </table>
                 </form>
             </div>
