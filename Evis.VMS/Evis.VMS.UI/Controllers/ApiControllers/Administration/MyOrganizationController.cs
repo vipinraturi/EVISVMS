@@ -23,5 +23,15 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 {
     public partial class AdministrationController
     {
+        [Route("~/Api/MyOrginization/GetMyOrginization")]
+        [HttpGet]
+        public async Task<ApplicationUser> GetMyOrginization()
+        {
+            string userId = HttpContext.Current.User.Identity.GetUserId();
+            var currentUser = await _userService.GetAsync(x => x.Id == userId);
+            var currentOrginization = _genericService.Organization.GetAll().Where(x => x.Id == currentUser.OrganizationId).ToList();
+            return currentUser;
+        }
     }
+
 }

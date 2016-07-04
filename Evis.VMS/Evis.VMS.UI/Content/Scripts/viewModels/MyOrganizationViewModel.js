@@ -71,4 +71,54 @@
         ApplyCustomBinding('organization');
     }
 
+    var Orginization = {
+        CompanyName: self.CompanyName,
+        ContactNumber: self.ContactNumber,
+        Email: self.Email,
+        PhoneNumber: self.PhoneNumber,
+        POBox: self.POBox,
+        WebSite: self.WebSite,
+    };
+
+    self.Orginization = ko.observable(Orginization);
+    AjaxCall('/Api/MyOrginization/GetMyOrginization', null, 'GET', function (data) {
+        debugger;
+        self.Orginization(data);
+        //self.GenderId = self.User().GenderId;
+        //self.RoleId = ko.observable(data.Roles[0].RoleId);
+        //self.Nationality = ko.observable(data.CountryMaster.LookUpValue);
+    })
+
+
+    self.SaveImage = function () {
+        $('#avatar-modal').modal('hide');
+        var formData = new FormData();
+        var totalFiles = document.getElementById("avatarInput").files.length;
+        for (var i = 0; i < totalFiles; i++) {
+            var file = document.getElementById("avatarInput").files[i];
+
+            formData.append("avatarInput", file);
+        }
+        $.ajax({
+            type: "POST",
+            url: '/Administration/SaveUploadedFile',
+            data: formData,
+            dataType: 'json',
+            contentType: false,
+            processData: false,
+            success: function (response) {
+
+                
+
+                alert('succes!!');
+
+            },
+            error: function (error) {
+                alert("errror");
+            }
+        });
+    }
+
 }
+
+
