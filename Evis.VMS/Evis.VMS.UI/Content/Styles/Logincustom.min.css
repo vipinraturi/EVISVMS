@@ -412,7 +412,7 @@ body {
     /*Anith*/
     /*color: #73879C;*/
     color: #fff;
-    background-image: url(../../images/blur-bg-blurred.jpg) !important;
+    background-image: url(../../images/blur-bg-login2.jpg) !important;
     background: #2A3F54;
     font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
     font-size: 13px;
@@ -1029,7 +1029,7 @@ h2 {
 .x_panel {
     position: relative;
     width: 100%;
-     /*Anith*/
+    /*Anith*/
     /*margin-bottom: 10px;*/
     padding: 10px 17px;
     display: inline-block;
@@ -3926,7 +3926,7 @@ ul.project_files li {
     color: #fff !important;
     background: #F7F7F7;
     /*background-image:url(../../images/blur-bg.jpg);*/
-    background-image: url(../../images/blur-bg-blurred.jpg);
+    background-image: url(../../images/blur-bg-login1.jpg);
 }
 
 
@@ -4093,11 +4093,12 @@ a.hiddenanchor {
             border-radius: 3px;
             -ms-box-shadow: 0 1px 0 #fff,0 -2px 5px rgba(0,0,0,0.08) inset;
             -o-box-shadow: 0 1px 0 #fff,0 -2px 5px rgba(0,0,0,0.08) inset;
-            box-shadow: 0 1px 0 #fff,0 -2px 5px rgba(0,0,0,0.08) inset;
-            border: 1px solid #c8c8c8;
-            color: #777;
+            /*box-shadow: 0 1px 0 #fff,0 -2px 5px rgba(0,0,0,0.08) inset;*/
+            border: 2px solid #fff;
+            color: #34495E !important;
             margin: 0 0 20px;
             width: 100%;
+            background-color: white !important;
         }
 
             .login_content form input[type="text"]:focus, .login_content form input[type="email"]:focus, .login_content form input[type="password"]:focus {
@@ -5273,7 +5274,8 @@ select option {
     width: 100%;
     float: left;
     margin: -20px 0px 20px;
-    color: red;
+    color: midnightblue;
+    font-weight: 600;
 }
 
 

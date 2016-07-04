@@ -29,9 +29,9 @@ function OrganizationViewModel() {
         required: true,
         deferValidation: true
     });
-    self.CountryId = ko.observable(0).extend({ required: true });
-    self.StateId = ko.observable(0).extend({ required: true });
-    self.CityId = ko.observable(0).extend({ required: true });
+    self.CountryId = ko.observable(undefined).extend({ required: true });
+    self.StateId = ko.observable(undefined).extend({ required: true });
+    self.CityId = ko.observable(undefined).extend({ required: true });
     self.EmailId = ko.observable('').extend({ required: true, minLength: 2, maxLength: 40, email: { message: "Invalid email" } });
     self.ContactNumber = ko.observable('').extend({ required: true, number: { message: "Numbers only" } });
     self.ContactAddress = ko.observable('').extend({ required: true });

@@ -354,6 +354,9 @@
     <Content Include="images\blur-bg-bluecombo.jpg" />
     <Content Include="images\blur-bg-blurred.jpg" />
     <Content Include="images\blur-bg-fullblack.jpg" />
+    <Content Include="images\blur-bg-login1.jpg" />
+    <Content Include="images\blur-bg-login2.jpg" />
+    <Content Include="images\blur-bg-login3.jpg" />
     <Content Include="images\blur-bg-redblue.jpg" />
     <Content Include="images\blur-bg-vibge.jpg" />
     <Content Include="images\blur-bg-violet.jpg" />
@@ -496,7 +499,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>63864</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:39831/</IISUrl>
+          <IISUrl>http://localhost:22731/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

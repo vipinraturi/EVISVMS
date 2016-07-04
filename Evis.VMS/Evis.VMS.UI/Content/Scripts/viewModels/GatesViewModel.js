@@ -18,7 +18,7 @@
     });
     self.Buildings = ko.observableArray();
     AjaxCall('/Api/Gates/GetAllBuilding', null, 'GET', function (data) {
-        debugger;
+        //debugger;;
         self.Buildings(data);
     })
     self.BuildingName = ko.observable('').extend({ required: true });
@@ -27,11 +27,11 @@
     self.CountryName = ko.observable('');
     self.StateName = ko.observable('');
     self.CityName = ko.observable('');
-    self.BuildingId = ko.observable(0).extend({ required: true });
-    self.Id = ko.observable(0).extend({ required: true });
-    self.CountryId = ko.observable(0).extend({ required: true });
-    self.StateId = ko.observable(0).extend({ required: true });
-    self.CityId = ko.observable(0).extend({ required: true });
+    self.BuildingId = ko.observable(undefined).extend({ required: true });
+    self.Id = ko.observable(undefined).extend({ required: true });
+    self.CountryId = ko.observable(undefined).extend({ required: true });
+    self.StateId = ko.observable(undefined).extend({ required: true });
+    self.CityId = ko.observable(undefined).extend({ required: true });
 
     self.DataGrid = new RIT.eW.DataGridAjax('/Api/Gates/GetAllGate', 7);
     self.GetAllGateData = function () {
@@ -39,10 +39,10 @@
         self.DataGrid.GetData();
     }
     self.BuildingChanged = function () {
-        debugger;
+      //  debugger;
         if (self.BuildingId() != undefined && self.BuildingId() != 0) {
             AjaxCall('/Api/Gates/GetAllBuildingDetails?id=' + self.BuildingId(), null, 'GET', function (data) {
-                debugger;
+                //debugger;
                 self.CityName(data[0].CityMaster.LookUpValue);
                 self.CityId(data[0].CityMaster.Id);
 
@@ -76,7 +76,7 @@
         // }
     }
     self.EditGate = function (tableItem) {
-        debugger;
+        //debugger;;
         if (tableItem != undefined) {
             self.Id(tableItem.Id);
             self.GateNumber(tableItem.GateNumber);
@@ -104,7 +104,7 @@
         ApplyCustomBinding('gates');
     }
     self.SaveGate = function () {
-        debugger;
+        //debugger;;
         //if (self.errors().length > 0) {
         //    self.errors.showAllMessages(true);
         //    this.errors().forEach(function (data) {

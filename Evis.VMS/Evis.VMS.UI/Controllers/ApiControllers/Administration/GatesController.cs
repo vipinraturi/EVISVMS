@@ -118,7 +118,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 var GaterDelete = _genericService.GateMaster.GetAll().Where(x => x.Id == GateMaster.Id).FirstOrDefault();
                 if (GaterDelete != null)
                 {
-                    GateMaster.IsActive = false;
+                    GaterDelete.IsActive = false;
                     _genericService.GateMaster.Update(GaterDelete);
                     _genericService.Commit();
                     return new ReturnResult { Message = "Success", Success = true };

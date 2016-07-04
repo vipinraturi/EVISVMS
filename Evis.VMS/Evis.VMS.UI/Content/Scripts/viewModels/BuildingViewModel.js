@@ -24,10 +24,10 @@
     self.Address = ko.observable('').extend({ required: true });
     self.ZipCode = ko.observable('').extend({ required: true });
     self.Nationality = ko.observable('').extend({ required: true });
-    self.StateId = ko.observable(0).extend({ required: true });
-    self.CityId = ko.observable(0).extend({ required: true });
-    self.NationalityId = ko.observable(0).extend({ required: true });
-    self.OrganizationId = ko.observable(0).extend({ required: true });
+    self.StateId = ko.observable(undefined).extend({ required: true });
+    self.CityId = ko.observable(undefined).extend({ required: true });
+    self.NationalityId = ko.observable(undefined).extend({ required: true });
+    self.OrganizationId = ko.observable(undefined).extend({ required: true });
     self.GlobalSearch = ko.observable('');
     self.IsInsert = ko.observable(true);
 
@@ -56,7 +56,7 @@
     //})
     self.City = ko.observableArray();
     self.LoadCities = function () {
-        debugger;
+        //debugger;
         if (self.StateId() != undefined && self.StateId() != 0) {
             AjaxCall('/Api/Administration/GetAllStateOrCity?id=' + self.StateId(), null, 'GET', function (data) {
                 debugger;

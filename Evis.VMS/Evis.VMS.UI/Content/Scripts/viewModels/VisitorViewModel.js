@@ -5,11 +5,11 @@ function VisitorViewModel() {
     Id = ko.observable(0);
     VisitorName = ko.observable('').extend({ required: true });
     EmailAddress = ko.observable('').extend({ required: true, email: { message: "Invalid email" } });
-    Gender = ko.observable(-1).extend({ required: true });
+    Gender = ko.observable(undefined).extend({ required: true });
     DOB = ko.observable('').extend({ required: true });
-    TypeOfCard = ko.observable(-1).extend({ required: true });
+    TypeOfCard = ko.observable(undefined).extend({ required: true });
     IdNo = ko.observable('').extend({ required: true });
-    Nationality = ko.observable(-1).extend({ required: true });
+    Nationality = ko.observable(undefined).extend({ required: true });
     ContactNo = ko.observable('').extend({ required: true });
     ContactAddress = ko.observable('');
 

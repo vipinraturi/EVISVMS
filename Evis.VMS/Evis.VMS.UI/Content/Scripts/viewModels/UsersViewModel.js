@@ -10,10 +10,10 @@
     self.ContactNumber = ko.observable('').extend({ required: true, number: { message: "Numbers only" } });
     self.UserName = ko.observable('').extend({ required: true });
     self.RoleId = ko.observable('').extend({ required: true });
-    self.GenderId = ko.observable(0).extend({ required: true });
-    self.OrganizationId = ko.observable(0).extend({ required: true });
+    self.GenderId = ko.observable(undefined).extend({ required: true });
+    self.OrganizationId = ko.observable(undefined).extend({ required: true });
     self.RoleName = ko.observable('').extend({ required: true });
-    self.Nationality = ko.observable(0).extend({ required: true });
+    self.Nationality = ko.observable(undefined).extend({ required: true });
 
     self.GlobalSearch = ko.observable('');
 
