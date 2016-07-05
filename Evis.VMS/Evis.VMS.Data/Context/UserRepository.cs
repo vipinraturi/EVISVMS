@@ -64,7 +64,6 @@ namespace Evis.VMS.Data.Context
             user.TwoFactorEnabled = false;
             user.LockoutEnabled = false;
             user.AccessFailedCount = 0;
-            user.IsActive = true;
 
             await _userManager.CreateAsync(user, password);
         }

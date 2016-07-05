@@ -8,6 +8,7 @@
 
 using Evis.VMS.Business;
 using Evis.VMS.Data.Model.Entities;
+using Evis.VMS.UI.HelperClasses;
 using Evis.VMS.UI.ViewModel;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
@@ -79,6 +80,43 @@ namespace Evis.VMS.UI.Controllers
             }
         }
 
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<ActionResult> ResetPassword(string email, string activationId)
+        {
+            if (!string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(HttpUtility.UrlDecode(activationId)))
+            {
+                var user = await _userService.FindAsync(email, activationId);
+                if (user != null)
+                {
+                    ResetPasswordVM resetPasswordVM = new ResetPasswordVM();
+                    resetPasswordVM.UserId = user.Id;
+                    return View(resetPasswordVM);
+                }
+            }
+            return RedirectToAction("ForgotPassword", "");
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<ActionResult> ResetPassword(ResetPasswordVM resetPasswordVM)
+        {
+            if (!ModelState.IsValid)
+                return View(resetPasswordVM);
+
+            var user = await _userService.GetAsync(x => x.Id == resetPasswordVM.UserId);
+            if (user != null)
+            {
+                var passwordHash = new Microsoft.AspNet.Identity.PasswordHasher();
+                var hashedPassword = passwordHash.HashPassword(resetPasswordVM.NewPassword);
+                user.PasswordHash = hashedPassword;
+                user.IsActive = true;
+                await _userService.UpdateAsync(user, string.Empty);
+                return RedirectToAction("Login", "Account");
+            }
+            return null;
+        }
+
         public async Task<ActionResult> ForgotPassword(LoginVM loginVM, string returnUrl)
         {
             if (ModelState.ContainsKey("Password"))
@@ -89,19 +127,53 @@ namespace Evis.VMS.UI.Controllers
             if (!ModelState.IsValid)
                 return View("~/Views/Account/Login.cshtml", loginVM);
 
-            var user = await _userService.GetAsync(x => x.Email == loginVM.Email);
+            var user = await _userService.GetAsync(x => x.Email == loginVM.Email && x.IsActive == true);
             if (user == null)
             {
-                ModelState.AddModelError("errormessage", "Invalid email address");
-                //return View("Login");
-                //return View(loginVM);
+                ModelState.AddModelError("errormessage", "Invalid email address/user is inactive");
             }
             else
             {
+                string password = System.Web.Security.Membership.GeneratePassword(8, 0);
+                var passwordHash = new Microsoft.AspNet.Identity.PasswordHasher();
+                var hashedPassword = passwordHash.HashPassword(password);
+                user.PasswordHash = hashedPassword;
+                user.IsActive = false;
+                await _userService.UpdateAsync(user, string.Empty);
+
+                var callbackUrl = "http://localhost:22731/Account/ResetPassword?email=" + user.Email + "&activationId=" + HttpUtility.UrlEncode(password);
+
+                string body = "Dear " + user.FullName + ", <br/>Your password has been reset, click <a href=\"" + callbackUrl + "\">here</a> to reset the password.<br/>" +
+                    "<br/><br/>Regards,<br/>Administrator";
+                // Send email on account creation.
+                EmailHelper.SendMail(user.Email, "Reset Password", body);
+
                 ModelState.AddModelError("errormessage", "Log in using the password which is to your email address");
             }
             return View("Login");
         }
+
+
+
+        public async Task<ActionResult> ConfirmEmail(string activationCode, string email)
+        {
+            if (!string.IsNullOrEmpty(activationCode))
+            {
+                var user = await _userService.GetAsync(x => x.Email == email && x.SecurityStamp == activationCode);
+                if (user != null)
+                {
+                    user.IsActive = true;
+                    user.SecurityStamp = Guid.NewGuid().ToString();
+                    await _userService.UpdateAsync(user, string.Empty);
+                    var callbackUrl = "http://localhost:22731/Account/Login";
+                    ModelState.AddModelError("authstatusmessage", "User is activated please click <a href=\"" + callbackUrl + "\">here</a> to login");
+                    return View();
+                }
+            }
+            ModelState.AddModelError("authstatusmessage", "Problem in activating user, please try again or contact to admin");
+            return View();
+        }
+
 
         [Authorize]
         public async Task<ActionResult> ChangePassword(ChangePasswordVM changePasswordVM)
@@ -173,5 +245,5 @@ namespace Evis.VMS.UI.Controllers
         }
 
     }
-    
+
 }

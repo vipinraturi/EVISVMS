@@ -19,6 +19,13 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 {
     public partial class AdministrationController 
     {
-        
+        [Route("~/Api/ShiftAssignment/GetAllShiftAssignment")]
+        [HttpGet]
+        public IEnumerable<GeneralDropDownVM> GetAllShiftAssignment()
+        {
+            var result = _genericService.GateMaster.GetAll().Where(x => x.IsActive == true)
+                .Select(y => new GeneralDropDownVM { Id = y.Id, Name = y.GateNumber });
+            return result;
+        }
     }
 }

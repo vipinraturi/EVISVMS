@@ -118,13 +118,22 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             if (usersVM != null && string.IsNullOrEmpty(usersVM.UserId))
             {
                 ApplicationUser user = new ApplicationUser();
+                string password = System.Web.Security.Membership.GeneratePassword(8, 0);
                 user.OrganizationId = usersVM.OrganizationId;
                 user.FullName = usersVM.FullName;
                 user.Email = user.UserName = usersVM.Email;
                 user.PhoneNumber = usersVM.ContactNumber;
                 user.GenderId = usersVM.GenderId;
                 user.Nationality = usersVM.Nationality;
-                await _userService.InsertAsync(user, "password", usersVM.RoleId);
+                await _userService.InsertAsync(user, password, usersVM.RoleId);
+
+                var callbackUrl = "http://localhost:22731/Account/ConfirmEmail?activationCode=" + user.SecurityStamp + "&email=" + user.Email;
+
+                string body = "Dear " + user.FullName + ", <br/>Your account has been created, click <a href=\"" + callbackUrl + "\">here</a> to activate the account.<br/>" +
+                    "Use the below credentials after successfull activation <br/>UserName: " + user.Email + " <br/> " +
+                    "Password: " + password + "<br/><br/>Regards,<br/>Administrator";
+                // Send email on account creation.
+                EmailHelper.SendMail(user.Email, "User Created", body);
             }
             else
             {

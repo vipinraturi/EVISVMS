@@ -84,7 +84,7 @@
                     </div>
 
                     <div class="form-group col-md-9 col-sm-9 col-xs-12">
-                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Full Name <span class="mandatoryField">*</span></label>
+                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Full Name: <span class="mandatoryField">*</span></label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
                             <input id="txtFirstName" type="text" maxlength="50" class="form-control" placeholder="Full Name" data-bind="value: FullName" />
                             <span class="fa fa-user favwhite form-control-feedback right" aria-hidden="true"></span>
@@ -92,15 +92,22 @@
                     </div>
 
                     <div class="form-group col-md-9 col-sm-9 col-xs-12">
-                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Email Id <span class="mandatoryField">*</span></label>
+                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Gender: <span class="mandatoryField">*</span></label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
+                            <select class="form-control" data-bind="options: Genders, optionsText: 'Name', optionsValue: 'Id', value: GenderId, optionsCaption: '-- Select --'"></select>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Email Id: <span class="mandatoryField">*</span></label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
                             <input id="txtEmailId" type="text" maxlength="50" class="form-control" placeholder="Email Id" data-bind="value: Email" />
                             <span class="fa fa-envelope-o favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
 
                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact No. <span class="mandatoryField">*</span></label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact No: <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
                             <input id="txtContactNo" type="text" maxlength="15" class="form-control" placeholder="Contact No" data-bind="value: ContactNumber" />
                             <span class="fa fa-phone favwhite form-control-feedback right" aria-hidden="true"></span>
@@ -108,32 +115,14 @@
                     </div>
 
                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Gender <span class="mandatoryField">*</span></label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Role: <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            @*<select id="DDBGender" class="form-control" >
-                                    <option value="0">-- Select --</option>
-                                    <option value="1">Male</option>
-                                    <option value="2">Female</option>
-                                    <option value="3">other</option>
-                                </select>*@
-                            <select class="form-control" data-bind="options: Genders, optionsText: 'Name', optionsValue: 'Id', value: GenderId, optionsCaption: '-- Select --'"></select>
-                        </div>
-                    </div>
-
-                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Role <span class="mandatoryField">*</span></label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                            @*<select id="DDBRole" class="form-control"  >
-                                    <option value="0">-- Select --</option>
-                                    <option value="1">Supervisor</option>
-                                    <option value="2">Security</option>
-                                </select>*@
                             <select class="form-control" data-bind="options: Roles, optionsText: 'Name', optionsValue: 'Id', value: RoleId, optionsCaption: '-- Select --'"></select>
                         </div>
                     </div>
 
                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Nationality <span class="mandatoryField">*</span></label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Nationality: <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
                             <select class="form-control" data-bind="options: Countries, optionsText: 'Name', optionsValue: 'Id', value: Nationality, optionsCaption: '-- Select --'"></select>
                         </div>

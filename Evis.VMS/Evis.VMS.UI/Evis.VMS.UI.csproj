@@ -210,6 +210,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="HelperClasses\BuildingHelper.cs" />
+    <Compile Include="HelperClasses\EmailHelper.cs" />
     <Compile Include="HelperClasses\GatesHelper.cs" />
     <Compile Include="HelperClasses\MyProfileHelper.cs" />
     <Compile Include="HelperClasses\ShiftAssignmentHelper.cs" />
@@ -228,6 +229,7 @@
     <Compile Include="ViewModel\LoginVM.cs" />
     <Compile Include="ViewModel\LookUpType.cs" />
     <Compile Include="ViewModel\MyOrganizationVM.cs" />
+    <Compile Include="ViewModel\ResetPasswordVM.cs" />
     <Compile Include="ViewModel\VisitorCheckInCheckOutVM.cs" />
     <Compile Include="ViewModel\VisitorDetailsVM.cs" />
     <Compile Include="ViewModel\DashboardVM.cs" />
@@ -441,6 +443,8 @@
     <None Include="Properties\PublishProfiles\SGHVMS.pubxml" />
     <Content Include="Views\Administration\_MyOrganization.cshtml" />
     <Content Include="Views\Administration\_ChangePassword.cshtml" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

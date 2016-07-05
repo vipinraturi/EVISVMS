@@ -99,12 +99,6 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             if (Id != 0)
             {
                 var result = _genericService.BuildingMaster.GetAll().Where(x => x.Id == Id && x.Organization.IsActive == true && x.IsActive == true).ToList();
-                 //.Select(x => new GeneralDropDownVM
-                 //{
-                 //    Name = x.CityMaster.LookUpValue,
-                 //    Id = x.CityId
-                 //})
-                 //.ToList();
                 return result;
             }
             return null;

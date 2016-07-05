@@ -68,6 +68,7 @@
     }
 
     self.SaveUser = function () {
+        debugger;
         if (self.errors().length > 0) {
             self.errors.showAllMessages(true);
             this.errors().forEach(function (data) {
