@@ -166,11 +166,13 @@ namespace Evis.VMS.UI.Controllers
                     user.SecurityStamp = Guid.NewGuid().ToString();
                     await _userService.UpdateAsync(user, string.Empty);
                     var callbackUrl = "http://localhost:22731/Account/Login";
-                    ModelState.AddModelError("authstatusmessage", "User is activated please click <a href=\"" + callbackUrl + "\">here</a> to login");
+                    ViewBag.Message = "<p>User is activated please click <a href=\"" + callbackUrl + "\">here</a> to login.</p>";
                     return View();
                 }
+                ViewBag.Message = "<p>This activation code is already used/invalid!</p>";
+                return View();
             }
-            ModelState.AddModelError("authstatusmessage", "Problem in activating user, please try again or contact to admin");
+            ViewBag.Message = "<p>Problem in activating user, please try again or contact to admin.</p>";
             return View();
         }
 

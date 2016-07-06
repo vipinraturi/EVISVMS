@@ -5,7 +5,7 @@
 
 <h2>Email is confirmed</h2>
 
-@Html.ValidationMessage("authstatusmessage", new { @class = "error" })
+@Html.Raw(ViewBag.Message)
 
 
 
