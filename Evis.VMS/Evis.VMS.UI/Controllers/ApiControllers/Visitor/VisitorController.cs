@@ -36,8 +36,22 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         [HttpPost]
         public ReturnResult SaveVisitor([FromBody] VisitorDetailsVM visitorDetailsVM)
         {
-            var result = _visitorHelper.SaveVisitor(visitorDetailsVM);
-            return new ReturnResult { Message = (result == true ? "Success" : "Failure"), Success = (result == true ? true : false) };
+
+            var isVisitorExisit = false;
+            var result = false;
+
+            if (visitorDetailsVM.IsInsert)
+            {
+                isVisitorExisit = _visitorHelper.IsVisitorExist(visitorDetailsVM);                
+            }
+
+            if (!isVisitorExisit)
+            {
+                result = _visitorHelper.SaveVisitor(visitorDetailsVM);
+                return new ReturnResult { Message = "Success" , Success = true  };
+            }
+
+            return new ReturnResult { Message = "Failure", Success =  false };
         }
 
         [Route("~/Api/Visitor/GetVisitorData")]

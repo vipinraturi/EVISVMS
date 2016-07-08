@@ -47,46 +47,7 @@
             </div>
         </div>
     </div>
-    @*<div class="col-md-6 col-xs-12">
-        <div class="x_panel" style="height: 400px;">
-            <div class="x_title">
-                <h2>Visitor's Document</h2>
-                <div class="clearfix"></div>
-            </div>
-            <div class="x_content">
-               
-
-                <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)" style="text-align:center">
-                    Drag & Drop Here
-                    <br />
-                    Upload
-                </div>
-                <div class="col-sm-6">
-                    <div class="profile_img">
-                        <!-- end of image cropping -->
-                        <div id="crop-avatar">
-                            <!-- Current avatar -->
-                            <img class="img-responsive avatar-view" src="../images/picture.jpg" alt="Avatar" title="Change the avatar" >
-                           
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="profile_img">
-                        <!-- end of image cropping -->
-                        <div id="crop-avatar">
-                            <!-- Current avatar -->
-                            <img class="img-responsive avatar-view" src="../images/picture.jpg" alt="Avatar" title="Change the avatar" data-toggle="modal" data-target="#avatar-modal">
-                        </div>
-                        <!-- end of image cropping -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>*@
-
-
-
+   
     <div class="col-md-6 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
@@ -98,7 +59,7 @@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Visitor's Name</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtFirstName" readonly="readonly" type="text" class="form-control" placeholder="Anith Raj"   />
+                            <input id="txtFirstName" readonly="readonly" type="text" class="form-control" placeholder="Visitor Name" data-bind="value: VisitorName" />
                             <span class="fa fa-user favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
@@ -106,31 +67,35 @@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Gender</label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
-                                <input id="" readonly="readonly" type="text" class="form-control" placeholder="Male"  />
+                                <input id="" readonly="readonly" type="text" class="form-control" placeholder="Male" data-bind="value: Gender" />
                                 <span class="fa fa-mars favwhite form-control-feedback right" aria-hidden="true"></span>
                             </div>
                     </div>
-
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Date Of Birth</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="" readonly="readonly" type="text" class="form-control" placeholder="10th July 1989" />
+                            <input id="" readonly="readonly" type="text" class="form-control" placeholder="10/06/1989" data-bind="value: DOB" />
                             <span class="fa fa-calendar favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
-
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">ID Number</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Type Of Card</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="" readonly="readonly" type="text" class="form-control" placeholder="XXX-999-000-111" />
+                            <input id="" readonly="readonly" type="text" class="form-control" placeholder="Emirates Id" data-bind="value: TypeOfCard" />
                             <span class="fa fa-simplybuilt favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
-
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">ID Number</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input id="" readonly="readonly" type="text" class="form-control" placeholder="XXX-999-000-111" data-bind="value: IdNumber" />
+                            <span class="fa fa-simplybuilt favwhite form-control-feedback right" aria-hidden="true"></span>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Nationality</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="" readonly="readonly" type="text" class="form-control" placeholder="Indian" />
+                            <input id="" readonly="readonly" type="text" class="form-control" placeholder="Indian" data-bind="value: Nationality" />
                             <span class="fa fa-flag favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>

@@ -35,5 +35,7 @@ namespace Evis.VMS.UI.ViewModel
         public string ContactAddress { get; set; }
 
         public bool IsInsert { get; set; }
+
+
     }
 }

@@ -1,7 +1,9 @@
 ﻿
+
 ApplyCustomBinding = function (elementName) {
     //debugger;
 
+    //debugger;
     //alert($('.loader-div').length);
     $('.loader-div').show();
     switch (elementName) {
@@ -39,10 +41,13 @@ ApplyCustomBinding = function (elementName) {
             break;
         //Visitor module  
         case 'scanvisitor':
+            //debugger;
             BindingViewModel("/Visitor/_ScanVisitor", ScanVisitorViewModel());
             break;
         case 'managevisitor':
-            BindingViewModel("/Visitor/_ManageVisitorManually", VisitorViewModel());
+            var scanVisitorViewModel = ScanVisitorViewModel();
+            //debugger;
+            BindingViewModel("/Visitor/_ManageVisitorManually", VisitorViewModel(scanVisitorViewModel.split('_')[0], scanVisitorViewModel.split('_')[1], scanVisitorViewModel.split('_')[2], scanVisitorViewModel.split('_')[3], scanVisitorViewModel.split('_')[4], scanVisitorViewModel.split('_')[5]));
             break;
         case 'visitorcheckin':
             BindingViewModel("/Visitor/_VisitorCheckInCheckout", VisitorCheckInCheckOutViewModel());

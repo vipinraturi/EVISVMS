@@ -1,7 +1,7 @@
 ﻿<script src="@Url.Content("~/Content/Scripts/plugins/Webcam_Plugin/jquery.webcam.js")">
 
 </script>
-<script>
+@*<script>
     $("#Camera").webcam({
         width: 320,
         height: 240,
@@ -23,7 +23,7 @@
 
 <input type="button" value="Shoot!" onclick="webcam.capture();" />
 <div id="Camera"></div>
-<img id="webCamImage" />
+<img id="webCamImage" />*@
 
 <ol class="breadcrumb">
     <li><a href="#" class="a-color">Visitor Management</a></li>
@@ -86,7 +86,9 @@
                     </div>
                     <div class="form-group col-md-9 col-sm-9 col-xs-12">
                         <label class=" control-label col-md-4 col-sm-4 col-xs-12">
-                            Visitor's Name
+                            Visitor's Name 
+
+
                         </label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
                             <input id="txtFirstName" type="text" data-bind="value: VisitorName" class="form-control" placeholder="Visitor Name" />
@@ -95,7 +97,7 @@
                     </div>
                     <div class="form-group col-md-9 col-sm-9 col-xs-12">
                         <label class=" control-label col-md-4 col-sm-4 col-xs-12">
-                            Email Address
+                            Email Address <span class="mandatoryField">*</span>
                         </label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
                             <input id="txtFirstName" type="text" data-bind="value: EmailAddress" class="form-control" placeholder="email@domain.com" />
@@ -103,7 +105,7 @@
                         </div>
                     </div>
                     <div class="form-group col-md-9 col-sm-9 col-xs-12">
-                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Gender</label>
+                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Gender <span class="mandatoryField">*</span></label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
                             <select class="form-control" data-bind="options: Genders,
                                optionsText: function(item) {
@@ -115,9 +117,9 @@
                         </div>
                     </div>
                     <div class="form-group col-md-9 col-sm-9 col-xs-12">
-                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Date Of Birth</label>
+                        <label class="control-label col-md-4 col-sm-4 col-xs-12">Date Of Birth <span class="mandatoryField">*</span></label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                            <input id="dateDOB" type="text" data-bind="value: DOB" class="form-control" placeholder="Date Of Birth" />
+                            <input id="dateDOB" type="text" class="form-control" placeholder="Date Of Birth" data-bind="value: DOB" />
                             <span class="fa fa-calendar favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
@@ -129,19 +131,19 @@
                                    return item.LookUpValue
                                },
                                optionsValue: 'Id',
-                               value: TypeOfCard,
+                               value: TypeOfCardValue,
                                optionsCaption: 'Select'"></select>
                         </div>
                     </div>
                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">ID Number</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">ID Number <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
                             <input id="" type="text" data-bind="value: IdNo" class="form-control" placeholder="XXX-XXX-XXX-XXXX" />
                             <span class="fa fa-simplybuilt favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Nationality</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Nationality <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
                             <select class="form-control" data-bind="options: Nationalities,
                                optionsText: function(item) {
@@ -162,16 +164,17 @@
                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Address</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <textarea id="txtAddress" class="form-control" data-bind="value: ContactAddress" rows="3" placeholder="Contact Address" style="resize: none;"></textarea>
+                            <textarea id="txtAddress" class="form-control" data-bind="text: ContactAddress" rows="3" placeholder="Contact Address" style="resize: none;"></textarea>
                             <span class="fa fa-home favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                         <div class="col-md-offset-7">
-                            <button type="button" class="btn btn-success pull-right" data-bind="click: SaveVisitor.bind()">
+                            <button type="button" class="btn btn-success pull-right" style="margin:5px !important;" data-bind="click: SaveVisitor.bind()">
                                 Save <i class="fa fa-save"></i>
                             </button>
-                            <button type="button" class="btn btn-primary pull-right" data-bind="click: ResetVisitor.bind()">
+                            
+                            <button type="button" class="btn btn-primary pull-right" style="margin:5px !important;"  data-bind="click: ResetVisitor.bind()">
                                 Reset
                                 <i class="fa fa-refresh"></i>
                             </button>

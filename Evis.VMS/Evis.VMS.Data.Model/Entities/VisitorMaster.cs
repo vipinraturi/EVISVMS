@@ -9,12 +9,10 @@ namespace Evis.VMS.Data.Model.Entities
         public VisitorMaster() { }
 
         [Required]
-        [MaxLength(50)]
-        public string FirstName { get; set; }
+        [MaxLength(100)]
+        public string VisitorName { get; set; }
 
-        [MaxLength(50)]
-        public string LastName { get; set; }
-
+       
         [Required]
         public int GenderId { get; set; }
 

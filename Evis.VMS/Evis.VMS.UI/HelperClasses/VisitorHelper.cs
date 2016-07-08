@@ -30,7 +30,7 @@ namespace Evis.VMS.UI.HelperClasses
                                                         .Select(item => new VisitorDetailsVM
                                                         {
                                                             Id = item.Id,
-                                                            VisitorName = item.FirstName + " " + item.LastName,
+                                                            VisitorName = item.VisitorName,
                                                             ContactAddress = item.Address,
                                                             ContactNo = item.ContactNo,
                                                             DOB = item.DOB ?? DateTime.MinValue,
@@ -46,23 +46,50 @@ namespace Evis.VMS.UI.HelperClasses
 
         public bool SaveVisitor(VisitorDetailsVM visitorDetailsVM)
         {
-            _genericService
-                .VisitorMaster.Insert(new Data.Model.Entities.VisitorMaster
+            if (visitorDetailsVM.IsInsert)
+            {
+                _genericService
+                    .VisitorMaster.Insert(new Data.Model.Entities.VisitorMaster
+                    {
+                        ContactNo = visitorDetailsVM.ContactNo,
+                        CreatedBy = null,
+                        CreatedDate = DateTime.UtcNow,
+                        DOB = visitorDetailsVM.DOB,
+                        EmailId = visitorDetailsVM.EmailAddress,
+                        VisitorName = visitorDetailsVM.VisitorName,
+                        Nationality = visitorDetailsVM.Nationality,
+                        UpdatedBy = null,
+                        UpdatedDate = DateTime.Now,
+                        GenderId = visitorDetailsVM.Gender,
+                        TypeOfCardId = visitorDetailsVM.TypeOfCard,
+                        IdNo = visitorDetailsVM.IdNo,
+                        Address = visitorDetailsVM.ContactAddress
+                    });
+                _genericService.Commit();     
+            }
+            else
+            {
+                var visitor = 
+                    _genericService.VisitorMaster.GetAll()
+                    .Where(item => item.EmailId == visitorDetailsVM.EmailAddress)
+                    .FirstOrDefault();
+
+                if (visitor != null)
                 {
-                    ContactNo = visitorDetailsVM.ContactNo,
-                    CreatedBy = null,
-                    CreatedDate = DateTime.UtcNow,
-                    DOB = visitorDetailsVM.DOB,
-                    EmailId = visitorDetailsVM.EmailAddress,
-                    FirstName = visitorDetailsVM.VisitorName,
-                    LastName = visitorDetailsVM.VisitorName,
-                    Nationality = visitorDetailsVM.Nationality,
-                    UpdatedBy = null,
-                    UpdatedDate = DateTime.Now,
-                    GenderId = visitorDetailsVM.Gender,
-                    TypeOfCardId = visitorDetailsVM.TypeOfCard
-                });
-            _genericService.Commit();
+                    visitor.ContactNo = visitorDetailsVM.ContactNo;
+                    visitor.DOB = visitorDetailsVM.DOB;
+                    visitor.EmailId = visitorDetailsVM.EmailAddress;
+                    visitor.VisitorName = visitorDetailsVM.VisitorName;
+                    visitor.Nationality = visitorDetailsVM.Nationality;
+                    visitor.GenderId = visitorDetailsVM.Gender;
+                    visitor.TypeOfCardId = visitorDetailsVM.TypeOfCard;
+                    visitor.IdNo = visitorDetailsVM.IdNo;
+                    visitor.Address = visitorDetailsVM.ContactAddress;
+                    _genericService.VisitorMaster.Update(visitor);
+                    _genericService.Commit();
+                }
+            }
+           
             return true;
         }
 
@@ -81,5 +108,12 @@ namespace Evis.VMS.UI.HelperClasses
             return false;
         }
 
+
+        public bool IsVisitorExist(VisitorDetailsVM visitorDetailsVM)
+        {
+            var visitor = _genericService.VisitorMaster.GetAll().Where(item => item.EmailId == visitorDetailsVM.EmailAddress).FirstOrDefault();
+
+            return visitor == null ? false : true;
+        }
     }
 }

@@ -1,6 +1,8 @@
 ﻿@{
     ViewBag.Title = "_Layout";
 }
+@using Microsoft.AspNet.Identity;
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -79,7 +81,6 @@
                                         <li id="newuser"><a href="javascript:void(0)">Users</a></li>
                                         <li id="newshiftcreate"><a href="javascript:void(0)">New Shifts</a></li>
                                         <li id="shiftassignment"><a href="javascript:void(0)">Shift Assignment</a></li>
-                                        <li id="themeSelection"><a href="javascript:void(0)">Theme Selection</a></li>
                                     </ul>
                                 </li>
                                 <li>
@@ -117,13 +118,14 @@
                         <ul class="nav navbar-nav navbar-right">
                             <li class="">
                                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                    <img src="~/images/avatar.jpg" alt="">Tintu John
+                                    <img src="~/images/avatar.jpg" alt="">@HttpContext.Current.User.Identity.GetUserName()
                                     <span style="padding-left: 5px;" class=" fa fa-angle-down"></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
                                     <li class="myprofile"><a href="#">My Profile</a></li>
                                     <li class="changepassword"><a href="#">My Profile</a></li>
                                     <li class="myorganization"><a href="#">My Organization</a></li>
+                                    <li class="themeSelection"><a href="#">Theme Selection</a></li>
                                     <li><a href="/Account/LogOut"><i class="fa fa-sign-out pull-right"></i>Log Out</a></li>
                                 </ul>
                             </li>

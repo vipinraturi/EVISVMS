@@ -1,15 +1,21 @@
 ﻿
-function VisitorViewModel() {
+function VisitorViewModel(visitorName, gender, nationality, DOB, typeOfCard, idNumber, nationality) {
+
+    nationality = (nationality != "" ? nationality : undefined);
+    typeOfCard = (typeOfCard != "" ? typeOfCard : undefined);
+    gender = (gender != "" ? gender : undefined);
+
+    //debugger;
 
     var self = this;
     Id = ko.observable(0);
-    VisitorName = ko.observable('').extend({ required: true });
+    VisitorName = ko.observable(visitorName).extend({ required: true });
     EmailAddress = ko.observable('').extend({ required: true, email: { message: "Invalid email" } });
-    Gender = ko.observable(undefined).extend({ required: true });
-    DOB = ko.observable('').extend({ required: true });
-    TypeOfCard = ko.observable(undefined).extend({ required: true });
-    IdNo = ko.observable('').extend({ required: true });
-    Nationality = ko.observable(undefined).extend({ required: true });
+    Gender = ko.observable(gender).extend({ required: true });
+    DOB = ko.observable(DOB).extend({ required: true });
+    TypeOfCardValue  = ko.observable(typeOfCard).extend({ required: true });
+    IdNo = ko.observable(idNumber).extend({ required: true });
+    Nationality = ko.observable(nationality).extend({ required: true });
     ContactNo = ko.observable('').extend({ required: true });
     ContactAddress = ko.observable('');
 
@@ -19,6 +25,17 @@ function VisitorViewModel() {
     self.Genders = ko.observableArray();
     self.TypeOfCards = ko.observableArray();
     self.Nationalities = ko.observableArray();
+    self.errors = ko.validation.group({
+        VisitorName: this.VisitorName,
+        EmailAddress: this.EmailAddress,
+        Gender: this.Gender,
+        DOB: this.DOB,
+        TypeOfCardValue: this.TypeOfCardValue,
+        IdNo: this.IdNo,
+        Nationality: this.Nationality,
+        ContactNo: this.ContactNo
+        });
+
 
     //[
     // { Text: 'Indian', Id: 1 },
@@ -29,7 +46,6 @@ function VisitorViewModel() {
     self.DataGrid = new RIT.eW.DataGridAjax('/Api/Visitor/GetVisitorData', 7);
 
     self.VisitorList = ko.observableArray([]);
-    self.errors = ko.validation.group(self);
 
     self.GetAllVisitor = function () {
         self.DataGrid.UpdateSearchParam('?globalSearch=' + self.GlobalSearch());
@@ -61,11 +77,12 @@ function VisitorViewModel() {
     }
 
     self.SaveVisitor = function () {
+        //alert(self.errors().length);
         //debugger;
         if (self.errors().length > 0) {
             self.errors.showAllMessages(true);
             this.errors().forEach(function (data) {
-                //toastr.warning(data);
+                toastr.warning(data);
             });
         }
         else {
@@ -76,7 +93,7 @@ function VisitorViewModel() {
             data.EmailAddress = self.EmailAddress(),
             data.Gender = self.Gender(),
             data.DOB = self.DOB(),
-            data.TypeOfCard = self.TypeOfCard(),
+            data.TypeOfCard = self.TypeOfCardValue(),
             data.IdNo = self.IdNo(),
             data.Nationality = self.Nationality()
             data.ContactNo = self.ContactNo()
@@ -84,10 +101,15 @@ function VisitorViewModel() {
             data.IsInsert = self.IsInsert();
 
             //// display any error messages if we have them
-            AjaxCall('/Api/Visitor/SaveVisitor', data, 'POST', function () {
-                toastr.success('Visitor saved successfully!!')
-                ApplyCustomBinding('managevisitor');
-                self.IsInsert(true);
+            AjaxCall('/Api/Visitor/SaveVisitor', data, 'POST', function (result) {
+                if (result.Success) {
+                    toastr.success('Visitor saved successfully!!')
+                    ApplyCustomBinding('managevisitor');
+                    self.IsInsert(true);
+                }
+                else {
+                    toastr.warning('Visitor email already exist!!')
+                }
             })
         }
     }
@@ -96,12 +118,12 @@ function VisitorViewModel() {
         self.IsInsert(true);
         self.GlobalSearch('');
         self.VisitorName('');
-        self.Gender(-1);
+        self.Gender(undefined);
         self.DOB('');
-        self.TypeOfCard(-1);
+        self.TypeOfCardValue(undefined);
         self.IdNo('');
         self.EmailAddress('');
-        self.Nationality(-1);
+        self.Nationality(undefined);
         self.ContactNo('');
         self.ContactAddress('');
         ApplyCustomBinding('managevisitor');
@@ -125,7 +147,7 @@ function VisitorViewModel() {
             self.EmailAddress(tableItem.EmailAddress);
             self.Gender(tableItem.Gender);
             self.DOB(tableItem.DOB);
-            self.TypeOfCard(tableItem.TypeOfCard);
+            self.TypeOfCardValue(tableItem.TypeOfCard);
             self.IdNo(tableItem.IdNo);
             self.Nationality(tableItem.Nationality);
             self.ContactNo(tableItem.ContactNo);
