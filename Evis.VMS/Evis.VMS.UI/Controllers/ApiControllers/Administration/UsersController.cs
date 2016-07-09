@@ -54,7 +54,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         public async Task<string> GetUsersData(string globalSearch, int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC")
         {
             var getUsers = await _userService.GetAllAsync();
-            var usersList = getUsers.Where(x => x.IsActive == true && x.Organization.IsActive == true).ToList();
+            var usersList = getUsers.Where(x => x.Organization.IsActive == true).ToList();
 
             var getRoles = await _applicationRoleService.GetAllAsync();
             var rolesList = getRoles.ToList();
@@ -162,8 +162,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 var existingUser = await _userService.GetAsync(x => x.Id == usersVM.UserId);
                 if (existingUser != null)
                 {
-                    existingUser.IsActive = false;
-                    await _userService.UpdateAsync(existingUser, string.Empty);
+                    //existingUser.IsActive = false;
+                    await _userService.DeleteAsync(existingUser);
                     _genericService.Commit();
                     return new ReturnResult { Message = "Success", Success = true };
                 }

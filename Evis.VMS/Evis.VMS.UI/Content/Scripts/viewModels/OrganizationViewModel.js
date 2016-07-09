@@ -71,7 +71,7 @@ function OrganizationViewModel() {
     self.DataGrid = new RIT.eW.DataGridAjax('/Api/Administration/GetOrganizationsData', 7);
 
     self.OrganizationList = ko.observableArray([]);
-    self.errors = ko.validation.group(self);
+    self.organizationErrors = ko.validation.group(self);
 
     self.GetAllOrganizations = function () {
 
@@ -80,9 +80,9 @@ function OrganizationViewModel() {
     }
 
     self.SaveOrganization = function () {
-        if (self.errors().length > 0) {
-            self.errors.showAllMessages(true);
-            this.errors().forEach(function (data) {
+        if (self.organizationErrors().length > 0) {
+            self.organizationErrors.showAllMessages(true);
+            this.organizationErrors().forEach(function (data) {
                 //toastr.warning(data);
             });
         }
@@ -99,7 +99,7 @@ function OrganizationViewModel() {
             data.ZipCode = self.ZipCode(),
             data.WebSite = self.WebSite()
             data.IsInsert = self.IsInsert();
-
+            ResetOrganization();
             //// display any error messages if we have them
             AjaxCall('/Api/Administration/SaveOrganization', data, 'POST', function () {
                 toastr.success('Organization saved successfully!!')
@@ -126,9 +126,15 @@ function OrganizationViewModel() {
     self.DeleteOrganization = function (tableItem) {
         var message = confirm("Are you sure, you want to delete selected record!");
         if (message == true) {
-            AjaxCall('/Api/Administration/DeleteOrganization', tableItem, 'POST', function () {
-                toastr.success('Organization deleted successfully!!')
-                ApplyCustomBinding('organization');
+            AjaxCall('/Api/Administration/DeleteOrganization', tableItem, 'POST', function (data) {
+                //debugger;
+                if (data.Success == true) {
+                    toastr.success(data.Message);
+                    ApplyCustomBinding('organization');
+                }
+                else if (data.Success == false) {
+                    toastr.success(data.Message);
+                }
             });
         }
     }

@@ -51,7 +51,7 @@
     self.DataGrid = new RIT.eW.DataGridAjax('/Api/Users/GetUsersData', 7);
 
     self.UsersList = ko.observableArray([]);
-    self.errors = ko.validation.group(self);
+    self.userErrors = ko.validation.group(self);
 
     self.GetAllUsers = function () {
         self.DataGrid.UpdateSearchParam('?globalSearch=' + self.GlobalSearch());
@@ -68,16 +68,16 @@
     }
 
     self.SaveUser = function () {
-        debugger;
-        if (self.errors().length > 0) {
-            self.errors.showAllMessages(true);
-            this.errors().forEach(function (data) {
+        //debugger;
+        if (self.userErrors().length > 0) {
+            self.userErrors.showAllMessages(true);
+            this.userErrors().forEach(function (data) {
                 //toastr.warning(data);
             });
         }
         else {
             var data = new Object();
-            //debugger;)
+            //debugger;
             data.UserId = self.UserId(),
             data.OrganizationId = self.OrganizationId(),
             data.FullName = self.FullName(),
@@ -86,7 +86,7 @@
             data.GenderId = self.GenderId(),
             data.Nationality = self.Nationality(),
             data.RoleId = self.RoleId();
-
+            ResetUser();
             //// display any error messages if we have them
             AjaxCall('/Api/Users/SaveUser', data, 'POST', function () {
                 toastr.success('User saved successfully!!')
@@ -123,7 +123,7 @@
         self.FullName('');
         self.Email('');
         self.GenderId(0);
-        self.UserName('');
+        //self.UserName('');
         self.RoleId('');
         self.GlobalSearch('');
         self.OrganizationId(0);

@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace Evis.VMS.UI.Controllers.ApiControllers
@@ -100,20 +101,25 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
         [Route("~/Api/Administration/DeleteOrganization")]
         [HttpPost]
-        public ReturnResult DeleteOrganization([FromBody] Organization organization)
+        public async Task<ReturnResult> DeleteOrganization([FromBody] Organization organization)
         {
             if (organization != null)
             {
                 var orgToDelete = _genericService.Organization.GetAll().Where(x => x.Id == organization.Id).FirstOrDefault();
                 if (orgToDelete != null)
                 {
-                    orgToDelete.IsActive = false;
-                    _genericService.Organization.Update(orgToDelete);
+                    if ((_genericService.BuildingMaster.SearchFor(x => x.OrganizationId == organization.Id).Any()) ||
+                        (await _userService.GetManyAsync(x => x.OrganizationId != null && x.OrganizationId == organization.Id)).Any())
+                    {
+                        return new ReturnResult { Message = "Please first delete all the users, buildings, and gates under this organization", Success = false };
+                    }
+                    //orgToDelete.IsActive = false;
+                    _genericService.Organization.Delete(orgToDelete);
                     _genericService.Commit();
-                    return new ReturnResult { Message = "Success", Success = true };
+                    return new ReturnResult { Message = "Organization deleted successfully", Success = true };
                 }
             }
-            return new ReturnResult { Message = "Failure", Success = false };
+            return new ReturnResult { Message = "Error in deleting the organization", Success = false };
         }
 
         [Route("~/Api/Administration/GetOrganization")]
