@@ -5164,6 +5164,12 @@ ul.notifications {
 }
 
 
+.dropzone-avatar .dz-preview .dz-image {
+    min-height: 160px;
+    border: 1px solid #e5e5e5;
+    align-content:center;
+}
+
 
 
 /*ANITH ADDED NEW STYLE START*/

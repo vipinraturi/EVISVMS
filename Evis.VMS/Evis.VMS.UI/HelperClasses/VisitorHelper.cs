@@ -8,6 +8,7 @@
 
 using Evis.VMS.Business;
 using Evis.VMS.UI.ViewModel;
+using Evis.VMS.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,10 +24,17 @@ namespace Evis.VMS.UI.HelperClasses
             _genericService = new GenericService();
         }
 
-        public IList<VisitorDetailsVM> GetAllVisitorsData(string globalSearch, int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC")
+        public IList<VisitorDetailsVM> GetAllVisitorsData(string globalSearch, int pageIndex, int pageSize, string sortField, string sortOrder, out int totalCount)
         {
 
-            var lstVisitors = _genericService.VisitorMaster.GetAll()
+            var qryVisitors = _genericService.VisitorMaster.GetAll()
+                                                        .Where(item =>
+                                                            item.Address.Contains(globalSearch) ||
+                                                            item.ContactNo.Contains(globalSearch) ||
+                                                            item.EmailId.Contains(globalSearch) ||
+                                                            item.IdNo.Contains(globalSearch) ||
+                                                            item.VisitorName.Contains(globalSearch)
+                                                        )
                                                         .Select(item => new VisitorDetailsVM
                                                         {
                                                             Id = item.Id,
@@ -39,9 +47,24 @@ namespace Evis.VMS.UI.HelperClasses
                                                             IdNo = item.IdNo,
                                                             Nationality = item.Nationality ?? 0,
                                                             TypeOfCard = item.TypeOfCardId
-                                                        }).AsQueryable();
+                                                        })
+                                                        .AsQueryable();
 
-            return lstVisitors.ToList();
+
+            //creating pager object to send for filtering and sorting
+            var paginationRequest = new PaginationRequest
+            {
+                PageIndex = pageIndex,
+                PageSize = pageSize,
+                SearchText = globalSearch,
+                Sort = new Sort { SortDirection = (sortOrder == "ASC" ? SortDirection.Ascending : SortDirection.Descending), SortBy = sortField }
+            };
+
+
+            IList<VisitorDetailsVM> result =
+                GenericSorterPager.GetSortedPagedList<VisitorDetailsVM>(qryVisitors, paginationRequest, out totalCount);
+
+            return result;
         }
 
         public bool SaveVisitor(VisitorDetailsVM visitorDetailsVM)
@@ -65,11 +88,11 @@ namespace Evis.VMS.UI.HelperClasses
                         IdNo = visitorDetailsVM.IdNo,
                         Address = visitorDetailsVM.ContactAddress
                     });
-                _genericService.Commit();     
+                _genericService.Commit();
             }
             else
             {
-                var visitor = 
+                var visitor =
                     _genericService.VisitorMaster.GetAll()
                     .Where(item => item.EmailId == visitorDetailsVM.EmailAddress)
                     .FirstOrDefault();
@@ -89,7 +112,7 @@ namespace Evis.VMS.UI.HelperClasses
                     _genericService.Commit();
                 }
             }
-           
+
             return true;
         }
 

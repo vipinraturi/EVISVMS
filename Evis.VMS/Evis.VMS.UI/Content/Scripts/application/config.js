@@ -1,13 +1,9 @@
-﻿
+﻿var dataToSend = '';
+
 
 ApplyCustomBinding = function (elementName) {
-    //debugger;
-
-    //debugger;
-    //alert($('.loader-div').length);
     $('.loader-div').show();
     switch (elementName) {
-
         //Administration module  
         case 'organization':
             BindingViewModel("/Administration/_Organization", OrganizationViewModel());
@@ -85,11 +81,11 @@ BindingViewModel = function (controllerUrl, viewModel) {
 }
 
 DashboardBindEvent = function () {
-    $('#lnkVisitorCheckIn').click(function () {
+    $('#lnkVisitorCheckIn').unbind('click').bind('click', function () {
         ApplyCustomBinding('visitorcheckin');
     });
 
-    $('#lnkTotalVisitor').click(function () {
+    $('#lnkTotalVisitor').unbind('click').bind('click', function () {
         ApplyCustomBinding('managevisitor');
     });
 
@@ -102,8 +98,8 @@ DashboardBindEvent = function () {
 
     });
 
-    $('#btnCompleteRegister').click(function () {
-        ApplyCustomBinding('managevisitor');
-    });
+    //$('#btnCompleteRegister').click(function () {
+    //    ApplyCustomBinding('managevisitor');
+    //});
 
 }

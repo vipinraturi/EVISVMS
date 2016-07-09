@@ -56,11 +56,24 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
         [Route("~/Api/Visitor/GetVisitorData")]
         [HttpPost]
-        public string GetVisitorData(string globalSearch, int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC")
+        public string GetVisitorData(int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC", string globalSearch = "")
         {
-            var lstVisitorsFromDb = _visitorHelper.GetAllVisitorsData(globalSearch, pageIndex, pageSize, sortField, sortOrder);
+            if (string.IsNullOrEmpty(sortField))
+            {
+                sortField = "VisitorName";
+            }
+
+            if (string.IsNullOrEmpty(globalSearch))
+            {
+                globalSearch = "";
+            }
+
+            int totalCount = 0;
+            pageIndex = (pageIndex - 1);
+
+            var lstVisitorsFromDb = _visitorHelper.GetAllVisitorsData(globalSearch, pageIndex, pageSize, sortField, sortOrder, out totalCount);
             var jsonData = JsonConvert.SerializeObject(lstVisitorsFromDb);
-            var total = lstVisitorsFromDb.Count();
+            var total = totalCount;
             return JsonConvert.SerializeObject(new { totalRows = total, result = jsonData });
         }
 

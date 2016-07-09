@@ -1,10 +1,11 @@
 ﻿
-function VisitorViewModel(visitorName, gender, nationality, DOB, typeOfCard, idNumber, nationality) {
 
-    nationality = (nationality != "" ? nationality : undefined);
+function VisitorViewModel(visitorName, gender, nationalityVal, dateOfBirth, typeOfCard, idNumber, nationalityVal) {
+
+
+    nationality = (nationalityVal != "" ? nationalityVal : undefined);
     typeOfCard = (typeOfCard != "" ? typeOfCard : undefined);
     gender = (gender != "" ? gender : undefined);
-
     //debugger;
 
     var self = this;
@@ -12,10 +13,10 @@ function VisitorViewModel(visitorName, gender, nationality, DOB, typeOfCard, idN
     VisitorName = ko.observable(visitorName).extend({ required: true });
     EmailAddress = ko.observable('').extend({ required: true, email: { message: "Invalid email" } });
     Gender = ko.observable(gender).extend({ required: true });
-    DOB = ko.observable(DOB).extend({ required: true });
-    TypeOfCardValue  = ko.observable(typeOfCard).extend({ required: true });
+    DOB = ko.observable(dateOfBirth).extend({ required: true });
+    TypeOfCardValue = ko.observable(typeOfCard).extend({ required: true });
     IdNo = ko.observable(idNumber).extend({ required: true });
-    Nationality = ko.observable(nationality).extend({ required: true });
+    Nationality = ko.observable(nationalityVal).extend({ required: true });
     ContactNo = ko.observable('').extend({ required: true });
     ContactAddress = ko.observable('');
 
@@ -34,22 +35,18 @@ function VisitorViewModel(visitorName, gender, nationality, DOB, typeOfCard, idN
         IdNo: this.IdNo,
         Nationality: this.Nationality,
         ContactNo: this.ContactNo
-        });
+    });
 
-
-    //[
-    // { Text: 'Indian', Id: 1 },
-    // { Text: 'Emirate', Id: 2 },
-    // { Text: 'Others', Id: 3 }
-    //]
-
+    //alert('counting....');
     self.DataGrid = new RIT.eW.DataGridAjax('/Api/Visitor/GetVisitorData', 7);
 
     self.VisitorList = ko.observableArray([]);
 
     self.GetAllVisitor = function () {
+        //alert(gblParam);
         self.DataGrid.UpdateSearchParam('?globalSearch=' + self.GlobalSearch());
-        self.DataGrid.GetData();
+        self.DataGrid.GetData(true);
+
     }
 
     self.LoadMasterData = function () {
@@ -77,8 +74,7 @@ function VisitorViewModel(visitorName, gender, nationality, DOB, typeOfCard, idN
     }
 
     self.SaveVisitor = function () {
-        //alert(self.errors().length);
-        //debugger;
+
         if (self.errors().length > 0) {
             self.errors.showAllMessages(true);
             this.errors().forEach(function (data) {
@@ -88,7 +84,6 @@ function VisitorViewModel(visitorName, gender, nationality, DOB, typeOfCard, idN
         else {
             var data = new Object();
             ////debugger;
-
             data.VisitorName = self.VisitorName(),
             data.EmailAddress = self.EmailAddress(),
             data.Gender = self.Gender(),
@@ -104,8 +99,10 @@ function VisitorViewModel(visitorName, gender, nationality, DOB, typeOfCard, idN
             AjaxCall('/Api/Visitor/SaveVisitor', data, 'POST', function (result) {
                 if (result.Success) {
                     toastr.success('Visitor saved successfully!!')
-                    ApplyCustomBinding('managevisitor');
+                    self.ResetData();
                     self.IsInsert(true);
+                    //ApplyCustomBinding('managevisitor');
+                    self.GetAllVisitor();
                 }
                 else {
                     toastr.warning('Visitor email already exist!!')
@@ -115,6 +112,11 @@ function VisitorViewModel(visitorName, gender, nationality, DOB, typeOfCard, idN
     }
 
     self.ResetVisitor = function () {
+        ResetData();
+       
+    }
+
+    self.ResetData = function () {
         self.IsInsert(true);
         self.GlobalSearch('');
         self.VisitorName('');
@@ -126,6 +128,7 @@ function VisitorViewModel(visitorName, gender, nationality, DOB, typeOfCard, idN
         self.Nationality(undefined);
         self.ContactNo('');
         self.ContactAddress('');
+        dataToSend = '';
         ApplyCustomBinding('managevisitor');
     }
 
@@ -156,40 +159,12 @@ function VisitorViewModel(visitorName, gender, nationality, DOB, typeOfCard, idN
     }
 
     self.GlobalSearchEnter = function (data, event) {
-        if (event.which == 13) {
+        if (event.which == 13 || event.keycode == 13) {
             self.GetAllVisitor();
-            console.log(event);
+            console.log(event.which);
         }
-    }
-
-    self.SaveVisitorImage = function () {
-        var formData = new FormData();
-        var totalFiles = document.getElementById("avatarInputorVisitor").files.length;
-
-        for (var i = 0; i < totalFiles; i++) {
-            var file = document.getElementById("avatarInputorVisitor").files[i];
-            formData.append("avatarInput", file);
-        }
-
-        $.ajax({
-            type: "POST",
-            url: '/Visitor/SaveVisitorImage',
-            data: formData,
-            dataType: 'json',
-            contentType: false,
-            processData: false,
-            success: function (response) {
-                debugger;
-                $('#imgUploaded').attr('src', response.FilePath);
-                toastr.success('Image uploaded');
-            },
-            error: function (error) {
-                alert("errror");
-            }
-        });
     }
 
     self.GetAllVisitor();
     self.LoadMasterData();
-
 }

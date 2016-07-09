@@ -3,8 +3,6 @@
     <li><a href="#" class="a-color">Add Visitor</a></li>
 </ol>
 <div class="row">
-
-
     <div class="col-md-6 col-sm-6 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
@@ -13,41 +11,19 @@
             </div>
             <div class="x_content">
                 <p>Drag multiple files to the box below for multi upload or click to select files.</p>
-                <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)" class="dropzone dz-clickable" style="text-align:center">
-                    @*Drag & Drop Here*@
-                    <div class="col-sm-6">
-                        <div class="profile_img">
-                            <!-- end of image cropping -->
-                            <div id="crop-avatar">
-                                <!-- Current avatar -->
-                                <img class="img-responsive avatar-view" src="../images/emid.jpg" alt="Avatar" title="Change the avatar">
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="profile_img">
-                            <!-- end of image cropping -->
-                            <div id="crop-avatar">
-                                <!-- Current avatar -->
-                                <img class="img-responsive avatar-view" src="../images/emid2.jpg" alt="Avatar" title="Change the avatar" data-toggle="modal" data-target="#avatar-modal">
-                            </div>
-                            <!-- end of image cropping -->
+                <div  style="text-align:center">
+                    <form action="~/Visitor/SaveVisitorImage" method="post"
+                          enctype="multipart/form-data" class="dropzone dz-clickable" id="dropzoneForm"></form>
+                    <div class="form-group">
+                        <div class="col-md-offset-7" style="margin-top:5px">
+                            <button type="button" id="btnReadImageData" class="btn btn-success pull-right" style="margin:5px;" data-bind="click: ReadImageData">Read Image</button>
+                            <button type="button" id="btnClearImage" class="btn btn-success pull-right" style="margin:5px;" data-bind="click: ResetImageData">Reset</button>
                         </div>
                     </div>
                 </div>
-            
-            
-                @*<p>Drag multiple files to the box below for multi upload or click to select files.</p>
-                <form action="#" class="dropzone dz-clickable"></form>
-                <br />
-                <br />
-                <br />
-                <br />*@
             </div>
         </div>
     </div>
-   
     <div class="col-md-6 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
@@ -59,51 +35,48 @@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Visitor's Name</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtFirstName" readonly="readonly" type="text" class="form-control" placeholder="Visitor Name" data-bind="value: VisitorName" />
+                            <input id="txtFirstName" readonly="readonly" type="text" class="form-control inputdisable" placeholder="[Visitor Name]" data-bind="value: VisitorName" />
                             <span class="fa fa-user favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
-
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Gender</label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
-                                <input id="" readonly="readonly" type="text" class="form-control" placeholder="Male" data-bind="value: Gender" />
+                                <input id="" readonly="readonly" type="text" class="form-control inputdisable" placeholder="[Gender]" data-bind="value: Gender" />
                                 <span class="fa fa-mars favwhite form-control-feedback right" aria-hidden="true"></span>
                             </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Date Of Birth</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="" readonly="readonly" type="text" class="form-control" placeholder="10/06/1989" data-bind="value: DOB" />
+                            <input id="" readonly="readonly" type="text" class="form-control inputdisable" placeholder="[dd/mm/yyyy]" data-bind="value: DOB" />
                             <span class="fa fa-calendar favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Type Of Card</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="" readonly="readonly" type="text" class="form-control" placeholder="Emirates Id" data-bind="value: TypeOfCard" />
+                            <input id="" readonly="readonly" type="text" class="form-control inputdisable" placeholder="[Emirates Id]" data-bind="value: TypeOfCard" />
                             <span class="fa fa-simplybuilt favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">ID Number</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="" readonly="readonly" type="text" class="form-control" placeholder="XXX-999-000-111" data-bind="value: IdNumber" />
+                            <input id="" readonly="readonly" type="text" class="form-control inputdisable" placeholder="[XXX-XXX-XXX-XXXX]" data-bind="value: IdNumber" />
                             <span class="fa fa-simplybuilt favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Nationality</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="" readonly="readonly" type="text" class="form-control" placeholder="Indian" data-bind="value: Nationality" />
+                            <input id="" readonly="readonly" type="text" class="form-control inputdisable" placeholder="[Nationality]" data-bind="value: Nationality" />
                             <span class="fa fa-flag favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
-
-                    
                     <div class="form-group">
                         <div class="col-md-offset-7">
-                            <button type="button"  id="btnCompleteRegister" class="btn btn-success pull-right">Continue Registration</button>
+                            <button type="button" id="btnCompleteRegister" class="btn btn-success pull-right" data-bind="click: ContinueRegistration">Continue Registration</button>
                         </div>
                     </div>
                 </form>
@@ -114,3 +87,58 @@
     
 </div>
 
+<style type="text/css">
+    .dz-max-files-reached {
+        background-color: red;
+    }
+</style>
+
+<script type="text/javascript">
+        // Disabling autoDiscover, otherwise Dropzone will try to attach twice.
+        Dropzone.autoDiscover = false;
+        // or disable for specific dropzone:
+        // Dropzone.options.myDropzone = false;
+        //alert(Dropzone);
+        $(function () {
+            //alert('loading...');
+            // Now that the DOM is fully loaded, create the dropzone, and setup the
+            // event listeners
+            var myDropzone = new Dropzone("#dropzoneForm");
+            myDropzone.maxFiles = 2;
+
+            myDropzone.on("maxfilesexceeded", function (file) {
+                debugger;
+                var res = eval('(' + file.xhr.responseText + ')');
+                toastr.warning('Only two images allowed.');
+
+            });
+
+            //debugger;
+            myDropzone.on("addedfile", function (file) {
+                //alert('Something happened!!');
+                /* Maybe display some more file information on your page */
+
+                // Create the remove button
+                var removeButton = Dropzone.createElement("<i class='fa fa-remove red' aria-hidden='true'></i>");
+
+
+                // Capture the Dropzone instance as closure.
+                var _this = this;
+
+                // Listen to the click event
+                removeButton.addEventListener("click", function (e) {
+                    // Make sure the button click doesn't submit the form:
+                    e.preventDefault();
+                    e.stopPropagation();
+                    // Remove the file preview.
+                    _this.removeFile(file);
+                    // If you want to the delete the file on the server as well,
+                    // you can do the AJAX request here.
+                });
+
+                // Add the button to the file preview element.
+                file.previewElement.appendChild(removeButton);
+
+            });
+        });
+    </script>
