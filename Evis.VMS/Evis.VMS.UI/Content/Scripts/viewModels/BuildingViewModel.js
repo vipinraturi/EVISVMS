@@ -13,7 +13,6 @@
         errorElementClass: 'err'
     });
 
-    self.errors = ko.validation.group(self);
     self.Id = ko.observable(0);
 
     self.BuildingName = ko.observable().extend({
@@ -22,16 +21,30 @@
     });
 
     self.BuildingName = ko.observable('').extend({ required: true });
-    self.StateName = ko.observable('').extend({ required: true });
+    //self.StateName = ko.observable('').extend({ required: true });
     self.Address = ko.observable('').extend({ required: true });
     self.ZipCode = ko.observable('').extend({ required: true });
-    self.Nationality = ko.observable('').extend({ required: true });
+    //self.Nationality = ko.observable('').extend({ required: true });
     self.StateId = ko.observable(undefined).extend({ required: true });
     self.CityId = ko.observable(undefined).extend({ required: true });
     self.NationalityId = ko.observable(undefined).extend({ required: true });
     self.OrganizationId = ko.observable(undefined).extend({ required: true });
     self.GlobalSearch = ko.observable('');
     self.IsInsert = ko.observable(true);
+
+    self.errors = ko.validation.group(
+        {
+            BuildingName: this.BuildingName,
+            //StateName: this.StateName,
+            Address: this.Address,
+            ZipCode: this.ZipCode,
+            //Nationality: this.Nationality,
+            StateId: this.StateId,
+            CityId: this.CityId,
+            NationalityId: this.NationalityId,
+            OrganizationId: this.OrganizationId
+        });
+
 
     self.Organizations = ko.observableArray();
     AjaxCall('/Api/Users/GetAllOrganizations', null, 'GET', function (data) {
@@ -50,7 +63,6 @@
 
     })
 
-    
     self.City = ko.observableArray();
     self.LoadCities = function () {
         //debugger;
@@ -77,10 +89,22 @@
     }
     self.SaveBuilding = function () {
         debugger;
+
+        var abc = self.BuildingName();
+        //abc = self.StateName();
+        abc = self.Address();
+        abc = self.ZipCode();
+        //abc = self.Nationality();
+        abc = self.StateId();
+        abc = self.CityId();
+        abc = self.NationalityId();
+        abc = self.OrganizationId();
+
+
         if (self.errors().length > 0) {
             self.errors.showAllMessages(true);
             this.errors().forEach(function (data) {
-                //toastr.warning(data);
+                toastr.warning(data);
             });
         }
         else {

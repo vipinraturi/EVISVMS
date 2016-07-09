@@ -11,7 +11,7 @@
         errorElementClass: 'err'
     });
     var self = this;
-    self.errors = ko.validation.group(self);
+
     self.GateNumber = ko.observable().extend({
         required: { message: 'Gate Number is required' },
         deferValidation: true
@@ -32,7 +32,13 @@
     self.CountryId = ko.observable(undefined).extend({ required: true });
     self.StateId = ko.observable(undefined).extend({ required: true });
     self.CityId = ko.observable(undefined).extend({ required: true });
+  
+    self.errors = ko.validation.group(
+        {
+            GateNumber: this.GateNumber,
+            BuildingId: this.BuildingId
 
+        });
     self.DataGrid = new RIT.eW.DataGridAjax('/Api/Gates/GetAllGate', 7);
     self.GetAllGateData = function () {
         self.DataGrid.UpdateSearchParam('?globalSearch=' + self.GlobalSearch());
@@ -55,26 +61,7 @@
         }
     }
 
-    //self.SaveGate = function () {
-    //    debugger;
-    //    if (self.errors().length > 0) {
-    //        self.errors.showAllMessages(true);
-    //        this.errors().forEach(function (data) {
-    //            //toastr.warning(data);
-    //        });
-    //    }
-    //    else {
-    //        var data = new Object();
-    //        data.GateNumber = self.GateNumber(),
-    //        data.BuildingId = self.Id(),
-    //        //// display any error messages if we have them
-    //        AjaxCall('/Api/Gates/SaveGate', data, 'POST', function () {
-    //            toastr.success('building saved successfully!!')
-    //            ApplyCustomBinding('gates');
-
-    //        })
-    //    }
-    //}
+    
     self.EditGate = function (tableItem) {
         //debugger;;
         if (tableItem != undefined) {
@@ -82,7 +69,7 @@
             self.GateNumber(tableItem.GateNumber);
             self.BuildingId(tableItem.BuildingId);
             self.CityId(tableItem.CityId);
-            self.CityName(tableItem.CityName);
+            // self.CityName(tableItem.CityName);
         }
     }
     self.DeleteGate = function (tableItem) {
@@ -102,11 +89,12 @@
         ApplyCustomBinding('gates');
     }
     self.SaveGate = function () {
-        debugger;;
+        //debugger;
         if (self.errors().length > 0) {
             self.errors.showAllMessages(true);
             this.errors().forEach(function (data) {
-                //toastr.warning(data);
+                var abc = self.BuildingId();
+                abc = self.GateNumber();
             });
         }
         else {

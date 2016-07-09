@@ -27,7 +27,8 @@ namespace Evis.VMS.UI
                "~/Content/Styles/dropzone.min.css",
                "~/Content/Styles/pager.css",
                "~/Content/Styles/toastr.min.css",
-               "~/Content/Styles/toastr-custom.css"
+               "~/Content/Styles/toastr-custom.css",
+               "~/Content/Styles/timepicker.less"
                  ));
 
             bundles.Add(new StyleBundle("~/Content/theme2").Include(
@@ -105,6 +106,7 @@ namespace Evis.VMS.UI
             .Include("~/Content/Scripts/plugins/date.js")
             .Include("~/Content/Scripts/plugins/moment.min.js")
             .Include("~/Content/Scripts/plugins/daterangepicker.js")
+             .Include("~/Content/Scripts/plugins/bootstrap-timepicker.js")
             .Include("~/Content/Scripts/plugins/validator.min.js")
             .Include("~/Content/Scripts/plugins/icheck.min.js")
             .Include("~/Content/Scripts/plugins/fastclick.js")

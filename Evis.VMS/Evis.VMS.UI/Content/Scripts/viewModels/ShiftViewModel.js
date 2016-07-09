@@ -13,16 +13,25 @@
     })
 
     var self = this;
-    self.errors = ko.validation.group(self);
+
     self.ShitfName = ko.observable().extend({
         required: { message: 'Gate Number is required' },
         deferValidation: true
     });
-    self.Id = ko.observable('').extend({ required: true });
+    self.Id = ko.observable(0);
     self.ShitfName = ko.observable('').extend({ required: true });
     self.FromTime = ko.observable('').extend({ required: true });
     self.ToTime = ko.observable('').extend({ required: true });
     self.GlobalSearch = ko.observable('');
+    self.errors = ko.validation.group(
+       {
+           ShitfName: this.ShitfName,
+           FromTime: this.FromTime,
+           ToTime: this.ToTime,
+
+       });
+    self.errors = ko.validation.group(self);
+
     self.DataGrid = new RIT.eW.DataGridAjax('/Api/Shift/GetAllShift', 7);
 
     self.GetAllShiftData = function () {
@@ -41,16 +50,28 @@
         }
     }
     self.Saveswift = function () {
-        var data = new Object();
-        data.Id = self.Id(),
-        data.ShitfName = self.ShitfName(),
-        data.FromTime = self.FromTime();
-        data.ToTime = self.ToTime();
-        AjaxCall('/Api/Swift/SaveShift', data, 'POST', function () {
-            debugger;
-            toastr.success('Shift saved successfully!!');
-            ApplyCustomBinding('newshiftcreate');
-        })
+        debugger;
+        var abc = self.ShitfName();
+        abc = self.FromTime();
+        abc = self.ToTime();
+        if (self.errors().length > 0) {
+            self.errors.showAllMessages(true);
+            this.errors().forEach(function (data) {
+                // toastr.warning(data);
+            })
+        }
+        else {
+            var data = new Object();
+            data.Id = self.Id(),
+            data.ShitfName = self.ShitfName(),
+            data.FromTime = self.FromTime();
+            data.ToTime = self.ToTime();
+            AjaxCall('/Api/Swift/SaveShift', data, 'POST', function () {
+                debugger;
+                toastr.success('Shift saved successfully!!');
+                ApplyCustomBinding('newshiftcreate');
+            })
+        }
     }
     self.Resetswift = function () {
         self.GlobalSearch('');

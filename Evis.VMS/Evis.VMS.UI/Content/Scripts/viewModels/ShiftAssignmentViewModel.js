@@ -12,7 +12,7 @@
     });
     // self.errors = ko.validation.group(self);
     // self.Id = ko.observable(0);
-    self.errors = ko.validation.group(self);
+
     self.Id = ko.observable(0);
     self.ShitfId = ko.observable(undefined).extend({ required: true });
     self.UserId = ko.observable(undefined).extend({ required: true });
@@ -21,10 +21,20 @@
     self.FromDate = ko.observable('').extend({ required: true });
     self.ToDate = ko.observable('').extend({ required: true });
 
-    self.BuildingName = ko.observable('').extend({ required: true });
-    self.GateNumber = ko.observable('').extend({ required: true });
-    self.ShitfName = ko.observable('').extend({ required: true });
-    self.UserName = ko.observable('').extend({ required: true });
+    //self.BuildingName = ko.observable('').extend({ required: true });
+    //self.GateNumber = ko.observable('').extend({ required: true });
+    //self.ShitfName = ko.observable('').extend({ required: true });
+    //self.UserName = ko.observable('').extend({ required: true });
+    self.errors = ko.validation.group(
+      {
+          UserId: this.UserId,
+          ShitfId: this.ShitfId,
+          BuildingId: this.BuildingId,
+          GateId: this.GateId,
+          FromDate: this.FromDate,
+          ToDate: this.ToDate
+
+      });
     self.GlobalSearch = ko.observable('');
 
     self.DataGrid = new RIT.eW.DataGridAjax('/Api/ShiftAssignment/GetAllShiftAssignment', 7);
@@ -92,14 +102,15 @@
         }
     }
     SaveShiftAssignment = function () {
-        //debugger;
-        //if (self.errors().length > 0) {
-        //    self.errors.showAllMessages(true);
-        //    this.errors().forEach(function (data) {
-        //        //toastr.warning(data);
-        //    });
-        //}
-        //else {
+        debugger;
+
+        if (self.errors().length > 0) {
+            self.errors.showAllMessages(true);
+            this.errors().forEach(function (data) {
+                //toastr.warning(data);
+            });
+        }
+        else {
             var data = new Object();
             data.Id = self.Id(),
             data.ShitfId = self.ShitfId(),
@@ -116,11 +127,10 @@
             AjaxCall('/Api/ShiftAssignment/SaveShiftAssignment', data, 'POST', function () {
                 toastr.success('building saved successfully!!')
                 ApplyCustomBinding('shiftassignment');
-                self.IsInsert(true);
+                //  self.IsInsert(true);
 
             })
-       // }
+        }
     }
-
     self.GetAllShiftAssignmentData();
 }

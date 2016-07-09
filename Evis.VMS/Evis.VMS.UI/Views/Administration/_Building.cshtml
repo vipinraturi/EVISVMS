@@ -17,12 +17,6 @@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Organization <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            @*<select id="ddlOrganization" class="form-control" required="required">
-                                    <option value="0">--Select--</option>
-                                    <option value="1">Company 1</option>
-                                    <option value="2">Company 2</option>
-                                    <option value="3">Company 3</option>
-                                </select>*@
                             <select class="form-control" data-bind="options: Organizations, optionsText: 'Name', optionsValue: 'Id', value: OrganizationId, optionsCaption: '-- Select --'"></select>
                         </div>
                     </div>
@@ -94,7 +88,7 @@
             <div class="x_content">
                 <div class="col-md-5 col-sm-5 col-xs-12  pull-right top_search">
                     <div class="input-group">
-                        <input id="txtGlobalSearch" type="text" class="form-control" placeholder="Global Search" />
+                        <input id="txtGlobalSearch" type="text" class="form-control" placeholder="Global Search" data-bind="value: GlobalSearch" />
                         <span class="input-group-btn">
                             <button class="btn btn-default" type="button" data-bind="click: GetAllBuildingData.bind()"><i class="fa fa-search"></i></button>
                         </span>

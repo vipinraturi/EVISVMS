@@ -251,6 +251,7 @@
     <Content Include="Content\Scripts\application\toastr.min.js" />
     <Content Include="Content\Scripts\plugins\bootstrap-progressbar.min - Copy.js" />
     <Content Include="Content\Scripts\plugins\bootstrap-progressbar.min.js" />
+    <Content Include="Content\Scripts\plugins\bootstrap-timepicker.js" />
     <Content Include="Content\Scripts\plugins\bootstrap.js" />
     <Content Include="Content\Scripts\plugins\bootstrap.min.js" />
     <Content Include="Content\fonts\fontawesome-webfont.eot" />
@@ -416,6 +417,7 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Shared\_Pager.cshtml" />
     <Content Include="Views\Administration\_ThemeSelection.cshtml" />
+    <Content Include="Content\Styles\timepicker.less" />
     <None Include="Properties\PublishProfiles\SGHVMS.pubxml" />
     <Content Include="Views\Administration\_MyOrganization.cshtml" />
     <Content Include="Views\Administration\_ChangePassword.cshtml" />

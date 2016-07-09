@@ -35,7 +35,7 @@ ApplyCustomBinding = function (elementName) {
         case 'themeSelection':
             BindingViewModel("/Administration/_ThemeSelection", ThemeSelectionViewModel());
             break;
-        //Visitor module  
+            //Visitor module  
         case 'scanvisitor':
             //debugger;
             BindingViewModel("/Visitor/_ScanVisitor", ScanVisitorViewModel());
@@ -49,7 +49,7 @@ ApplyCustomBinding = function (elementName) {
             BindingViewModel("/Visitor/_VisitorCheckInCheckout", VisitorCheckInCheckOutViewModel());
             break;
 
-        //Report module  
+            //Report module  
         case 'visitordetailsreport':
             BindingViewModel("/Report/_VisitorDetailsReport", VisitorDetailsViewModel());
             break;
@@ -57,7 +57,7 @@ ApplyCustomBinding = function (elementName) {
             BindingViewModel("/Report/_ShiftDetailsReport", ShiftDetailsViewModel());
             break;
 
-        //Dashboard
+            //Dashboard
         case 'dashboard':
             BindingViewModel("/Dashboard/_Dashboard", DashboardViewModel());
             break;
@@ -67,7 +67,7 @@ ApplyCustomBinding = function (elementName) {
 }
 
 BindingViewModel = function (controllerUrl, viewModel) {
-   // debugger;
+    // debugger;
     $('#content').load(controllerUrl, function () {
         ko.cleanNode($('#content')[0]);
         ko.applyBindings(viewModel, $('#content')[0]);
@@ -84,7 +84,7 @@ BindingViewModel = function (controllerUrl, viewModel) {
             $('#dateTo').datepicker();
         }
         if (controllerUrl == "/Administration/_Shifts") {
-            $('#timepicker1').timepicker();
+            $('#txtToTime').timepicker();
         }
     });
 }
