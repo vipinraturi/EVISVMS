@@ -39,7 +39,7 @@
             <div class="form-horizontal form-label-left input_mask">
                     <div class="form-group col-md-3 col-sm-3 col-xs-12 pull-right">
                         
-                        <form class="dropzone-avatar dz-clickable img-responsive_Visitor avatar-view" action="~/Visitor/SaveVisitorImage" method="post" style="height: 129px !important; padding: 2px !important; "
+                        <form class="dropzone-avatar dz-clickable img-responsive_Visitor avatar-view" action="~/Visitor/SaveVisitorProfilePicture" method="post" style="height: 129px !important; padding: 2px !important; "
                               enctype="multipart/form-data" id="dropzoneImageForm" title="Change the avatar"></form>
 
                     </div>
@@ -49,7 +49,7 @@
                     Visitor's Name
                 </label>
                 <div class="col-md-8 col-sm-8 col-xs-12">
-                    <input id="txtFirstName" type="text" data-bind="value: VisitorName" class="form-control" placeholder="[Visitor Name]" />
+                    <input maxlength="50" id="txtFirstName" type="text" data-bind="value: VisitorName" class="form-control" placeholder="[Visitor Name]" />
                     <span class="fa fa-user favwhite form-control-feedback right" aria-hidden="true"></span>
                 </div>
             </div>
@@ -58,7 +58,7 @@
                     Email Address <span class="mandatoryField">*</span>
                 </label>
                 <div class="col-md-8 col-sm-8 col-xs-12">
-                    <input id="txtFirstName" type="text" data-bind="value: EmailAddress" class="form-control" placeholder="[email@domain.com]" />
+                    <input maxlength="20" id="txtFirstName" type="text" data-bind="value: EmailAddress" class="form-control" placeholder="[email@domain.com]" />
                     <span class="fa fa-user favwhite form-control-feedback right" aria-hidden="true"></span>
                 </div>
             </div>
@@ -77,7 +77,7 @@
             <div class="form-group col-md-9 col-sm-9 col-xs-12">
                 <label class="control-label col-md-4 col-sm-4 col-xs-12">Date Of Birth <span class="mandatoryField">*</span></label>
                 <div class="col-md-8 col-sm-8 col-xs-12">
-                    <input id="dateDOB" type="text" class="form-control" placeholder="[Date Of Birth]" data-bind="value: DOB" />
+                    <input maxlength="10" id="dateDOB" type="text" class="form-control" placeholder="[Date Of Birth]" data-bind="value: DOB" />
                     <span class="fa fa-calendar favwhite form-control-feedback right" aria-hidden="true"></span>
                 </div>
             </div>
@@ -96,7 +96,7 @@
             <div class="form-group col-md-12 col-sm-12 col-xs-12">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">ID Number <span class="mandatoryField">*</span></label>
                 <div class="col-md-9 col-sm-9 col-xs-12">
-                    <input id="" type="text" data-bind="value: IdNo" class="form-control" placeholder="[Emirates Id]" />
+                    <input maxlength="20" id="" type="text" data-bind="value: IdNo" class="form-control" placeholder="[Emirates Id]" />
                     <span class="fa fa-simplybuilt favwhite form-control-feedback right" aria-hidden="true"></span>
                 </div>
             </div>
@@ -115,14 +115,14 @@
             <div class="form-group col-md-12 col-sm-12 col-xs-12">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Number <span class="mandatoryField">*</span></label>
                 <div class="col-md-9 col-sm-9 col-xs-12">
-                    <input id="txtContactNo" type="text" data-bind="value: ContactNo" class="form-control" placeholder="[Contact Number]" />
+                    <input maxlength="15" id="txtContactNo" type="text" data-bind="value: ContactNo" class="form-control" placeholder="[Contact Number]" />
                     <span class="fa fa-phone favwhite form-control-feedback right" aria-hidden="true"></span>
                 </div>
             </div>
             <div class="form-group col-md-12 col-sm-12 col-xs-12">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Address</label>
                 <div class="col-md-9 col-sm-9 col-xs-12">
-                    <textarea id="txtAddress" class="form-control" data-bind="value: ContactAddress" rows="3" placeholder="[Contact Address]" style="resize: none;"></textarea>
+                    <textarea maxlength="500" id="txtAddress" class="form-control" data-bind="value: ContactAddress" rows="3" placeholder="[Contact Address]" style="resize: none;"></textarea>
                     <span class="fa fa-home favwhite form-control-feedback right" aria-hidden="true"></span>
                 </div>
             </div>
@@ -197,8 +197,11 @@
 <script type="text/javascript">
     Dropzone.autoDiscover = false;
     $(function () {
+        //alert('dropzone');
         var myDropzone = new Dropzone("#dropzoneImageForm");
         myDropzone.maxFiles = 2;
+
+       
         myDropzone.on("maxfilesexceeded", function (file) {
             debugger;
             var res = eval('(' + file.xhr.responseText + ')');
@@ -223,8 +226,24 @@
             file.previewElement.appendChild(removeButton);
         });
 
+        myDropzone.on("sending", function (file, xhr, formData) {
+            var name = new Date().getTime();
+            formData.append(name, file);
+        });
+
         myDropzone.on('success', function (file) {
             $('.dz-image').addClass('dz-message');
+        });
+
+        myDropzone.on("init", function () {
+            //alert('init');
+            //var mockFile = {
+            //    name: '20160513_195035.jpg',
+            //    size: 12345
+            //};
+            ////debugger;
+            //myDropzone.emit("addedfile", mockFile);
+            //myDropzone.emit("thumbnail", mockFile, '/images/VisitorImages/20160513_195035.jpg');
         });
     });
 </script>

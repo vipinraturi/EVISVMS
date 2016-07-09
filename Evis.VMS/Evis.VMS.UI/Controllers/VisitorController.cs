@@ -32,7 +32,7 @@ namespace Evis.VMS.UI.Controllers
             return View();
         }
 
-        public ActionResult SaveVisitorImage()
+        public ActionResult SaveVisitorIdentityImages()
         {
             HttpPostedFileBase file = null;
             bool isSavedSuccessfully = true;
@@ -46,7 +46,7 @@ namespace Evis.VMS.UI.Controllers
                     fName = file.FileName;
                     if (file != null && file.ContentLength > 0)
                     {
-                        string directoryPath = string.Format("{0}images\\Visitors", Server.MapPath(@"\"));
+                        var directoryPath = string.Format("{0}images\\VisitorIdentityImages", Server.MapPath(@"\"));
 
                         if (!Directory.Exists(directoryPath))
                         {
@@ -75,6 +75,54 @@ namespace Evis.VMS.UI.Controllers
             if (isSavedSuccessfully)
             {
                 return Json(new { Message = fName, FilePath  = "\\images\\Visitors" + file.FileName });
+            }
+            else
+            {
+                return Json(new { Message = "Error in saving file", FilePath = "\\images\\Visitors" + file.FileName });
+            }
+        }
+
+        public ActionResult SaveVisitorProfilePicture()
+        {
+            HttpPostedFileBase file = null;
+            bool isSavedSuccessfully = true;
+            string fName = "";
+            var fileWithPath = string.Empty;
+            try
+            {
+                foreach (string fileName in Request.Files)
+                {
+                    file = Request.Files[fileName];
+                    fName = file.FileName;
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        var directoryPath = string.Format("{0}images\\VisitorImages", Server.MapPath(@"\"));
+                        if (!Directory.Exists(directoryPath))
+                        {
+                            Directory.CreateDirectory(directoryPath);
+                        }
+                        var originalDirectory = new DirectoryInfo(directoryPath);
+                        fileWithPath = System.IO.Path.Combine(originalDirectory.ToString(), file.FileName);
+                        var fileName1 = Path.GetFileName(file.FileName);
+                        var isExists = System.IO.File.Exists(fileWithPath);
+
+                        if (isExists)
+                        {
+                            System.IO.File.Delete(fileWithPath);
+                        }
+
+                        file.SaveAs(fileWithPath);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                isSavedSuccessfully = false;
+            }
+
+            if (isSavedSuccessfully)
+            {
+                return Json(new { Message = fName, FilePath = "\\images\\Visitors" + file.FileName });
             }
             else
             {

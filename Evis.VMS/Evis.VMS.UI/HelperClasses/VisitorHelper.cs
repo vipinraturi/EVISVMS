@@ -46,7 +46,8 @@ namespace Evis.VMS.UI.HelperClasses
                                                             Gender = item.GenderId,
                                                             IdNo = item.IdNo,
                                                             Nationality = item.Nationality ?? 0,
-                                                            TypeOfCard = item.TypeOfCardId
+                                                            TypeOfCard = item.TypeOfCardId,
+                                                            ImagePath = item.ImagePath
                                                         })
                                                         .AsQueryable();
 
@@ -86,7 +87,8 @@ namespace Evis.VMS.UI.HelperClasses
                         GenderId = visitorDetailsVM.Gender,
                         TypeOfCardId = visitorDetailsVM.TypeOfCard,
                         IdNo = visitorDetailsVM.IdNo,
-                        Address = visitorDetailsVM.ContactAddress
+                        Address = visitorDetailsVM.ContactAddress,
+                        ImagePath = visitorDetailsVM.ImagePath
                     });
                 _genericService.Commit();
             }

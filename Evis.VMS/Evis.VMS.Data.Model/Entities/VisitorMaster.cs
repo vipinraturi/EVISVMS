@@ -55,6 +55,7 @@ namespace Evis.VMS.Data.Model.Entities
         [MaxLength(20)]
         public string IdNo { get; set; }
 
+        public string ImagePath { get; set; }
 
     }
 }

@@ -1,7 +1,16 @@
 ﻿
 
 function VisitorViewModel(visitorName, gender, nationalityVal, dateOfBirth, typeOfCard, idNumber, nationalityVal) {
-
+    //ko.validation.rules.pattern.message = 'Invalid.';
+    //ko.validation.configure({
+    //    registerExtenders: true,
+    //    messagesOnModified: true,
+    //    insertMessages: true,
+    //    parseInputAttributes: true,
+    //    messageTemplate: null,
+    //    decorateElement: true,
+    //    errorElementClass: 'error'
+    //});
 
     nationality = (nationalityVal != "" ? nationalityVal : undefined);
     typeOfCard = (typeOfCard != "" ? typeOfCard : undefined);
@@ -78,7 +87,7 @@ function VisitorViewModel(visitorName, gender, nationalityVal, dateOfBirth, type
         if (self.errors().length > 0) {
             self.errors.showAllMessages(true);
             this.errors().forEach(function (data) {
-                toastr.warning(data);
+                //toastr.warning(data);
             });
         }
         else {
@@ -91,7 +100,8 @@ function VisitorViewModel(visitorName, gender, nationalityVal, dateOfBirth, type
             data.TypeOfCard = self.TypeOfCardValue(),
             data.IdNo = self.IdNo(),
             data.Nationality = self.Nationality()
-            data.ContactNo = self.ContactNo()
+            data.ContactNo = self.ContactNo();
+            data.ImagePath = $('.dz-image img').attr('alt');
             data.ContactAddress = self.ContactAddress()
             data.IsInsert = self.IsInsert();
 
@@ -113,7 +123,7 @@ function VisitorViewModel(visitorName, gender, nationalityVal, dateOfBirth, type
 
     self.ResetVisitor = function () {
         ResetData();
-       
+
     }
 
     self.ResetData = function () {
@@ -155,6 +165,25 @@ function VisitorViewModel(visitorName, gender, nationalityVal, dateOfBirth, type
             self.Nationality(tableItem.Nationality);
             self.ContactNo(tableItem.ContactNo);
             self.ContactAddress(tableItem.ContactAddress);
+
+            //debugger;
+
+            //Dropzone.options.dropzoneImageForm =
+            //    {
+            //    acceptedFiles: "image/*",
+            //    init: function () {
+            //        var thisDropzone = this;
+            //        var mockFile = {
+            //            name: tableItem.Id,
+            //            size: 12345
+            //        };
+
+            //        debugger;
+
+            //        thisDropzone.emit("addedfile", mockFile);
+            //        thisDropzone.emit("thumbnail", mockFile, '/images/VisitorIdentityImages/' + tableItem.ImagePath);
+            //    }
+            //};
         }
     }
 

@@ -5320,3 +5320,10 @@ select option {
       .togglemenu{
         color: #34495e !important;
     }
+
+      
+.dropzone-avatar .dz-preview .dz-image {
+    min-height: 160px;
+    border: 1px solid #e5e5e5;
+    align-content:center;
+}

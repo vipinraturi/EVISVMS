@@ -36,6 +36,7 @@ namespace Evis.VMS.UI.ViewModel
 
         public bool IsInsert { get; set; }
 
+        public string ImagePath { get; set; }
 
     }
 }
