@@ -5,7 +5,7 @@
 
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12 ">
-    <div class=" col-md-4 col-sm-4 col-xs-12  top_search">
+    @*<div class=" col-md-4 col-sm-4 col-xs-12  top_search">
         <div class="input-group">
             <input id="txtGlobalSearch" type="text" class="form-control" placeholder="Name"
                    />
@@ -13,7 +13,20 @@
                 <button class="btn btn-default" type="button" ><i class="fa fa-search"></i></button>
             </span>
         </div>
-    </div>
+    </div>*@
+
+        <div class="col-md-4 col-sm-4 col-xs-12  top_search">
+            <div class="input-group">
+                @*<img id="project-icon" src="images/transparent_1x1.png" class="ui-state-default" alt="">*@
+                <input id="project" type="text" class="form-control" placeholder="Name" />
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+                </span>
+                <input type="hidden" id="project-id">
+                <p id="project-description"></p>
+            </div>
+        </div>
+
     <div class="col-md-4 col-sm-4 col-xs-12   top_search">
         <div class="input-group">
             <input id="txtGlobalSearch" type="text" class="form-control" placeholder="Contact Number"
@@ -25,7 +38,7 @@
     </div>
     <div class="col-md-4 col-sm-4 col-xs-12  top_search">
         <div class="input-group">
-            <input id="txtGlobalSearch" type="text" class="form-control" placeholder="Emirates Id/Licence Id/Passport Number"
+            <input id="txtGlobalSearch1" type="text" class="form-control" placeholder="Emirates Id/Licence Id/Passport Number"
                  />
             <span class="input-group-btn">
                 <button class="btn btn-default" type="button" ><i class="fa fa-search"></i></button>
@@ -56,25 +69,32 @@
                 <div class="col-sm-8">
                     <ul class="list-unstyled user_data">
                         <li>
-                            <i class="fa fa-user favwhite user-profile-icon"></i> Shambhoo Kumar
+                            <i class="fa fa-user favwhite user-profile-icon"></i> 
+                            <label id="lblVisitorName" data-bind="text: VisitorName" />
                         </li>
                         <li>
-                            <i class="fa fa-mars favwhite user-profile-icon"></i> Male
+                            <i class="fa fa-mars favwhite user-profile-icon"></i> 
+                            <label id="lblGender" data-bind="text: Gender" />
                         </li>
                         <li>
-                            <i class="fa fa-calendar favwhite user-profile-icon"></i> 10th July 1989
+                            <i class="fa fa-calendar favwhite user-profile-icon"></i> 
+                            <label id="lblDOB" data-bind="text: DOB" />
                         </li>
                         <li>
-                            <i class="fa fa-phone favwhite user-profile-icon"></i> 0561239674
+                            <i class="fa fa-phone favwhite user-profile-icon"></i> 
+                            <label id="lblMobileNo" data-bind="text: MobileNo" />
                         </li>
                         <li>
-                            <i class="fa fa-envelope favwhite user-profile-icon"></i> abcd@gmail.com
+                            <i class="fa fa-envelope favwhite user-profile-icon"></i> 
+                            <label id="lblEmailId" data-bind="text: EmailId" />
                         </li>
                         <li>
-                            <i class="fa fa-simplybuilt favwhite user-profile-icon"></i> XXX-999-000-XXX
+                            <i class="fa fa-simplybuilt favwhite user-profile-icon"></i> 
+                            <label id="lblIdentificationNo" data-bind="text: IdentificationNo" />
                         </li>
                         <li>
-                            <i class="fa fa-flag favwhite user-profile-icon"></i> Indian
+                            <i class="fa fa-flag favwhite user-profile-icon"></i> 
+                            <label id="lblNationality" data-bind="text: Nationality" />
                         </li>
                     </ul>
                 </div>
@@ -83,27 +103,27 @@
                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Person <span class="mandatoryField">*</span></label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
-                        <input id="" type="text" class="form-control" placeholder="Contact Person" />
+                        <input id="" type="text" class="form-control" placeholder="Contact Person" data-bind="value: ContactPerson" required="required" />
                         <span class="fa fa-user favwhite form-control-feedback right" aria-hidden="true"></span>
                     </div>
                 </div>
                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">No. of Persons <span class="mandatoryField">*</span></label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
-                        <input id="" type="text" class="form-control" placeholder="1" />
+                        <input id="" type="text" class="form-control" placeholder="1" data-bind="value: NoOfPerson" required="required" />
                         <span class="fa fa-users favwhite form-control-feedback right" aria-hidden="true"></span>
                     </div>
                 </div>
                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Purpose / Remark</label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
-                        <textarea id="txtAddress" class="form-control" rows="3" placeholder="Purpose / Remark" style="resize: none;"></textarea>
+                        <textarea id="txtAddress" class="form-control" rows="3" placeholder="Purpose / Remark" data-bind="value: Purpose_Remark" required="required" style="resize: none;"></textarea>
                         <span class="fa fa-file favwhite form-control-feedback right" aria-hidden="true"></span>
                     </div>
                 </div>
                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                    <button type="button" class="btn btn-success  pull-right" disabled>Check-Out</button>
-                    <button type="button" class="btn btn-primary  pull-right">Check-In</button>
+                    <button type="button" class="btn btn-success  pull-right" data-bind="click: SaveVisitorCheckIn.bind()">Check-In</button>
+                    <button type="button" class="btn btn-primary  pull-right" data-bind="click: ResetCheckInData.bind()">Reset</button>
                 </div>
             </div>
         </div>
@@ -112,7 +132,7 @@
     <div class="col-md-6 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h2 style="padding-bottom:10px;">Check-In & Check-Out Details</h2>
+                <h2 style="padding-bottom:10px;">Check-In & Check-Out History</h2>
               
                 <div class="clearfix"></div>
             </div>
@@ -193,6 +213,52 @@
                             </tr>
                         </tbody>
                     </table>
+                    <script>
+    $(function () {
+        var projects = [
+          {
+              value: "jquery",
+              label: "jQuery",
+              desc: "the write less, do more, JavaScript library",
+              icon: "jquery_32x32.png"
+          },
+          {
+              value: "jquery-ui",
+              label: "jQuery UI",
+              desc: "the official user interface library for jQuery",
+              icon: "jqueryui_32x32.png"
+          },
+          {
+              value: "sizzlejs",
+              label: "Sizzle JS",
+              desc: "a pure-JavaScript CSS selector engine",
+              icon: "sizzlejs_32x32.png"
+          }
+        ];
+
+        $("#project").autocomplete({
+            minLength: 0,
+            source: projects,
+            focus: function (event, ui) {
+                $("#project").val(ui.item.label);
+                return false;
+            },
+            select: function (event, ui) {
+                $("#project").val(ui.item.label);
+                $("#project-id").val(ui.item.value);
+                $("#project-description").html(ui.item.desc);
+                $("#project-icon").attr("src", "images/" + ui.item.icon);
+
+                return false;
+            }
+        })
+        .autocomplete("instance")._renderItem = function (ul, item) {
+            return $("<li>")
+              .append("<a>" + item.label + "<br>" + item.desc + "</a>")
+              .appendTo(ul);
+        };
+    });
+                    </script>
                 </form>
             </div>
         </div>

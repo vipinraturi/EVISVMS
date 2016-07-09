@@ -25,9 +25,8 @@ namespace Evis.VMS.Data.Migrations
         protected override void Seed(VMSContext context)
         {
             GenerateGender(context);
-
             GenerateRoles(context);
-
+            GenerateCardType(context);
             GenerateSystemAdmin(context);
             context.SaveChanges();
         }
@@ -146,6 +145,13 @@ namespace Evis.VMS.Data.Migrations
                 });
 
             context.Users.AddOrUpdate(systemAdminUser);
+        }
+        private static void GenerateCardType(VMSContext context)
+        {
+            context.CardTypeMaster.Add(new CardTypeMaster { Id = 1, CardName = "EmiratesId", Description = "EmiratesId", IsActive = true });
+            context.CardTypeMaster.Add(new CardTypeMaster { Id = 2, CardName = "Driving Licence", Description = "Driving Licence", IsActive = true });
+            context.CardTypeMaster.Add(new CardTypeMaster { Id = 3, CardName = "Passport", Description = "Passport", IsActive = true });
+            context.CardTypeMaster.Add(new CardTypeMaster { Id = 4, CardName = "Others", Description = "Others", IsActive = true });
         }
     }
 }
