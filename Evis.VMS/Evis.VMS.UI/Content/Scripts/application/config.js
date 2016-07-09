@@ -77,6 +77,15 @@ BindingViewModel = function (controllerUrl, viewModel) {
         if (controllerUrl == "/Visitor/_ManageVisitorManually") {
             $('#dateDOB').datepicker();
         }
+        if (controllerUrl == "/Administration/_ShiftAssignment") {
+            $('#dateFrom').datepicker();
+        }
+        if (controllerUrl == "/Administration/_ShiftAssignment") {
+            $('#dateTo').datepicker();
+        }
+        if (controllerUrl == "/Administration/_Shifts") {
+            $('#timepicker1').timepicker();
+        }
     });
 }
 

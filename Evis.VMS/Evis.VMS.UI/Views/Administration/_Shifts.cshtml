@@ -1,4 +1,9 @@
-﻿<ol class="breadcrumb">
+﻿<script src="@Url.Content("~/Content/Scripts/plugins/bootstrap-timepicker.js")"></script>
+<script src="@Url.Content("~/Content/Scripts/plugins/Webcam_Plugin/jquery.webcam.js")"></script>
+<script src="~/Content/Scripts/plugins/bootstrap-timepicker.js"></script>
+<a href="~/Content/Styles/timepicker.less">~/Content/Styles/timepicker.less</a>
+
+<ol class="breadcrumb">
     <li><a href="#" class="a-color">Administration</a></li>
     <li><a href="#" class="a-color">Shifts</a></li>
 </ol>
@@ -29,6 +34,10 @@
                             <span class="fa fa-clock-o favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
+                    @*<div class=" form-group input-group bootstrap-timepicker timepicker">http://jdewit.github.io/bootstrap-timepicker/index.html
+                            <input id="timepicker1" type="text" class="form-control input-small">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                        </div>*@
 
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Shift To Time <span class="mandatoryField">*</span></label>
@@ -62,7 +71,7 @@
                     <div class="input-group">
                         <input id="txtGlobalSearch" type="text" class="form-control" placeholder="Global Search" />
                         <span class="input-group-btn">
-                            <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+                            <button class="btn btn-default" type="button" data-bind="click: GetAllShiftData.bind()"><i class="fa fa-search"></i></button>
                         </span>
                     </div>
                 </div>

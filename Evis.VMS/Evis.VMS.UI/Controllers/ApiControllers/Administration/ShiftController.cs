@@ -92,7 +92,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             var total = ShitfMaster.Count();
             return JsonConvert.SerializeObject(new { totalRows = total, result = jsonData });
         }
-        [Route("~/Api/Gates/DeleteShift")]
+        [Route("~/Api/Shift/DeleteShift")]
         [HttpPost]
         public ReturnResult Deleteswift([FromBody] ShitfMaster ShitfMaster)
         {
@@ -101,7 +101,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 var ShitfDelete = _genericService.ShitfMaster.GetAll().Where(x => x.Id == ShitfMaster.Id).FirstOrDefault();
                 if (ShitfDelete != null)
                 {
-                    ShitfMaster.IsActive = false;
+                    ShitfDelete.IsActive = false;
                     _genericService.ShitfMaster.Update(ShitfDelete);
                     _genericService.Commit();
                     return new ReturnResult { Message = "Success", Success = true };

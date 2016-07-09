@@ -64,7 +64,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 if (!string.IsNullOrEmpty(globalSearch))
                 {
                     lstgateVM = lstgateVM.Where(item =>
-                        item.GateNumber.ToLower().Contains(globalSearch.ToLower())
+                        item.GateNumber.ToLower().Contains(globalSearch.ToLower()) ||
+                         item.BuildingName.ToLower().Contains(globalSearch.ToLower())
                         ).ToList();
                 }
 

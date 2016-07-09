@@ -87,7 +87,7 @@
                     <div class="input-group">
                         <input id="txtGlobalSearch" type="text" class="form-control" placeholder="Global Search" />
                         <span class="input-group-btn">
-                            <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+                            <button class="btn btn-default" type="button" data-bind="click: GetAllGateData.bind()"><i class="fa fa-search"></i></button>
                         </span>
                     </div>
                 </div>
@@ -99,7 +99,7 @@
                                 <th style=""> <a href="#" onclick="DataGrid.Sort('GateNumber')" class="sortCol">Gate No</a> </th>
                                 <th style=""> <a href="#" onclick="DataGrid.Sort('BuildingName')" class="sortCol">Building Name</a></th>
                                 @*<th style=""><a href="#" onclick="DataGrid.Sort('Country')" class="sortCol">Country</a></th>*@
-                                <th style=""><a href="#" onclick="DataGrid.Sort('Location')" class="sortCol">Location</a></th>
+                                @*<th style=""><a href="#" onclick="DataGrid.Sort('Location')" class="sortCol">Location</a></th>*@
                                 <th style=""></th>
                             </tr>
                         </thead>

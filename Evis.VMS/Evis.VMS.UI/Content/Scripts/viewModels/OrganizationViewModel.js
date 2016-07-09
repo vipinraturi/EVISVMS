@@ -21,9 +21,6 @@ function OrganizationViewModel() {
         decorateElement: true,
         errorElementClass: 'err'
     });
-
-
-
     self.Id = ko.observable(0);
     self.CompanyName = ko.observable().extend({
         required: true,
@@ -77,6 +74,7 @@ function OrganizationViewModel() {
     self.errors = ko.validation.group(self);
 
     self.GetAllOrganizations = function () {
+
         self.DataGrid.UpdateSearchParam('?globalSearch=' + self.GlobalSearch());
         self.DataGrid.GetData();
     }

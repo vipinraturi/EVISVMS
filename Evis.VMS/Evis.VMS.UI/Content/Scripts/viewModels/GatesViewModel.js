@@ -39,7 +39,7 @@
         self.DataGrid.GetData();
     }
     self.BuildingChanged = function () {
-      //  debugger;
+        //  debugger;
         if (self.BuildingId() != undefined && self.BuildingId() != 0) {
             AjaxCall('/Api/Gates/GetAllBuildingDetails?id=' + self.BuildingId(), null, 'GET', function (data) {
                 //debugger;
@@ -55,26 +55,26 @@
         }
     }
 
-    self.SaveGate = function () {
-        //if (self.errors().length > 0) {
-        //    self.errors.showAllMessages(true);
-        //    this.errors().forEach(function (data) {
-        //        //toastr.warning(data);
-        //    });
-        //}
-        //else {
+    //self.SaveGate = function () {
+    //    debugger;
+    //    if (self.errors().length > 0) {
+    //        self.errors.showAllMessages(true);
+    //        this.errors().forEach(function (data) {
+    //            //toastr.warning(data);
+    //        });
+    //    }
+    //    else {
+    //        var data = new Object();
+    //        data.GateNumber = self.GateNumber(),
+    //        data.BuildingId = self.Id(),
+    //        //// display any error messages if we have them
+    //        AjaxCall('/Api/Gates/SaveGate', data, 'POST', function () {
+    //            toastr.success('building saved successfully!!')
+    //            ApplyCustomBinding('gates');
 
-        var data = new Object();
-        data.GateNumber = self.GateNumber(),
-        data.BuildingId = self.Id(),
-        //// display any error messages if we have them
-        AjaxCall('/Api/Gates/SaveGate', data, 'POST', function () {
-            toastr.success('building saved successfully!!')
-            ApplyCustomBinding('gates');
-
-        })
-        // }
-    }
+    //        })
+    //    }
+    //}
     self.EditGate = function (tableItem) {
         //debugger;;
         if (tableItem != undefined) {
@@ -99,31 +99,30 @@
         self.GateNumber('');
         self.BuildingName('');
         self.CityName('');
-
-
         ApplyCustomBinding('gates');
     }
     self.SaveGate = function () {
-        //debugger;;
-        //if (self.errors().length > 0) {
-        //    self.errors.showAllMessages(true);
-        //    this.errors().forEach(function (data) {
-        //        //toastr.warning(data);
-        //    });
-        //}
-        //else {
-        var data = new Object();
-        //debugger;
-        data.Id = self.Id(),
-        data.BuildingId = self.BuildingId(),
-        data.GateNumber = self.GateNumber();
-        //// display any error messages if we have them
-        AjaxCall('/Api/Gates/SaveGate', data, 'POST', function () {
-            toastr.success('Gate saved successfully!!')
-            ApplyCustomBinding('gates');
-            self.IsInsert(true);
-        })
-        //}
+        debugger;;
+        if (self.errors().length > 0) {
+            self.errors.showAllMessages(true);
+            this.errors().forEach(function (data) {
+                //toastr.warning(data);
+            });
+        }
+        else {
+            var data = new Object();
+            //debugger;
+            data.Id = self.Id(),
+            data.BuildingId = self.BuildingId(),
+            data.GateNumber = self.GateNumber();
+            //// display any error messages if we have them
+            AjaxCall('/Api/Gates/SaveGate', data, 'POST', function () {
+                toastr.success('Gate saved successfully!!')
+                ApplyCustomBinding('gates');
+                self.IsInsert(true);
+            })
+        }
     }
+    //}
     self.GetAllGateData();
 }

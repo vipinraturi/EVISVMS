@@ -14,5 +14,20 @@ namespace Evis.VMS.UI.ViewModel
 {
     public class ShiftAssignmentVM
     {
+        public int Id { get; set; }
+        public string UserId { get; set; }
+        public int ShiftId { get; set; }
+        public int BuildingId { get; set; }
+        public int GateId { get; set; }
+        public string UserName { get; set; }
+        public string ShiftName { get; set; }
+        public string BuildingName { get; set; }
+        public string GateName { get; set; }
+
+        public DateTime FromDate { get; set; }
+
+
+        public DateTime ToDate { get; set; }
+
     }
 }

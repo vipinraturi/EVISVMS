@@ -16,19 +16,14 @@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Security Person <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            
-                            <select class="form-control" data-bind="options: Buildings, optionsText: 'Name' ,optionsValue: 'Id', value: BuildingId, optionsCaption: '-- Select --'"></select>
+
+                            <select class="form-control" data-bind="options: Users, optionsText: 'Name' ,optionsValue: 'Id', value: UserId, optionsCaption: '-- Select --'"></select>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Shift Name <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <select id="DDBShiftName" class="form-control" required="required">
-                                <option value="0">--Select--</option>
-                                <option value="1">Morning Shift (8:30 AM to 4:30 PM)</option>
-                                <option value="2">Evening Shift (4:30 PM to 10:30 PM)</option>
-                                <option value="3">Night Shift   (10:30 PM to 8:30 AM)</option>
-                            </select>
+                            <select class="form-control" data-bind="options: Shift, optionsText: 'Name' ,optionsValue: 'Id', value:ShitfId, optionsCaption: '-- Select --'"></select>
                         </div>
                     </div>
                     <div class="form-group">
@@ -43,10 +38,24 @@
                             <select class="form-control" data-bind="options: Gates, optionsText: 'Name' ,optionsValue: 'Id', value: GateId, optionsCaption: '-- Select --'"></select>
                         </div>
                     </div>
+                    <div class="form-group col-md-9 col-sm-9 col-xs-12">
+                        <label class="control-label col-md-4 col-sm-4 col-xs-12">From Date</label>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                            <input id="dateFrom" type="text" data-bind="value: FromDate" class="form-control" placeholder="Date Of Birth" />
+                            <span class="fa fa-calendar favwhite form-control-feedback right" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-9 col-sm-9 col-xs-12">
+                        <label class="control-label col-md-4 col-sm-4 col-xs-12">TO Date</label>
+                        <div class="col-md-8 col-sm-8 col-xs-12">
+                            <input id="dateTo" type="text" data-bind="value: ToDate" class="form-control" placeholder="Date Of Birth" />
+                            <span class="fa fa-calendar favwhite form-control-feedback right" aria-hidden="true"></span>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <div class="pull-right">
-                            <button type="button" class="btn btn-primary">Reset <i class="fa fa-refresh"></i></button>
-                            <button type="submit" class="btn btn-success">Save <i class="fa fa-save"></i></button>
+                            <button type="button" class="btn btn-primary" data-bind="click: ResetShiftAssignment.bind()">Reset <i class="fa fa-refresh"></i></button>
+                            <button type="button" class="btn btn-success" data-bind="click: SaveShiftAssignment.bind()">Save <i class="fa fa-save"></i></button>
                         </div>
                     </div>
 
@@ -66,7 +75,7 @@
                     <div class="input-group">
                         <input id="txtGlobalSearch" type="text" class="form-control" placeholder="Global Search" />
                         <span class="input-group-btn">
-                            <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+                            <button class="btn btn-default" type="button" data-bind="click: GetAllShiftAssignmentData.bind()"><i class="fa fa-search"></i></button>
                         </span>
                     </div>
                 </div>
@@ -75,110 +84,30 @@
                         <thead>
                             <tr>
                                 <th style="width: 1%">#</th>
-                                <th style="width: 10%">Security Person</th>
-                                <th style="width: 12%">Shift Name</th>
-                                <th style="width: 12%">Building Name</th>
-                                <th style="width: 13%">Shift Timing</th>
-                                <th style="width: 14%"></th>
-
+                                <th style="width: 25%"> <a href="#" onclick="DataGrid.Sort('BuildingName')" class="sortCol">BuildingName</a> </th>
+                                <th style="width: 25%"> <a href="#" onclick="DataGrid.Sort('GateName')" class="sortCol">Address</a></th>
+                                <th style="width: 24%"><a href="#" onclick="DataGrid.Sort('ShiftName')" class="sortCol">Contact No</a></th>
+                                <th style="width: 24%"><a href="#" onclick="DataGrid.Sort('UserName')" class="sortCol">Contact No</a></th>
+                                <th style="width: 25%"></th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody data-bind="foreach:DataGrid.DataRows">
                             <tr>
-                                <td>1</td>
-                                <td><a>XYZ</a></td>
-                                <td>Morning</td>
-                                <td>Tiger</td>
-                                <td>8 AM to 5 PM</td>
+                                <th scope="row" data-bind="text: $index() +1"></th>
+                                <td data-bind="text: BuildingName"></td>
+                                <td data-bind="text: GateName"></td>
+                                <td data-bind="text: ShiftName"></td>
+                                <td data-bind="text: UserName"></td>
                                 <td>
-                                    <a href="#" class="btn  btn-s"><i class="fa fa-pencil"></i></a>
-                                    <a href="#" class="btn btn-s"><i class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td><a>XYZ</a></td>
-                                <td>Morning</td>
-                                <td>Tiger</td>
-                                <td>8 AM to 5 PM</td>
-                                <td>
-                                    <a href="#" class="btn  btn-s"><i class="fa fa-pencil"></i></a>
-                                    <a href="#" class="btn btn-s"><i class="fa fa-trash-o"></i></a>
+                                    <a href="#" class="btn  btn-s" data-bind="click: EditShift.bind($data)" title="click here to view or edit record."><i class="fa fa-pencil"></i></a>
+                                    <a href="#" class="btn  btn-s" data-bind="click: DeleteShift.bind($data)" title="click here to delete record."><i class="fa fa-trash-o"></i></a>
                                 </td>
                             </tr>
 
-                            <tr>
-                                <td>3</td>
-                                <td><a>XYZ</a></td>
-                                <td>Morning</td>
-                                <td>Tiger</td>
-                                <td>8 AM to 5 PM</td>
-                                <td>
-                                    <a href="#" class="btn  btn-s"><i class="fa fa-pencil"></i></a>
-                                    <a href="#" class="btn btn-s"><i class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>4</td>
-                                <td><a>XYZ</a></td>
-                                <td>Morning</td>
-                                <td>Tiger</td>
-                                <td>8 AM to 5 PM</td>
-                                <td>
-                                    <a href="#" class="btn  btn-s"><i class="fa fa-pencil"></i></a>
-                                    <a href="#" class="btn btn-s"><i class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>5</td>
-                                <td><a>XYZ</a></td>
-                                <td>Morning</td>
-                                <td>Tiger</td>
-                                <td>8 AM to 5 PM</td>
-                                <td>
-                                    <a href="#" class="btn  btn-s"><i class="fa fa-pencil"></i></a>
-                                    <a href="#" class="btn btn-s"><i class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>6</td>
-                                <td><a>XYZ</a></td>
-                                <td>Morning</td>
-                                <td>Tiger</td>
-                                <td>8 AM to 5 PM</td>
-                                <td>
-                                    <a href="#" class="btn  btn-s"><i class="fa fa-pencil"></i></a>
-                                    <a href="#" class="btn btn-s"><i class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>7</td>
-                                <td><a>XYZ</a></td>
-                                <td>Morning</td>
-                                <td>Tiger</td>
-                                <td>8 AM to 5 PM</td>
-                                <td>
-                                    <a href="#" class="btn  btn-s"><i class="fa fa-pencil"></i></a>
-                                    <a href="#" class="btn btn-s"><i class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>8</td>
-                                <td><a>XYZ</a></td>
-                                <td>Morning</td>
-                                <td>Tiger</td>
-                                <td>8 AM to 5 PM</td>
-                                <td>
-                                    <a href="#" class="btn  btn-s"><i class="fa fa-pencil"></i></a>
-                                    <a href="#" class="btn btn-s"><i class="fa fa-trash-o"></i></a>
-                                </td>
-                            </tr>
                         </tbody>
+                        <tr class="blank_row" data-bind="visible: (DataGrid.DataRows().length == 0)"><td colspan="10">No data, Add new records.</td></tr>
                     </table>
+                    @Html.Partial("_Pager")
                 </form>
             </div>
         </div>

@@ -62,7 +62,7 @@
     self.DeleteSwift = function (tableItem) {
         var message = confirm("Are you sure, you want to delete selected record!");
         if (message == true) {
-            AjaxCall('/Api/swift/DeleteShift', tableItem, 'POST', function () {
+            AjaxCall('/Api/Shift/DeleteShift', tableItem, 'POST', function () {
                 debugger;
                 toastr.success('Shift deleted successfully!!');
                 ApplyCustomBinding('newshiftcreate');
