@@ -148,7 +148,7 @@ namespace Evis.VMS.UI.Controllers
                 string body = "Dear " + user.FullName + ", <br/>Your password has been reset, click <a href=\"" + callbackUrl + "\">here</a> to reset the password.<br/>" +
                     "<br/><br/>Regards,<br/>Administrator";
                 // Send email on account creation.
-                EmailHelper.SendMail(user.Email, "Reset Password", body);
+                //EmailHelper.SendMail(user.Email, "Reset Password", body);
 
                 ModelState.AddModelError("errormessage", "Log in using the password which is to your email address");
             }

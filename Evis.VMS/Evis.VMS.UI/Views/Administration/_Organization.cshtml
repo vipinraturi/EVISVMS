@@ -87,14 +87,14 @@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Website</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtWebsite" type="text" class="form-control" maxlength="50" placeholder="[Website URL]" data-bind="value: WebSite" />
+                            <input id="txtWebsite" type="text" class="form-control" maxlength="50" placeholder="[Website URL]" data-bind="value: WebSite.extend({ url: false })" />
                             <span class="fa fa-globe favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="pull-right">
-                            <button type="button" class="btn btn-primary" data-bind="click: ResetOrganization.bind()">Reset <i class="fa fa-refresh"></i></button>
-                            <button type="button" class="btn btn-success" data-bind="click: SaveOrganization">Save <i class="fa fa-save"></i></button>
+                            <button type="button" class="btn btn-primary" data-bind="click: ResetOrganization.bind()" id="btnResetOrg">Reset <i class="fa fa-refresh"></i></button>
+                            <button type="button" class="btn btn-success" data-bind="click: SaveOrganization" id="btnSaveOrg">Save <i class="fa fa-save"></i></button>
                         </div>
                     </div>
                 </form>

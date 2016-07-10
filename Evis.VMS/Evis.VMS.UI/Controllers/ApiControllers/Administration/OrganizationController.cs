@@ -29,6 +29,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         [HttpPost]
         public ReturnResult SaveOrganization([FromBody] Organization organization)
         {
+            string message = string.Empty;
             if (organization.Id == 0)
             {
                 organization.IsActive = true;
@@ -37,11 +38,12 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 var proto = Request.GetRequestContext().Url.Request.RequestUri.Scheme;
                 var baseUrl = Request.GetRequestContext().Url.Request.RequestUri.Authority;
 
-                string body = "Dear Sir/Madam, <br/><br/>Your company with the name <b>"+ organization.CompanyName +"</b> has been created successfully." +
+                string body = "Dear Sir/Madam, <br/><br/>Your company with the name <b>" + organization.CompanyName + "</b> has been created successfully." +
                                 "<br/><br/>Regards,<br/>Administrator";
 
                 // Send email on organization creation.
                 //EmailHelper.SendMail(organization.EmailId, "Company Prfile is created", body);
+                message = "Organization saved successfully!!";
             }
             else
             {
@@ -57,10 +59,11 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     existingOrg.WebSite = existingOrg.WebSite;
                     organization.IsActive = true;
                     _genericService.Organization.Update(existingOrg);
+                    message = "Organization updated successfully!!";
                 }
             }
             _genericService.Commit();
-            return new ReturnResult { Message = "Success", Success = true };
+            return new ReturnResult { Message = message, Success = true };
         }
 
         [Route("~/Api/Administration/GetOrganizationsData")]

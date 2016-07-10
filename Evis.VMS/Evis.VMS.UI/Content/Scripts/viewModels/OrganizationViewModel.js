@@ -30,10 +30,22 @@ function OrganizationViewModel() {
     self.ContactAddress = ko.observable('').extend({ required: true });
     self.ZipCode = ko.observable('').extend({ required: true });
     self.FaxNumber = ko.observable('');
-    self.WebSite = ko.observable('');
+    self.WebSite = ko.observable('').extend({ url: true });
     self.GlobalSearch = ko.observable('');
 
-    //self.organizationErrors = ko.validation.group(self);
+    ko.validation.rules['url'] = {
+        validator: function (val, required) {
+            if (!val) {
+                return !required
+            }
+            val = val.replace(/^\s+|\s+$/, ''); //Strip whitespace
+            //Regex by Diego Perini from: http://mathiasbynens.be/demo/url-regex
+            return val.match(/^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.‌​\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[‌​6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1‌​,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00‌​a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u‌​00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?$/i);
+        },
+        message: 'This field has to be a valid URL'
+    };
+    ko.validation.registerExtenders();
+
     self.organizationErrors = ko.validation.group({
         CompanyName: this.CompanyName,
         CountryId: this.CountryId,
@@ -95,8 +107,8 @@ function OrganizationViewModel() {
             data.WebSite = self.WebSite();
             ResetOrganization();
             //// display any error messages if we have them
-            AjaxCall('/Api/Administration/SaveOrganization', data, 'POST', function () {
-                toastr.success('Organization saved successfully!!')
+            AjaxCall('/Api/Administration/SaveOrganization', data, 'POST', function (data) {
+                toastr.success(data.Message);
                 ApplyCustomBinding('organization');
             })
         }
@@ -144,6 +156,7 @@ function OrganizationViewModel() {
             self.ContactNumber(tableItem.ContactNumber);
             self.ZipCode(tableItem.ZipCode);
             self.WebSite(tableItem.WebSite);
+            $("#btnSaveOrg").text("Update");
         }
     }
 

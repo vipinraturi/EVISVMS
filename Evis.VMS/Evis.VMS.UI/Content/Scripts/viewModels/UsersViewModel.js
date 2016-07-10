@@ -19,6 +19,16 @@
     self.OrganizationId = ko.observable(undefined).extend({ required: true });
     self.Nationality = ko.observable(undefined).extend({ required: true });
 
+    self.organizationErrors = ko.validation.group({
+        OrganizationId: this.OrganizationId,
+        FullName: this.FullName,
+        GenderId: this.GenderId,
+        Email: this.Email,
+        ContactNumber: this.ContactNumber,
+        RoleId: this.RoleId,
+        Nationality: this.Nationality
+    });
+
     self.GlobalSearch = ko.observable('');
 
     var Organization = {

@@ -14,10 +14,10 @@
 
     var self = this;
 
-    self.ShitfName = ko.observable().extend({
-        required: { message: 'Gate Number is required' },
-        deferValidation: true
-    });
+    //self.ShitfName = ko.observable().extend({
+    //    required: { message: 'Gate Number is required' },
+    //    deferValidation: true
+    //});
     self.Id = ko.observable(0);
     self.ShitfName = ko.observable('').extend({ required: true });
     self.FromTime = ko.observable('').extend({ required: true });

@@ -55,7 +55,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 .Select(x => new ShiftAssignmentVM
                 {
                     BuildingId = x.BuildingId,
-                    BuildingName = x.BuildingMaster.BuildingName,
+                    BuildingName = x.Gates.BuildingMaster.BuildingName,
                     GateId = x.GateId,
                     GateName = x.Gates.GateNumber,
                     ShiftId = x.ShitfId,
