@@ -137,7 +137,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
                 string subject = "User in company <b>" + user.Organization.CompanyName + "<b> created successfully!";
                 // Send email on account creation.
-                EmailHelper.SendMail(user.Email, subject, body);
+                //EmailHelper.SendMail(user.Email, subject, body);
             }
             else
             {
