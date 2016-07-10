@@ -141,7 +141,9 @@ namespace Evis.VMS.UI.Controllers
                 user.IsActive = false;
                 await _userService.UpdateAsync(user, string.Empty);
 
-                var callbackUrl = "http://localhost:22731/Account/ResetPassword?email=" + user.Email + "&activationId=" + HttpUtility.UrlEncode(password);
+                var proto = Request.Url.Scheme;
+                var baseUrl = Request.Url.Authority;
+                var callbackUrl = proto + "://" + baseUrl +"/Account/ResetPassword?email=" + user.Email + "&activationId=" + HttpUtility.UrlEncode(password);
 
                 string body = "Dear " + user.FullName + ", <br/>Your password has been reset, click <a href=\"" + callbackUrl + "\">here</a> to reset the password.<br/>" +
                     "<br/><br/>Regards,<br/>Administrator";
@@ -165,7 +167,9 @@ namespace Evis.VMS.UI.Controllers
                     user.IsActive = true;
                     user.SecurityStamp = Guid.NewGuid().ToString();
                     await _userService.UpdateAsync(user, string.Empty);
-                    var callbackUrl = "http://localhost:22731/Account/Login";
+                    var proto = Request.Url.Scheme;
+                    var baseUrl = Request.Url.Authority;
+                    var callbackUrl = proto + "://" + baseUrl + "/Account/Login";
                     ViewBag.Message = "<p>User is activated please click <a href=\"" + callbackUrl + "\">here</a> to login.</p>";
                     return View();
                 }

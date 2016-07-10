@@ -19,6 +19,7 @@ using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNet.Identity;
 using System.Web.Http;
+using System.Web.Http.Controllers;
 
 namespace Evis.VMS.UI.Controllers.ApiControllers
 {
@@ -126,14 +127,17 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 user.GenderId = usersVM.GenderId;
                 user.Nationality = usersVM.Nationality;
                 await _userService.InsertAsync(user, password, usersVM.RoleId);
-
-                var callbackUrl = "http://localhost:22731/Account/ConfirmEmail?activationCode=" + user.SecurityStamp + "&email=" + user.Email;
+                var proto = Request.GetRequestContext().Url.Request.RequestUri.Scheme;
+                var baseUrl = Request.GetRequestContext().Url.Request.RequestUri.Authority;
+                var callbackUrl = proto + "://" + baseUrl + "/Account/ConfirmEmail?activationCode=" + user.SecurityStamp + "&email=" + user.Email;
 
                 string body = "Dear " + user.FullName + ", <br/>Your account has been created, click <a href=\"" + callbackUrl + "\">here</a> to activate the account.<br/>" +
                     "Use the below credentials after successfull activation <br/>UserName: " + user.Email + " <br/> " +
                     "Password: " + password + "<br/><br/>Regards,<br/>Administrator";
+
+                string subject = "User in company <b>" + user.Organization.CompanyName + "<b> created successfully!";
                 // Send email on account creation.
-                EmailHelper.SendMail(user.Email, "User Created", body);
+                EmailHelper.SendMail(user.Email, subject, body);
             }
             else
             {

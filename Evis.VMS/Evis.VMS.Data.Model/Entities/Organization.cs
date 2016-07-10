@@ -27,7 +27,7 @@ namespace Evis.VMS.Data.Model.Entities
         //Employer Identification Number (EIN) 
         //are defined as a nine-digit number that the IRS assigns to organizations.
 
-        public int CityId { get; set; }
+        public int? CityId { get; set; }
 
         [Required]
         [MaxLength(50)]
@@ -53,5 +53,14 @@ namespace Evis.VMS.Data.Model.Entities
 
         [ForeignKey("CityId")]
         public virtual LookUpValues CityMaster { get; set; }
+
+        [MaxLength(50)]
+        public string Country { get; set; }
+
+        [MaxLength(50)]
+        public string State { get; set; }
+
+        [MaxLength(50)]
+        public string City { get; set; }
     }
 }

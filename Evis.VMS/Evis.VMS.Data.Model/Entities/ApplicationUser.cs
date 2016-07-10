@@ -57,5 +57,14 @@ namespace Evis.VMS.Data.Model.Entities
 
         [ForeignKey("CardTypeId")]
         public virtual CardTypeMaster CardType { get; set; }
+
+        [MaxLength(50)]
+        public string Country { get; set; }
+
+        [MaxLength(50)]
+        public string State { get; set; }
+
+        [MaxLength(50)]
+        public string City { get; set; }
     }
 }

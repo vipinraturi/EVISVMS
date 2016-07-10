@@ -68,7 +68,7 @@
     }
 
     self.SaveUser = function () {
-        //debugger;
+        debugger;
         if (self.userErrors().length > 0) {
             self.userErrors.showAllMessages(true);
             this.userErrors().forEach(function (data) {
@@ -86,7 +86,7 @@
             data.GenderId = self.GenderId(),
             data.Nationality = self.Nationality(),
             data.RoleId = self.RoleId();
-            ResetUser();
+            ResetUserDetails();
             //// display any error messages if we have them
             AjaxCall('/Api/Users/SaveUser', data, 'POST', function () {
                 toastr.success('User saved successfully!!')
@@ -119,6 +119,10 @@
     }
 
     self.ResetUser = function () {
+        ResetUserDetails();
+    }
+
+    ResetUserDetails = function () {
         self.UserId('');
         self.FullName('');
         self.Email('');

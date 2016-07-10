@@ -11,16 +11,6 @@ function OrganizationViewModel() {
     //    self.Organizations(data);
     //})
 
-    ko.validation.rules.pattern.message = 'Invalid.';
-    ko.validation.configure({
-        registerExtenders: true,
-        messagesOnModified: true,
-        insertMessages: true,
-        parseInputAttributes: true,
-        messageTemplate: null,
-        decorateElement: true,
-        errorElementClass: 'err'
-    });
     self.Id = ko.observable(0);
     self.CompanyName = ko.observable().extend({
         required: true,
@@ -38,11 +28,22 @@ function OrganizationViewModel() {
         }
     });
     self.ContactAddress = ko.observable('').extend({ required: true });
-    self.FaxNumber = ko.observable('').extend({ required: true });
     self.ZipCode = ko.observable('').extend({ required: true });
-    self.WebSite = ko.observable('').extend({ required: true });
+    self.FaxNumber = ko.observable('');
+    self.WebSite = ko.observable('');
     self.GlobalSearch = ko.observable('');
-    self.IsInsert = ko.observable(true);
+
+    //self.organizationErrors = ko.validation.group(self);
+    self.organizationErrors = ko.validation.group({
+        CompanyName: this.CompanyName,
+        CountryId: this.CountryId,
+        StateId: this.StateId,
+        CityId: this.CityId,
+        EmailId: this.EmailId,
+        ContactNumber: this.ContactNumber,
+        ContactAddress: this.ContactAddress,
+        ZipCode: this.ZipCode
+    });
 
     self.Countries = ko.observableArray();
     AjaxCall('/Api/Administration/GetCountries', null, 'GET', function (data) {
@@ -70,9 +71,6 @@ function OrganizationViewModel() {
 
     self.DataGrid = new RIT.eW.DataGridAjax('/Api/Administration/GetOrganizationsData', 7);
 
-    self.OrganizationList = ko.observableArray([]);
-    self.organizationErrors = ko.validation.group(self);
-
     self.GetAllOrganizations = function () {
 
         self.DataGrid.UpdateSearchParam('?globalSearch=' + self.GlobalSearch());
@@ -82,9 +80,6 @@ function OrganizationViewModel() {
     self.SaveOrganization = function () {
         if (self.organizationErrors().length > 0) {
             self.organizationErrors.showAllMessages(true);
-            this.organizationErrors().forEach(function (data) {
-                //toastr.warning(data);
-            });
         }
         else {
             var data = new Object();
@@ -97,20 +92,17 @@ function OrganizationViewModel() {
             data.ContactAddress = self.ContactAddress(),
             data.FaxNumber = self.FaxNumber(),
             data.ZipCode = self.ZipCode(),
-            data.WebSite = self.WebSite()
-            data.IsInsert = self.IsInsert();
+            data.WebSite = self.WebSite();
             ResetOrganization();
             //// display any error messages if we have them
             AjaxCall('/Api/Administration/SaveOrganization', data, 'POST', function () {
                 toastr.success('Organization saved successfully!!')
                 ApplyCustomBinding('organization');
-                self.IsInsert(true);
             })
         }
     }
 
     self.ResetOrganization = function () {
-        self.IsInsert(true);
         self.GlobalSearch('');
         self.CompanyName('');
         self.CityId(0);
@@ -133,7 +125,7 @@ function OrganizationViewModel() {
                     ApplyCustomBinding('organization');
                 }
                 else if (data.Success == false) {
-                    toastr.success(data.Message);
+                    toastr.warning(data.Message);
                 }
             });
         }
@@ -141,7 +133,6 @@ function OrganizationViewModel() {
 
     self.EditOrganization = function (tableItem) {
         if (tableItem != undefined) {
-            self.IsInsert(false);
             self.Id(tableItem.Id);
             self.CompanyName(tableItem.CompanyName);
             self.CountryId(tableItem.CityMaster.ParentValues.ParentId);

@@ -33,6 +33,15 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             {
                 organization.IsActive = true;
                 _genericService.Organization.Insert(organization);
+
+                var proto = Request.GetRequestContext().Url.Request.RequestUri.Scheme;
+                var baseUrl = Request.GetRequestContext().Url.Request.RequestUri.Authority;
+
+                string body = "Dear Sir/Madam, <br/><br/>Your company with the name <b>"+ organization.CompanyName +"</b> has been created successfully." +
+                                "<br/><br/>Regards,<br/>Administrator";
+
+                // Send email on organization creation.
+                EmailHelper.SendMail(organization.EmailId, "Company Prfile is created", body);
             }
             else
             {
