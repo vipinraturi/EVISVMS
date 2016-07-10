@@ -37,18 +37,15 @@ ApplyCustomBinding = function (elementName) {
             break;
             //Visitor module  
         case 'scanvisitor':
-            //debugger;
             BindingViewModel("/Visitor/_ScanVisitor", ScanVisitorViewModel());
             break;
         case 'managevisitor':
             var scanVisitorViewModel = ScanVisitorViewModel();
-            //debugger;
             BindingViewModel("/Visitor/_ManageVisitorManually", VisitorViewModel(scanVisitorViewModel.split('_')[0], scanVisitorViewModel.split('_')[1], scanVisitorViewModel.split('_')[2], scanVisitorViewModel.split('_')[3], scanVisitorViewModel.split('_')[4], scanVisitorViewModel.split('_')[5]));
             break;
         case 'visitorcheckin':
             BindingViewModel("/Visitor/_VisitorCheckInCheckout", VisitorCheckInCheckOutViewModel());
             break;
-
             //Report module  
         case 'visitordetailsreport':
             BindingViewModel("/Report/_VisitorDetailsReport", VisitorDetailsViewModel());
@@ -77,6 +74,11 @@ BindingViewModel = function (controllerUrl, viewModel) {
         if (controllerUrl == "/Visitor/_ManageVisitorManually") {
             $('#dateDOB').datepicker();
         }
+
+        if (controllerUrl == "/Visitor/_VisitorCheckInCheckout") {
+            BindAutoCompleteEvent();
+        }
+
         if (controllerUrl == "/Administration/_ShiftAssignment") {
             $('#dateFrom').datepicker();
         }
@@ -112,3 +114,4 @@ DashboardBindEvent = function () {
     //});
 
 }
+

@@ -47,6 +47,8 @@ namespace Evis.VMS.UI.ViewModel
         public string IdentificationNo { get; set; }
 
         public string Nationality { get; set; }
+
+        public IList<VisitorCheckInCheckOutHistoryVM> VisitorHiostory { get; set; }
     }
 
     public class VisitorCheckInVM
@@ -82,8 +84,15 @@ namespace Evis.VMS.UI.ViewModel
 
         public TimeSpan CheckInTime { get; set; }
 
-        public TimeSpan CheckOutTime { get; set; }
+        public TimeSpan? CheckOutTime { get; set; }
 
         public string TotalDuration { get; set; }
+    }
+
+    public class VisitorJsonModel
+    {
+        public string Name { get; set; }
+        public string Value { get; set; }
+        public string LogoUrl { get; set; }
     }
 }

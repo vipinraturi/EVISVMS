@@ -47,33 +47,61 @@ namespace Evis.VMS.UI.HelperClasses
             return _visitorDataVM;
         }
 
-        public IList<VisitorAutoCompleteVM> GetVisitorsAutoCompleteData(string globalSearch)
+        //public IList<VisitorAutoCompleteVM> GetVisitorsAutoCompleteData(string globalSearch)
+        //{
+        //    var lstVisitorsAutoComplete = _genericService.VisitorMaster.GetAll()
+        //                                                .Select(item => new VisitorAutoCompleteVM
+        //                                                {
+        //                                                    VisitorId = item.Id,
+        //                                                    VisitorName = item.VisitorName,
+        //                                                    MobileNo = item.ContactNo,
+        //                                                    EmailId = item.EmailId,
+        //                                                    IdentificationNo = item.IdNo,
+        //                                                }).AsQueryable();
+
+        //    return lstVisitorsAutoComplete.ToList();
+        //}
+
+        public VisitorDataVM GetVisitorCheckInHistory(long visitorId)//, int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC"
         {
-            var lstVisitorsAutoComplete = _genericService.VisitorMaster.GetAll()
-                                                        .Select(item => new VisitorAutoCompleteVM
+
+            var result = new VisitorDataVM();
+
+            var visitorData = _genericService.VisitorMaster.GetAll().Where(item => item.Id == visitorId).FirstOrDefault();
+
+            if (visitorData != null)
+            {
+                var query = _genericService.VisitDetails.GetAll().Where(x => x.VisitorId == visitorId);
+                List<VisitorCheckInCheckOutHistoryVM> lstVisitorCheckInAndOuttimes = new List<VisitorCheckInCheckOutHistoryVM>();
+
+                if (query.Count() > 0)
+                {
+
+                    query.ToList().ForEach(item => {
+                        lstVisitorCheckInAndOuttimes.Add(new VisitorCheckInCheckOutHistoryVM
                                                         {
-                                                            VisitorId = item.Id,
-                                                            VisitorName = item.VisitorName,
-                                                            MobileNo = item.ContactNo,
-                                                            EmailId = item.EmailId,
-                                                            IdentificationNo = item.IdNo,
-                                                        }).AsQueryable();
+                                                            CheckInDate = item.CheckIn.Date,
+                                                            CheckInTime = item.CheckIn.TimeOfDay,
+                                                            CheckOutTime = (item.CheckOut == null ? TimeSpan.MinValue : item.CheckOut.Value.TimeOfDay)
+                                                        });
 
-            return lstVisitorsAutoComplete.ToList();
-        }
+                    
+                    });
+                }
 
-        public IList<VisitorCheckInCheckOutHistoryVM> GetVisitorCheckInHistory(long visitorId, int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC")
-        {
 
-            var lstVisitorsCheckInHistory = _genericService.VisitDetails.GetAll().Where(x=> x.VisitorId==visitorId).AsEnumerable()
-                                                        .Select(item => new VisitorCheckInCheckOutHistoryVM
-                                                        {
-                                                            CheckInDate=item.CheckIn.Date,
-                                                            CheckInTime=item.CheckIn.TimeOfDay,
-                                                            CheckOutTime=item.CheckOut.Value.TimeOfDay
-                                                        }).AsQueryable();
+                result.VisitorHiostory = lstVisitorCheckInAndOuttimes.ToList();
+                result.DOB = visitorData.DOB??DateTime.MinValue;
+                result.EmailId = visitorData.EmailId;
+                result.Gender = visitorData.GenderId.ToString();
+                result.IdentificationNo = visitorData.IdNo;
+                result.MobileNo = visitorData.ContactNo;
+                result.Nationality = visitorData.Nationality.ToString();
+                result.VisitorId = visitorData.Id;
+                result.VisitorName = visitorData.VisitorName;
+            }
 
-            return lstVisitorsCheckInHistory.ToList();
+            return result;
         }
 
         public bool SaveVisitorCheckIn(VisitorCheckInVM visitorCheckInVM)
@@ -83,15 +111,35 @@ namespace Evis.VMS.UI.HelperClasses
             _visitDetails.ContactPerson = visitorCheckInVM.ContactPerson;
             _visitDetails.NoOfPerson = visitorCheckInVM.NoOfPerson;
             _visitDetails.PurposeOfVisit = visitorCheckInVM.PurposeOfVisit;
-            _visitDetails.CheckIn = visitorCheckInVM.CheckIn;
-            _visitDetails.CheckOut = visitorCheckInVM.CheckOut;
+            _visitDetails.CheckIn = DateTime.UtcNow;
+            _visitDetails.CheckOut = null;
             _visitDetails.CreatedBy = visitorCheckInVM.CreatedBy;
             _visitDetails.CheckInGate = visitorCheckInVM.CheckInGate;
             _visitDetails.CheckOutGate = visitorCheckInVM.CheckOutGate;
-
             _genericService.VisitDetails.Insert(_visitDetails);
             _genericService.Commit();
             return true;
+        }
+
+        public List<VisitorJsonModel> GetVisitorData(string searchterm)
+        {
+            var result = new List<VisitorJsonModel>();
+            var qryVisitors = _genericService.VisitorMaster.GetAll()
+                .Where(item =>
+                    item.VisitorName.ToLower().Contains(searchterm.ToLower()) ||
+                    item.EmailId.ToLower().Contains(searchterm.ToLower()) ||
+                    item.ContactNo.ToLower().Contains(searchterm.ToLower())
+                    );
+
+            if (qryVisitors.Count() > 0)
+            {
+                qryVisitors.ToList().ForEach(item =>
+                {
+                    result.Add(new VisitorJsonModel { Name = item.VisitorName, Value = item.Id.ToString(), LogoUrl = "/images/VisitorImages/" + item.ImagePath });
+                });
+            }
+
+            return result;
         }
     }
 }

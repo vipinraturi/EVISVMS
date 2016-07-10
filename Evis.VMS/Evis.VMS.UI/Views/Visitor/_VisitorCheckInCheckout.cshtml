@@ -2,104 +2,55 @@
     <li><a href="#" class="a-color">Visitor Management</a></li>
     <li><a href="#" class="a-color">Visitor Check-In & Check-Out</a></li>
 </ol>
-
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12 ">
-    @*<div class=" col-md-4 col-sm-4 col-xs-12  top_search">
-        <div class="input-group">
-            <input id="txtGlobalSearch" type="text" class="form-control" placeholder="Name"
-                   />
-            <span class="input-group-btn">
-                <button class="btn btn-default" type="button" ><i class="fa fa-search"></i></button>
-            </span>
-        </div>
-    </div>*@
-
-        <div class="col-md-4 col-sm-4 col-xs-12  top_search">
-            <div class="input-group">
-                @*<img id="project-icon" src="images/transparent_1x1.png" class="ui-state-default" alt="">*@
-                <input id="project" type="text" class="form-control" placeholder="Name" />
-                <span class="input-group-btn">
-                    <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
-                </span>
-                <input type="hidden" id="project-id">
-                <p id="project-description"></p>
-            </div>
-        </div>
-
-    <div class="col-md-4 col-sm-4 col-xs-12   top_search">
-        <div class="input-group">
-            <input id="txtGlobalSearch" type="text" class="form-control" placeholder="Contact Number"
-                    />
-            <span class="input-group-btn">
-                <button class="btn btn-default" type="button" ><i class="fa fa-search"></i></button>
-            </span>
-        </div>
+        <input id="txtEmail" type="text" class="form-control searchVisitor" placeholder="Email Address / Contact Number / Identity Id" />
     </div>
-    <div class="col-md-4 col-sm-4 col-xs-12  top_search">
-        <div class="input-group">
-            <input id="txtGlobalSearch1" type="text" class="form-control" placeholder="Emirates Id/Licence Id/Passport Number"
-                 />
-            <span class="input-group-btn">
-                <button class="btn btn-default" type="button" ><i class="fa fa-search"></i></button>
-            </span>
-        </div>
-    </div>
-    </div>
-
     <div class="col-md-6 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h2>Add Visitor</h2>
-                
+                <h2>Visitor Check-in & Check-out</h2>
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
                 <br />
                 <div class="profile_img col-sm-4">
-                    <!-- end of image cropping -->
                     <div id="crop-avatar">
-                        <!-- Current avatar -->
                         <img class="img-responsive avatar-view" src="../images/avatar.jpg" alt="Avatar" title="Change the avatar" style="height:150px">
-
                     </div>
-
                 </div>
-
                 <div class="col-sm-8">
                     <ul class="list-unstyled user_data">
                         <li>
-                            <i class="fa fa-user favwhite user-profile-icon"></i> 
+                            <i class="fa fa-user favwhite user-profile-icon"></i>
                             <label id="lblVisitorName" data-bind="text: VisitorName" />
                         </li>
                         <li>
-                            <i class="fa fa-mars favwhite user-profile-icon"></i> 
+                            <i class="fa fa-mars favwhite user-profile-icon"></i>
                             <label id="lblGender" data-bind="text: Gender" />
                         </li>
                         <li>
-                            <i class="fa fa-calendar favwhite user-profile-icon"></i> 
+                            <i class="fa fa-calendar favwhite user-profile-icon"></i>
                             <label id="lblDOB" data-bind="text: DOB" />
                         </li>
                         <li>
-                            <i class="fa fa-phone favwhite user-profile-icon"></i> 
+                            <i class="fa fa-phone favwhite user-profile-icon"></i>
                             <label id="lblMobileNo" data-bind="text: MobileNo" />
                         </li>
                         <li>
-                            <i class="fa fa-envelope favwhite user-profile-icon"></i> 
+                            <i class="fa fa-envelope favwhite user-profile-icon"></i>
                             <label id="lblEmailId" data-bind="text: EmailId" />
                         </li>
                         <li>
-                            <i class="fa fa-simplybuilt favwhite user-profile-icon"></i> 
+                            <i class="fa fa-simplybuilt favwhite user-profile-icon"></i>
                             <label id="lblIdentificationNo" data-bind="text: IdentificationNo" />
                         </li>
                         <li>
-                            <i class="fa fa-flag favwhite user-profile-icon"></i> 
+                            <i class="fa fa-flag favwhite user-profile-icon"></i>
                             <label id="lblNationality" data-bind="text: Nationality" />
                         </li>
                     </ul>
                 </div>
-
-
                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Person <span class="mandatoryField">*</span></label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
@@ -122,18 +73,17 @@
                     </div>
                 </div>
                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                    <button type="button" class="btn btn-success  pull-right" data-bind="click: SaveVisitorCheckIn.bind()">Check-In</button>
-                    <button type="button" class="btn btn-primary  pull-right" data-bind="click: ResetCheckInData.bind()">Reset</button>
+                    <button type="button" class="btn btn-success  pull-right" style="margin:5px;" data-bind="click: SaveVisitorCheckIn.bind()">Check-In</button>
+                    <button type="button" class="btn btn-primary  pull-right" style="margin:5px;" data-bind="click: ResetCheckInData.bind()">Reset</button>
                 </div>
             </div>
         </div>
     </div>
-
     <div class="col-md-6 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
                 <h2 style="padding-bottom:10px;">Check-In & Check-Out History</h2>
-              
+
                 <div class="clearfix"></div>
             </div>
             <div class="x_content ">
@@ -149,69 +99,30 @@
                                 <th style="width: 12%">Total Duration</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody data-bind="foreach: VisitorHiostory">
                             <tr>
-                                <td>1</td>
-                                <td>12-Dec-2012</td>
-                                <td>9:50 AM</td>
-                                <td>12:15 PM</td>
-                                <td>2(H),25(M)</td>
+                                <td data-bind="text: $index() + 1"></td>
+                                <td data-bind="text: CheckInDate"></td>
+                                <td data-bind="text: CheckInTime"></td>
+                                <td data-bind="text: CheckOutTime"></td>
+                                <td></td>
                             </tr>
+                        </tbody>
+                        <tbody data-bind="if:VisitorHiostory().length == 0">
                             <tr>
-                                <td>2</td>
-                                <td>12-Dec-2012</td>
-                                <td>9:50 AM</td>
-                                <td>12:15 PM</td>
-                                <td>2(H),25(M)</td>
+                                <td colspan="5" style="text-align:center;">
+                                    No data found.
+                                </td>
                             </tr>
-
-                            <tr>
-                                <td>3</td>
-                                <td>12-Dec-2012</td>
-                                <td>9:50 AM</td>
-                                <td>12:15 PM</td>
-                                <td>2(H),25(M)</td>
-                            </tr>
-
-                            <tr>
-                                <td>4</td>
-                                <td>12-Dec-2012</td>
-                                <td>9:50 AM</td>
-                                <td>12:15 PM</td>
-                                <td>2(H),25(M)</td>
-                            </tr>
-
-                            <tr>
-                                <td>5</td>
-                                <td>12-Dec-2012</td>
-                                <td>9:50 AM</td>
-                                <td>12:15 PM</td>
-                                <td>2(H),25(M)</td>
-                            </tr>
-
-                            <tr>
-                                <td>6</td>
-                                <td>12-Dec-2012</td>
-                                <td>9:50 AM</td>
-                                <td>12:15 PM</td>
-                                <td>2(H),25(M)</td>
-                            </tr>
-
-                            <tr>
-                                <td>7</td>
-                                <td>12-Dec-2012</td>
-                                <td>9:50 AM</td>
-                                <td>12:15 PM</td>
-                                <td>2(H),25(M)</td>
-                            </tr>
+                        </tbody>
+                            @*
                             <tr>
                                 <td>8</td>
                                 <td>12-Dec-2012</td>
                                 <td>9:50 AM</td>
                                 <td>12:15 PM</td>
                                 <td>2(H),25(M)</td>
-                            </tr>
-                        </tbody>
+                            </tr>*@
                     </table>
                     <script>
     $(function () {

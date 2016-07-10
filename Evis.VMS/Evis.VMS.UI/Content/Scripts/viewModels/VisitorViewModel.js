@@ -1,21 +1,10 @@
 ﻿
 
 function VisitorViewModel(visitorName, gender, nationalityVal, dateOfBirth, typeOfCard, idNumber, nationalityVal) {
-    //ko.validation.rules.pattern.message = 'Invalid.';
-    //ko.validation.configure({
-    //    registerExtenders: true,
-    //    messagesOnModified: true,
-    //    insertMessages: true,
-    //    parseInputAttributes: true,
-    //    messageTemplate: null,
-    //    decorateElement: true,
-    //    errorElementClass: 'error'
-    //});
 
     nationality = (nationalityVal != "" ? nationalityVal : undefined);
     typeOfCard = (typeOfCard != "" ? typeOfCard : undefined);
     gender = (gender != "" ? gender : undefined);
-    //debugger;
 
     var self = this;
     Id = ko.observable(0);
@@ -46,7 +35,6 @@ function VisitorViewModel(visitorName, gender, nationalityVal, dateOfBirth, type
         ContactNo: this.ContactNo
     });
 
-    //alert('counting....');
     self.DataGrid = new RIT.eW.DataGridAjax('/Api/Visitor/GetVisitorData', 7);
 
     self.VisitorList = ko.observableArray([]);
@@ -66,11 +54,9 @@ function VisitorViewModel(visitorName, gender, nationalityVal, dateOfBirth, type
 
         AjaxCall('/Api/Common/GetLookUpData', lookUpTypes, 'POST', function (data) {
             self.LookUpValues(data);
-
             self.Genders(ko.utils.arrayFilter(self.LookUpValues(), function (item) {
                 return item.LookUpType.TypeCode == "Gender";
             }));
-
             self.TypeOfCards(ko.utils.arrayFilter(self.LookUpValues(), function (item) {
                 return item.LookUpType.TypeCode == "TypeOfCards";
             }));
@@ -78,7 +64,6 @@ function VisitorViewModel(visitorName, gender, nationalityVal, dateOfBirth, type
             self.Nationalities(ko.utils.arrayFilter(self.LookUpValues(), function (item) {
                 return item.LookUpType.TypeCode == "Nationalities";
             }));
-            //debugger;
         })
     }
 
@@ -87,7 +72,6 @@ function VisitorViewModel(visitorName, gender, nationalityVal, dateOfBirth, type
         if (self.errors().length > 0) {
             self.errors.showAllMessages(true);
             this.errors().forEach(function (data) {
-                //toastr.warning(data);
             });
         }
         else {
@@ -111,7 +95,6 @@ function VisitorViewModel(visitorName, gender, nationalityVal, dateOfBirth, type
                     toastr.success('Visitor saved successfully!!')
                     self.ResetData();
                     self.IsInsert(true);
-                    //ApplyCustomBinding('managevisitor');
                     self.GetAllVisitor();
                 }
                 else {
@@ -139,22 +122,28 @@ function VisitorViewModel(visitorName, gender, nationalityVal, dateOfBirth, type
         self.ContactNo('');
         self.ContactAddress('');
         dataToSend = '';
+        $('#viewVisitorImageUnique').hide();
         ApplyCustomBinding('managevisitor');
     }
 
     self.DeleteVisitor = function (tableItem) {
         var message = confirm("Are you sure, you want to delete selected record!");
         if (message == true) {
-            AjaxCall('/Api/Visitor/DeleteVisitor', tableItem, 'POST', function () {
-                toastr.success('Visitor deleted successfully!!')
-                ApplyCustomBinding('managevisitor');
-
+            AjaxCall('/Api/Visitor/DeleteVisitor', tableItem, 'POST', function (result) {
+                if (result.Success) {
+                    toastr.success('Visitor deleted successfully!!')
+                    ApplyCustomBinding('managevisitor');
+                } else if (result.Success) {
+                    toastr.warning("Visitor has dependency on other data. Please delete selected visitor's corresponding records first!!")
+                }
             });
         }
     }
 
     self.EditVisitor = function (tableItem) {
         if (tableItem != undefined) {
+            $('#viewVisitorImageUnique').show();
+            $('.img_responsive_Avatar').removeAttr('src')
             self.IsInsert(false);
             self.VisitorName(tableItem.VisitorName);
             self.EmailAddress(tableItem.EmailAddress);
@@ -165,26 +154,28 @@ function VisitorViewModel(visitorName, gender, nationalityVal, dateOfBirth, type
             self.Nationality(tableItem.Nationality);
             self.ContactNo(tableItem.ContactNo);
             self.ContactAddress(tableItem.ContactAddress);
-
-            //debugger;
-
-            //Dropzone.options.dropzoneImageForm =
-            //    {
-            //    acceptedFiles: "image/*",
-            //    init: function () {
-            //        var thisDropzone = this;
-            //        var mockFile = {
-            //            name: tableItem.Id,
-            //            size: 12345
-            //        };
-
-            //        debugger;
-
-            //        thisDropzone.emit("addedfile", mockFile);
-            //        thisDropzone.emit("thumbnail", mockFile, '/images/VisitorIdentityImages/' + tableItem.ImagePath);
-            //    }
-            //};
+            $('.img_responsive_Avatar').attr('src', '/images/VisitorImages/' + tableItem.ImagePath).addClass('dz-message')
         }
+    }
+
+    self.ViewVisitorImage = function () {
+        //alert('hi');
+        var srcURL = '';
+
+        if ($('.dz-image img').attr('alt') != undefined) {
+            srcURL = ($('.dz-image img').attr('alt'));
+        }
+        else if ($('.img_responsive_Avatar').attr('src') != undefined) {
+            srcURL = ($('.img_responsive_Avatar').attr('src'));
+        }
+
+
+        if (srcURL.indexOf('/images/VisitorImages') == -1) {
+            srcURL = '/images/VisitorImages/' + srcURL;
+        }
+
+        $('#visitorOriginalSize').attr('src', srcURL);
+        $('#visitorImageModal').modal('show');
     }
 
     self.GlobalSearchEnter = function (data, event) {

@@ -26,10 +26,12 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
 
         public readonly VisitorHelper _visitorHelper = null;
+        public readonly VisitorCheckInCheckOutHelper _visitorCheckInCheckOutHelper = null;
 
         public VisitorController()
         {
             _visitorHelper = new VisitorHelper();
+            _visitorCheckInCheckOutHelper = new VisitorCheckInCheckOutHelper();
         }
 
         [Route("~/Api/Visitor/SaveVisitor")]
@@ -81,8 +83,16 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         [HttpPost]
         public ReturnResult DeleteVisitor([FromBody] VisitorDetailsVM visitorVM)
         {
-            var result = _visitorHelper.DeleteVisitor(visitorVM);
-            return new ReturnResult { Message = (result == true ? "Success" : "Failure"), Success = (result == true ? true : false) };
+            try
+            {
+                var result = _visitorHelper.DeleteVisitor(visitorVM);
+                return new ReturnResult { Message = (result == true ? "Success" : "Failure"), Success = (result == true ? true : false) };
+            }
+            catch (Exception ex)
+            {
+                return new ReturnResult { Message = "Failure", Success = false };
+            }
+            return null;
         }
     }
 }

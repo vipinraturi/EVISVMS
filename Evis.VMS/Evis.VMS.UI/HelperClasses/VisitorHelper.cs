@@ -140,5 +140,7 @@ namespace Evis.VMS.UI.HelperClasses
 
             return visitor == null ? false : true;
         }
+
+        
     }
 }

@@ -6,6 +6,8 @@
  * Description  : 
  *******************************************************************************/
 
+using Evis.VMS.UI.HelperClasses;
+using Evis.VMS.UI.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,8 +17,18 @@ using System.Web.Mvc;
 
 namespace Evis.VMS.UI.Controllers
 {
+
     public class VisitorController : Controller
     {
+        public readonly VisitorHelper _visitorHelper = null;
+        public readonly VisitorCheckInCheckOutHelper _visitorCheckInCheckOutHelper = null;
+
+        public VisitorController()
+        {
+            _visitorHelper = new VisitorHelper();
+            _visitorCheckInCheckOutHelper = new VisitorCheckInCheckOutHelper();
+        }
+
         public ActionResult _ScanVisitor()
         {
             return View();
@@ -155,5 +167,12 @@ namespace Evis.VMS.UI.Controllers
             return bytes;
         }
 
+
+        public JsonResult GetCompanyNames(string searchterm)
+        {
+            var visitorDeata = new List<VisitorJsonModel>();
+            visitorDeata = _visitorCheckInCheckOutHelper.GetVisitorData(searchterm);
+            return Json(visitorDeata, JsonRequestBehavior.AllowGet);
+        }
 	}
 }
