@@ -67,13 +67,13 @@
                         </div>
                         <!-- end of image cropping -->
                     </div>
-                    <h3 data-bind="text: User().FullName, visible: true"></h3>
+                    <h3 data-bind="text: DisplayName, visible: true"></h3>
                     <ul class="list-unstyled user_data">
                         <li>
                             <i class="fa fa-map-marker user-profile-icon"></i> <span data-bind="text: Nationality, visible: true"></span>
                         </li>
                         <li>
-                            <i class="fa fa-briefcase user-profile-icon"></i> Supervisor
+                            <i class="fa fa-briefcase user-profile-icon"></i> <span data-bind="text: RoleName, visible: true"></span>
                         </li>
                     </ul>
                 </div>
@@ -84,7 +84,7 @@
                             <label class="control-label col-md-3 col-sm-3 col-xs-12"> Full Name<span class="mandatoryField">*</span></label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
                                 <input id="txtFirstName" type="text" maxlength="100" class="form-control" placeholder="Full Name" required="required" 
-                                       data-bind="value: User().FullName" />
+                                       data-bind="value: FullName" />
                                 <span class="fa fa-user favwhite form-control-feedback right" aria-hidden="true"></span>
                             </div>
                         </div>
@@ -93,7 +93,7 @@
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Email Address <span class="mandatoryField">*</span></label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
                                 <input id="txtEmailAddress" type="text" maxlength="50" class="form-control" placeholder="Email Address" required="required" 
-                                       data-bind="value: User().Email" disabled />
+                                       data-bind="value: Email" disabled />
                                 <span class="fa fa-envelope favwhite form-control-feedback right" aria-hidden="true"></span>
                             </div>
                         </div>
@@ -102,7 +102,7 @@
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Number <span class="mandatoryField">*</span></label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
                                 <input id="txtContactNo" type="text" maxlength="15" class="form-control" placeholder="Contact Number" required="required" 
-                                       data-bind="value: User().PhoneNumber" />
+                                       data-bind="value: PhoneNumber" />
                                 <span class="fa fa-phone favwhite form-control-feedback right" aria-hidden="true"></span>
                             </div>
 
@@ -153,7 +153,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Address <span class="mandatoryField">*</span></label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
-                                <textarea id="txtAddress" class="form-control" rows="3" maxlength="100" placeholder="Contact Address" style="resize: none;" data-bind="value: User().ContactAddress"></textarea>
+                                <textarea id="txtAddress" class="form-control" rows="3" maxlength="100" placeholder="Contact Address" style="resize: none;" data-bind="value: ContactAddress"></textarea>
                                 <span class="fa fa-home favwhite form-control-feedback right" aria-hidden="true"></span>
                             </div>
                         </div>

@@ -18,6 +18,8 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
+using System.Security.Claims;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Evis.VMS.UI.Controllers.ApiControllers
 {
@@ -35,6 +37,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             currentUser.ContactAddress = myProfileVM.ContactAddress;
 
             await _userService.UpdateAsync(currentUser, string.Empty);
+            _genericService.Commit();
 
             return new ReturnResult { Message = "Success", Success = true };
         }
@@ -45,7 +48,18 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         {
             string userId = HttpContext.Current.User.Identity.GetUserId();
             var currentUser = await _userService.GetAsync(x => x.Id == userId);
-            string test = currentUser.Roles.FirstOrDefault().RoleId;
+            var identity = (ClaimsIdentity)User.Identity;
+            IEnumerable<Claim> claims = identity.Claims;
+            string roleId = string.Empty;
+            foreach (var claim in claims)
+            {
+                if (claim.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/role")
+                {
+                    currentUser.Roles.Add(new IdentityUserRole { RoleId = claim.Value, UserId = currentUser.Id });
+                    break;
+                }
+
+            }
             return currentUser;
         }
 

@@ -3,8 +3,7 @@
 
     self.UserId = ko.observable('');
     self.FullName = ko.observable('').extend({
-        required: true,
-        deferValidation: true
+        required: true
     });
     self.PhoneNumber = ko.observable('').extend({
         required: true,
@@ -13,12 +12,19 @@
             params: /^([0-9\(\)\/\+ \-\.]*)$/
         }
     });
+    self.Email = ko.observable('');
     self.ContactAddress = ko.observable('');
     self.GenderId = ko.observable(0);
     self.RoleId = ko.observable('');
     self.Nationality = ko.observable('');
+    self.DisplayName = ko.observable('');
+    self.RoleName = ko.observable('');
 
-    self.errors = ko.validation.group(self);
+    //self.errors = ko.validation.group(self);
+    self.myProfileErrors = ko.validation.group({
+        FullName: this.FullName,
+        PhoneNumber: this.PhoneNumber
+    });
 
     self.Genders = ko.observableArray();
     AjaxCall('/Api/MyProfile/GetGender', null, 'GET', function (data) {
@@ -30,37 +36,40 @@
         self.Roles(data);
     });
 
-    var User = {
-        UserId: self.UserId,
-        FullName: self.FullName,
-        Email: self.Email,
-        PhoneNumber: self.PhoneNumber,
-        ContactAddress: self.ContactAddress,
-        GenderId: self.GenderId,
-    };
-
-    self.User = ko.observable(User);
     AjaxCall('/Api/MyProfile/GetMyProfile', null, 'GET', function (data) {
+        self.UserId(data.Id);
+        self.FullName(data.FullName);
+        self.DisplayName(data.FullName);
+        self.Email(data.Email);
+        self.PhoneNumber(data.PhoneNumber);
+        self.ContactAddress(data.ContactAddress);
+
         debugger;
-        self.User(data);
-        self.GenderId = self.User().GenderId;
-        self.RoleId = ko.observable(data.Roles[0].RoleId);
-        self.Nationality = ko.observable(data.CountryMaster.LookUpValue);
+        self.GenderId(data.GenderId);
+        self.RoleId(data.Roles[0].RoleId);
+        self.Nationality(data.CountryMaster.LookUpValue);
+
+        self.Roles().forEach(function (item) {
+            debugger;
+            if (item.Id === self.RoleId()) {
+                self.RoleName(item.Name);
+            }
+        });
     });
 
     self.SaveMyProfile = function () {
-        if (self.errors().length > 0) {
-            self.errors.showAllMessages(true);
-            this.errors().forEach(function (data) {
+        if (self.myProfileErrors().length > 0) {
+            self.myProfileErrors.showAllMessages(true);
+            this.myProfileErrors().forEach(function (data) {
                 console.log(event);
             });
         }
         else {
             var data = new Object();
-            data.FullName = self.User().FullName,
-            data.PhoneNumber = self.User().PhoneNumber,
-            data.ContactAddress = self.User().ContactAddress;
-
+            data.FullName = self.FullName(),
+            data.PhoneNumber = self.PhoneNumber(),
+            data.ContactAddress = self.ContactAddress();
+            debugger;
             AjaxCall('/Api/MyProfile/SaveMyProfile', data, 'PUT', function () {
                 toastr.success('My Profile data is saved successfully!!')
                 ApplyCustomBinding('myprofile');
