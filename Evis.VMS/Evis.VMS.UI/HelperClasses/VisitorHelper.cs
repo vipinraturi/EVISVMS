@@ -134,13 +134,26 @@ namespace Evis.VMS.UI.HelperClasses
         }
 
 
-        public bool IsVisitorExist(VisitorDetailsVM visitorDetailsVM)
+        public string IsVisitorEmailExist(VisitorDetailsVM visitorDetailsVM)
         {
-            var visitor = _genericService.VisitorMaster.GetAll().Where(item => item.EmailId == visitorDetailsVM.EmailAddress).FirstOrDefault();
+            var visitors =
+                _genericService.VisitorMaster.GetAll();
 
-            return visitor == null ? false : true;
+
+            if (visitors.Where(item => item.EmailId == visitorDetailsVM.EmailAddress).FirstOrDefault() != null)
+            {
+                return "Email already exist";
+            }
+            else if (visitors.Where(item => item.EmailId == visitorDetailsVM.ContactNo).FirstOrDefault() != null)
+            {
+                return "Contact Number already exist";
+            }
+            else if (visitors.Where(item => item.EmailId == visitorDetailsVM.IdNo).FirstOrDefault() != null)
+            {
+                return "Identity provided already exist";
+            }
+            return string.Empty;
         }
 
-        
     }
 }

@@ -35,10 +35,22 @@
                 <h2>Add/Edit Visitor</h2>
                 <div class="clearfix"></div>
             </div>
-            <div class="x_content leftcontent ">
-            <div class="form-horizontal form-label-left input_mask">
+            <div class="x_content leftcontent ">                
+                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                    <div class="">
+                        <div class="x_content">
+                            <p>Drag upto 2 identity images to the box below or click to select files.</p>
+                            <div style="text-align:center">
+                                <form action="~/Visitor/SaveVisitorIdentityImages" method="post"
+                                      enctype="multipart/form-data" class="dropzone dz-clickable" id="dropzoneForm"
+                                      style="min-height:120px !important"></form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-horizontal form-label-left input_mask">
                     <div class="form-group col-md-3 col-sm-3 col-xs-12 pull-right">
-                        
+
                         <form class="dropzone-avatar dz-clickable img-responsive_Visitor avatar-view" action="~/Visitor/SaveVisitorProfilePicture" method="post" style="height: 129px !important; padding: 2px !important; "
                               enctype="multipart/form-data" id="dropzoneImageForm" title="Change the avatar">
                             <img class="img_responsive_Avatar" />
@@ -54,7 +66,7 @@
                                         </div>
                                         <div class="modal-body">
                                             <div class="avatar-body">
-                                              <img width="800" id="visitorOriginalSize" src="#"/>
+                                                <img width="800" id="visitorOriginalSize" src="#" />
                                             </div>
                                         </div>
                                         <div class="modal-footer">
@@ -65,157 +77,156 @@
                             </div>
                         </div>
                     </div>
-            </div>
-            <div class="form-group col-md-9 col-sm-9 col-xs-12">
-                <label class=" control-label col-md-4 col-sm-4 col-xs-12">
-                    Visitor's Name
-                </label>
-                <div class="col-md-8 col-sm-8 col-xs-12">
-                    <input maxlength="50" id="txtFirstName" type="text" data-bind="value: VisitorName" class="form-control" placeholder="[Visitor Name]" />
-                    <span class="fa fa-user favwhite form-control-feedback right" aria-hidden="true"></span>
                 </div>
-            </div>
-            <div class="form-group col-md-9 col-sm-9 col-xs-12">
-                <label class=" control-label col-md-4 col-sm-4 col-xs-12">
-                    Email Address <span class="mandatoryField">*</span>
-                </label>
-                <div class="col-md-8 col-sm-8 col-xs-12">
-                    <input maxlength="20" id="txtFirstName" type="text" data-bind="value: EmailAddress" class="form-control" placeholder="[email@domain.com]" />
-                    <span class="fa fa-user favwhite form-control-feedback right" aria-hidden="true"></span>
+                <div class="form-group col-md-9 col-sm-9 col-xs-12">
+                    <label class=" control-label col-md-4 col-sm-4 col-xs-12">
+                        Visitor's Name
+                    </label>
+                    <div class="col-md-8 col-sm-8 col-xs-12">
+                        <input maxlength="50" id="txtFirstName" type="text" data-bind="value: VisitorName" class="form-control" placeholder="[Visitor Name]" />
+                        <span class="fa fa-user favwhite form-control-feedback right" aria-hidden="true"></span>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group col-md-9 col-sm-9 col-xs-12">
-                <label class="control-label col-md-4 col-sm-4 col-xs-12">Gender <span class="mandatoryField">*</span></label>
-                <div class="col-md-8 col-sm-8 col-xs-12">
-                    <select class="form-control" data-bind="options: Genders,
+                <div class="form-group col-md-9 col-sm-9 col-xs-12">
+                    <label class=" control-label col-md-4 col-sm-4 col-xs-12">
+                        Email Address <span class="mandatoryField">*</span>
+                    </label>
+                    <div class="col-md-8 col-sm-8 col-xs-12">
+                        <input maxlength="20" id="txtFirstName" type="text" data-bind="value: EmailAddress" class="form-control" placeholder="[email@domain.com]" />
+                        <span class="fa fa-user favwhite form-control-feedback right" aria-hidden="true"></span>
+                    </div>
+                </div>
+                <div class="form-group col-md-9 col-sm-9 col-xs-12">
+                    <label class="control-label col-md-4 col-sm-4 col-xs-12">Gender <span class="mandatoryField">*</span></label>
+                    <div class="col-md-8 col-sm-8 col-xs-12">
+                        <select class="form-control" data-bind="options: Genders,
                                optionsText: function(item) {
                                    return item.LookUpValue
                                },
                                optionsValue: 'Id',
                                value: Gender,
                                optionsCaption: 'Select'"></select>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group col-md-9 col-sm-9 col-xs-12">
-                <label class="control-label col-md-4 col-sm-4 col-xs-12">Date Of Birth <span class="mandatoryField">*</span></label>
-                <div class="col-md-8 col-sm-8 col-xs-12">
-                    <input maxlength="10" id="dateDOB" type="text" class="form-control" placeholder="[Date Of Birth]" data-bind="value: DOB" />
-                    <span class="fa fa-calendar favwhite form-control-feedback right" aria-hidden="true"></span>
+                <div class="form-group col-md-9 col-sm-9 col-xs-12">
+                    <label class="control-label col-md-4 col-sm-4 col-xs-12">Date Of Birth <span class="mandatoryField">*</span></label>
+                    <div class="col-md-8 col-sm-8 col-xs-12">
+                        <input maxlength="10" id="dateDOB" type="text" class="form-control" placeholder="[Date Of Birth]" data-bind="value: DOB" />
+                        <span class="fa fa-calendar favwhite form-control-feedback right" aria-hidden="true"></span>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Type Of Cards <span class="mandatoryField">*</span></label>
-                <div class="col-md-9 col-sm-9 col-xs-12">
-                    <select class="form-control" data-bind="options: TypeOfCards,
+                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Type Of Cards <span class="mandatoryField">*</span></label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <select class="form-control" data-bind="options: TypeOfCards,
                                optionsText: function(item) {
                                    return item.LookUpValue
                                },
                                optionsValue: 'Id',
                                value: TypeOfCardValue,
                                optionsCaption: 'Select'"></select>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">ID Number <span class="mandatoryField">*</span></label>
-                <div class="col-md-9 col-sm-9 col-xs-12">
-                    <input maxlength="20" id="" type="text" data-bind="value: IdNo" class="form-control" placeholder="[Emirates Id]" />
-                    <span class="fa fa-simplybuilt favwhite form-control-feedback right" aria-hidden="true"></span>
+                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">ID Number <span class="mandatoryField">*</span></label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input maxlength="20" id="" type="text" data-bind="value: IdNo" class="form-control" placeholder="[Emirates Id]" />
+                        <span class="fa fa-simplybuilt favwhite form-control-feedback right" aria-hidden="true"></span>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Nationality <span class="mandatoryField">*</span></label>
-                <div class="col-md-9 col-sm-9 col-xs-12">
-                    <select class="form-control" data-bind="options: Nationalities,
+                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Nationality <span class="mandatoryField">*</span></label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <select class="form-control" data-bind="options: Nationalities,
                                optionsText: function(item) {
                                    return item.LookUpValue
                                },
                                optionsValue: 'Id',
                                value: Nationality,
                                optionsCaption: 'Select'"></select>
+                    </div>
+                </div>
+                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Number <span class="mandatoryField">*</span></label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input maxlength="15" id="txtContactNo" type="text" data-bind="value: ContactNo" class="form-control" placeholder="[Contact Number]" />
+                        <span class="fa fa-phone favwhite form-control-feedback right" aria-hidden="true"></span>
+                    </div>
+                </div>
+                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Address</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <textarea maxlength="500" id="txtAddress" class="form-control" data-bind="value: ContactAddress" rows="3" placeholder="[Contact Address]" style="resize: none;"></textarea>
+                        <span class="fa fa-home favwhite form-control-feedback right" aria-hidden="true"></span>
+                    </div>
+                </div>
+                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-md-offset-7">
+                        <button type="button" class="btn btn-success pull-right" style="margin:5px !important;" data-bind="click: SaveVisitor.bind()">
+                            Save <i class="fa fa-save"></i>
+                        </button>
+                        <button type="button" class="btn btn-primary pull-right" style="margin:5px !important;" data-bind="click: ResetVisitor.bind()">
+                            Reset
+                            <i class="fa fa-refresh"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
-            <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Number <span class="mandatoryField">*</span></label>
-                <div class="col-md-9 col-sm-9 col-xs-12">
-                    <input maxlength="15" id="txtContactNo" type="text" data-bind="value: ContactNo" class="form-control" placeholder="[Contact Number]" />
-                    <span class="fa fa-phone favwhite form-control-feedback right" aria-hidden="true"></span>
-                </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Manage Visitors</h2>
+                <div class="clearfix"></div>
             </div>
-            <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Address</label>
-                <div class="col-md-9 col-sm-9 col-xs-12">
-                    <textarea maxlength="500" id="txtAddress" class="form-control" data-bind="value: ContactAddress" rows="3" placeholder="[Contact Address]" style="resize: none;"></textarea>
-                    <span class="fa fa-home favwhite form-control-feedback right" aria-hidden="true"></span>
+            <div class="x_content">
+                <div class="col-md-5 col-sm-5 col-xs-12  pull-right top_search">
+                    <div class="input-group">
+                        <input id="txtGlobalSearch" type="text" class="form-control" placeholder="Global Search"
+                               data-bind="value: GlobalSearch, enterkey: GlobalSearchEnter.bind()" />
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" data-bind="click: GetAllVisitor.bind()"><i class="fa fa-search"></i></button>
+                        </span>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                <div class="col-md-offset-7">
-                    <button type="button" class="btn btn-success pull-right" style="margin:5px !important;" data-bind="click: SaveVisitor.bind()">
-                        Save <i class="fa fa-save"></i>
-                    </button>
-
-                    <button type="button" class="btn btn-primary pull-right" style="margin:5px !important;" data-bind="click: ResetVisitor.bind()">
-                        Reset
-                        <i class="fa fa-refresh"></i>
-                    </button>
-                </div>
+                <form class="form-horizontal form-label-left">
+                    <table class="table jambo_table">
+                        <thead>
+                            <tr>
+                                <th style="width: 1%">#</th>
+                                <th style="width: 15%"> <a href="#" class="sortCol">Visitor's Name</a> </th>
+                                <th style="width: 15%"> <a href="#" class="sortCol">Nationality</a></th>
+                                <th style="width: 13%"><a href="#" class="sortCol">Contact Number</a></th>
+                                <th style="width: 17%"></th>
+                            </tr>
+                        </thead>
+                        <tbody data-bind="foreach: DataGrid.DataRows">
+                            <tr>
+                                <td scope="row" data-bind="text: $index() +1"></td>
+                                <td data-bind="text: VisitorName"></td>
+                                <td data-bind="text: EmailAddress"></td>
+                                <td data-bind="text: ContactNo"></td>
+                                <td>
+                                    <a href="#" class="btn  btn-s" data-bind="click: EditVisitor.bind($data)" title="click here to view or edit record."><i class="fa fa-pencil"></i></a>
+                                    <a href="#" class="btn  btn-s" data-bind="click: DeleteVisitor.bind($data)" title="click here to delete record."><i class="fa fa-trash-o"></i></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody data-bind="if: DataGrid.DataRows().length == 0">
+                            <tr>
+                                <td colspan="5" style="text-align:center;">
+                                    No data found.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    @Html.Partial("_Pager")
+                </form>
             </div>
         </div>
     </div>
 </div>
-<div class="col-md-6 col-xs-12">
-    <div class="x_panel">
-        <div class="x_title">
-            <h2>Manage Visitors</h2>
-            <div class="clearfix"></div>
-        </div>
-        <div class="x_content">
-            <div class="col-md-5 col-sm-5 col-xs-12  pull-right top_search">
-                <div class="input-group">
-                    <input id="txtGlobalSearch" type="text" class="form-control" placeholder="Global Search"
-                           data-bind="value: GlobalSearch, enterkey: GlobalSearchEnter.bind()" />
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="button" data-bind="click: GetAllVisitor.bind()"><i class="fa fa-search"></i></button>
-                    </span>
-                </div>
-            </div>
-            <form class="form-horizontal form-label-left">
-                <table class="table jambo_table">
-                    <thead>
-                        <tr>
-                            <th style="width: 1%">#</th>
-                            <th style="width: 15%"> <a href="#" class="sortCol">Visitor's Name</a> </th>
-                            <th style="width: 15%"> <a href="#" class="sortCol">Nationality</a></th>
-                            <th style="width: 13%"><a href="#" class="sortCol">Contact Number</a></th>
-                            <th style="width: 17%"></th>
-                        </tr>
-                    </thead>
-                    <tbody data-bind="foreach: DataGrid.DataRows">
-                        <tr>
-                            <td scope="row" data-bind="text: $index() +1"></td>
-                            <td data-bind="text: VisitorName"></td>
-                            <td data-bind="text: EmailAddress"></td>
-                            <td data-bind="text: ContactNo"></td>
-                            <td>
-                                <a href="#" class="btn  btn-s" data-bind="click: EditVisitor.bind($data)" title="click here to view or edit record."><i class="fa fa-pencil"></i></a>
-                                <a href="#" class="btn  btn-s" data-bind="click: DeleteVisitor.bind($data)" title="click here to delete record."><i class="fa fa-trash-o"></i></a>
-                            </td>
-                        </tr>
-                    </tbody>
-                    <tbody data-bind="if: DataGrid.DataRows().length == 0">
-                        <tr>
-                            <td colspan="5" style="text-align:center;">
-                                No data found.
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                @Html.Partial("_Pager")
-            </form>
-        </div>
-    </div>
-</div>
-    </div>
 <script type="text/javascript">
     Dropzone.autoDiscover = false;
     $(function () {
@@ -258,7 +269,7 @@
         });
 
         myDropzone.on("init", function () {
-        
+
         });
     });
 </script>

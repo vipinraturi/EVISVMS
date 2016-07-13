@@ -39,21 +39,21 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         public ReturnResult SaveVisitor([FromBody] VisitorDetailsVM visitorDetailsVM)
         {
 
-            var isVisitorExisit = false;
+            var message = "";
             var result = false;
 
             if (visitorDetailsVM.IsInsert)
             {
-                isVisitorExisit = _visitorHelper.IsVisitorExist(visitorDetailsVM);                
+                message = _visitorHelper.IsVisitorEmailExist(visitorDetailsVM);                
             }
 
-            if (!isVisitorExisit)
+            if (string.IsNullOrEmpty(message))
             {
                 result = _visitorHelper.SaveVisitor(visitorDetailsVM);
                 return new ReturnResult { Message = "Success" , Success = true  };
             }
 
-            return new ReturnResult { Message = "Failure", Success =  false };
+            return new ReturnResult { Message = message, Success = false };
         }
 
         [Route("~/Api/Visitor/GetVisitorData")]

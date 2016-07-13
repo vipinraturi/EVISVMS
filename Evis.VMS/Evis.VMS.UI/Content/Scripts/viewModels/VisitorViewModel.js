@@ -6,6 +6,8 @@ function VisitorViewModel(visitorName, gender, nationalityVal, dateOfBirth, type
     typeOfCard = (typeOfCard != "" ? typeOfCard : undefined);
     gender = (gender != "" ? gender : undefined);
 
+    //alert(nationality + ' ' + typeOfCard + ' ' + gender);
+
     var self = this;
     Id = ko.observable(0);
     VisitorName = ko.observable(visitorName).extend({ required: true });
@@ -14,7 +16,7 @@ function VisitorViewModel(visitorName, gender, nationalityVal, dateOfBirth, type
     DOB = ko.observable(dateOfBirth).extend({ required: true });
     TypeOfCardValue = ko.observable(typeOfCard).extend({ required: true });
     IdNo = ko.observable(idNumber).extend({ required: true });
-    Nationality = ko.observable(nationalityVal).extend({ required: true });
+    Nationality = ko.observable(nationality).extend({ required: true });
     ContactNo = ko.observable('').extend({ required: true });
     ContactAddress = ko.observable('');
 
@@ -72,6 +74,7 @@ function VisitorViewModel(visitorName, gender, nationalityVal, dateOfBirth, type
         if (self.errors().length > 0) {
             self.errors.showAllMessages(true);
             this.errors().forEach(function (data) {
+
             });
         }
         else {
@@ -98,7 +101,7 @@ function VisitorViewModel(visitorName, gender, nationalityVal, dateOfBirth, type
                     self.GetAllVisitor();
                 }
                 else {
-                    toastr.warning('Visitor email already exist!!')
+                    toastr.warning(result.Message)
                 }
             })
         }

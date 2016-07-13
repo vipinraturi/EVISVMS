@@ -93,10 +93,11 @@ namespace Evis.VMS.UI.HelperClasses
                 result.VisitorHiostory = lstVisitorCheckInAndOuttimes.ToList();
                 result.DOB = visitorData.DOB??DateTime.MinValue;
                 result.EmailId = visitorData.EmailId;
-                result.Gender = visitorData.GenderId.ToString();
+                result.Gender = visitorData.GenderMaster.LookUpValue;
+                result.TypeOfCard = visitorData.TypeOfCard.LookUpValue;
                 result.IdentificationNo = visitorData.IdNo;
                 result.MobileNo = visitorData.ContactNo;
-                result.Nationality = visitorData.Nationality.ToString();
+                result.Nationality = visitorData.CountryMaster.LookUpValue;
                 result.VisitorId = visitorData.Id;
                 result.VisitorName = visitorData.VisitorName;
             }

@@ -37,6 +37,8 @@ namespace Evis.VMS.UI.ViewModel
         public string VisitorName { get; set; }
 
         public string Gender { get; set; }
+        
+        public string TypeOfCard { get; set; }
 
         public DateTime DOB { get; set; }
 

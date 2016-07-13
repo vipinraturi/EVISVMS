@@ -10,8 +10,8 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-                <p>Drag multiple files to the box below for multi upload or click to select files.</p>
-                <div  style="text-align:center">
+                <p>Drag upto 2 identity images to the box below or click to select files.</p>
+                <div style="text-align:center">
                     <form action="~/Visitor/SaveVisitorIdentityImages" method="post"
                           enctype="multipart/form-data" class="dropzone dz-clickable" id="dropzoneForm"></form>
                     <div class="form-group">
@@ -41,10 +41,10 @@
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Gender</label>
-                            <div class="col-md-9 col-sm-9 col-xs-12">
-                                <input id="" readonly="readonly" type="text" class="form-control inputdisable" placeholder="[Gender]" data-bind="value: Gender" />
-                                <span class="fa fa-mars favwhite form-control-feedback right" aria-hidden="true"></span>
-                            </div>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input id="" readonly="readonly" type="text" class="form-control inputdisable" placeholder="[Gender]" data-bind="value: GenderText" />
+                            <span class="fa fa-mars favwhite form-control-feedback right" aria-hidden="true"></span>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Date Of Birth</label>
@@ -56,7 +56,7 @@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Type Of Card</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="" readonly="readonly" type="text" class="form-control inputdisable" placeholder="[Emirates Id]" data-bind="value: TypeOfCard" />
+                            <input id="" readonly="readonly" type="text" class="form-control inputdisable" placeholder="[Emirates Id]" data-bind="value: TypeOfCardText" />
                             <span class="fa fa-simplybuilt favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
@@ -70,7 +70,7 @@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Nationality</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="" readonly="readonly" type="text" class="form-control inputdisable" placeholder="[Nationality]" data-bind="value: Nationality" />
+                            <input id="" readonly="readonly" type="text" class="form-control inputdisable" placeholder="[Nationality]" data-bind="value: NationalityText" />
                             <span class="fa fa-flag favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
@@ -84,27 +84,62 @@
         </div>
     </div>
 
-    
 </div>
-
 <style type="text/css">
     .dz-max-files-reached {
         background-color: red;
     }
 </style>
-
 <script type="text/javascript">
-        Dropzone.autoDiscover = false;
-        $(function () {
+    Dropzone.autoDiscover = false;
+    $(function () {
 
-            var myDropzone = new Dropzone("#dropzoneForm");
-            myDropzone.maxFiles = 2;
-            myDropzone.on("maxfilesexceeded", function (file) {
-                debugger;
-                var res = eval('(' + file.xhr.responseText + ')');
-                toastr.warning('Only two images allowed.');
-            });
-            myDropzone.on("addedfile", function (file) {
+        var myDropzone = new Dropzone("#dropzoneForm");
+        myDropzone.maxFiles = 2;
+        myDropzone.on("maxfilesexceeded", function (file) {
+            debugger;
+            var res = eval('(' + file.xhr.responseText + ')');
+            toastr.warning('Only two images allowed.');
+        });
+
+
+        myDropzone.on("addedfile", function (file) {
+
+            if (file.type != "image/jpeg" && file.type != "image/png" && file.type != "image/jpg") {
+                toastr.warning('Only jpg or png images allowed.');
+
+                if (this.files[0] != null) {
+                    alert('2');
+                    this.removeFile(this.files[0]);
+                }
+
+                if (this.files[1] != null) {
+                    alert('1');
+                    this.removeFile(this.files[1]);
+                }
+
+              
+            }
+            else {
+                //debugger;
+                var maxLengthExceeded = false;
+
+                if (this.files[2] != null) {
+                    maxLengthExceeded = true;
+                    this.removeFile(this.files[0]);
+
+                }
+
+                if (this.files[3] != null) {
+                    maxLengthExceeded = true;
+                    this.removeFile(this.files[0]);
+                }
+
+                if (maxLengthExceeded) {
+                    toastr.clear();
+                    toastr.warning('Only 2 images can be uploaded.');
+                }
+
                 var removeButton = Dropzone.createElement("<i class='fa fa-remove red' aria-hidden='true'></i>");
                 var _this = this;
                 removeButton.addEventListener("click", function (e) {
@@ -113,6 +148,8 @@
                     _this.removeFile(file);
                 });
                 file.previewElement.appendChild(removeButton);
-            });
+
+            }
         });
-    </script>
+    });
+</script>
