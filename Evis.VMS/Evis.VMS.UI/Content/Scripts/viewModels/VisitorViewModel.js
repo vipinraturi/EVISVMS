@@ -162,16 +162,13 @@ function VisitorViewModel(visitorName, gender, nationalityVal, dateOfBirth, type
     }
 
     self.ViewVisitorImage = function () {
-        //alert('hi');
         var srcURL = '';
-
         if ($('.dz-image img').attr('alt') != undefined) {
             srcURL = ($('.dz-image img').attr('alt'));
         }
         else if ($('.img_responsive_Avatar').attr('src') != undefined) {
             srcURL = ($('.img_responsive_Avatar').attr('src'));
         }
-
 
         if (srcURL.indexOf('/images/VisitorImages') == -1) {
             srcURL = '/images/VisitorImages/' + srcURL;
@@ -184,7 +181,6 @@ function VisitorViewModel(visitorName, gender, nationalityVal, dateOfBirth, type
     self.GlobalSearchEnter = function (data, event) {
         if (event.which == 13 || event.keycode == 13) {
             self.GetAllVisitor();
-            console.log(event.which);
         }
     }
 

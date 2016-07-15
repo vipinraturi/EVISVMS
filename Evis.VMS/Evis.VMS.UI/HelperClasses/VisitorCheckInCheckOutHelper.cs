@@ -136,7 +136,14 @@ namespace Evis.VMS.UI.HelperClasses
             {
                 qryVisitors.ToList().ForEach(item =>
                 {
-                    result.Add(new VisitorJsonModel { Name = item.VisitorName, Value = item.Id.ToString(), LogoUrl = "/images/VisitorImages/" + item.ImagePath });
+                    result.Add(new VisitorJsonModel 
+                    { 
+                        VisitorName = item.VisitorName,
+                        VisitorId = item.Id.ToString(),
+                        Email = item.EmailId.ToString(),
+                        MobileNumber = item.ContactNo.ToString(),
+                        IndentityNumber = item.IdNo.ToString(), 
+                        LogoUrl = "/images/VisitorImages/" + item.ImagePath });
                 });
             }
 

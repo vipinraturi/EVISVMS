@@ -33,6 +33,7 @@
             self.Nationality(data.Nationality);
             self.VisitorHiostory(data.VisitorHiostory);
             $('.searchVisitor').val('');
+            toastr.success('Visitor data loaded!!');
         });
     }
 
@@ -93,9 +94,11 @@ BindAutoCompleteEvent = function () {
                 success: function (data) {
                     response($.map(data, function (item) {
                         return {
-                            Id: item.Value,
-                            label: item.Name,
-                            value: item.Name,
+                            VisitorId: item.VisitorId,
+                            VisitorName: item.VisitorName,
+                            Email: item.Email,
+                            MobileNumber: item.MobileNumber,
+                            IndentityNumber: item.IndentityNumber,
                             logoUrl: item.LogoUrl
                         };
                     }));
@@ -104,7 +107,7 @@ BindAutoCompleteEvent = function () {
         },
         minLength: 2,
         select: function (event, ui) {
-            self.GetVisitorCheckInHistoryData(ui.item.Id, ui.item.logoUrl);
+            self.GetVisitorCheckInHistoryData(ui.item.VisitorId, ui.item.logoUrl);
         },
         open: function () {
             $(this).removeClass('ui-corner-all').addClass('ui-corner-top');
@@ -117,7 +120,13 @@ BindAutoCompleteEvent = function () {
     console.log(item.logoUrl);
     return $('<li>')
          .data('item.autocomplete', item)
-         .append(item.label + '<img class="pull-right" width=100px src=' + item.logoUrl + ' alt="" />')
+         .append('<div  style="border: 1px solid black" class="row" ><div class=col-sm-8>'
+                    + ' Visitor Name: '+ item.VisitorName + '<br>'
+                    + ' Email: ' + item.Email + '<br>'
+                    + ' MobileNumber: ' + item.MobileNumber + '<br>'
+                    + ' Indentity Number: ' + item.IndentityNumber
+                    + '</div><div class=col-sm-4><img class="pull-right" width=80px src='
+                    + item.logoUrl + ' alt="" /></div></div>')
          .appendTo(ul);
 };
 }

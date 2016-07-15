@@ -93,8 +93,11 @@ namespace Evis.VMS.UI.ViewModel
 
     public class VisitorJsonModel
     {
-        public string Name { get; set; }
-        public string Value { get; set; }
+        public string VisitorName { get; set; }
+        public string Email { get; set; }
+        public string MobileNumber { get; set; }
+        public string IndentityNumber { get; set; }
+        public string VisitorId { get; set; }
         public string LogoUrl { get; set; }
     }
 }
