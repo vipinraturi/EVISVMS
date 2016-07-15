@@ -32,7 +32,7 @@
     self.CountryId = ko.observable(undefined).extend({ required: true });
     self.StateId = ko.observable(undefined).extend({ required: true });
     self.CityId = ko.observable(undefined).extend({ required: true });
-  
+
     self.errors = ko.validation.group(
         {
             GateNumber: this.GateNumber,
@@ -61,7 +61,7 @@
         }
     }
 
-    
+
     self.EditGate = function (tableItem) {
         //debugger;;
         if (tableItem != undefined) {
@@ -104,13 +104,25 @@
             data.BuildingId = self.BuildingId(),
             data.GateNumber = self.GateNumber();
             //// display any error messages if we have them
-            AjaxCall('/Api/Gates/SaveGate', data, 'POST', function () {
-                toastr.success('Gate saved successfully!!')
-                ApplyCustomBinding('gates');
-                self.IsInsert(true);
+            AjaxCall('/Api/Gates/SaveGate', data, 'POST', function (data) {
+                if (data.Message == "Success") {
+                    toastr.success('Gate saved successfully!!')
+                    ApplyCustomBinding('gates');
+                }
+                else {
+                    self.GateNumber('');
+                    toastr.error('Gate name alreday exists!!')
+                }
+                //self.IsInsert(true);
             })
         }
     }
     //}
+    self.GlobalSearchEnter = function (data, event) {
+        if (event.which == 13 || event.keycode == 13) {
+            self.GetAllVisitor();
+            console.log(event.which);
+        }
+    }
     self.GetAllGateData();
 }

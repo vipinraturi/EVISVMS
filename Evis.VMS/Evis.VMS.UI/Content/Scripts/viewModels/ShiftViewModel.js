@@ -92,6 +92,11 @@
         }
     }
 
-    debugger;
+    self.GlobalSearchEnter = function (data, event) {
+        if (event.which == 13 || event.keycode == 13) {
+            self.GetAllVisitor();
+            console.log(event.which);
+        }
+    }
     self.GetAllShiftData();
 }

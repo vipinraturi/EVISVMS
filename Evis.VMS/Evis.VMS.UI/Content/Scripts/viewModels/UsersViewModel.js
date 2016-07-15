@@ -1,5 +1,6 @@
 ﻿function UsersViewModel() {
     var self = this;
+    var recordToDelete = new Object();
 
     self.UserId = ko.observable('');
     self.FullName = ko.observable('').extend({
@@ -96,11 +97,11 @@
             data.GenderId = self.GenderId(),
             data.Nationality = self.Nationality(),
             data.RoleId = self.RoleId();
-            ResetUserDetails();
-            //// display any error messages if we have them
+
             AjaxCall('/Api/Users/SaveUser', data, 'POST', function () {
                 toastr.success('User saved successfully!!')
-                ApplyCustomBinding('newuser');
+                self.ResetUserDetails();
+                self.GetAllUsers();
             })
         }
     }
@@ -119,13 +120,15 @@
     }
 
     self.DeleteUser = function (tableItem) {
-        var message = confirm("Are you sure, you want to delete selected user!");
-        if (message == true) {
-            AjaxCall('/Api/User/DeleteUser', tableItem, 'POST', function () {
-                toastr.success('User deleted successfully!!')
-                ApplyCustomBinding('newuser');
-            });
-        }
+        recordToDelete = tableItem;
+    }
+
+    self.DeleteConfirmed = function () {
+        $('#myModal').modal('hide');
+        AjaxCall('/Api/User/DeleteUser', recordToDelete, 'POST', function () {
+            toastr.success('User deleted successfully!!')
+            ApplyCustomBinding('newuser');
+        });
     }
 
     self.ResetUser = function () {
@@ -136,12 +139,12 @@
         self.UserId('');
         self.FullName('');
         self.Email('');
-        self.GenderId(0);
+        self.GenderId(undefined);
         //self.UserName('');
-        self.RoleId('');
+        self.RoleId(undefined);
         self.GlobalSearch('');
-        self.OrganizationId(0);
-        self.Nationality(0);
+        self.OrganizationId(undefined);
+        self.Nationality(undefined);
         ApplyCustomBinding('newuser');
     }
 

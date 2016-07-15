@@ -27,10 +27,18 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         {
             if (BuildingMaster.Id == 0)
             {
-                BuildingMaster.IsActive = true;
-                _genericService.BuildingMaster.Insert(BuildingMaster);
-            }
+                var data = _genericService.BuildingMaster.GetAll().Where(x => x.BuildingName == BuildingMaster.BuildingName.Trim() && x.OrganizationId == BuildingMaster.OrganizationId).ToList();
+                if (data.Count() == 0)
+                {
+                    BuildingMaster.IsActive = true;
+                    _genericService.BuildingMaster.Insert(BuildingMaster);
+                }
+                else
+                {
+                    return new ReturnResult { Message = "UnSuccess", Success = false };
 
+                }
+            }
             else
             {
                 var existingOrg = _genericService.BuildingMaster.GetById(BuildingMaster.Id);
@@ -124,10 +132,10 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         [HttpGet]
         public IEnumerable<GeneralDropDownVM> GetAllStateOrCity(int Id)
         {
-            var result = _genericService.LookUpValues.GetAll().Where(x => x.ParentId==Id && x.IsActive == true && x.LookUpType.IsActive == true)
+            var result = _genericService.LookUpValues.GetAll().Where(x => x.ParentId == Id && x.IsActive == true && x.LookUpType.IsActive == true)
                 .Select(y => new GeneralDropDownVM { Id = y.Id, Name = y.LookUpValue });
             return result;
         }
-        
+
     }
 }

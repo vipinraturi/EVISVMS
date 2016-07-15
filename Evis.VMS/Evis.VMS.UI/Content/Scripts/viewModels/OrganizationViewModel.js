@@ -105,12 +105,12 @@ function OrganizationViewModel() {
             data.FaxNumber = self.FaxNumber(),
             data.ZipCode = self.ZipCode(),
             data.WebSite = self.WebSite();
-            ResetOrganization();
             //// display any error messages if we have them
             AjaxCall('/Api/Administration/SaveOrganization', data, 'POST', function (data) {
                 toastr.success(data.Message);
                 ApplyCustomBinding('organization');
-            })
+            });
+            ApplyCustomBinding('organization');
         }
     }
 
@@ -124,23 +124,24 @@ function OrganizationViewModel() {
         self.ContactNumber('');
         self.ZipCode('');
         self.WebSite('');
-        ApplyCustomBinding('organization');
     }
 
+
     self.DeleteOrganization = function (tableItem) {
-        var message = confirm("Are you sure, you want to delete selected record!");
-        if (message == true) {
-            AjaxCall('/Api/Administration/DeleteOrganization', tableItem, 'POST', function (data) {
-                //debugger;
-                if (data.Success == true) {
-                    toastr.success(data.Message);
-                    ApplyCustomBinding('organization');
-                }
-                else if (data.Success == false) {
-                    toastr.warning(data.Message);
-                }
-            });
-        }
+        recordToDelete = tableItem;
+    }
+
+    self.DeleteConfirmed = function () {
+        $('#myModal').modal('hide');
+        AjaxCall('/Api/Administration/DeleteOrganization', recordToDelete, 'POST', function (data) {
+            if (data.Success == true) {
+                toastr.success(data.Message);
+                ApplyCustomBinding('organization');
+            }
+            else if (data.Success == false) {
+                toastr.warning(data.Message);
+            }
+        });
     }
 
     self.EditOrganization = function (tableItem) {
@@ -161,6 +162,7 @@ function OrganizationViewModel() {
     }
 
     self.GlobalSearchEnter = function (data, event) {
+        debugger;
         if (event.which == 13) {
             self.GetAllOrganizations();
             console.log(event);
