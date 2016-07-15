@@ -92,6 +92,7 @@ function OrganizationViewModel() {
     self.SaveOrganization = function () {
         if (self.organizationErrors().length > 0) {
             self.organizationErrors.showAllMessages(true);
+            return false;
         }
         else {
             var data = new Object();
@@ -107,23 +108,30 @@ function OrganizationViewModel() {
             data.WebSite = self.WebSite();
             //// display any error messages if we have them
             AjaxCall('/Api/Administration/SaveOrganization', data, 'POST', function (data) {
-                toastr.success(data.Message);
-                ApplyCustomBinding('organization');
-            });
-            ApplyCustomBinding('organization');
+                debugger;
+                if (data.Success == true) {
+                    toastr.success(data.Message);
+                    self.ResetOrganization();
+                    self.GetAllOrganizations();
+                }
+                else {
+                    toastr.warning(data.Message);
+                }
+            })
         }
     }
 
     self.ResetOrganization = function () {
         self.GlobalSearch('');
         self.CompanyName('');
-        self.CityId(0);
+        self.CityId(undefined);
         self.EmailId('');
         self.ContactAddress('');
         self.FaxNumber('');
         self.ContactNumber('');
         self.ZipCode('');
         self.WebSite('');
+        ApplyCustomBinding('organization');
     }
 
 

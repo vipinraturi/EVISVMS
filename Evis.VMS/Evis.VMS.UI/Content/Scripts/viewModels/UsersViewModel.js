@@ -82,9 +82,7 @@
         debugger;
         if (self.userErrors().length > 0) {
             self.userErrors.showAllMessages(true);
-            this.userErrors().forEach(function (data) {
-                //toastr.warning(data);
-            });
+            return false;
         }
         else {
             var data = new Object();
@@ -98,10 +96,17 @@
             data.Nationality = self.Nationality(),
             data.RoleId = self.RoleId();
 
-            AjaxCall('/Api/Users/SaveUser', data, 'POST', function () {
-                toastr.success('User saved successfully!!')
-                self.ResetUserDetails();
-                self.GetAllUsers();
+            //// display any error messages if we have them
+            AjaxCall('/Api/Users/SaveUser', data, 'POST', function (data) {
+                debugger;
+                if (data.Success == true) {
+                    toastr.success(data.Message);
+                    self.ResetUser();
+                    self.GetAllUsers();
+                }
+                else {
+                    toastr.warning(data.Message);
+                }
             })
         }
     }
@@ -135,17 +140,18 @@
         ResetUserDetails();
     }
 
-    ResetUserDetails = function () {
+    self.ResetUser = function () {
         self.UserId('');
         self.FullName('');
         self.Email('');
-        self.GenderId(undefined);
+        self.GenderId(0);
         //self.UserName('');
-        self.RoleId(undefined);
+        self.RoleId('');
         self.GlobalSearch('');
-        self.OrganizationId(undefined);
-        self.Nationality(undefined);
+        self.OrganizationId(0);
+        self.Nationality(0);
         ApplyCustomBinding('newuser');
     }
+
 
 }

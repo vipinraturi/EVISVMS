@@ -116,8 +116,16 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         [HttpPost]
         public async Task<ReturnResult> SaveOrganization([FromBody] UsersVM usersVM)
         {
+            string message = "Error occured, please try again with valid entered data again!";
+            bool success = false;
             if (usersVM != null && string.IsNullOrEmpty(usersVM.UserId))
             {
+                var existingUser = await _userService.GetAsync(x => x.Email.ToString().Equals(usersVM.Email.ToString()));
+                if (existingUser != null && existingUser.Email.ToString() == usersVM.Email.ToString())
+                {
+                    message = "User with email id is already exist! Please use some other email id.";
+                    return new ReturnResult { Message = message, Success = success };
+                }
                 ApplicationUser user = new ApplicationUser();
                 string password = System.Web.Security.Membership.GeneratePassword(8, 0);
                 user.OrganizationId = usersVM.OrganizationId;
@@ -135,9 +143,14 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     "Use the below credentials after successfull activation <br/>UserName: " + user.Email + " <br/> " +
                     "Password: " + password + "<br/><br/>Regards,<br/>Administrator";
 
-                string subject = "User in company <b>" + user.Organization.CompanyName + "<b> created successfully!";
+                string orgName = _genericService.Organization.GetById((int)usersVM.OrganizationId).CompanyName;
+
+
+                string subject = "User in company <b>" + orgName + "<b> created successfully!";
                 // Send email on account creation.
                 //EmailHelper.SendMail(user.Email, subject, body);
+                message = "Save sucessfully!";
+                success = true;
             }
             else
             {
@@ -151,10 +164,13 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     existingUser.GenderId = usersVM.GenderId;
                     existingUser.Nationality = usersVM.Nationality;
                     await _userService.UpdateAsync(existingUser, usersVM.RoleId);
+                    message = "Update sucessfully!";
+                    success = true;
                 }
+
             }
             _genericService.Commit();
-            return new ReturnResult { Message = "Success", Success = true };
+            return new ReturnResult { Message = message, Success = success };
         }
 
         [Route("~/Api/User/DeleteUser")]
