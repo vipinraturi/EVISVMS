@@ -33,6 +33,8 @@ namespace Evis.VMS.UI.ViewModel
         public int? OrganizationId { get; set; }
 
         public int Nationality { get; set; }
+
+        public string ThemeName { get; set; }
         
     }
 }

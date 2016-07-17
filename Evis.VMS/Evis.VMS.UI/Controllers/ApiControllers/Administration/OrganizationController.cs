@@ -155,11 +155,21 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             return result;
         }
 
+
         [Route("~/Api/Administration/GetStatesOrCities")]
         [HttpGet]
         public IQueryable<GeneralDropDownVM> GetStatesOrCities(int id)
         {
             var result = _genericService.LookUpValues.GetAll().Where(x => x.ParentId == id && x.IsActive == true && x.LookUpType.IsActive == true)
+                .Select(y => new GeneralDropDownVM { Id = y.Id, Name = y.LookUpValue });
+            return result;
+        }
+
+        [Route("~/Api/Administration/GetTheme")]
+        [HttpGet]
+        public IQueryable<GeneralDropDownVM> GetTheme()
+        {
+            var result = _genericService.LookUpValues.GetAll().Where(x => x.LookUpType.TypeName == "Theme" && x.IsActive == true && x.LookUpType.IsActive == true)
                 .Select(y => new GeneralDropDownVM { Id = y.Id, Name = y.LookUpValue });
             return result;
         }

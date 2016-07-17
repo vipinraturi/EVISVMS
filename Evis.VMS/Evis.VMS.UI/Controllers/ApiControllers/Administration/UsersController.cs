@@ -196,6 +196,26 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             }
             return new ReturnResult { Message = "Current entered password cannot be empty", Success = false };
         }
+
+
+        [Route("~/Api/Users/SaveTheme")]
+        [HttpPost]
+        public async Task<ReturnResult> SaveTheme([FromBody] UsersVM usersVM)
+        {
+
+            string userId = HttpContext.Current.User.Identity.GetUserId();
+            {
+                var existingUser = await _userService.GetAsync(x => x.Id == userId);
+                if (existingUser != null)
+                {
+
+                    existingUser.ThemeName = usersVM.ThemeName;
+                    await _userService.UpdateAsync(existingUser, usersVM.RoleId);
+                }
+            }
+            _genericService.Commit();
+            return new ReturnResult { Message = "Success", Success = true };
+        }
     }
 
 }

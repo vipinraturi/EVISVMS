@@ -1,4 +1,5 @@
-﻿/********************************************************************************
+﻿using Evis.VMS.Data.Model.Entities;
+/********************************************************************************
  * Company Name : East Vision Information System
  * Team Name    : EVIS IT Team
  * Author       : Vipin Raturi
@@ -8,6 +9,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -38,5 +40,13 @@ namespace Evis.VMS.UI.ViewModel
 
         public bool IsInsert { get; set; }
 
+        public int CityId { get; set; }
+
+        [ForeignKey("CityId")]
+        public virtual LookUpValues CityMaster { get; set; }
+
+        public string ImagePath { get; set; }
+
+        public string Theme { get; set; }
     }
 }

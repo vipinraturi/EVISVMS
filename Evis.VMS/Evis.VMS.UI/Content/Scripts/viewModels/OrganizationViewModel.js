@@ -79,8 +79,7 @@ function OrganizationViewModel() {
             self.CityId(cityId);
         });
     }
-
-
+ 
     self.DataGrid = new RIT.eW.DataGridAjax('/Api/Administration/GetOrganizationsData', 7);
 
     self.GetAllOrganizations = function () {
