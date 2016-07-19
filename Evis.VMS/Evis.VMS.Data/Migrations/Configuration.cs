@@ -141,7 +141,8 @@ namespace Evis.VMS.Data.Migrations
                 TwoFactorEnabled = false,
                 LockoutEnabled = false,
                 AccessFailedCount = 0,
-                SecurityStamp = System.Guid.NewGuid().ToString()
+                SecurityStamp = System.Guid.NewGuid().ToString(),
+                ThemeName = "theme1"
             };
 
             var passwordHash = new Microsoft.AspNet.Identity.PasswordHasher();
