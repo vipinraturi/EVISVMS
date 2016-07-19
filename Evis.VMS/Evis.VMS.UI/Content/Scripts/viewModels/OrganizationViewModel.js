@@ -79,7 +79,7 @@ function OrganizationViewModel() {
             self.CityId(cityId);
         });
     }
- 
+
     self.DataGrid = new RIT.eW.DataGridAjax('/Api/Administration/GetOrganizationsData', 7);
 
     self.GetAllOrganizations = function () {
@@ -168,16 +168,27 @@ function OrganizationViewModel() {
         }
     }
 
-    self.GlobalSearchEnter = function (data, event) {
+    self.GlobalSearchEnter = function (data) {
         debugger;
-        if (event.which == 13) {
-            self.GetAllOrganizations();
-            console.log(event);
-        }
+        self.GetAllOrganizations();
+        console.log(event);
     }
 
     self.GetAllOrganizations();
 
+    ko.bindingHandlers.enterkey = {
+        init: function (element, valueAccessor, allBindings, viewModel) {
+            var callback = valueAccessor();
+            $(element).keypress(function (event) {
+                var keyCode = (event.which ? event.which : event.keyCode);
+                if (keyCode === 13) {
+                    callback.call(viewModel);
+                    return false;
+                }
+                return true;
+            });
+        }
+    };
 
     //$("form").validate({ submitHandler: self.SaveOrganization });
 

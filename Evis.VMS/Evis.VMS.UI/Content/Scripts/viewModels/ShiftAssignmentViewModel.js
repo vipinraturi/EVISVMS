@@ -10,6 +10,8 @@
         decorateElement: true,
         errorElementClass: 'err'
     });
+    var GateId = 0;
+    var UserId = 0;
     // self.errors = ko.validation.group(self);
     // self.Id = ko.observable(0);
 
@@ -43,28 +45,58 @@
         self.DataGrid.UpdateSearchParam('?globalSearch=' + self.GlobalSearch());
         self.DataGrid.GetData();
     }
-
-
     self.Gates = ko.observableArray();
-    AjaxCall('/Api/ShiftAssignment/GetAllGates', null, 'GET', function (data) {
+    self.GetGates = function () {
+        debugger;
+        if (self.BuildingId() != undefined && self.BuildingId() != 0) {
+            AjaxCall('/Api/ShiftAssignment/GetAllGates?BuildingId=' + self.BuildingId(), null, 'GET', function (data) {
+                self.Gates(new Object());
+                self.Gates(data);
+                self.GateId(GateId);
 
-        self.Gates(data);
+            })
+        }
+    }
+    //self.Gates = ko.observableArray();
+    //AjaxCall('/Api/ShiftAssignment/GetAllGates', null, 'GET', function (data) {
 
-    })
+    //    self.Gates(data);
+
+    //})
     self.Shift = ko.observableArray();
-    AjaxCall('/Api/ShiftAssignment/GetAllShift', null, 'GET', function (data) {
-        self.Shift(data);
-    })
+    self.GetShift = function () {
+        debugger;
+        if (self.UserId() != undefined && self.UserId() != 0) {
+            AjaxCall('/Api/ShiftAssignment/GetAllShift?ShitfId=' + self.UserId(), null, 'GET', function (data) {
+                self.Shift(new Object());
+                self.Shift(data);
+                self.ShitfId(ShitfId);
+            })
+        }
+    }
+    //AjaxCall('/Api/ShiftAssignment/GetAllShift', null, 'GET', function (data) {
+    //    self.Shift(data);
+    //})
     self.Buildings = ko.observableArray();
     AjaxCall('/Api/Gates/GetAllBuilding', null, 'GET', function (data) {
         //debugger;;
         self.Buildings(data);
     })
     self.Users = ko.observableArray();
-    AjaxCall('/Api/ShiftAssignment/GetAllUsers', null, 'GET', function (data) {
-        //debugger;;
-        self.Users(data);
-    })
+    self.GetUsers = function () {
+        debugger;
+        if (self.GateId() != undefined && self.GateId() != 0) {
+            AjaxCall('/Api/ShiftAssignment/GetAllUsers?GateId=' + self.GateId(), null, 'GET', function (data) {
+                self.Users(new Object());
+                self.Users(data);
+                self.UserId(UserId);
+            })
+        }
+    }
+    //AjaxCall('/Api/ShiftAssignment/GetAllUsers', null, 'GET', function (data) {
+    //    //debugger;;
+    //    self.Users(data);
+    //})
     self.ResetShiftAssignment = function () {
         self.GlobalSearch('');
         self.ShitfId('');

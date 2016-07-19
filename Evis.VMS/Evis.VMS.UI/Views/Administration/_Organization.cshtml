@@ -112,7 +112,7 @@
                 <div class="col-md-5 col-sm-5 col-xs-12  pull-right top_search">
                     <div class="input-group">
                         <input id="txtGlobalSearch" type="text" class="form-control" placeholder="[Global Search]"
-                               data-bind="value: GlobalSearch" />
+                               data-bind="value: GlobalSearch, valueUpdate: 'afterkeydown', enterkey: GlobalSearchEnter.bind()" />
                         <span class="input-group-btn">
                             <button class="btn btn-default" type="button" data-bind="click: GetAllOrganizations.bind()"><i class="fa fa-search"></i></button>
                         </span>

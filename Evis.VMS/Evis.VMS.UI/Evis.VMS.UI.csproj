@@ -229,6 +229,7 @@
     <Compile Include="ViewModel\LoginVM.cs" />
     <Compile Include="ViewModel\LookUpType.cs" />
     <Compile Include="ViewModel\MyOrganizationVM.cs" />
+    <Compile Include="ViewModel\OrganisationVM.cs" />
     <Compile Include="ViewModel\ResetPasswordVM.cs" />
     <Compile Include="ViewModel\VisitorCheckInCheckOutVM.cs" />
     <Compile Include="ViewModel\VisitorDetailsVM.cs" />
@@ -247,6 +248,7 @@
     <Content Include="Content\Scripts\application\app.js" />
     <Content Include="Content\Scripts\application\common.js" />
     <Content Include="Content\Scripts\application\config.js" />
+    <Content Include="Content\Scripts\application\ImageUpload.js" />
     <Content Include="Content\Scripts\application\pager.js" />
     <Content Include="Content\Scripts\application\toastr.min.js" />
     <Content Include="Content\Scripts\plugins\bootstrap-progressbar.min - Copy.js" />

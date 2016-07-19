@@ -25,15 +25,15 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
         [Route("~/Api/ShiftAssignment/GetAllGates")]
         [HttpGet]
-        public IEnumerable<GeneralDropDownVM> GetAllGates()
+        public IEnumerable<GeneralDropDownVM> GetAllGates(int BuildingId)
         {
-            var result = _genericService.GateMaster.GetAll().Where(x => x.IsActive == true)
+            var result = _genericService.GateMaster.GetAll().Where(x => x.IsActive == true & x.BuildingId == BuildingId)
                 .Select(y => new GeneralDropDownVM { Id = y.Id, Name = y.GateNumber });
             return result;
         }
         [Route("~/Api/ShiftAssignment/GetAllShift")]
         [HttpGet]
-        public IEnumerable<GeneralDropDownVM> GetAllShift()
+        public IEnumerable<GeneralDropDownVM> GetAllShift(int ShitfId)
         {
             var result = _genericService.ShitfMaster.GetAll().Where(x => x.IsActive == true)
                 .Select(y => new GeneralDropDownVM { Id = y.Id, Name = y.ShitfName });////y.ShitfName + '(' + ' ' + y.FromTime + ' ' + y.ToTime + ')'
@@ -41,12 +41,14 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         }
         [Route("~/Api/ShiftAssignment/GetAllUsers")]
         [HttpGet]
-        public async Task<IEnumerable<DropDownVM>> GetAllUsers()
+        public async Task<IEnumerable<DropDownVM>> GetAllUsers(int GateId)
         {
-            var result = (await _userService.GetAllAsync()).Where(x => x.IsActive == true)
+            var gates = _genericService.GateMaster.GetAll().FirstOrDefault(x => x.Id == GateId && x.IsActive == true);
+            var result = (await _userService.GetAllAsync()).Where(x => x.IsActive == true && x.OrganizationId == gates.BuildingMaster.OrganizationId)
                 .Select(y => new DropDownVM { Id = y.Id, Name = y.FullName });
             return result;
         }
+
         [Route("~/Api/ShiftAssignment/GetAllShiftAssignment")]
         [HttpPost]
         public string GetAllShiftAssignment(string globalSearch, int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC")
@@ -64,7 +66,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     UserName = x.ApplicationUser.FullName,
                     FromDate = x.FromDate,
                     ToDate = x.ToDate,
-                    Id=x.Id
+                    Id = x.Id
 
                 })
                 .ToList();

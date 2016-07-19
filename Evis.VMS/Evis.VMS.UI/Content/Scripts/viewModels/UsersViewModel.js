@@ -20,7 +20,7 @@
     self.OrganizationId = ko.observable(undefined).extend({ required: true });
     self.Nationality = ko.observable(undefined).extend({ required: true });
 
-    self.organizationErrors = ko.validation.group({
+    self.userErrors = ko.validation.group({
         OrganizationId: this.OrganizationId,
         FullName: this.FullName,
         GenderId: this.GenderId,
@@ -62,7 +62,7 @@
     self.DataGrid = new RIT.eW.DataGridAjax('/Api/Users/GetUsersData', 7);
 
     self.UsersList = ko.observableArray([]);
-    self.userErrors = ko.validation.group(self);
+    //self.userErrors = ko.validation.group(self);
 
     self.GetAllUsers = function () {
         self.DataGrid.UpdateSearchParam('?globalSearch=' + self.GlobalSearch());
@@ -71,12 +71,23 @@
 
     self.GetAllUsers();
 
-    self.GlobalSearchEnter = function (data, event) {
-        if (event.which == 13) {
-            self.GetAllUsers();
-            console.log(event);
+    //self.GlobalSearchEnter = function (data, event) {
+    //    self.GetAllUsers();
+    //}
+
+    ko.bindingHandlers.enterkey = {
+        init: function (element, valueAccessor, allBindings, viewModel) {
+            var callback = valueAccessor();
+            $(element).keypress(function (event) {
+                var keyCode = (event.which ? event.which : event.keyCode);
+                if (keyCode === 13) {
+                    callback.call(viewModel);
+                    return false;
+                }
+                return true;
+            });
         }
-    }
+    };
 
     self.SaveUser = function () {
         debugger;

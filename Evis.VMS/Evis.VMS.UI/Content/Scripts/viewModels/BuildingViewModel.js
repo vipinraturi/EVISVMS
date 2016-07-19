@@ -99,8 +99,6 @@
         abc = self.CityId();
         abc = self.NationalityId();
         abc = self.OrganizationId();
-
-
         if (self.errors().length > 0) {
             self.errors.showAllMessages(true);
             this.errors().forEach(function (data) {
@@ -133,7 +131,6 @@
             })
         }
     }
-
     self.ResetBuilding = function () {
         self.GlobalSearch('');
         self.BuildingName('');
@@ -142,7 +139,6 @@
         self.City('');
         ApplyCustomBinding('buildings');
     }
-
     self.EditBuilding = function (tableItem) {
         debugger;
         if (tableItem != undefined) {
@@ -158,7 +154,6 @@
             //data.CityId = self.CityId();
         }
     }
-
     self.DeleteBuilding = function (tableItem) {
         var message = confirm("Are you sure, you want to delete selected record!");
         if (message == true) {

@@ -20,6 +20,7 @@ using System.Web;
 using Microsoft.AspNet.Identity;
 using System.Web.Http;
 using System.Web.Http.Controllers;
+using Evis.VMS.Utilities;
 
 namespace Evis.VMS.UI.Controllers.ApiControllers
 {
@@ -54,62 +55,58 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         [HttpPost]
         public async Task<string> GetUsersData(string globalSearch, int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC")
         {
-            var getUsers = await _userService.GetAllAsync();
-            var usersList = getUsers.Where(x => x.Organization.IsActive == true).ToList();
+            var getUsers = (await _userService.GetAllAsync()).Where(x => x.Organization.IsActive == true).AsQueryable();
 
-            var getRoles = await _applicationRoleService.GetAllAsync();
-            var rolesList = getRoles.ToList();
+            var getRoles = (await _applicationRoleService.GetAllAsync()).AsQueryable();
 
-            var result = (from users in usersList
-                          join roles in rolesList on users.Roles.First().RoleId equals roles.Id
-                          select new UsersVM
-                          {
-                              UserId = users.Id,
-                              FullName = users.FullName,
-                              Email = users.Email,
-                              ContactNumber = users.PhoneNumber,
-                              GenderId = users.GenderId,
-                              UserName = users.UserName,
-                              RoleId = roles.Id,
-                              RoleName = roles.Name,
-                              OrganizationId = users.OrganizationId,
-                              Nationality = users.Nationality
+            var temp = (from users in getUsers
+                        join roles in getRoles on users.Roles.First().RoleId equals roles.Id
+                        select new UsersVM
+                        {
+                            UserId = users.Id,
+                            FullName = users.FullName,
+                            Email = users.Email,
+                            ContactNumber = users.PhoneNumber,
+                            GenderId = users.GenderId,
+                            UserName = users.UserName,
+                            RoleId = roles.Id,
+                            RoleName = roles.Name,
+                            OrganizationId = users.OrganizationId,
+                            Nationality = users.Nationality
 
-                          }).ToList();
+                        }).AsQueryable();
 
-            if (result.Count() > 0)
+            if (temp.Count() > 0)
             {
                 if (!string.IsNullOrEmpty(globalSearch))
                 {
-                    result = result.Where(item =>
+                    temp = temp.Where(item =>
                         item.ContactNumber.ToLower().Contains(globalSearch.ToLower()) ||
                         item.UserName.ToLower().Contains(globalSearch.ToLower()) ||
                         item.RoleName.ToLower().Contains(globalSearch.ToLower()))
-                        .ToList();
+                        .AsQueryable();
                 }
 
-                bool sortAscending = (sortOrder == "ASC" ? true : false);
-                if (!string.IsNullOrEmpty(sortField))
+                //creating pager object to send for filtering and sorting
+                var paginationRequest = new PaginationRequest
                 {
-                    if (!sortAscending)
-                    {
-                        result = result
-                            .OrderBy(r => r.GetType().GetProperty(sortField).GetValue(r, null))
-                            .ToList();
-                    }
-                    else
-                    {
-                        result = result
-                            .OrderByDescending(r => r.GetType().GetProperty(sortField).GetValue(r, null))
-                            .ToList();
-                    }
-                }
+                    PageIndex = pageIndex,
+                    PageSize = pageSize,
+                    SearchText = globalSearch,
+                    Sort = new Sort { SortDirection = (sortOrder == "ASC" ? SortDirection.Ascending : SortDirection.Descending), SortBy = sortField }
+                };
+
+                int totalCount = 0;
+                pageIndex = (pageIndex - 1);
+
+                IList<UsersVM> result =
+                    GenericSorterPager.GetSortedPagedList<UsersVM>(temp, paginationRequest, out totalCount);
+
+                var jsonData = JsonConvert.SerializeObject(result);
+                return JsonConvert.SerializeObject(new { totalRows = totalCount, result = jsonData });
             }
 
-            var data = result.Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToList();
-            var jsonData = JsonConvert.SerializeObject(data);
-            var total = result.Count();
-            return JsonConvert.SerializeObject(new { totalRows = total, result = jsonData });
+            return null;
         }
 
         [Route("~/Api/Users/SaveUser")]

@@ -14,28 +14,29 @@
             <div class="x_content leftcontent">
                 <form class="form-horizontal form-label-left input_mask">
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Security Person <span class="mandatoryField">*</span></label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-
-                            <select class="form-control" data-bind="options: Users, optionsText: 'Name' ,optionsValue: 'Id', value: UserId, optionsCaption: '-- Select --'"></select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Shift Name <span class="mandatoryField">*</span></label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                            <select class="form-control" data-bind="options: Shift, optionsText: 'Name' ,optionsValue: 'Id', value:ShitfId, optionsCaption: '-- Select --'"></select>
-                        </div>
-                    </div>
-                    <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Building Name <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <select class="form-control" data-bind="options: Buildings, optionsText: 'Name' ,optionsValue: 'Id', value: BuildingId, optionsCaption: '-- Select --'"></select>
+                            <select class="form-control" data-bind="options: Buildings, optionsText: 'Name' ,optionsValue: 'Id', value: BuildingId, optionsCaption: '-- Select --',event:{ change: GetGates()}"></select>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Gate No <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <select class="form-control" data-bind="options: Gates, optionsText: 'Name' ,optionsValue: 'Id', value: GateId, optionsCaption: '-- Select --'"></select>
+                            <select class="form-control" data-bind="options: Gates, optionsText: 'Name' ,optionsValue: 'Id', value: GateId, optionsCaption: '-- Select --',event:{ change: GetUsers()}"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Security Person <span class="mandatoryField">*</span></label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+
+                            <select class="form-control" data-bind="options: Users, optionsText: 'Name' ,optionsValue: 'Id', value: UserId, optionsCaption: '-- Select --',event:{ change: GetShift()}"></select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Shift Name <span class="mandatoryField">*</span></label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <select class="form-control" data-bind="options: Shift, optionsText: 'Name' ,optionsValue: 'Id', value:ShitfId, optionsCaption: '-- Select --'"></select>
                         </div>
                     </div>
                     <div class="form-group col-md-9 col-sm-9 col-xs-12">
@@ -84,10 +85,10 @@
                         <thead>
                             <tr>
                                 <th style="width: 1%">#</th>
-                                <th style="width: 25%"> <a href="#" onclick="DataGrid.Sort('BuildingName')" class="sortCol">BuildingName</a> </th>
-                                <th style="width: 25%"> <a href="#" onclick="DataGrid.Sort('GateName')" class="sortCol">Address</a></th>
-                                <th style="width: 24%"><a href="#" onclick="DataGrid.Sort('ShiftName')" class="sortCol">Contact No</a></th>
-                                <th style="width: 24%"><a href="#" onclick="DataGrid.Sort('UserName')" class="sortCol">Contact No</a></th>
+                                <th style="width: 25%"> <a href="#" onclick="DataGrid.Sort('BuildingName')" class="sortCol">Building Name</a> </th>
+                                <th style="width: 25%"> <a href="#" onclick="DataGrid.Sort('GateName')" class="sortCol">Gate Name</a></th>
+                                <th style="width: 24%"><a href="#" onclick="DataGrid.Sort('ShiftName')" class="sortCol">Shift Name</a></th>
+                                <th style="width: 24%"><a href="#" onclick="DataGrid.Sort('UserName')" class="sortCol">User Name</a></th>
                                 <th style="width: 25%"></th>
                             </tr>
                         </thead>

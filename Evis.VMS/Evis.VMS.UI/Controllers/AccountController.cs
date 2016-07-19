@@ -61,6 +61,7 @@ namespace Evis.VMS.UI.Controllers
             TempData["ThemeName"] = (string.IsNullOrEmpty(user.ThemeName)?"theme1": user.ThemeName);
             TempData["ImagePath"] = (user.Organization == null ? "" : user.Organization.ImagePath);
 
+
             if (user == null)
             {
                 ModelState.AddModelError("authstatusmessage", "Invalid credentials");

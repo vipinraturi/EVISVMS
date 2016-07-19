@@ -79,45 +79,53 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         [HttpPost]
         public string GetOrganizationsData(string globalSearch, int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC")
         {
-            var organizationsList = _genericService.Organization.GetAll().Where(x => x.IsActive == true).ToList();
+            var organizationsList = _genericService.Organization.GetAll().Where(x => x.IsActive == true)
+            .Select(x => new OrganisationVM
+            {
+                Id = x.Id,
+                CompanyName = x.CompanyName,
+                CountryId = x.CityMaster.ParentValues.ParentId,
+                StateId = x.CityMaster.ParentId,
+                CityId = x.CityId,
+                EmailId = x.EmailId,
+                ContactNumber = x.ContactNumber,
+                ContactAddress = x.ContactAddress,
+                ZipCode = x.ZipCode,
+                FaxNumber = x.FaxNumber,
+                Website = x.WebSite
+            });
 
             if (organizationsList.Count() > 0)
             {
                 if (!string.IsNullOrEmpty(globalSearch))
                 {
                     organizationsList = organizationsList.Where(item =>
-                        item.ContactAddress.ToLower().Contains(globalSearch.ToLower()) ||
                         item.CompanyName.ToLower().Contains(globalSearch.ToLower()) ||
-                        item.ContactNumber.ToLower().Contains(globalSearch.ToLower()) ||
                         item.EmailId.ToLower().Contains(globalSearch.ToLower()) ||
-                        item.FaxNumber.ToLower().Contains(globalSearch.ToLower()) ||
-                        item.WebSite.ToLower().Contains(globalSearch.ToLower()) ||
-                        item.ZipCode.ToLower().Contains(globalSearch.ToLower())
-                        ).ToList();
+                        item.ContactNumber.ToLower().Contains(globalSearch.ToLower())
+                        ).AsQueryable();
                 }
 
-                bool sortAscending = (sortOrder == "ASC" ? true : false);
-                if (!string.IsNullOrEmpty(sortField))
+                //creating pager object to send for filtering and sorting
+                var paginationRequest = new PaginationRequest
                 {
-                    if (!sortAscending)
-                    {
-                        organizationsList = organizationsList
-                            .OrderBy(r => r.GetType().GetProperty(sortField).GetValue(r, null))
-                            .ToList();
-                    }
-                    else
-                    {
-                        organizationsList = organizationsList
-                            .OrderByDescending(r => r.GetType().GetProperty(sortField).GetValue(r, null))
-                            .ToList();
-                    }
-                }
+                    PageIndex = pageIndex,
+                    PageSize = pageSize,
+                    SearchText = globalSearch,
+                    Sort = new Sort { SortDirection = (sortOrder == "ASC" ? SortDirection.Ascending : SortDirection.Descending), SortBy = sortField }
+                };
+
+                int totalCount = 0;
+                pageIndex = (pageIndex - 1);
+
+                IList<OrganisationVM> result =
+                    GenericSorterPager.GetSortedPagedList<OrganisationVM>(organizationsList, paginationRequest, out totalCount);
+
+                var jsonData = JsonConvert.SerializeObject(result);
+                return JsonConvert.SerializeObject(new { totalRows = totalCount, result = jsonData });
             }
 
-            var data = organizationsList.Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToList();
-            var jsonData = JsonConvert.SerializeObject(data);
-            var total = organizationsList.Count();
-            return JsonConvert.SerializeObject(new { totalRows = total, result = jsonData });
+            return null;
         }
 
         [Route("~/Api/Administration/DeleteOrganization")]
