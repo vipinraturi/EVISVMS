@@ -10,8 +10,11 @@ function AjaxCall(apiUrl, formData, ajaxType, callback) {
         dataType: "json",
         cache: false,
         success: function (data) {
+            debugger;
             callback(data);
         }
     });
 }
+
+
 

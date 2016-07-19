@@ -62,5 +62,9 @@ namespace Evis.VMS.Data.Model.Entities
 
         [MaxLength(50)]
         public string City { get; set; }
+
+        public string ImagePath { get; set; }
+
+        public string ThemeName { get; set; }
     }
 }

@@ -58,7 +58,8 @@ namespace Evis.VMS.UI.Controllers
                 return View(loginVM);
 
             var user = await _userService.FindAsync(loginVM.UserName, loginVM.Password);
-
+            TempData["ThemeName"] = user.ThemeName;
+            TempData["ImagePath"] = user.Organization.ImagePath;
             if (user == null)
             {
                 ModelState.AddModelError("authstatusmessage", "Invalid credentials");

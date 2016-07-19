@@ -7,47 +7,70 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>CEENEX VMS </title>
-   
+
     <link rel="Stylesheet" href="@Url.Content("~/Content/style")" id="styleCommon" />
-    <link rel="Stylesheet" href="@Url.Content("~/Content/theme1")" id="styleTheme" />
+    
+    @if (@TempData["ThemeName"]!=null)
+    {
+    <link rel="Stylesheet" href="@Url.Content("~/Content/"+@TempData["ThemeName"].ToString())" id="styleTheme" />
+        }
+    @Scripts.Render("~/bundles/js")
+    @Scripts.Render("~/bundles/knockout")
+    @Scripts.Render("~/bundles/app")
+    <script src="~/Content/Scripts/application/ImageLoad.js"></script>
 
     <script type="text/javascript">
-    function changetheme(themeName) {
-        $('.loader-div').show();
-        var thestyle = document.getElementById("styleTheme");
-        switch (themeName) {
-            case "theme1":
-                thestyle.href = "@Url.Content("~/Content/theme1")";
-                break;
-            case "theme2":
-                thestyle.href = "@Url.Content("~/Content/theme2")";
-                break;
-            case "theme3":
-                thestyle.href = "@Url.Content("~/Content/theme3")";
-                break;
-            case "theme4":
-                thestyle.href = "@Url.Content("~/Content/theme4")";
-                break;
-            case "theme5":
-                thestyle.href = "@Url.Content("~/Content/theme5")";
+        debugger;
+
+        LoadImage();
+
+        function changetheme(themeName) {
+            debugger;
+
+            // document.getElementById("mainLogo").src=ImagePath;
+            $('.loader-div').show();
+            var data = new Object();
+            data.ThemeName = themeName;
+            AjaxCall('/Api/Users/SaveTheme', data, 'POST', function () {
+                //  toastr.success('Organization saved successfully!!')
+                // ApplyCustomBinding('organization');
+                // self.IsInsert(true);
+            })
+            var thestyle = document.getElementById("styleTheme");
+            switch (themeName) {
+                case "theme1":
+                    thestyle.href = "@Url.Content("~/Content/theme1")";
+                    break;
+                case "theme2":
+                    thestyle.href = "@Url.Content("~/Content/theme2")";
+                    break;
+                case "theme3":
+                    thestyle.href = "@Url.Content("~/Content/theme3")";
+                    break;
+                case "theme4":
+                    thestyle.href = "@Url.Content("~/Content/theme4")";
+                    break;
+                case "theme5":
+                    thestyle.href = "@Url.Content("~/Content/theme5")";
                     break;
                 case "theme6":
                     thestyle.href = "@Url.Content("~/Content/theme6")";
                     break;
                 case "theme7":
-                        thestyle.href = "@Url.Content("~/Content/theme7")";
-                        break;
+                    thestyle.href = "@Url.Content("~/Content/theme7")";
+                    break;
                 default:
                     thestyle.href = "@Url.Content("~/Content/theme8")";
-                break;
-        }
-        $('.loader-div').hide();
+                    break;
+            }
+            $('.loader-div').hide();
 
-    }
-    setInterval(changetheme, (30 * 60 * 1000));
+        }
+        setInterval(changetheme, (30 * 60 * 1000));
     </script>
 
 </head>
+
 <body class="nav-md">
     <div class="loader-div" data-loader style="display:none">
         <img src="~/images/Loader.gif" class="ajax-loader" />
@@ -58,7 +81,7 @@
                 <div class="left_col scroll-view">
                     <div class="navbar nav_title" style="border: 0;">
                         <a href="/Home/Index" class="site_title">
-                            <img src="~/images/logo3.png" class="logoimg" /><br />
+                            <img class="logoimg" id="mainLogo" /><br />
                             <span class="companyName-Span">CEENEX VMS</span>
                         </a>
                     </div>
@@ -148,8 +171,8 @@
             <!-- /footer content -->
         </div>
     </div>
-    @Scripts.Render("~/bundles/js")
+    @*@Scripts.Render("~/bundles/js")
     @Scripts.Render("~/bundles/knockout")
-    @Scripts.Render("~/bundles/app")
+    @Scripts.Render("~/bundles/app")*@
 </body>
 </html>

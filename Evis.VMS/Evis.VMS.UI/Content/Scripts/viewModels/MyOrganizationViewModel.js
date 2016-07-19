@@ -1,5 +1,6 @@
 ﻿function MyOrganizationViewModel() {
     var self = this;
+    var ImagePath = null;
     ko.validation.rules.pattern.message = 'Invalid.';
     ko.validation.configure({
         registerExtenders: true,
@@ -12,8 +13,12 @@
     });
 
 
-
+    self.errors = ko.validation.group(self);
     self.Id = ko.observable(0);
+    self.Theme = ko.observable(undefined).extend({ required: true });
+    self.CountryId = ko.observable(undefined).extend({ required: true });
+    self.StateId = ko.observable(undefined).extend({ required: true });
+    self.CityId = ko.observable(undefined).extend({ required: true });
     self.CompanyName = ko.observable().extend({
         required: true,
         deferValidation: true
@@ -24,34 +29,66 @@
     self.FaxNumber = ko.observable('').extend({ required: true });
     self.POBox = ko.observable('').extend({ required: true });
     self.WebSite = ko.observable('').extend({ required: true });
-    self.IsInsert = ko.observable(true);
+    self.IsInsert = ko.observable(false);
 
+    self.Themes = ko.observableArray();
+    AjaxCall('/Api/Administration/GetTheme', null, 'GET', function (data) {
+        debugger;
+        self.Themes(data);
+    });
+
+
+    self.Countries = ko.observableArray();
+    AjaxCall('/Api/Administration/GetCountries', null, 'GET', function (data) {
+        self.Countries(data);
+    });
+
+    self.States = ko.observableArray();
+    self.LoadStates = function () {
+        AjaxCall('/Api/Administration/GetStatesOrCities?id=' + self.CountryId(), null, 'GET', function (data) {
+            self.States(new Object());
+            self.States(data);
+            self.StateId(stateId);
+        });
+    }
+
+    self.Cities = ko.observableArray();
+    self.LoadCities = function () {
+        AjaxCall('/Api/Administration/GetStatesOrCities?id=' + self.StateId(), null, 'GET', function (data) {
+            self.Cities(new Object());
+            self.Cities(data);
+            self.CityId(cityId);
+        });
+    }
 
     self.SaveOrganization = function () {
         debugger;
         if (self.errors().length > 0) {
             self.errors.showAllMessages(true);
             this.errors().forEach(function (data) {
-                //toastr.warning(data);
+                toastr.warning(data);
             });
         }
         else {
+
+
             var data = new Object();
             //debugger;
             data.Id = self.Id(),
             data.CompanyName = self.CompanyName(),
-            data.Email = self.Email(),
+            data.CityId = self.CityId(),
+            data.EmailId = self.Email(),
             data.ContactNumber = self.ContactNumber(),
             data.ContactAddress = self.ContactAddress(),
             data.FaxNumber = self.FaxNumber(),
-            data.POBox = self.POBox(),
+            data.ZipCode = self.POBox(),
             data.WebSite = self.WebSite()
             data.IsInsert = self.IsInsert();
 
             //// display any error messages if we have them
             AjaxCall('/Api/Administration/SaveOrganization', data, 'POST', function () {
-                toastr.success('Organization saved successfully!!')
-                ApplyCustomBinding('organization');
+                toastr.success('Organization updated successfully!!')
+                ApplyCustomBinding('myorganization');
                 self.IsInsert(true);
             })
         }
@@ -70,27 +107,60 @@
         self.WebSite('');
         ApplyCustomBinding('organization');
     }
+    //var User = {
+    //    OrginizationId: self.OrginizationId
+    //};
+    //var Orginization = {
+    //    CompanyName: self.CompanyName,
+    //    ContactNumber: self.ContactNumber,
+    //    Email: self.Email,
+    //    PhoneNumber: self.PhoneNumber,
+    //    POBox: self.POBox,
+    //    WebSite: self.WebSite,
+    //};
+    //debugger;
+    //self.Orginization = ko.observable(Orginization);
 
-    var Orginization = {
-        CompanyName: self.CompanyName,
-        ContactNumber: self.ContactNumber,
-        Email: self.Email,
-        PhoneNumber: self.PhoneNumber,
-        POBox: self.POBox,
-        WebSite: self.WebSite,
-    };
 
-    self.Orginization = ko.observable(Orginization);
     AjaxCall('/Api/MyOrginization/GetMyOrginization', null, 'GET', function (data) {
         debugger;
-        self.Orginization(data);
-        //self.GenderId = self.User().GenderId;
-        //self.RoleId = ko.observable(data.Roles[0].RoleId);
-        //self.Nationality = ko.observable(data.CountryMaster.LookUpValue);
+        self.IsInsert(false);
+        self.CountryId(data.CityMaster.ParentValues.ParentId);
+        self.stateId = data.CityMaster.ParentId;
+        self.cityId = data.CityId;
+        self.Theme(data.ThemeName);
+        self.CompanyName(data.CompanyName);
+        self.ContactNumber(data.ContactNo);
+        self.Id(data.CompanyId);
+        self.Email(data.EmailAddress);
+        self.ContactAddress(data.Address);
+        self.FaxNumber(data.FaxNo);
+        self.POBox(data.ZipCode);
+        self.WebSite(data.WebSite);
+        var d = new Date();
+        ImagePath = data.ImagePath;
+        $("#myLogo").attr('src', ImagePath + "?" + d.getTime());
+        $("#myImg").attr('src', ImagePath + "?" + d.getTime());
     })
 
+    self.ApplyTheme = function () {
+        if (self.Theme() == '') {
 
+        }
+        else {
+            changetheme(self.Theme());
+        }
+        //AjaxCall('/Api/Administration/GetStatesOrCities?id=' + self.CountryId(), null, 'GET', function (data) {
+        //    self.States(new Object());
+        //    self.States(data);
+        //    self.StateId(stateId);
+        //});
+    }
     self.SaveImage = function () {
+        debugger;
+        $("#myLogo").removeAttr('src');
+        $("#mainLogo").removeAttr('src');
+        $("#myImg").attr('src', '');
         $('#avatar-modal').modal('hide');
         var formData = new FormData();
         var totalFiles = document.getElementById("avatarInput").files.length;
@@ -99,6 +169,8 @@
 
             formData.append("avatarInput", file);
         }
+        debugger;
+
         $.ajax({
             type: "POST",
             url: '/Administration/SaveUploadedFile',
@@ -108,17 +180,26 @@
             processData: false,
             success: function (response) {
 
-                
-
-                alert('succes!!');
+                // alert('succes!!');
 
             },
             error: function (error) {
-                alert("errror");
+                //  alert("errror");
             }
+
         });
+        RefreshImage(ImagePath);
     }
 
 }
 
 
+RefreshImage = function (Imagepath) {
+    var d = new Date();
+    $("#myLogo").attr('src', '#');
+    $("#mainLogo").attr('src', '#');
+    $("#myImg").attr('src', '#');
+    $("#mainLogo").attr('src', Imagepath + "?" + d.getTime());
+    $("#myLogo").attr('src', Imagepath + "?" + d.getTime());
+    $("#myImg").attr('src', Imagepath + "?" + d.getTime());
+}

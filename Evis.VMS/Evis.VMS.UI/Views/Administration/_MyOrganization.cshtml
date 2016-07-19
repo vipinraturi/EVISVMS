@@ -3,14 +3,14 @@
 }
 
 <ol class="breadcrumb">
-    <li><a href="#" class="a-color">Administration</a></li>
-    <li><a href="#" class="a-color">Organization</a></li>
+    <li><a href="#" class="a-color">Home</a></li>
+    <li><a href="#" class="a-color">My Organization</a></li>
 </ol>
 <div class="row">
     <div class="col-md-6 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h2>Create / Update Organization</h2>
+                <h2> Update Organization</h2>
                 <div class="clearfix"></div>
             </div>
             <div class="x_content leftcontent">
@@ -18,15 +18,41 @@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Company Name <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtCompanyName" type="text" class="form-control" placeholder="Company Name" data-bind="value: CompanyName" />
+                            <input id="txtCompanyName" type="text" class="form-control" maxlength="50" placeholder="Company Name" data-bind="value: CompanyName" />
                             <span class="fa fa-suitcase favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
 
                     <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Country <span class="mandatoryField">*</span></label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <select class="form-control" data-bind="options: Countries, optionsText: 'Name', optionsValue: 'Id', value: CountryId, optionsCaption: '-- Select Country--', event:{change: LoadStates()}"></select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">State <span class="mandatoryField">*</span></label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <select class="form-control" data-bind="options: States, optionsText: 'Name', optionsValue: 'Id', value: StateId, optionsCaption: '-- Select State--',  event:{change: LoadCities()}"></select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">City <span class="mandatoryField">*</span></label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <select class="form-control" data-bind="options: Cities, optionsText: 'Name', optionsValue: 'Id', value: CityId, optionsCaption: '-- Select City--'"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Theme <span class="mandatoryField">*</span></label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <select class="form-control" data-bind="options: Themes, optionsText: 'Name', optionsValue: 'Name', value: Theme, optionsCaption: '-- Select Theme--', event:{change: ApplyTheme}"></select>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Email Address <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtEmail" type="text" class="form-control" placeholder="Email Address" data-bind="value: Email" />
+                            <input id="txtEmail" type="text" class="form-control" maxlength="50" placeholder="Email Address" data-bind="value: Email" />
                             <span class="fa fa-envelope favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
@@ -34,7 +60,7 @@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Number <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtContactNumber" type="text" class="form-control" placeholder="Contact Number" data-bind="value: ContactNumber" />
+                            <input id="txtContactNumber" type="text" maxlength="15" class="form-control" placeholder="Contact Number" data-bind="value: ContactNumber" />
                             <span class="fa fa-phone favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
 
@@ -44,7 +70,7 @@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Address <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <textarea id="txtAddress" class="form-control" rows="3" placeholder="Contact Address" data-bind="value: ContactAddress" style="resize: none;"></textarea>
+                            <textarea id="txtAddress" class="form-control" maxlength="500" rows="3" placeholder="Contact Address" data-bind="value: ContactAddress" style="resize: none;"></textarea>
                             <span class="fa fa-home favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
@@ -52,38 +78,30 @@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">PO Box <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtPostalCode" type="text" class="form-control" placeholder="PO Box" data-bind="value: POBox" />
+                            <input id="txtPostalCode" type="text" maxlength="8" class="form-control" placeholder="PO Box" data-bind="value: POBox" />
                             <span class="fa fa-envelope-o favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Fax  Number </label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtFaxNo" type="text" class="form-control" placeholder="Fax Number" data-bind="value: FaxNumber" />
+                            <input id="txtFaxNo" type="text" maxlength="15" class="form-control" placeholder="Fax Number" data-bind="value: FaxNumber" />
                             <span class="fa fa-fax favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
-
-
-
-
-
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Website</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtWebsite" type="text" class="form-control" placeholder="Website URL" data-bind="value: WebSite" />
+                            <input id="txtWebsite" type="text" class="form-control" maxlength="50" placeholder="Website URL" data-bind="value: WebSite" />
                             <span class="fa fa-globe favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
-
-
                     <div class="form-group">
                         <div class="pull-right">
                             <button type="button" class="btn btn-primary" data-bind="click: ResetOrganization.bind()">Reset <i class="fa fa-refresh"></i></button>
                             <button type="button" class="btn btn-success" data-bind="click: SaveOrganization">Save <i class="fa fa-save"></i></button>
                         </div>
                     </div>
-
                 </form>
             </div>
         </div>
@@ -99,15 +117,14 @@
                 <div class="row">
                     <p>Logo Selection</p>
 
-                    <div class="col-md-10">
-                        <div class="thumbnail">
-                            <div class="image view view-first">
-                                <img style="width: 100%; height:100%; display: block;" src="~/images/logo3.png" alt="image" title="Change the logo" />
+                    <div class="col-md-pull-6">
+                        <div class="thumbnail" style="height:450px !important">
+                            <div class="image view view-first" style="height:380px !important">
+                                <img style="width: 100%; height:100%; display: block;" src="~/images/logo/logo3.png" alt="image" title="Change the logo" />
                                 <!-- Cropping modal -->
-                                
                                 <!-- /.modal -->
-                                <div class="mask no-caption">
-                                    <div class="tools tools-bottom">
+                                <div class="mask no-caption" >
+                                    <div class="tools tools-bottom" style="margin:345px 0 0 !important">
                                         <a href="#" data-toggle="modal" data-target="#avatar-modal"><i class="fa fa-pencil"></i></a>
                                     </div>
                                 </div>

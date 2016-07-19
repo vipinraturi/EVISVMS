@@ -176,7 +176,7 @@
                                 <td data-bind="text: RoleName"></td>
                                 <td>
                                     <a href="#" data-bind="click: EditUser.bind($data)" title="click here to view or edit record."><i class="fa fa-pencil"></i></a>
-                                    <a href="#" data-bind="click: DeleteUser.bind($data)" title="click here to delete record."><i class="fa fa-trash-o"></i></a>
+                                    <a href="#myModal" data-toggle="modal" data-bind="click: DeleteUser.bind($data)" title="click here to delete record."><i class="fa fa-trash-o"></i></a>
                                 </td>
                             </tr>
                         </tbody>
@@ -188,6 +188,31 @@
                             </tr>
                         </tbody>
                     </table>
+                    @Html.Partial("_Pager")
+
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal" role="dialog">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title" style="color:black">Delete Confrimation</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p style="color:black">Are you sure to delete this record?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                                    <button type="button" class="btn btn-default" data-bind="click: DeleteConfirmed.bind()">Yes</button>
+                                    @*<a href="#" class="btn btn-s" data-bind="click: DeleteOrganization.bind($data)" title="click here to delete record."><i class="fa fa-trash-o"></i></a>*@
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>

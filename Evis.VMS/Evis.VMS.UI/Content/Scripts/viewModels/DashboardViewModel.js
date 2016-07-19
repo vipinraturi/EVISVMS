@@ -1,3 +1,4 @@
 ﻿function DashboardViewModel() {
-    var self = this;
+   
+    //changetheme('theme7');
 }

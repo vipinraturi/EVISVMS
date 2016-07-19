@@ -79,8 +79,7 @@ function OrganizationViewModel() {
             self.CityId(cityId);
         });
     }
-
-
+ 
     self.DataGrid = new RIT.eW.DataGridAjax('/Api/Administration/GetOrganizationsData', 7);
 
     self.GetAllOrganizations = function () {
@@ -92,6 +91,7 @@ function OrganizationViewModel() {
     self.SaveOrganization = function () {
         if (self.organizationErrors().length > 0) {
             self.organizationErrors.showAllMessages(true);
+            return false;
         }
         else {
             var data = new Object();
@@ -105,11 +105,17 @@ function OrganizationViewModel() {
             data.FaxNumber = self.FaxNumber(),
             data.ZipCode = self.ZipCode(),
             data.WebSite = self.WebSite();
-            ResetOrganization();
             //// display any error messages if we have them
             AjaxCall('/Api/Administration/SaveOrganization', data, 'POST', function (data) {
-                toastr.success(data.Message);
-                ApplyCustomBinding('organization');
+                debugger;
+                if (data.Success == true) {
+                    toastr.success(data.Message);
+                    self.ResetOrganization();
+                    self.GetAllOrganizations();
+                }
+                else {
+                    toastr.warning(data.Message);
+                }
             })
         }
     }
@@ -117,7 +123,7 @@ function OrganizationViewModel() {
     self.ResetOrganization = function () {
         self.GlobalSearch('');
         self.CompanyName('');
-        self.CityId(0);
+        self.CityId(undefined);
         self.EmailId('');
         self.ContactAddress('');
         self.FaxNumber('');
@@ -127,20 +133,22 @@ function OrganizationViewModel() {
         ApplyCustomBinding('organization');
     }
 
+
     self.DeleteOrganization = function (tableItem) {
-        var message = confirm("Are you sure, you want to delete selected record!");
-        if (message == true) {
-            AjaxCall('/Api/Administration/DeleteOrganization', tableItem, 'POST', function (data) {
-                //debugger;
-                if (data.Success == true) {
-                    toastr.success(data.Message);
-                    ApplyCustomBinding('organization');
-                }
-                else if (data.Success == false) {
-                    toastr.warning(data.Message);
-                }
-            });
-        }
+        recordToDelete = tableItem;
+    }
+
+    self.DeleteConfirmed = function () {
+        $('#myModal').modal('hide');
+        AjaxCall('/Api/Administration/DeleteOrganization', recordToDelete, 'POST', function (data) {
+            if (data.Success == true) {
+                toastr.success(data.Message);
+                ApplyCustomBinding('organization');
+            }
+            else if (data.Success == false) {
+                toastr.warning(data.Message);
+            }
+        });
     }
 
     self.EditOrganization = function (tableItem) {
@@ -161,6 +169,7 @@ function OrganizationViewModel() {
     }
 
     self.GlobalSearchEnter = function (data, event) {
+        debugger;
         if (event.which == 13) {
             self.GetAllOrganizations();
             console.log(event);

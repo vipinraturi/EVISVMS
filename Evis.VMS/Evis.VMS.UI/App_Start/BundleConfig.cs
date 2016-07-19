@@ -124,6 +124,7 @@ namespace Evis.VMS.UI
                 "~/Content/Scripts/plugins/knockout.validation.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
+               "~/Content/Scripts/application/ImageUpload.js",
 
                "~/Content/Scripts/application/pager.js",
                "~/Content/Scripts/application/toastr.min.js",

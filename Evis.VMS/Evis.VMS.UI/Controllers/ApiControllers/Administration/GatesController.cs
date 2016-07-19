@@ -27,10 +27,17 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         {
             if (GateMaster.Id == 0)
             {
-                GateMaster.IsActive = true;
-                _genericService.GateMaster.Insert(GateMaster);
+                var data = _genericService.GateMaster.GetAll().Where(x => x.GateNumber == GateMaster.GateNumber.Trim() && x.BuildingId == GateMaster.BuildingId).ToList();
+                if (data.Count() == 0)
+                {
+                    GateMaster.IsActive = true;
+                    _genericService.GateMaster.Insert(GateMaster);
+                }
+                else
+                {
+                    return new ReturnResult { Message = "UnSuccess", Success = false };
+                }
             }
-
             else
             {
                 var existinggate = _genericService.GateMaster.GetById(GateMaster.Id);

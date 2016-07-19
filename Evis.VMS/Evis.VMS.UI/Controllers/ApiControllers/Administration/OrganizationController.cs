@@ -29,9 +29,16 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         [HttpPost]
         public ReturnResult SaveOrganization([FromBody] Organization organization)
         {
-            string message = string.Empty;
+            string message = "Error occured, please try again with valid entered data again!";
+            bool success = false;
             if (organization.Id == 0)
             {
+                var existOrganization = _genericService.Organization.GetAll().Where(x => x.CompanyName.ToLower().Equals(organization.CompanyName.ToLower()));
+                if (existOrganization != null && existOrganization.Count() > 0)
+                {
+                    message = "Organization with this name is already exist! Please some other use other name.";
+                    return new ReturnResult { Message = message, Success = success };
+                }
                 organization.IsActive = true;
                 _genericService.Organization.Insert(organization);
 
@@ -44,6 +51,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 // Send email on organization creation.
                 //EmailHelper.SendMail(organization.EmailId, "Company Prfile is created", body);
                 message = "Organization saved successfully!!";
+                success = true;
             }
             else
             {
@@ -60,6 +68,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     organization.IsActive = true;
                     _genericService.Organization.Update(existingOrg);
                     message = "Organization updated successfully!!";
+                    success = true;
                 }
             }
             _genericService.Commit();
@@ -155,11 +164,21 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             return result;
         }
 
+
         [Route("~/Api/Administration/GetStatesOrCities")]
         [HttpGet]
         public IQueryable<GeneralDropDownVM> GetStatesOrCities(int id)
         {
             var result = _genericService.LookUpValues.GetAll().Where(x => x.ParentId == id && x.IsActive == true && x.LookUpType.IsActive == true)
+                .Select(y => new GeneralDropDownVM { Id = y.Id, Name = y.LookUpValue });
+            return result;
+        }
+
+        [Route("~/Api/Administration/GetTheme")]
+        [HttpGet]
+        public IQueryable<GeneralDropDownVM> GetTheme()
+        {
+            var result = _genericService.LookUpValues.GetAll().Where(x => x.LookUpType.TypeName == "Theme" && x.IsActive == true && x.LookUpType.IsActive == true)
                 .Select(y => new GeneralDropDownVM { Id = y.Id, Name = y.LookUpValue });
             return result;
         }

@@ -104,7 +104,7 @@
         if (self.errors().length > 0) {
             self.errors.showAllMessages(true);
             this.errors().forEach(function (data) {
-               // toastr.warning(data);
+                // toastr.warning(data);
             });
         }
         else {
@@ -118,9 +118,16 @@
             // data.Country = self.Country(),
             data.CityId = self.CityId(),
             //// display any error messages if we have them
-            AjaxCall('/Api/Administration/SaveBuilding', data, 'POST', function () {
-                toastr.success('building saved successfully!!')
-                ApplyCustomBinding('buildings');
+            AjaxCall('/Api/Administration/SaveBuilding', data, 'POST', function (data) {
+                if (data.Message == "Success") {
+                    toastr.success('building saved successfully!!')
+                    ApplyCustomBinding('buildings');
+                }
+                else {
+                    self.BuildingName('');
+                    toastr.error('Building name alreday exists!!')
+
+                }
                 self.IsInsert(true);
 
             })
@@ -163,11 +170,10 @@
         }
     }
     self.GlobalSearchEnter = function (data, event) {
-        if (event.which == 13) {
-            self.GetAllOrganizations();
-            console.log(event);
+        if (event.which == 13 || event.keycode == 13) {
+            self.GetAllVisitor();
+            console.log(event.which);
         }
     }
-
     self.GetAllBuildingData();
 }
