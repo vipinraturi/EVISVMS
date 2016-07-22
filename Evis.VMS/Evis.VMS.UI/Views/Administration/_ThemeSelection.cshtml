@@ -3,105 +3,109 @@
     <li><a href="#" class="a-color">Administration</a></li>
     <li><a href="#" class="a-color">Theme</a></li>
 </ol>
-
 <div class="row">
     <div class="col-md-12">
         <div class="x_panel">
             <div class="x_title">
                 <h2>Theme Selection</h2>
-
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
+                <div class="row" style="margin-bottom: 10px">
+                    <div class="col-lg-10">
+                        Click on theme below to preview and click apply to activate the theme. 
+                    </div>
+                    <div class="col-lg-2">
+                        <button class="btn btn-success pull-right" data-bind="click : ApplyTheme">Apply Theme</button>
+                    </div>
+                </div>
+
                 <div class="row">
-                    <p>Theme Selection</p>
-
-                    <div class="col-md-55" data-bind="click: Theme1.bind()"> 
-                        <div class="thumbnail">
-                            <div class="image view view-first">
-                                <img style="width: 100%; display: block;" src="~/images/blur-bg-blurred.jpg" alt="image" />
-                                <div class="mask no-caption">
-                                    <div class="tools tools-bottom">
-                                        <a href="#"><i class="fa fa-paint-brush"></i></a>
+                    <div class="col-lg-12">
+                        <div class="col-lg-3" data-bind="click: Theme1.bind()">
+                            <div class="thumbnail">
+                                <div class="image view view-first">
+                                    <img style="width: 100%; display: block;" src="~/images/blur-bg-blurred.jpg" alt="image" />
+                                    <div class="mask no-caption">
+                                        <div class="tools tools-bottom">
+                                            <a href="#"><i class="fa fa-paint-brush"></i></a>
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="caption">
+                                    <p>
+                                        <strong>Scientific Theme</strong>
+                                    </p>
+                                    <p>Scientific theme Selection</p>
+                                </div>
                             </div>
-                            <div class="caption">
-                                <p>
-                                    <strong>Scientific Theme</strong>
-                                </p>
-                                <p>Scientific theme Selection</p>
+                        </div>
+                        <div class="col-lg-3" data-bind="click: Theme2.bind()">
+                            <div class="thumbnail">
+                                <div class="image view view-first">
+                                    <img style="width: 100%; display: block;" src="~/images/blur-bg-black.jpg" alt="image" />
+                                    <div class="mask no-caption">
+                                        <div class="tools tools-bottom">
+                                            <a href="#"><i class="fa fa-paint-brush"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="caption">
+                                    <p>
+                                        <strong>Smoke Theme</strong>
+                                    </p>
+                                    <p>Smoke Theme Selection</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3" data-bind="click: Theme3.bind()">
+                            <div class="thumbnail">
+                                <div class="image view view-first">
+                                    <img style="width: 100%; display: block;" src="~/images/blur-bg-redblue.jpg" alt="image" />
+                                    <div class="mask no-caption">
+                                        <div class="tools tools-bottom">
+                                            <a href="#"><i class="fa fa-paint-brush"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="caption">
+                                    <p>
+                                        <strong>RB Combo Theme</strong>
+                                    </p>
+                                    <p>RB Combo Selection</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3" data-bind="click: Theme4.bind()">
+                            <div class="thumbnail">
+                                <div class="image view view-first">
+                                    <img style="width: 100%; display: block;" src="~/images/blur-bg-violet.jpg" alt="image" />
+                                    <div class="mask no-caption">
+                                        <div class="tools tools-bottom">
+                                            <a href="#"><i class="fa fa-paint-brush"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="caption">
+                                    <p>
+                                        <strong>Violet Theme</strong>
+                                    </p>
+                                    <p>Violet Selection</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-55" data-bind="click: Theme2.bind()">
-                        <div class="thumbnail">
-                            <div class="image view view-first">
-                                <img style="width: 100%; display: block;" src="~/images/blur-bg-black.jpg" alt="image" />
-                                <div class="mask no-caption">
-                                    <div class="tools tools-bottom">
-                                        <a href="#"><i class="fa fa-paint-brush"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="caption">
-                                <p>
-                                    <strong>Smoke Theme</strong>
-                                </p>
-                                <p>Smoke Theme Selection</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-55" data-bind="click: Theme3.bind()">
-                        <div class="thumbnail">
-                            <div class="image view view-first">
-                                <img style="width: 100%; display: block;" src="~/images/blur-bg-redblue.jpg" alt="image" />
-                                <div class="mask no-caption">
-                                    <div class="tools tools-bottom">
-                                        <a href="#"><i class="fa fa-paint-brush"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="caption">
-                                <p>
-                                    <strong>RB Combo Theme</strong>
-                                </p>
-                                <p>RB Combo Selection</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-55" data-bind="click: Theme4.bind()">
-                        <div class="thumbnail">
-                            <div class="image view view-first">
-                                <img style="width: 100%; display: block;" src="~/images/blur-bg-violet.jpg" alt="image" />
-                                <div class="mask no-caption">
-                                    <div class="tools tools-bottom">
-                                        <a href="#"><i class="fa fa-paint-brush"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="caption">
-                                <p>
-                                    <strong>Violet Theme</strong>
-                                </p>
-                                <p>Violet Selection</p>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </div>
     </div>
 
-
-
     <div class="col-md-12">
         <div class="x_panel">
-          
+
             <div class="x_content">
                 <div class="row">
-                    <div class="col-md-55" data-bind="click: Theme5.bind()">
+                    <div class="col-lg-3" data-bind="click: Theme5.bind()">
                         <div class="thumbnail">
                             <div class="image view view-first">
                                 <img style="width: 100%; display: block;" src="~/images/blur-bg-bluecombo.jpg" alt="image" />
@@ -119,7 +123,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-55" data-bind="click: Theme6.bind()">
+                    <div class="col-lg-3" data-bind="click: Theme6.bind()">
                         <div class="thumbnail">
                             <div class="image view view-first">
                                 <img style="width: 100%; display: block;" src="~/images/blur-bg-white.jpg" alt="image" />
@@ -137,7 +141,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-55" data-bind="click: Theme7.bind()">
+                    <div class="col-lg-3" data-bind="click: Theme7.bind()">
                         <div class="thumbnail">
                             <div class="image view view-first">
                                 <img style="width: 100%; display: block;" src="~/images/blur-bg-fullblack.jpg" alt="image" />
@@ -155,7 +159,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-55" data-bind="click: Theme8.bind()">
+                    <div class="col-lg-3" data-bind="click: Theme8.bind()">
                         <div class="thumbnail">
                             <div class="image view view-first">
                                 <img style="width: 100%; display: block;" src="~/images/blur-bg-blue.jpg" alt="image" />
@@ -173,49 +177,10 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
-    @*<div class="col-md-12">
-        <div class="x_panel">
-            <div class="x_title">
-                <h2>Logo Selection</h2>
-
-                <div class="clearfix"></div>
-            </div>
-            <div class="x_content">
-                <div class="row">
-                    <p>Logo Selection</p>
-
-                    <div class="col-md-55">
-                        <div class="thumbnail">
-                            <div class="image view view-first">
-                                <img style="width: 100%; display: block;" src="~/images/logo3.png" alt="image" title="Change the logo"  /> 
-                               
-                                <div class="mask no-caption">
-                                    <div class="tools tools-bottom">
-                                        <a href="#" data-toggle="modal" data-target="#avatar-modal"><i class="fa fa-pencil"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="caption">
-                                <p>
-                                    <strong>Company Logo</strong>
-                                </p>
-                                <p>Click here to Change</p>
-                            </div>
-                        </div>
-                    </div>
-                  
-                </div>
-            </div>
-        </div>
-    </div>*@
-
 </div>
-
-
 
 

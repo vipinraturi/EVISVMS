@@ -92,25 +92,32 @@ namespace Evis.VMS.UI.Controllers
             string userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
             //string userId = HttpContext.Current.User.Identity.GetUserId();
             var currentUser = await _userService.GetAsync(x => x.Id == userId);
-           
-           // var result = _genericService.Organization.GetAll().FirstOrDefault(item => item.Id == currentUser.OrganizationId);
-            string orginization = currentUser.Organization.CompanyName;
-            //// result.CityMaster = null;
+
+            // var result = _genericService.Organization.GetAll().FirstOrDefault(item => item.Id == currentUser.OrganizationId);
+            string orginization = string.Empty;
+            string logoPath = string.Empty;
+
+            if (currentUser.Organization == null)// in case of super admin only
+            {
+                logoPath = string.Format("{0}\\images\\logo\\main_logo.png", Server.MapPath(@"\"));
+            }
+            else
+            {
+                orginization = currentUser.Organization.CompanyName;
+                logoPath = string.Format("{0}images\\logo//" + orginization, Server.MapPath(@"\"));
+            }
+
             string fName = "";
             try
             {
                 foreach (string fileName in Request.Files)
                 {
                     HttpPostedFileBase file = Request.Files[fileName];
-                    //Save file content goes here
                     fName = file.FileName;
                     if (file != null && file.ContentLength > 0)
                     {
-
-                        var originalDirectory = new DirectoryInfo(string.Format("{0}images\\logo//"+orginization, Server.MapPath(@"\")));
-
+                        var originalDirectory = new DirectoryInfo(logoPath);
                         string fileWithPath = System.IO.Path.Combine(originalDirectory.ToString(), "logo.png");
-                      //  string path = System.IO.Path(originalDirectory.ToString());
                         var fileName1 = Path.GetFileName(file.FileName);
 
                         bool isfolderExists = System.IO.Directory.Exists(originalDirectory.ToString());
@@ -120,7 +127,6 @@ namespace Evis.VMS.UI.Controllers
                         if (isExists)
                             System.IO.File.Delete(fileWithPath);
 
-                        // var path = string.Format("{0}\\{1}", pathString, file.FileName);
                         file.SaveAs(fileWithPath);
 
                     }

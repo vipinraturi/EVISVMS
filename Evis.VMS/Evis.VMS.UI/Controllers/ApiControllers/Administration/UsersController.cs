@@ -131,6 +131,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 user.PhoneNumber = usersVM.ContactNumber;
                 user.GenderId = usersVM.GenderId;
                 user.Nationality = usersVM.Nationality;
+                
                 await _userService.InsertAsync(user, password, usersVM.RoleId);
                 var proto = Request.GetRequestContext().Url.Request.RequestUri.Scheme;
                 var baseUrl = Request.GetRequestContext().Url.Request.RequestUri.Authority;
@@ -145,7 +146,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
                 string subject = "User in company <b>" + orgName + "<b> created successfully!";
                 // Send email on account creation.
-                //EmailHelper.SendMail(user.Email, subject, body);
+                EmailHelper.SendMail(user.Email, subject, body);
                 message = "Save sucessfully!";
                 success = true;
             }

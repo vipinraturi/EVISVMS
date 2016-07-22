@@ -4,6 +4,7 @@
 ApplyCustomBinding = function (elementName) {
     $('.loader-div').show();
     switch (elementName) {
+
         //Administration module  
         case 'organization':
             BindingViewModel("/Administration/_Organization", OrganizationViewModel());
@@ -74,11 +75,9 @@ BindingViewModel = function (controllerUrl, viewModel) {
         if (controllerUrl == "/Visitor/_ManageVisitorManually") {
             $('#dateDOB').datepicker();
         }
-
         if (controllerUrl == "/Visitor/_VisitorCheckInCheckout") {
             BindAutoCompleteEvent();
         }
-
         if (controllerUrl == "/Administration/_ShiftAssignment") {
             $('#dateFrom').datepicker();
         }

@@ -99,7 +99,9 @@
 <script type="text/javascript">
     var url = window.location.pathname.split("/");
     var questions = url[2];
-    if (questions.toLowerCase() == "forgotpassword") {
-        window.location.hash = "#signup";
+    if (questions != undefined) {
+        if (questions.toLowerCase() == "forgotpassword") {
+            window.location.hash = "#signup";
+        }
     }
 </script>

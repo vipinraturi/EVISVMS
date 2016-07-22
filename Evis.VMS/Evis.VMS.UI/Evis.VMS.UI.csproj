@@ -231,6 +231,7 @@
     <Compile Include="ViewModel\MyOrganizationVM.cs" />
     <Compile Include="ViewModel\OrganisationVM.cs" />
     <Compile Include="ViewModel\ResetPasswordVM.cs" />
+    <Compile Include="ViewModel\UserSessionDataVM.cs" />
     <Compile Include="ViewModel\VisitorCheckInCheckOutVM.cs" />
     <Compile Include="ViewModel\VisitorDetailsVM.cs" />
     <Compile Include="ViewModel\DashboardVM.cs" />

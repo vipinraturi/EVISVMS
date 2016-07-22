@@ -150,11 +150,6 @@
         else {
             changetheme(self.Theme());
         }
-        //AjaxCall('/Api/Administration/GetStatesOrCities?id=' + self.CountryId(), null, 'GET', function (data) {
-        //    self.States(new Object());
-        //    self.States(data);
-        //    self.StateId(stateId);
-        //});
     }
     self.SaveImage = function () {
         debugger;
@@ -169,8 +164,7 @@
 
             formData.append("avatarInput", file);
         }
-        debugger;
-
+        //debugger;
         $.ajax({
             type: "POST",
             url: '/Administration/SaveUploadedFile',
@@ -179,7 +173,6 @@
             contentType: false,
             processData: false,
             success: function (response) {
-
                 // alert('succes!!');
 
             },
@@ -188,18 +181,18 @@
             }
 
         });
-        RefreshImage(ImagePath);
+        //RefreshImage(ImagePath);
     }
 
 }
 
 
-RefreshImage = function (Imagepath) {
-    var d = new Date();
-    $("#myLogo").attr('src', '#');
-    $("#mainLogo").attr('src', '#');
-    $("#myImg").attr('src', '#');
-    $("#mainLogo").attr('src', Imagepath + "?" + d.getTime());
-    $("#myLogo").attr('src', Imagepath + "?" + d.getTime());
-    $("#myImg").attr('src', Imagepath + "?" + d.getTime());
-}
+//RefreshImage = function (Imagepath) {
+//    //var d = new Date();
+//    //$("#myLogo").attr('src', '#');
+//    //$("#mainLogo").attr('src', '#');
+//    //$("#myImg").attr('src', '#');
+//    //$("#mainLogo").attr('src', Imagepath + "?" + d.getTime());
+//    //$("#myLogo").attr('src', Imagepath + "?" + d.getTime());
+//    //$("#myImg").attr('src', Imagepath + "?" + d.getTime());
+//}

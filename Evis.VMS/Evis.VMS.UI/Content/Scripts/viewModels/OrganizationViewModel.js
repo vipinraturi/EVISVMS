@@ -5,17 +5,12 @@ function OrganizationViewModel() {
     var stateId = 0;
     var cityId = 0;
 
-    //self.Organizations = ko.observable();
-    //AjaxCall('/Api/Administration/GetOrganizationsData', null, 'POST', function (data) {
-    //    
-    //    self.Organizations(data);
-    //})
-
     self.Id = ko.observable(0);
     self.CompanyName = ko.observable().extend({
         required: true,
         deferValidation: true
     });
+
     self.CountryId = ko.observable(undefined).extend({ required: true });
     self.StateId = ko.observable(undefined).extend({ required: true });
     self.CityId = ko.observable(undefined).extend({ required: true });
@@ -189,20 +184,4 @@ function OrganizationViewModel() {
             });
         }
     };
-
-    //$("form").validate({ submitHandler: self.SaveOrganization });
-
-    //ko.validation.configure({
-    //    insertMessages: true,
-    //    decorateElement: true,
-    //    errorElementClass: 'error',
-    //    messagesOnModified: true
-    //});
-
-    //$('#txtGlobalSearch').keyup(function (e) {
-    //    if (e.keyCode == 13) {
-    //        alert('aa');
-    //        self.GetAllOrganizations();
-    //    }
-    //});
 }

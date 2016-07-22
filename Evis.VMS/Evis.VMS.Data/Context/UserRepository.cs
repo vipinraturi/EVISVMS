@@ -46,6 +46,12 @@ namespace Evis.VMS.Data.Context
             return await _userManager.Users.FirstOrDefaultAsync(where);
         }
 
+        public ApplicationUser GetApplicationUser(string userID)
+        {
+            return _userManager.Users.Where(item => item.Id == userID).FirstOrDefault();
+        }
+
+
         public async Task InsertAsync(ApplicationUser user, string password, string userRole)
         {
             var superAdminRole = await GetSuperAdminRole();

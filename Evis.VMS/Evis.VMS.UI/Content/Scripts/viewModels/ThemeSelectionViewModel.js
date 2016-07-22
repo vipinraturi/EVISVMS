@@ -1,6 +1,6 @@
 ﻿function ThemeSelectionViewModel() {
     var self = this;
-  
+
     self.Theme1 = function () {
         //alert("Applying Theme1");
         changetheme("theme1");
@@ -36,6 +36,12 @@
         //alert("Applying theme4");
         changetheme("theme8");
     }
+}
 
-
+ApplyTheme = function () {
+    var data = new Object();
+    data.ThemeName = $('#styleTheme').attr('ThemeName');
+    AjaxCall('/Api/Users/SaveTheme', data, 'POST', function () {
+        toastr.success('Theme applied successfully!!')
+    })
 }

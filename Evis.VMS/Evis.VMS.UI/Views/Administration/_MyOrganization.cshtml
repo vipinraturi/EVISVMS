@@ -149,14 +149,12 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <form class="avatar-form" action="javascript:void(0)" enctype="multipart/form-data" method="post">
-                @*crop.php*@
                 <div class="modal-header">
                     <button class="close" data-dismiss="modal" type="button">&times;</button>
                     <h4 class="modal-title" id="avatar-modal-label">Change Avatar</h4>
                 </div>
                 <div class="modal-body">
                     <div class="avatar-body">
-                        <!-- Upload image and data -->
                         <div class="avatar-upload">
                             <input class="avatar-src" name="avatar_src" type="hidden">
                             <input class="avatar-data" name="avatar_data" type="hidden">
@@ -166,14 +164,8 @@
 
                         <div class="row">
                             <div class="col-md-9">
-                                @*<div class="avatar-wrapper"></div>*@
                                 <img id="myImg" src="~/images/logo/logo3.png" alt="your image" class="avatar-wrapper" />
                             </div>
-                            @*<div class="col-md-3">
-                                <div class="avatar-preview preview-lg"></div>
-                                <div class="avatar-preview preview-md"></div>
-                                <div class="avatar-preview preview-sm"></div>
-                            </div>*@
                         </div>
                         <script>
                             var loadFile = function (event) {

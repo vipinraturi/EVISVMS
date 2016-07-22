@@ -58,10 +58,6 @@ namespace Evis.VMS.UI.Controllers
                 return View(loginVM);
 
             var user = await _userService.FindAsync(loginVM.UserName, loginVM.Password);
-            TempData["ThemeName"] = (string.IsNullOrEmpty(user.ThemeName)?"theme1": user.ThemeName);
-            TempData["ImagePath"] = (user.Organization == null ? "" : user.Organization.ImagePath);
-
-
             if (user == null)
             {
                 ModelState.AddModelError("authstatusmessage", "Invalid credentials");
@@ -146,12 +142,12 @@ namespace Evis.VMS.UI.Controllers
 
                 var proto = Request.Url.Scheme;
                 var baseUrl = Request.Url.Authority;
-                var callbackUrl = proto + "://" + baseUrl +"/Account/ResetPassword?email=" + user.Email + "&activationId=" + HttpUtility.UrlEncode(password);
+                var callbackUrl = proto + "://" + baseUrl + "/Account/ResetPassword?email=" + user.Email + "&activationId=" + HttpUtility.UrlEncode(password);
 
                 string body = "Dear " + user.FullName + ", <br/>Your password has been reset, click <a href=\"" + callbackUrl + "\">here</a> to reset the password.<br/>" +
                     "<br/><br/>Regards,<br/>Administrator";
                 // Send email on account creation.
-                //EmailHelper.SendMail(user.Email, "Reset Password", body);
+                EmailHelper.SendMail(user.Email, "Reset Password", body);
 
                 ModelState.AddModelError("errormessage", "Log in using the password which is to your email address");
             }
