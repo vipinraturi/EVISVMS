@@ -79,7 +79,6 @@ function VisitorViewModel(visitorName, gender, nationalityVal, dateOfBirth, type
         }
         else {
             var data = new Object();
-            ////debugger;
             data.VisitorName = self.VisitorName(),
             data.EmailAddress = self.EmailAddress(),
             data.Gender = self.Gender(),

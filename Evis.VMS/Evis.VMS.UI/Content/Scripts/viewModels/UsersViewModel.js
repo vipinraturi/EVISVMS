@@ -19,7 +19,8 @@
     self.GenderId = ko.observable(undefined).extend({ required: true });
     self.OrganizationId = ko.observable(undefined).extend({ required: true });
     self.Nationality = ko.observable(undefined).extend({ required: true });
-
+    self.ProfilePicturePath = ko.observable('');
+    
     self.userErrors = ko.validation.group({
         OrganizationId: this.OrganizationId,
         FullName: this.FullName,
@@ -106,10 +107,11 @@
             data.GenderId = self.GenderId(),
             data.Nationality = self.Nationality(),
             data.RoleId = self.RoleId();
+            data.ProfilePicturePath = $('.dz-image img').attr('alt');
 
             //// display any error messages if we have them
             AjaxCall('/Api/Users/SaveUser', data, 'POST', function (data) {
-                debugger;
+                //debugger;
                 if (data.Success == true) {
                     toastr.success(data.Message);
                     self.ResetUser();
@@ -132,6 +134,7 @@
             self.GenderId(tableItem.GenderId);
             self.RoleId(tableItem.RoleId);
             self.Nationality(tableItem.Nationality);
+            self.ProfilePicturePath(tableItem.ProfilePicturePath);
         }
     }
 

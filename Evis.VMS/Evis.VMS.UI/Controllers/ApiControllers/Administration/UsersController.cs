@@ -131,7 +131,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 user.PhoneNumber = usersVM.ContactNumber;
                 user.GenderId = usersVM.GenderId;
                 user.Nationality = usersVM.Nationality;
-                
+                user.ProfilePicturePath = ( string.IsNullOrEmpty(usersVM.ProfilePicturePath)? string.Empty:string.Format("/images/UserImages/{0}", usersVM.ProfilePicturePath));
                 await _userService.InsertAsync(user, password, usersVM.RoleId);
                 var proto = Request.GetRequestContext().Url.Request.RequestUri.Scheme;
                 var baseUrl = Request.GetRequestContext().Url.Request.RequestUri.Authority;

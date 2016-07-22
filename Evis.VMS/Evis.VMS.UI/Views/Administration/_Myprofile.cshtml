@@ -10,62 +10,17 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-                <div class="col-md-3 col-sm-3 col-xs-12 profile_left">
+                <div class="col-md-2 col-sm-3 col-xs-12 profile_left">
                     <div class="profile_img">
-                        <!-- end of image cropping -->
-                        <div id="crop-avatar">
-                            <!-- Current avatar -->
-                            <img class="img-responsive avatar-view" src="../images/avatar.jpg" style="height: 225px;" alt="Avatar" title="Change the avatar" data-toggle="modal" data-target="#avatar-modal">
-                            <!-- Cropping modal -->
-                            <div class="modal fade" id="avatar-modal" aria-hidden="true" aria-labelledby="avatar-modal-label" role="dialog" tabindex="-1">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                        <form class="avatar-form" action="javascript:void(0)" enctype="multipart/form-data" method="post">
-                                            @*crop.php*@
-                                            <div class="modal-header">
-                                                <button class="close" data-dismiss="modal" type="button">&times;</button>
-                                                <h4 class="modal-title" id="avatar-modal-label">Change Avatar</h4>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="avatar-body">
-                                                    <!-- Upload image and data -->
-                                                    <div class="avatar-upload">
-                                                        <input class="avatar-src" name="avatar_src" type="hidden">
-                                                        <input class="avatar-data" name="avatar_data" type="hidden">
-                                                        <label for="avatarInput" style="color:black"> Upload Image</label>
-                                                        <input class="avatar-input" id="avatarInput" name="avatar_file" type="file">
-                                                    </div>
-
-                                                    <div class="row">
-                                                        <div class="col-md-9">
-                                                            @*<div class="avatar-wrapper"></div>*@
-                                                            <img id="myImg" src="#" alt="your image" class="avatar-wrapper" />
-                                                        </div>
-                                                        <div class="col-md-3">
-                                                            <div class="avatar-preview preview-lg"></div>
-                                                            <div class="avatar-preview preview-md"></div>
-                                                            <div class="avatar-preview preview-sm"></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row avatar-btns">
-                                                        <div class="col-md-3">
-                                                            <button class="btn btn-primary btn-block avatar-save" type="submit">Upload</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /.modal -->
-                            <!-- Loading state -->
+                        @*<div id="crop-avatar">*@
+                            @*<img class="img-responsive avatar-view" src="../images/avatar.jpg" style="height: 225px;" alt="Avatar" title="Change the avatar" data-toggle="modal" data-target="#avatar-modal">*@
+                            <form id="dropzoneMyProfileImageForm" class="dropzone-avatar dz-clickable img-responsive_Visitor avatar-view" action="~/Account/SaveMyProfilePicture"
+                                  method="post" style="height: 129px !important; padding: 2px !important; "
+                                  enctype="multipart/form-data" title="Change the avatar">
+                                <img class="img_responsive_Avatar" />
+                            </form>
                             <div class="loading" aria-label="Loading" role="img" tabindex="-1"></div>
-                        </div>
-                        <!-- end of image cropping -->
+                        @*</div>*@
                     </div>
                     <h3 data-bind="text: DisplayName, visible: true"></h3>
                     <ul class="list-unstyled user_data">
@@ -114,40 +69,13 @@
                             <div class="col-md-9 col-sm-9 col-xs-12">
                                 <select class="form-control" data-bind="options: Genders, optionsText: 'Name', optionsValue: 'Id', value: GenderId"
                                         disabled></select>
-                                @*<p>
-                                        <label class="col-md-4 col-sm-4 col-xs-12">
-                                            <input type="radio" class="iradio_flat-green" name="gender" id="genderMale" data-bind="GenderId: 1"
-                                                   value="Male" disabled />
-                                            Male
-                                        </label>
-                                        <label class="col-md-4 col-sm-4 col-xs-12">
-                                            <input type="radio" class="iradio_flat-green" name="gender" id="genderFemale" data-bind="GenderId: 2"
-                                                   value="Female" disabled />
-                                            Female
-                                        </label>
-                                        <label class="col-md-4 col-sm-4 col-xs-12">
-                                            <input type="radio" class="iradio_flat-green" name="gender" id="genderOthers" data-bind="GenderId: 3"
-                                                   value="Others" disabled />
-                                            Others
-                                        </label>
-                                    </p>*@
-                                @*<div data-bind="visible: wantsSpam">
-                                        Preferred flavors of spam:
-                                        <div><input type="checkbox" value="cherry" data-bind="checked: spamFlavors" /> Cherry</div>
-                                        <div><input type="checkbox" value="almond" data-bind="checked: spamFlavors" /> Almond</div>
-                                        <div><input type="checkbox" value="msg" data-bind="checked: spamFlavors" /> Monosodium Glutamate</div>
-                                    </div>*@
                             </div>
                         </div>
-
-
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Role<span class="mandatoryField">*</span></label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
                                 <select class="form-control" data-bind="options: Roles, optionsText: 'Name', optionsValue: 'Id', value: RoleId"
                                         disabled></select>
-                                @*<select disabled class="form-control" data-bind="options: Roles, optionsText: 'Name', optionsValue: 'Id', optionsCaption: 'Choose one...', value: SelectedRole, valueAllowUnset: true"></select>*@
-                                @*<select data-bind="options: availableCountries, optionsText: 'countryName', value: selectedCountry, optionsCaption: 'Choose...'"></select>*@
                             </div>
                         </div>
                         <div class="form-group">
@@ -174,6 +102,40 @@
 
 
 <script type="text/javascript">
+    Dropzone.autoDiscover = false;
+    $(function () {
+        var myDropzone = new Dropzone("#dropzoneMyProfileImageForm");
+        myDropzone.maxFiles = 2;
+        myDropzone.on("maxfilesexceeded", function (file) {
+            //debugger;
+            var res = eval('(' + file.xhr.responseText + ')');
+            toastr.warning('Only two images allowed.');
+        });
+        myDropzone.on("addedfile", function (file) {
+            if (this.files[1] != null) {
+                this.removeFile(this.files[0]);
+                return;
+            }
+            var removeButton = Dropzone.createElement("<i class='fa fa-remove red' aria-hidden='true'></i>");
+            var _this = this;
+            removeButton.addEventListener("click", function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                _this.removeFile(file);
+            });
+            file.previewElement.appendChild(removeButton);
+        });
 
+        myDropzone.on("sending", function (file, xhr, formData) {
+            var name = new Date().getTime();
+            formData.append(name, file);
+        });
+
+        myDropzone.on('success', function (file) {
+            $('.img_responsive_Avatar').removeAttr('src');
+            $('.dz-image').addClass('dz-message');
+        });
+        myDropzone.on("init", function () {
+        });
+    });
 </script>
-

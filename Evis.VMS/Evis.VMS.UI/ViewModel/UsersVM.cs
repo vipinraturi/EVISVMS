@@ -35,6 +35,8 @@ namespace Evis.VMS.UI.ViewModel
         public int Nationality { get; set; }
 
         public string ThemeName { get; set; }
+
+        public string ProfilePicturePath { get; set; }
         
     }
 }

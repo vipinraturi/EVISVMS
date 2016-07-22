@@ -69,5 +69,7 @@ namespace Evis.VMS.Data.Model.Entities
 
         public string ThemeName { get; set; }
 
+        public string ProfilePicturePath { get; set; }
+
     }
 }

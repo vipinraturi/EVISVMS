@@ -19,8 +19,8 @@
     self.Nationality = ko.observable('');
     self.DisplayName = ko.observable('');
     self.RoleName = ko.observable('');
+    self.ProfilePicturePath = ko.observable('');
 
-    //self.errors = ko.validation.group(self);
     self.myProfileErrors = ko.validation.group({
         FullName: this.FullName,
         PhoneNumber: this.PhoneNumber
@@ -43,14 +43,12 @@
         self.Email(data.Email);
         self.PhoneNumber(data.PhoneNumber);
         self.ContactAddress(data.ContactAddress);
-
-        debugger;
         self.GenderId(data.GenderId);
         self.RoleId(data.Roles[0].RoleId);
         self.Nationality(data.CountryMaster.LookUpValue);
+        self.ProfilePicturePath(data.ProfilePicturePath);
 
         self.Roles().forEach(function (item) {
-            debugger;
             if (item.Id === self.RoleId()) {
                 self.RoleName(item.Name);
             }
@@ -66,22 +64,20 @@
         }
         else {
             var data = new Object();
-            data.FullName = self.FullName(),
-            data.PhoneNumber = self.PhoneNumber(),
+            data.FullName = self.FullName();
+            data.PhoneNumber = self.PhoneNumber();
             data.ContactAddress = self.ContactAddress();
-            debugger;
+            data.ProfilePicturePath = $('.dz-image img').attr('alt');
+            //debugger;
             AjaxCall('/Api/MyProfile/SaveMyProfile', data, 'PUT', function () {
                 toastr.success('My Profile data is saved successfully!!')
                 ApplyCustomBinding('myprofile');
-                self.IsInsert(true);
+                //self.IsInsert(true);
             })
         }
     }
 
     self.ResetMyProfile = function () {
-        //self.User().FullName('');
-        //self.User().PhoneNumber('');
-        //self.User().ContactAddress('');
         ApplyCustomBinding('myprofile');
     }
 }
