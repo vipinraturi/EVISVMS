@@ -1,12 +1,7 @@
-﻿
-
-function VisitorViewModel(visitorName, gender, nationalityVal, dateOfBirth, typeOfCard, idNumber, nationalityVal) {
-
+﻿function VisitorViewModel(visitorName, gender, nationalityVal, dateOfBirth, typeOfCard, idNumber, nationalityVal) {
     nationality = (nationalityVal != "" ? nationalityVal : undefined);
     typeOfCard = (typeOfCard != "" ? typeOfCard : undefined);
     gender = (gender != "" ? gender : undefined);
-
-    //alert(nationality + ' ' + typeOfCard + ' ' + gender);
 
     var self = this;
     Id = ko.observable(0);
@@ -42,10 +37,8 @@ function VisitorViewModel(visitorName, gender, nationalityVal, dateOfBirth, type
     self.VisitorList = ko.observableArray([]);
 
     self.GetAllVisitor = function () {
-        //alert(gblParam);
         self.DataGrid.UpdateSearchParam('?globalSearch=' + self.GlobalSearch());
         self.DataGrid.GetData(true);
-
     }
 
     self.LoadMasterData = function () {

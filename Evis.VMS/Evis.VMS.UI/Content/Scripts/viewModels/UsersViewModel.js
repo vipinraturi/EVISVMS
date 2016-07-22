@@ -20,7 +20,7 @@
     self.OrganizationId = ko.observable(undefined).extend({ required: true });
     self.Nationality = ko.observable(undefined).extend({ required: true });
     self.ProfilePicturePath = ko.observable('');
-    
+
     self.userErrors = ko.validation.group({
         OrganizationId: this.OrganizationId,
         FullName: this.FullName,
@@ -111,7 +111,6 @@
 
             //// display any error messages if we have them
             AjaxCall('/Api/Users/SaveUser', data, 'POST', function (data) {
-                //debugger;
                 if (data.Success == true) {
                     toastr.success(data.Message);
                     self.ResetUser();
@@ -126,6 +125,7 @@
 
     self.EditUser = function (tableItem) {
         if (tableItem != undefined) {
+            $('#viewImageUnique').show();
             self.UserId(tableItem.UserId);
             self.OrganizationId(tableItem.OrganizationId);
             self.FullName(tableItem.FullName);
@@ -134,7 +134,8 @@
             self.GenderId(tableItem.GenderId);
             self.RoleId(tableItem.RoleId);
             self.Nationality(tableItem.Nationality);
-            self.ProfilePicturePath(tableItem.ProfilePicturePath);
+            //alert(tableItem.ProfilePicturePath);
+            $('.img_responsive_Avatar').attr('src', tableItem.ProfilePicturePath).addClass('dz-message');
         }
     }
 
@@ -159,7 +160,6 @@
         self.FullName('');
         self.Email('');
         self.GenderId(0);
-        //self.UserName('');
         self.RoleId('');
         self.GlobalSearch('');
         self.OrganizationId(0);
@@ -167,5 +167,21 @@
         ApplyCustomBinding('newuser');
     }
 
+    self.ViewImage = function () {
+        var srcURL = '';
+        if ($('.dz-image img').attr('alt') != undefined) {
+            srcURL = ($('.dz-image img').attr('alt'));
+        }
+        else if ($('.img_responsive_Avatar').attr('src') != undefined) {
+            srcURL = ($('.img_responsive_Avatar').attr('src'));
+        }
+
+        if (srcURL.indexOf('/images/UserImages') == -1) {
+            srcURL = '/images/UserImages/' + srcURL;
+        }
+
+        $('#originalSize').attr('src', srcURL);
+        $('#imageModal').modal('show');
+    }
 
 }

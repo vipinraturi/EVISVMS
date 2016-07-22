@@ -109,15 +109,13 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 //creating pager object to send for filtering and sorting
                 var paginationRequest = new PaginationRequest
                 {
-                    PageIndex = pageIndex,
+                    PageIndex = (pageIndex - 1),
                     PageSize = pageSize,
                     SearchText = globalSearch,
                     Sort = new Sort { SortDirection = (sortOrder == "ASC" ? SortDirection.Ascending : SortDirection.Descending), SortBy = sortField }
                 };
 
                 int totalCount = 0;
-                pageIndex = (pageIndex - 1);
-
                 IList<OrganisationVM> result =
                     GenericSorterPager.GetSortedPagedList<OrganisationVM>(organizationsList, paginationRequest, out totalCount);
 

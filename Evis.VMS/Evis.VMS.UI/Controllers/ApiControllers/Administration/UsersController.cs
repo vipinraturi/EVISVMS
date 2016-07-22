@@ -72,8 +72,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                             RoleId = roles.Id,
                             RoleName = roles.Name,
                             OrganizationId = users.OrganizationId,
-                            Nationality = users.Nationality
-
+                            Nationality = users.Nationality,
+                            ProfilePicturePath = users.ProfilePicturePath
                         }).AsQueryable();
 
             if (temp.Count() > 0)
@@ -90,14 +90,13 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 //creating pager object to send for filtering and sorting
                 var paginationRequest = new PaginationRequest
                 {
-                    PageIndex = pageIndex,
+                    PageIndex = (pageIndex - 1),
                     PageSize = pageSize,
                     SearchText = globalSearch,
                     Sort = new Sort { SortDirection = (sortOrder == "ASC" ? SortDirection.Ascending : SortDirection.Descending), SortBy = sortField }
                 };
 
                 int totalCount = 0;
-                pageIndex = (pageIndex - 1);
 
                 IList<UsersVM> result =
                     GenericSorterPager.GetSortedPagedList<UsersVM>(temp, paginationRequest, out totalCount);
@@ -161,6 +160,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     existingUser.PhoneNumber = usersVM.ContactNumber;
                     existingUser.GenderId = usersVM.GenderId;
                     existingUser.Nationality = usersVM.Nationality;
+                    existingUser.ProfilePicturePath = (string.IsNullOrEmpty(usersVM.ProfilePicturePath) ? string.Empty : string.Format("/images/UserImages/{0}", usersVM.ProfilePicturePath));
                     await _userService.UpdateAsync(existingUser, usersVM.RoleId);
                     message = "Update sucessfully!";
                     success = true;
