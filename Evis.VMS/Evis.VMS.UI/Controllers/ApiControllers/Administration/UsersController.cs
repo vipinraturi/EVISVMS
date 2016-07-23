@@ -55,7 +55,10 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         [HttpPost]
         public async Task<string> GetUsersData(string globalSearch, int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC")
         {
-            var getUsers = (await _userService.GetAllAsync()).Where(x => x.Organization.IsActive == true).AsQueryable();
+            var user = (await _userService.GetAllAsync()).Where(x => x.Id == HttpContext.Current.User.Identity.GetUserId() && x.IsActive == true).FirstOrDefault();
+
+            var getUsers = (await _userService.GetAllAsync()).Where(x => x.Organization.IsActive == true &&
+                            (user == null || (user != null && x.OrganizationId == user.OrganizationId))).AsQueryable();
 
             var getRoles = (await _applicationRoleService.GetAllAsync()).AsQueryable();
 
@@ -123,14 +126,15 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     return new ReturnResult { Message = message, Success = success };
                 }
                 ApplicationUser user = new ApplicationUser();
-                string password = System.Web.Security.Membership.GeneratePassword(8, 0);
+                string password = "Admin@123"; //System.Web.Security.Membership.GeneratePassword(8, 0);
                 user.OrganizationId = usersVM.OrganizationId;
                 user.FullName = usersVM.FullName;
                 user.Email = user.UserName = usersVM.Email;
                 user.PhoneNumber = usersVM.ContactNumber;
                 user.GenderId = usersVM.GenderId;
                 user.Nationality = usersVM.Nationality;
-                user.ProfilePicturePath = ( string.IsNullOrEmpty(usersVM.ProfilePicturePath)? string.Empty:string.Format("/images/UserImages/{0}", usersVM.ProfilePicturePath));
+                user.IsActive = true;
+                user.ProfilePicturePath = (string.IsNullOrEmpty(usersVM.ProfilePicturePath) ? string.Empty : string.Format("/images/UserImages/{0}", usersVM.ProfilePicturePath));
                 await _userService.InsertAsync(user, password, usersVM.RoleId);
                 var proto = Request.GetRequestContext().Url.Request.RequestUri.Scheme;
                 var baseUrl = Request.GetRequestContext().Url.Request.RequestUri.Authority;

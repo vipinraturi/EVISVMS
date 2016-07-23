@@ -28,7 +28,19 @@ namespace Evis.VMS.Data.Migrations
             GenerateRoles(context);
             GenerateCardType(context);
             GenerateSystemAdmin(context);
+            GenerateEmailFormat(context);
             context.SaveChanges();
+        }
+
+        private void GenerateEmailFormat(VMSContext context)
+        {
+            context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT EmailFormats OFF");
+
+            context.EmailFormats.Add(new EmailFormats { Id = 1, Category = "ForgotPassword", IsActive = true, Format = "Dear {0}, <br/>Your password has been reset, click <a href={1}>here</a> to reset the password.<br/><br/><br/>Regards,<br/>Administrator" });
+            context.EmailFormats.Add(new EmailFormats { Id = 2, Category = "UserCreation", IsActive = true, Format = "Dear {0}, <br/>Your account has been created, click <a href={1}>here</a> to activate the account.<br/>Use the below credentials after successfull activation. <br/>UserName: {2} <br/>Password: {3}<br/><br/>Regards,<br/>Administrator" });
+            context.EmailFormats.Add(new EmailFormats { Id = 3, Category = "OrganizationCreation", IsActive = true, Format = "Dear Sir/Madam, <br/><br/>Your company with the name {0} has been created successfully.<br/><br/>Regards,<br/>Administrator" });
+
+            context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT EmailFormats ON");
         }
 
         private static void GenerateGender(VMSContext context)
@@ -93,12 +105,12 @@ namespace Evis.VMS.Data.Migrations
             context.LookUpValues.Add(new LookUpValues { Id = 31, LookUpTypeId = 4, LookUpValue = "Bur Dubai", Description = "Bur Dubai", IsActive = true, ParentId = 16 });
 
             context.LookUpValues.Add(new LookUpValues { Id = 32, LookUpTypeId = 5, LookUpValue = "Emirates Id", Description = "Emirates Id", IsActive = true });
-            context.LookUpValues.Add(new LookUpValues { Id = 33, LookUpTypeId = 5, LookUpValue = "Driving Licence", Description = "Driving Licence", IsActive = true});
+            context.LookUpValues.Add(new LookUpValues { Id = 33, LookUpTypeId = 5, LookUpValue = "Driving Licence", Description = "Driving Licence", IsActive = true });
             context.LookUpValues.Add(new LookUpValues { Id = 34, LookUpTypeId = 5, LookUpValue = "Others", Description = "Others", IsActive = true });
 
             context.LookUpValues.Add(new LookUpValues { Id = 35, LookUpTypeId = 6, LookUpValue = "Emirates", Description = "Emirates", IsActive = true });
             context.LookUpValues.Add(new LookUpValues { Id = 36, LookUpTypeId = 6, LookUpValue = "Indian", Description = "Indian", IsActive = true });
-            context.LookUpValues.Add(new LookUpValues { Id = 37, LookUpTypeId = 6, LookUpValue = "American", Description = "American", IsActive = true});
+            context.LookUpValues.Add(new LookUpValues { Id = 37, LookUpTypeId = 6, LookUpValue = "American", Description = "American", IsActive = true });
             context.LookUpValues.Add(new LookUpValues { Id = 38, LookUpTypeId = 6, LookUpValue = "Other", Description = "Other", IsActive = true });
 
             //inserting theme
@@ -111,21 +123,21 @@ namespace Evis.VMS.Data.Migrations
             context.LookUpValues.Add(new LookUpValues { Id = 44, LookUpTypeId = 7, LookUpValue = "theme6", Description = "Theme6", IsActive = true });
             context.LookUpValues.Add(new LookUpValues { Id = 45, LookUpTypeId = 7, LookUpValue = "theme7", Description = "Theme7", IsActive = true });
             context.LookUpValues.Add(new LookUpValues { Id = 46, LookUpTypeId = 7, LookUpValue = "theme8", Description = "Theme8", IsActive = true });
-           
+
 
             context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT LookUpValues ON");
         }
-        
+
 
         private static void GenerateRoles(VMSContext context)
         {
-            context.Roles.Add(new ApplicationRole { Name = "Supervisor", Description = "Supervisor" });
-            context.Roles.Add(new ApplicationRole { Name = "Security", Description = "Security" });
+            context.Roles.Add(new ApplicationRole { Name = "Supervisor", Description = "Supervisor", IsActive = true });
+            context.Roles.Add(new ApplicationRole { Name = "Security", Description = "Security", IsActive = true });
         }
 
         private void GenerateSystemAdmin(VMSContext context)
         {
-            var systemAdminrole = context.Roles.Add(new ApplicationRole { Name = "SuperAdmin", Description = "SuperAdmin" });
+            var systemAdminrole = context.Roles.Add(new ApplicationRole { Name = "SuperAdmin", Description = "SuperAdmin", IsActive = true });
 
             var newSystemAdminUser = new ApplicationUser
             {

@@ -51,6 +51,7 @@
     <Compile Include="Entities\BaseEntity.cs" />
     <Compile Include="Entities\BuildingMaster.cs" />
     <Compile Include="Entities\CardTypeMaster.cs" />
+    <Compile Include="Entities\EmailFormats.cs" />
     <Compile Include="Entities\GateMaster.cs" />
     <Compile Include="Entities\LookUpType.cs" />
     <Compile Include="Entities\LookUpValues.cs" />

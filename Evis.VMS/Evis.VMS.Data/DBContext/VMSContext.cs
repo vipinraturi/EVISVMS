@@ -38,6 +38,8 @@ namespace Evis.VMS.Data.DBContext
 
         public DbSet<CardTypeMaster> CardTypeMaster { get; set; }
 
+        public DbSet<EmailFormats> EmailFormats { get; set; }
+
         public DbSet<GateMaster> GateMaster { get; set; }
 
         public DbSet<LookUpType> LookUpType { get; set; }

@@ -79,7 +79,7 @@ function OrganizationViewModel() {
 
     self.GetAllOrganizations = function () {
 
-        self.DataGrid.UpdateSearchParam('?globalSearch=' + self.GlobalSearch());
+        self.DataGrid.UpdateSearchParam('?globalSearch=' + $.trim($("#txtGlobalSearch").val()));
         self.DataGrid.GetData();
     }
 

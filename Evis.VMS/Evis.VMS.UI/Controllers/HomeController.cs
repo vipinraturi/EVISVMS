@@ -26,20 +26,22 @@ namespace Evis.VMS.UI.Controllers
             var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
 
             var _userService = new UserService();
+            var _applicationRole = new ApplicationRoleService();
             var user = await _userService.GetAsync(x => x.Id == userId);
 
             var roleType = RoleType.SuperAdmin;
             var roleID = user.Roles.FirstOrDefault().RoleId;
-            
-            switch (roleID)
+
+            var role = await _applicationRole.FindByIdAsync(roleID);
+            switch (role.Name)
             {
-                case "5b3153c0-45ef-4ef2-99ba-7ecaca165398":
+                case "SuperAdmin":
                     roleType = RoleType.SuperAdmin;
                     break;
-                case "0ab21d5a-77cb-4384-bd7f-f43730e3d873":
+                case "Supervisor":
                     roleType = RoleType.SuperVisor;
                     break;
-                case "4004214e-2665-417d-a96e-adce96b3f201":
+                case "Security":
                     roleType = RoleType.Security;
                     break;
                 default:
