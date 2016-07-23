@@ -27,6 +27,8 @@ namespace Evis.VMS.Data
 
         IRepository<CardTypeMaster> CardTypeMaster { get; }
 
+        IRepository<EmailFormats> EmailFormats { get; }
+
         IRepository<GateMaster> GateMaster { get; }
 
         IRepository<LookUpType> LookUpType { get; }

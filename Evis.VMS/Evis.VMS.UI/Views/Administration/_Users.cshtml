@@ -180,7 +180,6 @@
         var myDropzone = new Dropzone("#dropzoneUserImageForm");
         myDropzone.maxFiles = 2;
         myDropzone.on("maxfilesexceeded", function (file) {
-            debugger;
             var res = eval('(' + file.xhr.responseText + ')');
             toastr.warning('Only two images allowed.');
         });
