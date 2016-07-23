@@ -34,11 +34,26 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         }
 
 
-        [Route("~/Api/Users/GetAllOrganizations")]
+        [Route("~/Api/User/GetAllOrganizations")]
         [HttpGet]
-        public IEnumerable<GeneralDropDownVM> GetAllOrganizations()
+        public async Task<IEnumerable<GeneralDropDownVM>> GetAllOrganizations()
         {
-            var organizations = _genericService.Organization.GetAll().Where(x => x.IsActive == true).Select(x => new GeneralDropDownVM { Id = x.Id, Name = x.CompanyName });
+            var user = (await _userService.GetAllAsync()).Where(x => x.Id == HttpContext.Current.User.Identity.GetUserId() && x.IsActive == true).FirstOrDefault();
+            IQueryable<GeneralDropDownVM> organizations;
+
+            if (user == null)
+            {
+                organizations = _genericService.Organization.GetAll()
+                                    .Where(x => x.IsActive == true)
+                                    .Select(x => new GeneralDropDownVM { Id = x.Id, Name = x.CompanyName });
+            }
+            else
+            {
+                int orgId = user.Organization.Id;
+                organizations = _genericService.Organization.GetAll()
+                                    .Where(x => x.IsActive == true && x.Id == orgId)
+                                    .Select(x => new GeneralDropDownVM { Id = x.Id, Name = x.CompanyName });
+            }
             return organizations;
         }
 
@@ -140,9 +155,12 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 var baseUrl = Request.GetRequestContext().Url.Request.RequestUri.Authority;
                 var callbackUrl = proto + "://" + baseUrl + "/Account/ConfirmEmail?activationCode=" + user.SecurityStamp + "&email=" + user.Email;
 
-                string body = "Dear " + user.FullName + ", <br/>Your account has been created, click <a href=\"" + callbackUrl + "\">here</a> to activate the account.<br/>" +
-                    "Use the below credentials after successfull activation <br/>UserName: " + user.Email + " <br/> " +
-                    "Password: " + password + "<br/><br/>Regards,<br/>Administrator";
+                var emailFormat = _genericService.EmailFormats.GetAll().Where(x => x.Category == "UserCreation").FirstOrDefault();
+                string body = string.Format(emailFormat.Format, user.FullName, callbackUrl, user.Email, password);
+
+                //string body = "Dear " + user.FullName + ", <br/>Your account has been created, click <a href=\"" + callbackUrl + "\">here</a> to activate the account.<br/>" +
+                //    "Use the below credentials after successfull activation <br/>UserName: " + user.Email + " <br/> " +
+                //    "Password: " + password + "<br/><br/>Regards,<br/>Administrator";
 
                 string orgName = _genericService.Organization.GetById((int)usersVM.OrganizationId).CompanyName;
 

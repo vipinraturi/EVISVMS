@@ -29,10 +29,12 @@ namespace Evis.VMS.UI.Controllers
     {
         IAuthenticationManager _authenticationManager;
         readonly UserService _userService = null;
+        readonly GenericService _genericService = null;
 
         public AccountController()
         {
             _userService = new UserService();
+            _genericService = new GenericService();
         }
         //
         // GET: /Account1/
@@ -152,8 +154,11 @@ namespace Evis.VMS.UI.Controllers
                 var baseUrl = Request.Url.Authority;
                 var callbackUrl = proto + "://" + baseUrl + "/Account/ResetPassword?email=" + user.Email + "&activationId=" + HttpUtility.UrlEncode(password);
 
-                string body = "Dear " + user.FullName + ", <br/>Your password has been reset, click <a href=\"" + callbackUrl + "\">here</a> to reset the password.<br/>" +
-                    "<br/><br/>Regards,<br/>Administrator";
+                var emailFormat = _genericService.EmailFormats.GetAll().Where(x => x.Category == "ForgotPassword").FirstOrDefault();
+                string body = string.Format(emailFormat.Format, user.FullName, callbackUrl);
+
+                //string body = "Dear " + user.FullName + ", <br/>Your password has been reset, click <a href=\"" + user.FullName + "\">here</a> to reset the password.<br/>" +
+                //    "<br/><br/>Regards,<br/>Administrator";
                 // Send email on Forgot Password.
                 EmailHelper.SendMail(user.Email, "Reset Password", body);
 

@@ -27,6 +27,7 @@ namespace Evis.VMS.Data
         protected VMSContext _DataContext;
         private IRepository<BuildingMaster> _buildingMaster;
         private IRepository<CardTypeMaster> _cardTypeMaster;
+        private IRepository<EmailFormats> _emailFormats;
         private IRepository<GateMaster> _gateMaster;
         private IRepository<LookUpType> _lookUpType;
         private IRepository<LookUpValues> _lookUpValues;
@@ -72,6 +73,18 @@ namespace Evis.VMS.Data
                     this._cardTypeMaster = new Repository<CardTypeMaster>(_DataContext);
                 }
                 return _cardTypeMaster;
+            }
+        }
+
+        public IRepository<EmailFormats> EmailFormats
+        {
+            get
+            {
+                if (this._emailFormats == null)
+                {
+                    this._emailFormats = new Repository<EmailFormats>(_DataContext);
+                }
+                return _emailFormats;
             }
         }
 

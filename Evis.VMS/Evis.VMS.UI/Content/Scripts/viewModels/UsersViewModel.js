@@ -39,7 +39,7 @@
     }
 
     self.Organizations = ko.observableArray();
-    AjaxCall('/Api/Users/GetAllOrganizations', null, 'GET', function (data) {
+    AjaxCall('/Api/User/GetAllOrganizations', null, 'GET', function (data) {
         self.Organizations(data);
     });
 
@@ -66,8 +66,8 @@
     //self.userErrors = ko.validation.group(self);
 
     self.GetAllUsers = function () {
-        debugger;
         self.DataGrid.UpdateSearchParam('?globalSearch=' + $.trim($("#txtGlobalSearch").val()));
+        DataGrid.FlipPage(1);
         self.DataGrid.GetData();
     }
 
@@ -92,14 +92,12 @@
     };
 
     self.SaveUser = function () {
-        debugger;
         if (self.userErrors().length > 0) {
             self.userErrors.showAllMessages(true);
             return false;
         }
         else {
             var data = new Object();
-            //debugger;
             data.UserId = self.UserId(),
             data.OrganizationId = self.OrganizationId(),
             data.FullName = self.FullName(),

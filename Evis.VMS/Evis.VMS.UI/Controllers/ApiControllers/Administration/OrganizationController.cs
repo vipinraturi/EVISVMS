@@ -45,8 +45,11 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 var proto = Request.GetRequestContext().Url.Request.RequestUri.Scheme;
                 var baseUrl = Request.GetRequestContext().Url.Request.RequestUri.Authority;
 
-                string body = "Dear Sir/Madam, <br/><br/>Your company with the name <b>" + organization.CompanyName + "</b> has been created successfully." +
-                                "<br/><br/>Regards,<br/>Administrator";
+                var emailFormat = _genericService.EmailFormats.GetAll().Where(x => x.Category == "OrganizationCreation").FirstOrDefault();
+                string body = string.Format(emailFormat.Format, organization.CompanyName);
+
+                //string body = "Dear Sir/Madam, <br/><br/>Your company with the name <b>" + organization.CompanyName + "</b> has been created successfully." +
+                //                "<br/><br/>Regards,<br/>Administrator";
 
                 // Send email on organization creation.
                 EmailHelper.SendMail(organization.EmailId, "Company Prfile is created", body);
