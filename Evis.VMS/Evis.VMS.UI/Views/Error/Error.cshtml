@@ -1,0 +1,164 @@
+﻿@using System.Web.Optimization;
+
+@Model Int32
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Error</title>
+
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    @Styles.Render("~/Content/Error")
+
+
+    @*<link href="~/Styles/Error/error.css" rel="stylesheet" />*@
+</head>
+
+
+
+<body class="hold-transition skin-blue sidebar-mini">
+
+    <div>
+        <div id="wrapper">
+            <!-- Content Wrapper. Contains page content -->
+            <!-- Content Header (Page header) -->
+            <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+                <div class="page-header pull-left">
+                    <img src="/Content/images/logopng.png" width="100" alt="Saudi German Hospital Dubai" />
+                </div>
+
+                <ol class="breadcrumb page-breadcrumb pull-right">
+                    <li><a href="#/Dashboard"><i class="fa fa-home fahome"></i>&nbsp;<span style="font-size: 14px !important; color: black !important; " ">Home</span></a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+                    <li><span style="font-size: 14px !important; color: black !important;"></span></li>
+                </ol>
+                <div class="clearfix">
+                </div>
+            </div>
+
+            <!-- Main content -->
+            <div class="page-content">
+                @switch (Model)
+                {
+
+
+                    case 401:
+                        {
+
+
+                            <div id="tab-general">
+                                <div class="row mbl">
+
+                                    <div class="error-page">
+                                        <h2 class="headline404"> 401</h2>
+                                        <div class="error-content">
+                                            <h3><i class="fa fa-warning text-orange"></i> Oops! Something went Wrong.</h3>
+                                            <p>
+                                                Sorry, an error has occured! We will work on fixing that right away.
+                                                Meanwhile, you may <a href="javascript: history.go(-1)">return to Home</a> or Please come back in a while.
+                                            </p>
+                                            <form class="search-form">
+                                                <div class="input-group">
+
+                                                    <a class="btn btn-success" style="background-color: #00984a; color:white;" href="javascript: history.go(-1)" title="Click here to Return to Home.">Return To Home</a>
+
+                                                </div><!-- /.input-group -->
+                                            </form>
+                                        </div><!-- /.error-content -->
+                                    </div><!-- /.error-page -->
+                                    <!-- /.content -->
+
+                                </div><!-- /.content-wrapper -->
+                            </div>
+                        }
+
+                }break;
+
+                case 403:
+                {
+
+                <div id="tab-general">
+                    <div class="row mbl">
+
+                        <div class="error-page">
+                            <h2 class="headline404">403</h2>
+                            <div class="error-content">
+                                <h3><i class="fa fa-warning text-orange"></i> Oops! Something went Wrong.</h3>
+                                <p>
+                                    Sorry, an error has occured!We will work on fixing that right away.
+                                    Meanwhile, you may <a href="javascript: history.go(-1)">return to Home</a> or Please come back in a while.
+                                </p>
+                                <form class="search-form">
+                                    <div class="input-group">
+
+                                        <a class="btn btn-success" style="background-color: #00984a; color:white;" href="javascript: history.go(-1)" title="Click here to Return to Home.">Return To Home</a>
+
+                                    </div><!-- /.input-group -->
+                                </form>
+                            </div><!-- /.error-content -->
+                        </div><!-- /.error-page -->
+                        <!-- /.content -->
+
+                    </div><!-- /.content-wrapper -->
+                </div>
+
+                }break;
+
+                default :
+                {
+                <div id="tab-general">
+                    <div class="row mbl">
+
+                        <div class="error-page">
+                            <h2 class="headline404">Opps!</h2>
+                            <div class="error-content">
+                                <h3><i class="fa fa-warning text-orange"></i>Something went Wrong.</h3>
+                                <p>
+                                    We will work on fixing that right away.
+                                    Meanwhile, you may <a href="javascript: history.go(-1)">return to Home</a> or Please come back in a while.
+                                </p>
+                                <form class="search-form">
+                                    <div class="input-group">
+
+                                        <a class="btn btn-success" style="background-color: #00984a; color:white;" href="javascript: history.go(-1)" title="Click here to Return to Home.">Return To Home</a>
+
+                                    </div><!-- /.input-group -->
+                                </form>
+                            </div><!-- /.error-content -->
+                        </div><!-- /.error-page -->
+                        <!-- /.content -->
+
+                    </div><!-- /.content-wrapper -->
+                </div>
+
+                }
+            </div>
+
+
+            <div id="footer">
+                <div class="copyright" style="text-align:center !important;">
+                    <span style="color: black;">
+                        Copyright © 2016 Saudi German Hospital Dubai. All rights reserved&nbsp;MOH NO. GZ26066-5-12-2015
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*<div style="color:red;font-family:'Microsoft Sans Serif'">
+            <h2>
+                Sorry, an error occurred while processing your request.
+            </h2>
+            <br />
+
+            <br />
+
+        </div>*@
+</body>
+</html>

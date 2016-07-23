@@ -19,6 +19,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.Mvc;
 using WebGrease.Css.Extensions;
 
@@ -71,6 +72,12 @@ namespace Evis.VMS.UI.Controllers
                 {
                     return Redirect(returnUrl);
                 }
+
+                HttpCookie XToken = new HttpCookie("X-Token");
+                XToken["X-Token"] = WebConfigurationManager.AppSettings["X-Token"];
+                Response.Cookies.Add(XToken);
+                var xTokenCookie = Request.Cookies["X-Token"].Value;
+
                 return RedirectToAction("Index", "Home");
             }
             else
