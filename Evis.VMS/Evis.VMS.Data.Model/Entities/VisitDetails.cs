@@ -40,5 +40,11 @@ namespace Evis.VMS.Data.Model.Entities
 
         [ForeignKey("CheckInGate")]
         public virtual GateMaster GateMaster { get; set; }
+
+        public string CompanyName { get; set; }
+
+        public string VahicleNumber { get; set; }
+
+        public string Floor { get; set; }
     }
 }

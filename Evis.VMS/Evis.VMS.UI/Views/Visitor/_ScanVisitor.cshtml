@@ -10,7 +10,7 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-                <p>Drag upto 2 identity images to the box below or click to select files.</p>
+                <p>Drag upto 3 images (2 identity images and 1 visiting card) to the box below or click to select files.</p>
                 <div style="text-align:center">
                     <form action="~/Visitor/SaveVisitorIdentityImages" method="post"
                           enctype="multipart/form-data" class="dropzone dz-clickable" id="dropzoneForm"></form>
@@ -109,22 +109,22 @@
                 toastr.warning('Only jpg or png images allowed.');
 
                 if (this.files[0] != null) {
-                    alert('2');
                     this.removeFile(this.files[0]);
                 }
 
                 if (this.files[1] != null) {
-                    alert('1');
                     this.removeFile(this.files[1]);
                 }
 
-              
+                if (this.files[2] != null) {
+                    this.removeFile(this.files[2]);
+                }
             }
             else {
                 //debugger;
                 var maxLengthExceeded = false;
 
-                if (this.files[2] != null) {
+                if (this.files[4] != null) {
                     maxLengthExceeded = true;
                     this.removeFile(this.files[0]);
 

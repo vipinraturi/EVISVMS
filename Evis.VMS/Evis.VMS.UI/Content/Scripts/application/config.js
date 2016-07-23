@@ -42,10 +42,13 @@ ApplyCustomBinding = function (elementName) {
             break;
         case 'managevisitor':
             var scanVisitorViewModel = ScanVisitorViewModel();
-            BindingViewModel("/Visitor/_ManageVisitorManually", VisitorViewModel(scanVisitorViewModel.split('_')[0], scanVisitorViewModel.split('_')[1], scanVisitorViewModel.split('_')[2], scanVisitorViewModel.split('_')[3], scanVisitorViewModel.split('_')[4], scanVisitorViewModel.split('_')[5]));
+            BindingViewModel("/Visitor/_ManageVisitorManually", VisitorViewModel(scanVisitorViewModel.split('_')[0], scanVisitorViewModel.split('_')[1], scanVisitorViewModel.split('_')[2], scanVisitorViewModel.split('_')[3], scanVisitorViewModel.split('_')[4], scanVisitorViewModel.split('_')[5], scanVisitorViewModel.split('_')[6]));
             break;
         case 'visitorcheckin':
-            BindingViewModel("/Visitor/_VisitorCheckInCheckout", VisitorCheckInCheckOutViewModel());
+            BindingViewModel("/Visitor/_VisitorCheckIn", VisitorCheckInViewModel());
+            break;
+        case 'visitorcheckout':
+            BindingViewModel("/Visitor/_VisitorCheckout", VisitorCheckOutViewModel());
             break;
             //Report module  
         case 'visitordetailsreport':
@@ -75,7 +78,10 @@ BindingViewModel = function (controllerUrl, viewModel) {
         if (controllerUrl == "/Visitor/_ManageVisitorManually") {
             $('#dateDOB').datepicker();
         }
-        if (controllerUrl == "/Visitor/_VisitorCheckInCheckout") {
+        if (controllerUrl == "/Visitor/_VisitorCheckIn") {
+            BindAutoCompleteEvent();
+        }
+        if (controllerUrl == "/Visitor/_VisitorCheckout") {
             BindAutoCompleteEvent();
         }
         if (controllerUrl == "/Administration/_ShiftAssignment") {

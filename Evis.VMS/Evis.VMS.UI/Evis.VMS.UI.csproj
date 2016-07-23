@@ -234,7 +234,7 @@
     <Compile Include="ViewModel\OrganisationVM.cs" />
     <Compile Include="ViewModel\ResetPasswordVM.cs" />
     <Compile Include="ViewModel\UserSessionDataVM.cs" />
-    <Compile Include="ViewModel\VisitorCheckInCheckOutVM.cs" />
+    <Compile Include="ViewModel\VisitorCheckInViewModel.cs" />
     <Compile Include="ViewModel\VisitorDetailsVM.cs" />
     <Compile Include="ViewModel\DashboardVM.cs" />
     <Compile Include="ViewModel\GatesVM.cs" />
@@ -317,8 +317,9 @@
     <Content Include="Content\Scripts\viewModels\UsersViewModel.js" />
     <Content Include="Content\Scripts\viewModels\ShiftViewModel.js" />
     <Content Include="Content\Scripts\viewModels\ShiftAssignmentViewModel.js" />
+    <Content Include="Content\Scripts\viewModels\VisitorCheckInViewModel.js" />
     <Content Include="Content\Scripts\viewModels\VisitorViewModel.js" />
-    <Content Include="Content\Scripts\viewModels\VisitorCheckInCheckOutViewModel.js" />
+    <Content Include="Content\Scripts\viewModels\VisitorCheckOutViewModel.js" />
     <Content Include="Content\Scripts\viewModels\VisitorDetailsViewModel.js" />
     <Content Include="Content\Scripts\viewModels\ShiftDetailsViewModel.js" />
     <Content Include="Content\Scripts\viewModels\DashboardViewModel.js" />
@@ -420,7 +421,7 @@
     <Content Include="Views\Administration\_Shifts.cshtml" />
     <Content Include="Views\Administration\_ShiftAssignment.cshtml" />
     <Content Include="Views\Visitor\_ManageVisitorManually.cshtml" />
-    <Content Include="Views\Visitor\_VisitorCheckInCheckout.cshtml" />
+    <Content Include="Views\Visitor\_VisitorCheckIn.cshtml" />
     <Content Include="Views\Report\_VisitorDetailsReport.cshtml" />
     <Content Include="Views\Report\_ShiftDetailsReport.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
@@ -435,6 +436,7 @@
     <Content Include="Views\Error\Error.cshtml" />
     <Content Include="Views\Error\Error404.cshtml" />
     <Content Include="Views\Error\Error500.cshtml" />
+    <Content Include="Views\Visitor\_VisitorCheckout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

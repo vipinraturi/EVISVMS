@@ -1,4 +1,4 @@
-﻿function VisitorCheckInCheckOutViewModel() {
+﻿function VisitorCheckInViewModel() {
     var self = this;
     self.VisitorId = ko.observable('');
     self.VisitorName = ko.observable('[Visitor Name]');
@@ -12,7 +12,13 @@
     self.NoOfPerson = ko.observable('').extend({ required: true });
     self.Purpose_Remark = ko.observable('');
     self.logoURL = ko.observable('');
+    self.CompanyName = ko.observable('');
+    self.VahicleNumber = ko.observable('');
+    self.Floor = ko.observable('');
+
     self.VisitorHiostory = ko.observableArray();
+    self.IsSecurityPerson = ko.observable(false);
+    self.IsAnyGateExist = ko.observable(false);
 
     self.errors = ko.validation.group({
         ContactPerson: this.ContactPerson,
@@ -32,6 +38,9 @@
             self.IdentificationNo(data.IdentificationNo);
             self.Nationality(data.Nationality);
             self.VisitorHiostory(data.VisitorHiostory);
+            self.IsSecurityPerson(data.IsSecurityPerson);
+            self.IsAnyGateExist(data.IsAnyGateExist);
+
             $('.searchVisitor').val('');
             toastr.success('Visitor data loaded!!');
         });
@@ -45,7 +54,17 @@
         }
         else {
             if (self.VisitorId() == '') {
-                toastr.message('No visitor available to check-in.');
+                toastr.warning('No visitor available to check-in.');
+                return;
+            }
+
+            if (self.IsSecurityPerson() == false) {
+                toastr.warning('Only security role can check-in visitor.');
+                return;
+            }
+
+            if (self.IsAnyGateExist() == false) {
+                toastr.warning('No gate exist.');
                 return;
             }
 
@@ -54,6 +73,10 @@
             data.ContactPerson = self.ContactPerson();
             data.NoOfPerson = self.NoOfPerson();
             data.PurposeOfVisit = self.Purpose_Remark();
+            data.CompanyName = self.CompanyName();
+            data.VahicleNumber = self.VahicleNumber();
+            data.Floor = self.Floor();
+            
             AjaxCall('/Api/VisitorManagement/SaveVisitorCheckIn', data, 'POST', function () {
                 toastr.success('Visitor CheckIn Successfully.!!');
                 self.GetVisitorCheckInHistoryData(self.VisitorId(), self.logoURL())
@@ -75,6 +98,9 @@
         self.ContactPerson('');
         self.NoOfPerson('');
         self.Purpose_Remark('');
+        self.CompanyName('');
+        self.VahicleNumber('');
+        self.Floor('');
         self.VisitorHiostory = ko.observableArray([]);
         $('.searchVisitor').val('');
     }
@@ -117,7 +143,6 @@ BindAutoCompleteEvent = function () {
         }
     })
 .autocomplete("instance")._renderItem = function (ul, item) {
-    console.log(item.logoUrl);
     return $('<li>')
          .data('item.autocomplete', item)
          .append('<div  style="border: 1px solid black" class="row" ><div class=col-sm-8>'

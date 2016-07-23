@@ -39,7 +39,12 @@ namespace Evis.VMS.UI.Controllers
             return View();
         }
 
-        public ActionResult _VisitorCheckInCheckout()
+        public ActionResult _VisitorCheckIn()
+        {
+            return View();
+        }
+
+        public ActionResult _VisitorCheckout()
         {
             return View();
         }

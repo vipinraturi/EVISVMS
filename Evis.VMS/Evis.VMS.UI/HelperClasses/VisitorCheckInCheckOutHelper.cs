@@ -12,12 +12,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Evis.VMS.Data.Model.Entities;
+using System.Web;
 
 namespace Evis.VMS.UI.HelperClasses
 {
     public class VisitorCheckInCheckOutHelper
     {
-       private readonly  GenericService _genericService = null;
+        private readonly GenericService _genericService = null;
 
         public VisitorCheckInCheckOutHelper()
         {
@@ -47,26 +48,9 @@ namespace Evis.VMS.UI.HelperClasses
             return _visitorDataVM;
         }
 
-        //public IList<VisitorAutoCompleteVM> GetVisitorsAutoCompleteData(string globalSearch)
-        //{
-        //    var lstVisitorsAutoComplete = _genericService.VisitorMaster.GetAll()
-        //                                                .Select(item => new VisitorAutoCompleteVM
-        //                                                {
-        //                                                    VisitorId = item.Id,
-        //                                                    VisitorName = item.VisitorName,
-        //                                                    MobileNo = item.ContactNo,
-        //                                                    EmailId = item.EmailId,
-        //                                                    IdentificationNo = item.IdNo,
-        //                                                }).AsQueryable();
-
-        //    return lstVisitorsAutoComplete.ToList();
-        //}
-
-        public VisitorDataVM GetVisitorCheckInHistory(long visitorId)//, int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC"
+        public VisitorDataVM GetVisitorCheckInHistory(long visitorId)
         {
-
             var result = new VisitorDataVM();
-
             var visitorData = _genericService.VisitorMaster.GetAll().Where(item => item.Id == visitorId).FirstOrDefault();
 
             if (visitorData != null)
@@ -76,22 +60,21 @@ namespace Evis.VMS.UI.HelperClasses
 
                 if (query.Count() > 0)
                 {
-
-                    query.ToList().ForEach(item => {
+                    query.ToList().ForEach(item =>
+                    {
                         lstVisitorCheckInAndOuttimes.Add(new VisitorCheckInCheckOutHistoryVM
                                                         {
                                                             CheckInDate = item.CheckIn.Date,
                                                             CheckInTime = item.CheckIn.TimeOfDay,
                                                             CheckOutTime = (item.CheckOut == null ? TimeSpan.MinValue : item.CheckOut.Value.TimeOfDay)
                                                         });
-
-                    
                     });
                 }
 
-
+                var gateCount = _genericService.GateMaster.GetAll().Count();
+                result.IsAnyGateExist = (gateCount > 0 ? true : false);
                 result.VisitorHiostory = lstVisitorCheckInAndOuttimes.ToList();
-                result.DOB = visitorData.DOB??DateTime.MinValue;
+                result.DOB = visitorData.DOB ?? DateTime.MinValue;
                 result.EmailId = visitorData.EmailId;
                 result.Gender = visitorData.GenderMaster.LookUpValue;
                 result.TypeOfCard = visitorData.TypeOfCard.LookUpValue;
@@ -136,14 +119,15 @@ namespace Evis.VMS.UI.HelperClasses
             {
                 qryVisitors.ToList().ForEach(item =>
                 {
-                    result.Add(new VisitorJsonModel 
-                    { 
+                    result.Add(new VisitorJsonModel
+                    {
                         VisitorName = item.VisitorName,
                         VisitorId = item.Id.ToString(),
                         Email = item.EmailId.ToString(),
                         MobileNumber = item.ContactNo.ToString(),
-                        IndentityNumber = item.IdNo.ToString(), 
-                        LogoUrl = "/images/VisitorImages/" + item.ImagePath });
+                        IndentityNumber = item.IdNo.ToString(),
+                        LogoUrl = "/images/VisitorImages/" + item.ImagePath
+                    });
                 });
             }
 

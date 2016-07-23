@@ -12,7 +12,7 @@ using System.Web;
 
 namespace Evis.VMS.UI.ViewModel
 {
-    public class VisitorCheckInCheckOutVM
+    public class VisitorCheckInViewModel
     {
 
     }
@@ -51,6 +51,16 @@ namespace Evis.VMS.UI.ViewModel
         public string Nationality { get; set; }
 
         public IList<VisitorCheckInCheckOutHistoryVM> VisitorHiostory { get; set; }
+
+        public bool IsSecurityPerson { get; set; }
+
+        public bool IsAnyGateExist { get; set; }
+
+        public string CompanyName { get; set; }
+
+        public string VahicleNumber { get; set; }
+
+        public string Floor { get; set; }
     }
 
     public class VisitorCheckInVM

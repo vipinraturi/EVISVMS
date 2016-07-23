@@ -13,37 +13,33 @@ using System.Linq;
 using System.Web;
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
+using Evis.VMS.Business;
+using System.Threading.Tasks;
 
 namespace Evis.VMS.UI.Controllers.ApiControllers
 {
-    public partial class VisitorController 
+    public partial class VisitorController
     {
-        //[Route("~/Api/VisitorManagement/GetVisitorDetail")]
-        //[HttpPost]
-        //public string GetVisitorDetail(string globalSearch)
-        //{
-        //    var vistorData = new VisitorCheckInCheckOutHelper().GetVisitorsDetail(globalSearch);
-        //    var jsonData = JsonConvert.SerializeObject(vistorData);
-        //    return JsonConvert.SerializeObject(new { result = jsonData });
-        //}
-
-        //[Route("~/Api/VisitorManagement/GetVisitorDetailsAutoComplete")]
-        //[HttpPost]
-        //public string GetVisitorDetailsAutoComplete(string globalSearch, int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC")
-        //{
-        //    var vistorAutoCompleteDataList = new VisitorCheckInCheckOutHelper().GetVisitorsAutoCompleteData(globalSearch);
-
-        //    var jsonData = JsonConvert.SerializeObject(vistorAutoCompleteDataList);
-        //    return JsonConvert.SerializeObject(new { result = jsonData });
-        //}
-
         [Route("~/Api/VisitorManagement/GetVisitorCheckInHistory")]
         [HttpPost]
-        public VisitorDataVM GetVisitorCheckInHistory(long visitorId)//int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC"
+        public async Task<VisitorDataVM> GetVisitorCheckInHistory(long visitorId)//int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC"
         {
             var visitorDataVMData = _visitorCheckInCheckOutHelper.GetVisitorCheckInHistory(visitorId);
-            //var jsonData = JsonConvert.SerializeObject(vistorCheckInHistoryList);
-            return visitorDataVMData;//JsonConvert.SerializeObject(new { totalRows = vistorCheckInHistoryList.VisitorHiostory.Count(), result = jsonData });
+
+            if (visitorDataVMData != null)
+            {
+                var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+                var _userService = new UserService();
+                var _applicationRole = new ApplicationRoleService();
+                var user = await _userService.GetAsync(x => x.Id == userId);
+                var roleID = user.Roles.FirstOrDefault().RoleId;
+                var role = await _applicationRole.FindByIdAsync(roleID);
+                if (role.Name == "Security")
+                {
+                    visitorDataVMData.IsSecurityPerson = true;
+                }
+            }
+            return visitorDataVMData;
         }
 
         [Route("~/Api/VisitorManagement/SaveVisitorCheckIn")]
