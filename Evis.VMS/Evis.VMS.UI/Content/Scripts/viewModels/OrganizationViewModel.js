@@ -151,8 +151,8 @@ function OrganizationViewModel() {
         if (tableItem != undefined) {
             self.Id(tableItem.Id);
             self.CompanyName(tableItem.CompanyName);
-            self.CountryId(tableItem.CityMaster.ParentValues.ParentId);
-            stateId = tableItem.CityMaster.ParentId;
+            self.CountryId(tableItem.CountryId);
+            stateId = tableItem.StateId;
             cityId = tableItem.CityId;
             self.EmailId(tableItem.EmailId);
             self.ContactAddress(tableItem.ContactAddress);
