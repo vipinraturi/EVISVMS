@@ -64,19 +64,19 @@
 
     //})
     self.Shift = ko.observableArray();
-    self.GetShift = function () {
-        debugger;
-        if (self.UserId() != undefined && self.UserId() != 0) {
-            AjaxCall('/Api/ShiftAssignment/GetAllShift?ShitfId=' + self.UserId(), null, 'GET', function (data) {
-                self.Shift(new Object());
-                self.Shift(data);
-                self.ShitfId(ShitfId);
-            })
-        }
-    }
-    //AjaxCall('/Api/ShiftAssignment/GetAllShift', null, 'GET', function (data) {
-    //    self.Shift(data);
-    //})
+    //self.GetShift = function () {
+    //    debugger;
+    //    if (self.UserId() != undefined && self.UserId() != 0) {
+    //        AjaxCall('/Api/ShiftAssignment/GetAllShift?ShitfId=' + self.UserId(), null, 'GET', function (data) {
+    //            self.Shift(new Object());
+    //            self.Shift(data);
+    //            self.ShitfId(ShitfId);
+    //        })
+    //    }
+    //}
+    AjaxCall('/Api/ShiftAssignment/GetAllShift', null, 'GET', function (data) {
+        self.Shift(data);
+    })
     self.Buildings = ko.observableArray();
     AjaxCall('/Api/Gates/GetAllBuilding', null, 'GET', function (data) {
         //debugger;;
@@ -117,8 +117,9 @@
         }
     }
     self.EditShift = function (tableItem) {
-        debugger;
+      
         if (tableItem != undefined) {
+            debugger;
             self.Id(tableItem.Id);
             self.BuildingId(tableItem.BuildingId);
             self.GateId(tableItem.GateId);

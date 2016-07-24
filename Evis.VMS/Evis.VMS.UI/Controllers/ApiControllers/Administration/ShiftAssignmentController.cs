@@ -33,7 +33,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         }
         [Route("~/Api/ShiftAssignment/GetAllShift")]
         [HttpGet]
-        public IEnumerable<GeneralDropDownVM> GetAllShift(int ShitfId)
+        public IEnumerable<GeneralDropDownVM> GetAllShift()
         {
             var result = _genericService.ShitfMaster.GetAll().Where(x => x.IsActive == true)
                 .Select(y => new GeneralDropDownVM { Id = y.Id, Name = y.ShitfName });////y.ShitfName + '(' + ' ' + y.FromTime + ' ' + y.ToTime + ')'

@@ -23,7 +23,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
     {
         [Route("~/Api/swift/SaveShift")]
         [HttpPost]
-        public ReturnResult Saveswift([FromBody]  ShitfMaster ShitfMaster)
+        public ReturnResult Saveshift([FromBody]  ShitfMaster ShitfMaster)
         {
             if (ShitfMaster.Id == 0)
             {
