@@ -34,7 +34,7 @@ namespace Evis.VMS.UI.HelperClasses
                                                             VisitorId = item.Id,
                                                             VisitorName = item.VisitorName,
                                                             Gender = item.GenderMaster.LookUpValue,
-                                                            DOB = item.DOB ?? DateTime.MinValue,
+                                                            DOB = (item.DOB ?? DateTime.MinValue).ToShortDateString(),
                                                             MobileNo = item.ContactNo,
                                                             EmailId = item.EmailId,
                                                             IdentificationNo = item.IdNo,
@@ -48,7 +48,7 @@ namespace Evis.VMS.UI.HelperClasses
             return _visitorDataVM;
         }
 
-        public VisitorDataVM GetVisitorCheckInHistory(long visitorId)
+        public VisitorDataVM GetVisitorCheckInHistory(long visitorId, string userId)
         {
             var result = new VisitorDataVM();
             var visitorData = _genericService.VisitorMaster.GetAll().Where(item => item.Id == visitorId).FirstOrDefault();
@@ -90,12 +90,22 @@ namespace Evis.VMS.UI.HelperClasses
                             result.IsAlreadyCheckIn = false;
                         }
                     }
+
+                    var shiftAssignedOrNot = _genericService.ShitfAssignment.GetAll().Where(item => item.UserId == userId && item.IsActive).FirstOrDefault();
+                    if (shiftAssignedOrNot != null)
+                    {
+                        result.IsShiftAssignedToSecurity = true;
+                    }
+
+
                 }
+
+
 
                 var gateCount = _genericService.GateMaster.GetAll().Count();
                 result.IsAnyGateExist = (gateCount > 0 ? true : false);
                 result.VisitorHiostory = lstVisitorCheckInAndOuttimes.ToList();
-                result.DOB = visitorData.DOB ?? DateTime.MinValue;
+                result.DOB = (visitorData.DOB ?? DateTime.MinValue).ToShortDateString();
                 result.EmailId = visitorData.EmailId;
                 result.Gender = visitorData.GenderMaster.LookUpValue;
                 result.TypeOfCard = visitorData.TypeOfCard.LookUpValue;
@@ -111,24 +121,30 @@ namespace Evis.VMS.UI.HelperClasses
             return result;
         }
 
-        public bool SaveVisitorCheckIn(VisitorCheckInVM visitorCheckInVM)
+        public bool SaveVisitorCheckIn(VisitorCheckInVM visitorCheckInVM, string userId)
         {
-            VisitDetails _visitDetails = new VisitDetails();
-            _visitDetails.VisitorId = visitorCheckInVM.VisitorId;
-            _visitDetails.ContactPerson = visitorCheckInVM.ContactPerson;
-            _visitDetails.NoOfPerson = visitorCheckInVM.NoOfPerson;
-            _visitDetails.PurposeOfVisit = visitorCheckInVM.PurposeOfVisit;
-            _visitDetails.CheckIn = DateTime.UtcNow;
-            _visitDetails.CheckOut = null;
-            _visitDetails.CreatedBy = visitorCheckInVM.CreatedBy;
-            _visitDetails.CheckInGate = visitorCheckInVM.CheckInGate;
-            _visitDetails.CheckOutGate = visitorCheckInVM.CheckOutGate;
-            _visitDetails.CompanyName = visitorCheckInVM.CompanyName;
-            _visitDetails.VahicleNumber = visitorCheckInVM.VahicleNumber;
-            _visitDetails.Floor = visitorCheckInVM.Floor;
-            _genericService.VisitDetails.Insert(_visitDetails);
-            _genericService.Commit();
-            return true;
+            var gate = _genericService.ShitfAssignment.GetAll().Where(item => item.UserId == userId && item.IsActive).FirstOrDefault();
+
+            if (gate != null)
+            {
+                VisitDetails _visitDetails = new VisitDetails();
+                _visitDetails.VisitorId = visitorCheckInVM.VisitorId;
+                _visitDetails.ContactPerson = visitorCheckInVM.ContactPerson;
+                _visitDetails.NoOfPerson = visitorCheckInVM.NoOfPerson;
+                _visitDetails.PurposeOfVisit = visitorCheckInVM.PurposeOfVisit;
+                _visitDetails.CheckIn = DateTime.UtcNow;
+                _visitDetails.CheckOut = null;
+                _visitDetails.CreatedBy = visitorCheckInVM.CreatedBy;
+                _visitDetails.CheckInGate = gate.Id;
+                _visitDetails.CheckOutGate = gate.Id;
+                _visitDetails.CompanyName = visitorCheckInVM.CompanyName;
+                _visitDetails.VahicleNumber = visitorCheckInVM.VahicleNumber;
+                _visitDetails.Floor = visitorCheckInVM.Floor;
+                _genericService.VisitDetails.Insert(_visitDetails);
+                _genericService.Commit();
+                return true;
+            }
+            return false;
         }
 
         public bool SaveVisitorCheckOut(VisitorCheckInVM visitorCheckInVM)

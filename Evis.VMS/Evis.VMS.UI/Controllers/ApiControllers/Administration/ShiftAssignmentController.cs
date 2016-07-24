@@ -49,20 +49,17 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
             var user = (await _userService.GetAllAsync()).Where(x => x.Id == HttpContext.Current.User.Identity.GetUserId() && x.IsActive == true).FirstOrDefault();
             var gates = _genericService.GateMaster.GetAll().FirstOrDefault(x => x.Id == GateId && x.IsActive == true);
-            //var result = (await _userService.GetAllAsync()).Where(x => x.IsActive == true && x.OrganizationId == gates.BuildingMaster.OrganizationId && x.Id == "1")
-            //   .Select(y => new DropDownVM { Id = y.Id, Name = y.FullName });
             var getUsers = (await _userService.GetAllAsync()).Where(x => x.Organization.IsActive == true &&
                            (user == null || (user != null && x.OrganizationId == user.OrganizationId))).AsQueryable();
 
             var getRoles = (await _applicationRoleService.GetAllAsync()).AsQueryable();
             var result = (from users in getUsers
                           join roles in getRoles on users.Roles.First().RoleId equals roles.Id
-                          where roles.Id == "8179895d-54f2-4316-aab2-e86431fa8b3c"
+                          where roles.Name == "Security"
                           select new DropDownVM
                           {
                               Id = users.Id,
                               Name = users.FullName
-
                           }).AsQueryable();
 
             return result;

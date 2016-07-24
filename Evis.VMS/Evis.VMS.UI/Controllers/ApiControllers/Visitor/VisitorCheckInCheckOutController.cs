@@ -24,11 +24,12 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         [HttpPost]
         public async Task<VisitorDataVM> GetVisitorCheckInHistory(long visitorId)//, int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC")
         {
-            var visitorDataVMData = _visitorCheckInCheckOutHelper.GetVisitorCheckInHistory(visitorId);
+            var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+
+            var visitorDataVMData = _visitorCheckInCheckOutHelper.GetVisitorCheckInHistory(visitorId, userId);
 
             if (visitorDataVMData != null)
             {
-                var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
                 var _userService = new UserService();
                 var _applicationRole = new ApplicationRoleService();
                 var user = await _userService.GetAsync(x => x.Id == userId);
@@ -37,6 +38,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 if (role.Name == "Security")
                 {
                     visitorDataVMData.IsSecurityPerson = true;
+
                 }
                 
                 
@@ -48,9 +50,10 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         [HttpPost]
         public ReturnResult SaveVisitorCheckIn([FromBody] VisitorCheckInVM visitorCheckInVM)
         {
-            visitorCheckInVM.CreatedBy = HttpContext.Current.User.Identity.GetUserId();
-            visitorCheckInVM.CheckInGate = 1;
-            var result = _visitorCheckInCheckOutHelper.SaveVisitorCheckIn(visitorCheckInVM);
+            var userId =  HttpContext.Current.User.Identity.GetUserId();
+            visitorCheckInVM.CreatedBy = userId;
+            //visitorCheckInVM.CheckInGate = 1;
+            var result = _visitorCheckInCheckOutHelper.SaveVisitorCheckIn(visitorCheckInVM, userId);
             return new ReturnResult { Message = (result == true ? "Success" : "Failure"), Success = (result == true ? true : false) };
         }
 

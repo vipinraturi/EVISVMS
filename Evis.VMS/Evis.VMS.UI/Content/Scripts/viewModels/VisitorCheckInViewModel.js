@@ -22,6 +22,8 @@
     self.VisitorHiostory = ko.observableArray();
     self.IsSecurityPerson = ko.observable(false);
     self.IsAnyGateExist = ko.observable(false);
+    self.IsShiftAssignedToSecurity = ko.observable(false);
+    
 
     self.errors = ko.validation.group({
         ContactPerson: this.ContactPerson,
@@ -45,9 +47,10 @@
             self.IsAnyGateExist(data.IsAnyGateExist);
             self.IsAlreadyCheckIn(data.IsAlreadyCheckIn);
             self.TotalDuration(data.TotalDuration);
+            self.IsShiftAssignedToSecurity(data.IsShiftAssignedToSecurity);
             
             $('.searchVisitor').val('');
-            toastr.success('Visitor data loaded!!');
+            //toastr.success('Visitor data loaded!!');
 
             if (isResetFields) {
                 self.ResetCheckInFormData();
@@ -92,6 +95,11 @@
                 return;
             }
 
+            if (self.IsShiftAssignedToSecurity() == false) {
+                toastr.warning('No shift assigned to security person.');
+                return;
+            }
+
             var data = new Object();
             data.VisitorId = self.VisitorId();
             data.ContactPerson = self.ContactPerson();
@@ -103,9 +111,7 @@
             
             AjaxCall('/Api/VisitorManagement/SaveVisitorCheckIn', data, 'POST', function () {
                 toastr.success('Visitor CheckIn Successfully.!!');
-                //alert(self.VisitorId() + '  ' + self.logoURL());
                 self.GetVisitorCheckInHistoryData(self.VisitorId(), self.logoURL(), true)
-                
             })
         }
     }

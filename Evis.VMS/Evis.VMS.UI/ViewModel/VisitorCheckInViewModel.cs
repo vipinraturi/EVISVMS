@@ -40,7 +40,7 @@ namespace Evis.VMS.UI.ViewModel
         
         public string TypeOfCard { get; set; }
 
-        public DateTime DOB { get; set; }
+        public string DOB { get; set; }
 
         public string MobileNo { get; set; }
 
@@ -63,6 +63,8 @@ namespace Evis.VMS.UI.ViewModel
         public string Floor { get; set; }
 
         public bool IsAlreadyCheckIn { get; set; }
+
+        public bool IsShiftAssignedToSecurity { get; set; }
     }
 
     public class VisitorCheckInVM

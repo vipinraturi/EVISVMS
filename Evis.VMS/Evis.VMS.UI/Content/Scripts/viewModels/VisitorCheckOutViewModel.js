@@ -50,7 +50,7 @@
 
 
             $('.searchVisitor').val('');
-            toastr.success('Visitor data loaded!!');
+            //toastr.success('Visitor data loaded!!');
         });
     }
 
