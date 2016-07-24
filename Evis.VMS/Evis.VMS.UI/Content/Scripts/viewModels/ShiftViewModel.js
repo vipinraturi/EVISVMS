@@ -40,7 +40,7 @@
     }
 
 
-    self.Editswift = function (tableItem) {
+    self.Editshift = function (tableItem) {
         debugger;
         if (tableItem != undefined) {
             self.Id(tableItem.Id);
@@ -49,11 +49,8 @@
             self.ToTime(tableItem.ToTime);
         }
     }
-    self.Saveswift = function () {
+    self.Saveshift = function () {
         debugger;
-        var abc = self.ShitfName();
-        abc = self.FromTime();
-        abc = self.ToTime();
         if (self.errors().length > 0) {
             self.errors.showAllMessages(true);
             this.errors().forEach(function (data) {
@@ -73,7 +70,7 @@
             })
         }
     }
-    self.Resetswift = function () {
+    self.Resetshift = function () {
         self.GlobalSearch('');
         self.ShitfName('');
         self.FromTime('');

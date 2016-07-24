@@ -15,17 +15,22 @@
     self.CompanyName = ko.observable('');
     self.VahicleNumber = ko.observable('');
     self.Floor = ko.observable('');
+    self.TotalDuration = ko.observable('');
+    
+    self.IsAlreadyCheckIn = ko.observable(false);
 
     self.VisitorHiostory = ko.observableArray();
     self.IsSecurityPerson = ko.observable(false);
     self.IsAnyGateExist = ko.observable(false);
+    self.IsShiftAssignedToSecurity = ko.observable(false);
+    
 
     self.errors = ko.validation.group({
         ContactPerson: this.ContactPerson,
         NoOfPerson: this.NoOfPerson
     });
 
-    self.GetVisitorCheckInHistoryData = function (visitorId, logoURL) {
+    self.GetVisitorCheckInHistoryData = function (visitorId, logoURL, isResetFields) {
         AjaxCall('/Api/VisitorManagement/GetVisitorCheckInHistory?visitorId=' + visitorId, null, 'POST', function (data) {
             $('.img-responsive').attr('src', logoURL);
             self.logoURL(logoURL);
@@ -40,10 +45,27 @@
             self.VisitorHiostory(data.VisitorHiostory);
             self.IsSecurityPerson(data.IsSecurityPerson);
             self.IsAnyGateExist(data.IsAnyGateExist);
-
+            self.IsAlreadyCheckIn(data.IsAlreadyCheckIn);
+            self.TotalDuration(data.TotalDuration);
+            self.IsShiftAssignedToSecurity(data.IsShiftAssignedToSecurity);
+            
             $('.searchVisitor').val('');
-            toastr.success('Visitor data loaded!!');
+            //toastr.success('Visitor data loaded!!');
+
+            if (isResetFields) {
+                self.ResetCheckInFormData();
+            }
         });
+    }
+
+    self.ViewHistory = function (tableItem) {
+        debugger;
+        self.ContactPerson(tableItem.ContactPerson);
+        self.NoOfPerson(tableItem.NoOfPerson);
+        self.Purpose_Remark(tableItem.Purpose);
+        self.CompanyName(tableItem.CompanyName);
+        self.VahicleNumber(tableItem.VahicleNumber);
+        self.Floor(tableItem.Floor);
     }
 
     self.SaveVisitorCheckIn = function () {
@@ -68,6 +90,16 @@
                 return;
             }
 
+            if (self.IsAlreadyCheckIn() == true) {
+                toastr.warning('Visitor already checked-in.');
+                return;
+            }
+
+            if (self.IsShiftAssignedToSecurity() == false) {
+                toastr.warning('No shift assigned to security person.');
+                return;
+            }
+
             var data = new Object();
             data.VisitorId = self.VisitorId();
             data.ContactPerson = self.ContactPerson();
@@ -79,10 +111,28 @@
             
             AjaxCall('/Api/VisitorManagement/SaveVisitorCheckIn', data, 'POST', function () {
                 toastr.success('Visitor CheckIn Successfully.!!');
-                self.GetVisitorCheckInHistoryData(self.VisitorId(), self.logoURL())
-                self.ResetCheckInData();
+                self.GetVisitorCheckInHistoryData(self.VisitorId(), self.logoURL(), true)
             })
         }
+    }
+
+
+    self.ResetCheckInFormData = function () {
+        //self.VisitorName('[Visitor Name]');
+        //self.Gender('[Gender]');
+        //self.DOB('[DOB]');
+        //self.MobileNo('[Mobile No]');
+        //self.EmailId('[EmailId]');
+        //self.IdentificationNo('[Identification No.]');
+        //self.Nationality(' [Nationality]');
+        self.ContactPerson('');
+        self.NoOfPerson('');
+        self.Purpose_Remark('');
+        self.CompanyName('');
+        self.VahicleNumber('');
+        self.Floor('');
+        $('.searchVisitor').val('');
+        //$('.img-responsive').attr('src', '');
     }
 
     self.ResetCheckInData = function ()
@@ -101,8 +151,9 @@
         self.CompanyName('');
         self.VahicleNumber('');
         self.Floor('');
-        self.VisitorHiostory = ko.observableArray([]);
+        self.VisitorHiostory([]);
         $('.searchVisitor').val('');
+        $('.img-responsive').attr('src', '');
     }
 }
 
@@ -133,7 +184,7 @@ BindAutoCompleteEvent = function () {
         },
         minLength: 2,
         select: function (event, ui) {
-            self.GetVisitorCheckInHistoryData(ui.item.VisitorId, ui.item.logoUrl);
+            self.GetVisitorCheckInHistoryData(ui.item.VisitorId, ui.item.logoUrl, false);
         },
         open: function () {
             $(this).removeClass('ui-corner-all').addClass('ui-corner-top');
@@ -145,7 +196,7 @@ BindAutoCompleteEvent = function () {
 .autocomplete("instance")._renderItem = function (ul, item) {
     return $('<li>')
          .data('item.autocomplete', item)
-         .append('<div  style="border: 1px solid black" class="row" ><div class=col-sm-8>'
+         .append('<div class="row" ><div class=col-sm-8>'
                     + ' Visitor Name: '+ item.VisitorName + '<br>'
                     + ' Email: ' + item.Email + '<br>'
                     + ' MobileNumber: ' + item.MobileNumber + '<br>'

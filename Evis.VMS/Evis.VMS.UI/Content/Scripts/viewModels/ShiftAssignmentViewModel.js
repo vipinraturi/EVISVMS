@@ -1,5 +1,7 @@
 ﻿function ShiftAssignmentViewModel() {
     var self = this;
+    var gateId = 0;
+    var userId = 0;
     ko.validation.rules.pattern.message = 'Invalid.';
     ko.validation.configure({
         registerExtenders: true,
@@ -10,11 +12,6 @@
         decorateElement: true,
         errorElementClass: 'err'
     });
-    var GateId = 0;
-    var UserId = 0;
-    // self.errors = ko.validation.group(self);
-    // self.Id = ko.observable(0);
-
     self.Id = ko.observable(0);
     self.ShitfId = ko.observable(undefined).extend({ required: true });
     self.UserId = ko.observable(undefined).extend({ required: true });
@@ -22,17 +19,12 @@
     self.GateId = ko.observable(undefined).extend({ required: true });
     self.FromDate = ko.observable('').extend({ required: true });
     self.ToDate = ko.observable('').extend({ required: true });
-
-    //self.BuildingName = ko.observable('').extend({ required: true });
-    //self.GateNumber = ko.observable('').extend({ required: true });
-    //self.ShitfName = ko.observable('').extend({ required: true });
-    //self.UserName = ko.observable('').extend({ required: true });
     self.errors = ko.validation.group(
       {
-          UserId: this.UserId,
-          ShitfId: this.ShitfId,
           BuildingId: this.BuildingId,
           GateId: this.GateId,
+          UserId: this.UserId,
+          ShitfId: this.ShitfId,
           FromDate: this.FromDate,
           ToDate: this.ToDate
 
@@ -47,49 +39,32 @@
     }
     self.Gates = ko.observableArray();
     self.GetGates = function () {
-        debugger;
+        //  debugger;
         if (self.BuildingId() != undefined && self.BuildingId() != 0) {
             AjaxCall('/Api/ShiftAssignment/GetAllGates?BuildingId=' + self.BuildingId(), null, 'GET', function (data) {
                 self.Gates(new Object());
                 self.Gates(data);
-                self.GateId(GateId);
+                self.GateId(gateId);
 
             })
         }
     }
-    //self.Gates = ko.observableArray();
-    //AjaxCall('/Api/ShiftAssignment/GetAllGates', null, 'GET', function (data) {
-
-    //    self.Gates(data);
-
-    //})
     self.Shift = ko.observableArray();
-    self.GetShift = function () {
-        debugger;
-        if (self.UserId() != undefined && self.UserId() != 0) {
-            AjaxCall('/Api/ShiftAssignment/GetAllShift?ShitfId=' + self.UserId(), null, 'GET', function (data) {
-                self.Shift(new Object());
-                self.Shift(data);
-                self.ShitfId(ShitfId);
-            })
-        }
-    }
-    //AjaxCall('/Api/ShiftAssignment/GetAllShift', null, 'GET', function (data) {
-    //    self.Shift(data);
-    //})
+    AjaxCall('/Api/ShiftAssignment/GetAllShift', null, 'GET', function (data) {
+        self.Shift(data);
+    })
     self.Buildings = ko.observableArray();
     AjaxCall('/Api/Gates/GetAllBuilding', null, 'GET', function (data) {
-        //debugger;;
         self.Buildings(data);
     })
     self.Users = ko.observableArray();
     self.GetUsers = function () {
-        debugger;
+        // debugger;
         if (self.GateId() != undefined && self.GateId() != 0) {
             AjaxCall('/Api/ShiftAssignment/GetAllUsers?GateId=' + self.GateId(), null, 'GET', function (data) {
                 self.Users(new Object());
                 self.Users(data);
-                self.UserId(UserId);
+                self.UserId(userId);
             })
         }
     }
@@ -109,7 +84,6 @@
     self.DeleteShift = function (tableItem) {
         var message = confirm("Are you sure, you want to delete selected record!");
         if (message == true) {
-            debugger;
             AjaxCall('/Api/ShiftAssignment/DeleteShift', tableItem, 'POST', function () {
                 toastr.success('ShiftAssignment deleted successfully!!')
                 ApplyCustomBinding('shiftassignment');
@@ -117,29 +91,23 @@
         }
     }
     self.EditShift = function (tableItem) {
+        // alert(tableItem.UserId);
         debugger;
         if (tableItem != undefined) {
             self.Id(tableItem.Id);
             self.BuildingId(tableItem.BuildingId);
-            self.GateId(tableItem.GateId);
-            self.ShitfId(tableItem.ShiftId);
-            self.UserId(tableItem.UserId);
+            gateId = tableItem.GateId;
+            self.ShitfId(tableItem.ShitfId);
+            userId = tableItem.UserId;
             self.FromDate(tableItem.FromDate);
             self.ToDate(tableItem.ToDate);
-            //stateId = (tableItem.ToDate);
-            //cityId = (tableItem.CityId);
-            //self.IsInsert(false);
-            //data.CityId = self.CityId();
-
         }
     }
     SaveShiftAssignment = function () {
-        debugger;
 
         if (self.errors().length > 0) {
             self.errors.showAllMessages(true);
             this.errors().forEach(function (data) {
-                //toastr.warning(data);
             });
         }
         else {
@@ -151,16 +119,9 @@
             data.GateId = self.GateId(),
             data.FromDate = self.FromDate(),
             data.ToDate = self.ToDate()
-
-            //data.State = self.State(),
-            // data.Country = self.Country(),
-            //  data.CityId = self.CityId(),
-            //// display any error messages if we have them
             AjaxCall('/Api/ShiftAssignment/SaveShiftAssignment', data, 'POST', function () {
                 toastr.success('building saved successfully!!')
                 ApplyCustomBinding('shiftassignment');
-                //  self.IsInsert(true);
-
             })
         }
     }

@@ -7,6 +7,7 @@
         required: true,
         deferValidation: true
     });
+
     self.Email = ko.observable('').extend({ required: true, maxLength: 25, email: { message: "Invalid email" } });
     self.ContactNumber = ko.observable('').extend({
         required: true,
@@ -15,6 +16,7 @@
             params: /^([0-9\(\)\/\+ \-\.]*)$/
         }
     });
+
     self.RoleId = ko.observable(undefined).extend({ required: true });
     self.GenderId = ko.observable(undefined).extend({ required: true });
     self.OrganizationId = ko.observable(undefined).extend({ required: true });

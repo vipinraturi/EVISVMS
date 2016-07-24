@@ -27,7 +27,7 @@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Shift From Time <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12 ">
-                            <input id="txtFromTime" type="text" class="form-control" placeholder="[hh:mm:ss]" required="required" data-bind="value:FromTime" />
+                            <input id="txtFromTime" type="text" class="form-control timepickerCtr" placeholder="[hh:mm:ss]" required="required" data-bind="value:FromTime" />
                             <span class="fa fa-clock-o favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
 
@@ -40,7 +40,7 @@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Shift To Time <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtToTime" type="text" class="form-control input-small" placeholder="[hh:mm:ss]" required="required" data-bind="value:ToTime" />
+                            <input id="txtToTime" type="text" class="form-control input-small timepickerCtr" placeholder="[hh:mm:ss]" required="required" data-bind="value:ToTime" />
                             <span class="fa fa-clock-o  favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
@@ -48,8 +48,8 @@
 
                     <div class="form-group">
                         <div class="pull-right">
-                            <button type="button" class="btn btn-primary" data-bind="click: Resetswift.bind()">Reset <i class="fa fa-refresh"></i></button>
-                            <button type="button" class="btn btn-success" data-bind="click: Saveswift.bind()">Save <i class="fa fa-save"></i></button>
+                            <button type="button" class="btn btn-primary" data-bind="click: Resetshift.bind()">Reset <i class="fa fa-refresh"></i></button>
+                            <button type="button" class="btn btn-success" data-bind="click: Saveshift.bind()">Save <i class="fa fa-save"></i></button>
                         </div>
                     </div>
 
@@ -91,7 +91,7 @@
                                 <td data-bind="text: FromTime"></td>
                                 <td data-bind="text: ToTime"></td>
                                 <td>
-                                    <a href="#" class="btn  btn-s" data-bind="click: Editswift.bind($data)" title="click here to view or edit record."><i class="fa fa-pencil"></i></a>
+                                    <a href="#" class="btn  btn-s" data-bind="click: Editshift.bind($data)" title="click here to view or edit record."><i class="fa fa-pencil"></i></a>
                                     <a href="#" class="btn  btn-s" data-bind="click: DeleteSwift.bind($data)" title="click here to delete record."><i class="fa fa-trash-o"></i></a>
                                 </td>
                             </tr>

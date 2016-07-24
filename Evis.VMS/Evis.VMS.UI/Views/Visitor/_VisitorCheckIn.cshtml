@@ -55,35 +55,35 @@
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Company Name <span class="mandatoryField"></span></label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
                         <input id="" type="text" class="form-control" placeholder="[Company Name]" data-bind="value: CompanyName" required="required" />
-                        <span class="fa fa-user favwhite form-control-feedback right" aria-hidden="true"></span>
+                        <span class="fa fa-file favwhite form-control-feedback right" aria-hidden="true"></span>
                     </div>
                 </div>
                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Person <span class="mandatoryField">*</span></label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
                         <input id="" type="text" class="form-control" placeholder="[Contact Person]" data-bind="value: ContactPerson" required="required" />
-                        <span class="fa fa-user favwhite form-control-feedback right" aria-hidden="true"></span>
+                        <span class="fa fa-file favwhite form-control-feedback right" aria-hidden="true"></span>
                     </div>
                 </div>
                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">No. of Persons <span class="mandatoryField">*</span></label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
                         <input id="" type="text" class="form-control" placeholder="[No. of Persons]" data-bind="value: NoOfPerson" required="required" />
-                        <span class="fa fa-users favwhite form-control-feedback right" aria-hidden="true"></span>
+                        <span class="fa fa-file favwhite form-control-feedback right" aria-hidden="true"></span>
                     </div>
                 </div>
                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Vahicle Number <span class="mandatoryField"></span></label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
                         <input id="" type="text" class="form-control" placeholder="[Vahicle Number]" data-bind="value: VahicleNumber" required="required" />
-                        <span class="fa fa-users favwhite form-control-feedback right" aria-hidden="true"></span>
+                        <span class="fa fa-file favwhite form-control-feedback right" aria-hidden="true"></span>
                     </div>
                 </div>
                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Floor Number <span class="mandatoryField"></span></label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
                         <input id="" type="text" class="form-control" placeholder="[Floor Number]" data-bind="value: Floor" required="required" />
-                        <span class="fa fa-users favwhite form-control-feedback right" aria-hidden="true"></span>
+                        <span class="fa fa-file favwhite form-control-feedback right" aria-hidden="true"></span>
                     </div>
                 </div>
                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
@@ -115,9 +115,10 @@
                             <tr>
                                 <th style="width: 1%">#</th>
                                 <th style="width: 10%">Date</th>
-                                <th style="width: 12%">Check In</th>
-                                <th style="width: 12%">Check Out</th>
-                                <th style="width: 12%">Total Duration</th>
+                                <th style="width: 10%">Check In</th>
+                                <th style="width: 10%">Check Out</th>
+                                <th style="width: 10%">Duration</th>
+                                <th style="width: 6%"></th>
                             </tr>
                         </thead>
                         <tbody data-bind="foreach: VisitorHiostory">
@@ -126,7 +127,9 @@
                                 <td data-bind="text: CheckInDate"></td>
                                 <td data-bind="text: CheckInTime"></td>
                                 <td data-bind="text: CheckOutTime"></td>
-                                <td></td>
+                                <td data-bind="text: TotalDuration"></td>
+                                <td><a href="#" class="btn  btn-s"
+   title="click here to view record." data-bind="click: ViewHistory.bind($data)"><i class="fa fa-eye"></i></a></td>
                             </tr>
                         </tbody>
                         <tbody data-bind="if:VisitorHiostory().length == 0">

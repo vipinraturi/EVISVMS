@@ -1,24 +1,28 @@
 ﻿function VisitorCheckOutViewModel() {
     var self = this;
     self.VisitorId = ko.observable('');
-    self.VisitorName = ko.observable('[Visitor Name]');
-    self.Gender = ko.observable('[Gender]');
-    self.DOB = ko.observable('[DOB]');
-    self.MobileNo = ko.observable('[Mobile No]');
-    self.EmailId = ko.observable('[EmailId]');
-    self.IdentificationNo = ko.observable('[Identification No.]');
-    self.Nationality = ko.observable('[Nationality]');
-    self.ContactPerson = ko.observable('').extend({ required: true });
-    self.NoOfPerson = ko.observable('').extend({ required: true });
+    self.VisitorName = ko.observable('');
+    self.Gender = ko.observable('');
+    self.DOB = ko.observable('');
+    self.MobileNo = ko.observable('');
+    self.EmailId = ko.observable('');
+    self.IdentificationNo = ko.observable('');
+    self.Nationality = ko.observable('');
     self.Purpose_Remark = ko.observable('');
     self.logoURL = ko.observable('');
+    self.IsAlreadyCheckIn = ko.observable(false);
     self.VisitorHiostory = ko.observableArray();
+    self.TotalDuration = ko.observable('');
+    self.TotalDuration = ko.observable('');
 
-    self.errors = ko.validation.group({
-        ContactPerson: this.ContactPerson,
-        NoOfPerson: this.NoOfPerson
-    });
 
+    self.CompanyName = ko.observable('');
+    self.VahicleNumber = ko.observable('');
+    self.Floor = ko.observable('');
+    self.ContactPerson = ko.observable('');
+    self.NoOfPerson = ko.observable('');
+    self.Purpose_Remark = ko.observable('');
+    
     self.GetVisitorCheckInHistoryData = function (visitorId, logoURL) {
         AjaxCall('/Api/VisitorManagement/GetVisitorCheckInHistory?visitorId=' + visitorId, null, 'POST', function (data) {
             $('.img-responsive').attr('src', logoURL);
@@ -32,34 +36,57 @@
             self.IdentificationNo(data.IdentificationNo);
             self.Nationality(data.Nationality);
             self.VisitorHiostory(data.VisitorHiostory);
+            self.IsAlreadyCheckIn(data.IsAlreadyCheckIn);
+            self.TotalDuration(data.TotalDuration);
+
+            debugger;
+
+            self.CompanyName(data.CompanyName);
+            self.VahicleNumber(data.VahicleNumber);
+            self.Floor(data.Floor);
+            self.ContactPerson(data.ContactPerson);
+            self.NoOfPerson(data.NoOfPerson);
+            self.Purpose_Remark(data.Purpose);
+
+
             $('.searchVisitor').val('');
-            toastr.success('Visitor data loaded!!');
+            //toastr.success('Visitor data loaded!!');
         });
     }
 
     self.SaveVisitorCheckOut = function () {
-        if (self.errors().length > 0) {
-            self.errors.showAllMessages(true);
-            this.errors().forEach(function (data) {
-            });
-        }
-        else {
+       
             if (self.VisitorId() == '') {
-                toastr.message('No visitor available to check-in.');
+                toastr.warning('No visitor available to check-in.');
                 return;
             }
 
+            if (self.IsAlreadyCheckIn() == false) {
+                toastr.warning('Visitor not checked-in yet.');
+                return;
+            }
+
+
             var data = new Object();
             data.VisitorId = self.VisitorId();
-            data.ContactPerson = self.ContactPerson();
-            data.NoOfPerson = self.NoOfPerson();
-            data.PurposeOfVisit = self.Purpose_Remark();
-            AjaxCall('/Api/VisitorManagement/SaveVisitorCheckIn', data, 'POST', function () {
-                toastr.success('Visitor CheckIn Successfully.!!');
-                self.GetVisitorCheckInHistoryData(self.VisitorId(), self.logoURL())
-                self.ResetCheckInData();
+            
+            AjaxCall('/Api/VisitorManagement/SaveVisitorCheckOut', data, 'POST', function () {
+                toastr.success('Visitor CheckOut Successfully.!!');
+                //alert(self.VisitorId() + '  ' + self.logoURL());
+                self.GetVisitorCheckInHistoryData(self.VisitorId(), self.logoURL());
+                //self.ResetCheckInData();
             })
-        }
+    }
+
+
+    self.ViewHistory = function (tableItem) {
+        debugger;
+        self.ContactPerson(tableItem.ContactPerson);
+        self.NoOfPerson(tableItem.NoOfPerson);
+        self.Purpose_Remark(tableItem.Purpose);
+        self.CompanyName(tableItem.CompanyName);
+        self.VahicleNumber(tableItem.VahicleNumber);
+        self.Floor(tableItem.Floor);
     }
 
     self.ResetCheckInData = function () {
@@ -74,7 +101,7 @@
         self.ContactPerson('');
         self.NoOfPerson('');
         self.Purpose_Remark('');
-        self.VisitorHiostory = ko.observableArray([]);
+        self.VisitorHiostory([]);
         $('.searchVisitor').val('');
     }
 }

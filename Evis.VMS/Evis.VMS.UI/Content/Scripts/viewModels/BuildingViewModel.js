@@ -47,9 +47,10 @@
 
 
     self.Organizations = ko.observableArray();
-    AjaxCall('/Api/Users/GetAllOrganizations', null, 'GET', function (data) {
+    AjaxCall('/Api/User/GetAllOrganizations', null, 'GET', function (data) {
         self.Organizations(data);
     })
+
     self.DataGrid = new RIT.eW.DataGridAjax('/Api/Administration/GetBuildingData', 7);
 
     self.GetAllBuildingData = function () {

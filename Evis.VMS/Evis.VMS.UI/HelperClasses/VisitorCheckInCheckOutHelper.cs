@@ -34,7 +34,7 @@ namespace Evis.VMS.UI.HelperClasses
                                                             VisitorId = item.Id,
                                                             VisitorName = item.VisitorName,
                                                             Gender = item.GenderMaster.LookUpValue,
-                                                            DOB = item.DOB ?? DateTime.MinValue,
+                                                            DOB = (item.DOB ?? DateTime.MinValue).ToShortDateString(),
                                                             MobileNo = item.ContactNo,
                                                             EmailId = item.EmailId,
                                                             IdentificationNo = item.IdNo,
@@ -48,14 +48,14 @@ namespace Evis.VMS.UI.HelperClasses
             return _visitorDataVM;
         }
 
-        public VisitorDataVM GetVisitorCheckInHistory(long visitorId)
+        public VisitorDataVM GetVisitorCheckInHistory(long visitorId, string userId)
         {
             var result = new VisitorDataVM();
             var visitorData = _genericService.VisitorMaster.GetAll().Where(item => item.Id == visitorId).FirstOrDefault();
 
             if (visitorData != null)
             {
-                var query = _genericService.VisitDetails.GetAll().Where(x => x.VisitorId == visitorId);
+                var query = _genericService.VisitDetails.GetAll().Where(x => x.VisitorId == visitorId).OrderByDescending(item => item.CheckIn);
                 List<VisitorCheckInCheckOutHistoryVM> lstVisitorCheckInAndOuttimes = new List<VisitorCheckInCheckOutHistoryVM>();
 
                 if (query.Count() > 0)
@@ -64,17 +64,48 @@ namespace Evis.VMS.UI.HelperClasses
                     {
                         lstVisitorCheckInAndOuttimes.Add(new VisitorCheckInCheckOutHistoryVM
                                                         {
-                                                            CheckInDate = item.CheckIn.Date,
-                                                            CheckInTime = item.CheckIn.TimeOfDay,
-                                                            CheckOutTime = (item.CheckOut == null ? TimeSpan.MinValue : item.CheckOut.Value.TimeOfDay)
+                                                            CheckInDate = item.CheckIn.Date.ToShortDateString(),
+                                                            CheckInTime = item.CheckIn.ToString("hh:mm tt"),
+                                                            CheckOutTime = (item.CheckOut == null ? string.Empty : item.CheckOut.Value.ToString("hh:mm tt")),
+                                                            TotalDuration = (item.CheckOut == null ? "N/A" : (string.Format("{0} Minutes", (item.CheckOut.Value.Subtract(item.CheckIn)).Minutes))),
+                                                            CompanyName = item.CompanyName,
+                                                            ContactPerson = item.ContactPerson,
+                                                            NoOfPerson = item.NoOfPerson.ToString(),
+                                                            Purpose = item.PurposeOfVisit,
+                                                            VahicleNumber = item.VahicleNumber,
+                                                            Floor = item.Floor
                                                         });
                     });
+
+                    if (lstVisitorCheckInAndOuttimes.Count >0 )
+                    {
+                        var latestCheck = lstVisitorCheckInAndOuttimes.FirstOrDefault();
+
+                        if (string.IsNullOrEmpty(latestCheck.CheckOutTime))
+                        {
+                            result.IsAlreadyCheckIn = true; 
+                        }
+                        else
+                        {
+                            result.IsAlreadyCheckIn = false;
+                        }
+                    }
+
+                    var shiftAssignedOrNot = _genericService.ShitfAssignment.GetAll().Where(item => item.UserId == userId && item.IsActive).FirstOrDefault();
+                    if (shiftAssignedOrNot != null)
+                    {
+                        result.IsShiftAssignedToSecurity = true;
+                    }
+
+
                 }
+
+
 
                 var gateCount = _genericService.GateMaster.GetAll().Count();
                 result.IsAnyGateExist = (gateCount > 0 ? true : false);
                 result.VisitorHiostory = lstVisitorCheckInAndOuttimes.ToList();
-                result.DOB = visitorData.DOB ?? DateTime.MinValue;
+                result.DOB = (visitorData.DOB ?? DateTime.MinValue).ToShortDateString();
                 result.EmailId = visitorData.EmailId;
                 result.Gender = visitorData.GenderMaster.LookUpValue;
                 result.TypeOfCard = visitorData.TypeOfCard.LookUpValue;
@@ -83,26 +114,54 @@ namespace Evis.VMS.UI.HelperClasses
                 result.Nationality = visitorData.CountryMaster.LookUpValue;
                 result.VisitorId = visitorData.Id;
                 result.VisitorName = visitorData.VisitorName;
+
+                
             }
 
             return result;
         }
 
-        public bool SaveVisitorCheckIn(VisitorCheckInVM visitorCheckInVM)
+        public bool SaveVisitorCheckIn(VisitorCheckInVM visitorCheckInVM, string userId)
         {
-            VisitDetails _visitDetails = new VisitDetails();
-            _visitDetails.VisitorId = visitorCheckInVM.VisitorId;
-            _visitDetails.ContactPerson = visitorCheckInVM.ContactPerson;
-            _visitDetails.NoOfPerson = visitorCheckInVM.NoOfPerson;
-            _visitDetails.PurposeOfVisit = visitorCheckInVM.PurposeOfVisit;
-            _visitDetails.CheckIn = DateTime.UtcNow;
-            _visitDetails.CheckOut = null;
-            _visitDetails.CreatedBy = visitorCheckInVM.CreatedBy;
-            _visitDetails.CheckInGate = visitorCheckInVM.CheckInGate;
-            _visitDetails.CheckOutGate = visitorCheckInVM.CheckOutGate;
-            _genericService.VisitDetails.Insert(_visitDetails);
-            _genericService.Commit();
-            return true;
+            var gate = _genericService.ShitfAssignment.GetAll().Where(item => item.UserId == userId && item.IsActive).FirstOrDefault();
+
+            if (gate != null)
+            {
+                VisitDetails _visitDetails = new VisitDetails();
+                _visitDetails.VisitorId = visitorCheckInVM.VisitorId;
+                _visitDetails.ContactPerson = visitorCheckInVM.ContactPerson;
+                _visitDetails.NoOfPerson = visitorCheckInVM.NoOfPerson;
+                _visitDetails.PurposeOfVisit = visitorCheckInVM.PurposeOfVisit;
+                _visitDetails.CheckIn = DateTime.UtcNow;
+                _visitDetails.CheckOut = null;
+                _visitDetails.CreatedBy = visitorCheckInVM.CreatedBy;
+                _visitDetails.CheckInGate = gate.Id;
+                _visitDetails.CheckOutGate = gate.Id;
+                _visitDetails.CompanyName = visitorCheckInVM.CompanyName;
+                _visitDetails.VahicleNumber = visitorCheckInVM.VahicleNumber;
+                _visitDetails.Floor = visitorCheckInVM.Floor;
+                _genericService.VisitDetails.Insert(_visitDetails);
+                _genericService.Commit();
+                return true;
+            }
+            return false;
+        }
+
+        public bool SaveVisitorCheckOut(VisitorCheckInVM visitorCheckInVM)
+        {
+            var visitDetail = _genericService.VisitDetails.GetAll().Where(item => item.VisitorId == visitorCheckInVM.VisitorId).OrderByDescending(item => item.CheckIn).FirstOrDefault();
+
+            if (visitDetail != null)
+            {
+                if (visitDetail.CheckOut == null)
+                {
+                    visitDetail.CheckOut = DateTime.UtcNow;
+                    _genericService.Commit();
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public List<VisitorJsonModel> GetVisitorData(string searchterm)
