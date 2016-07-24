@@ -115,9 +115,10 @@
                             <tr>
                                 <th style="width: 1%">#</th>
                                 <th style="width: 10%">Date</th>
-                                <th style="width: 12%">Check In</th>
-                                <th style="width: 12%">Check Out</th>
-                                <th style="width: 12%">Total Duration</th>
+                                <th style="width: 10%">Check In</th>
+                                <th style="width: 10%">Check Out</th>
+                                <th style="width: 10%">Duration</th>
+                                <th style="width: 6%"></th>
                             </tr>
                         </thead>
                         <tbody data-bind="foreach: VisitorHiostory">
@@ -127,6 +128,7 @@
                                 <td data-bind="text: CheckInTime"></td>
                                 <td data-bind="text: CheckOutTime"></td>
                                 <td></td>
+                                <td><a href="#" class="btn  btn-s" title="click here to view record."><i class="fa fa-eye"></i></a></td>
                             </tr>
                         </tbody>
                         <tbody data-bind="if:VisitorHiostory().length == 0">

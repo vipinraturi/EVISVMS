@@ -66,7 +66,8 @@ namespace Evis.VMS.UI.HelperClasses
                                                         {
                                                             CheckInDate = item.CheckIn.Date,
                                                             CheckInTime = item.CheckIn.TimeOfDay,
-                                                            CheckOutTime = (item.CheckOut == null ? TimeSpan.MinValue : item.CheckOut.Value.TimeOfDay)
+                                                            CheckOutTime = (item.CheckOut == null ? TimeSpan.MinValue : item.CheckOut.Value.TimeOfDay),
+                                                            TotalDuration =  "0 mins"
                                                         });
                     });
                 }

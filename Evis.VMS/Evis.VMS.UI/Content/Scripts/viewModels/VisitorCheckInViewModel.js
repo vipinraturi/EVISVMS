@@ -25,7 +25,7 @@
         NoOfPerson: this.NoOfPerson
     });
 
-    self.GetVisitorCheckInHistoryData = function (visitorId, logoURL) {
+    self.GetVisitorCheckInHistoryData = function (visitorId, logoURL, isResetFields) {
         AjaxCall('/Api/VisitorManagement/GetVisitorCheckInHistory?visitorId=' + visitorId, null, 'POST', function (data) {
             $('.img-responsive').attr('src', logoURL);
             self.logoURL(logoURL);
@@ -43,6 +43,10 @@
 
             $('.searchVisitor').val('');
             toastr.success('Visitor data loaded!!');
+
+            if (isResetFields) {
+                self.ResetCheckInFormData();
+            }
         });
     }
 
@@ -79,10 +83,30 @@
             
             AjaxCall('/Api/VisitorManagement/SaveVisitorCheckIn', data, 'POST', function () {
                 toastr.success('Visitor CheckIn Successfully.!!');
-                self.GetVisitorCheckInHistoryData(self.VisitorId(), self.logoURL())
-                self.ResetCheckInData();
+                //alert(self.VisitorId() + '  ' + self.logoURL());
+                self.GetVisitorCheckInHistoryData(self.VisitorId(), self.logoURL(), true)
+                
             })
         }
+    }
+
+
+    self.ResetCheckInFormData = function () {
+        //self.VisitorName('[Visitor Name]');
+        //self.Gender('[Gender]');
+        //self.DOB('[DOB]');
+        //self.MobileNo('[Mobile No]');
+        //self.EmailId('[EmailId]');
+        //self.IdentificationNo('[Identification No.]');
+        //self.Nationality(' [Nationality]');
+        self.ContactPerson('');
+        self.NoOfPerson('');
+        self.Purpose_Remark('');
+        self.CompanyName('');
+        self.VahicleNumber('');
+        self.Floor('');
+        $('.searchVisitor').val('');
+        //$('.img-responsive').attr('src', '');
     }
 
     self.ResetCheckInData = function ()
@@ -101,8 +125,9 @@
         self.CompanyName('');
         self.VahicleNumber('');
         self.Floor('');
-        self.VisitorHiostory = ko.observableArray([]);
+        self.VisitorHiostory([]);
         $('.searchVisitor').val('');
+        $('.img-responsive').attr('src', '');
     }
 }
 
@@ -133,7 +158,7 @@ BindAutoCompleteEvent = function () {
         },
         minLength: 2,
         select: function (event, ui) {
-            self.GetVisitorCheckInHistoryData(ui.item.VisitorId, ui.item.logoUrl);
+            self.GetVisitorCheckInHistoryData(ui.item.VisitorId, ui.item.logoUrl, false);
         },
         open: function () {
             $(this).removeClass('ui-corner-all').addClass('ui-corner-top');

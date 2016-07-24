@@ -54,15 +54,20 @@
             data.ContactPerson = self.ContactPerson();
             data.NoOfPerson = self.NoOfPerson();
             data.PurposeOfVisit = self.Purpose_Remark();
+
             AjaxCall('/Api/VisitorManagement/SaveVisitorCheckIn', data, 'POST', function () {
                 toastr.success('Visitor CheckIn Successfully.!!');
-                self.GetVisitorCheckInHistoryData(self.VisitorId(), self.logoURL())
+                //ApplyCustomBinding('visitorcheckin');
+                alert(self.VisitorId() + '  ' + self.logoURL());
+
+                self.GetVisitorCheckInHistoryData(self.VisitorId(), self.logoURL());
                 self.ResetCheckInData();
             })
         }
     }
 
     self.ResetCheckInData = function () {
+        alert('calling reset...');
         self.VisitorId('');
         self.VisitorName('[Visitor Name]');
         self.Gender('[Gender]');
