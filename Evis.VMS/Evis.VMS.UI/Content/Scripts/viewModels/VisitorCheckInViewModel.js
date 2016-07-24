@@ -15,6 +15,8 @@
     self.CompanyName = ko.observable('');
     self.VahicleNumber = ko.observable('');
     self.Floor = ko.observable('');
+    self.TotalDuration = ko.observable('');
+    
     self.IsAlreadyCheckIn = ko.observable(false);
 
     self.VisitorHiostory = ko.observableArray();
@@ -41,9 +43,9 @@
             self.VisitorHiostory(data.VisitorHiostory);
             self.IsSecurityPerson(data.IsSecurityPerson);
             self.IsAnyGateExist(data.IsAnyGateExist);
-            //alert(data.IsAlreadyCheckIn);
             self.IsAlreadyCheckIn(data.IsAlreadyCheckIn);
-
+            self.TotalDuration(data.TotalDuration);
+            
             $('.searchVisitor').val('');
             toastr.success('Visitor data loaded!!');
 
@@ -57,10 +59,10 @@
         debugger;
         self.ContactPerson(tableItem.ContactPerson);
         self.NoOfPerson(tableItem.NoOfPerson);
-        self.Purpose_Remark(tableItem.Purpose_Remark);
+        self.Purpose_Remark(tableItem.Purpose);
         self.CompanyName(tableItem.CompanyName);
         self.VahicleNumber(tableItem.VahicleNumber);
-        self.Floor('');
+        self.Floor(tableItem.Floor);
     }
 
     self.SaveVisitorCheckIn = function () {
@@ -85,7 +87,7 @@
                 return;
             }
 
-            if (self.IsAlreadyCheckIn() == false) {
+            if (self.IsAlreadyCheckIn() == true) {
                 toastr.warning('Visitor already checked-in.');
                 return;
             }

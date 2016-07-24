@@ -84,6 +84,13 @@ namespace Evis.VMS.UI.ViewModel
         public int CheckInGate { get; set; }
 
         public int CheckOutGate { get; set; }
+
+         public string CompanyName { get; set; }
+
+         public string VahicleNumber { get; set; }
+
+         public string Floor { get; set; }
+
     }
 
     public class VisitorCheckInCheckOutHistoryListVM
@@ -101,6 +108,13 @@ namespace Evis.VMS.UI.ViewModel
         public string CheckOutTime { get; set; }
 
         public string TotalDuration { get; set; }
+
+        public string CompanyName { get; set; }
+        public string ContactPerson { get; set; }
+        public string NoOfPerson { get; set; }
+        public string VahicleNumber { get; set; }
+        public string Floor { get; set; }
+        public string Purpose { get; set; }
     }
 
     public class VisitorJsonModel

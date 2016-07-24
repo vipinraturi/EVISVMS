@@ -53,5 +53,16 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             var result = _visitorCheckInCheckOutHelper.SaveVisitorCheckIn(visitorCheckInVM);
             return new ReturnResult { Message = (result == true ? "Success" : "Failure"), Success = (result == true ? true : false) };
         }
+
+
+        [Route("~/Api/VisitorManagement/SaveVisitorCheckOut")]
+        [HttpPost]
+        public ReturnResult SaveVisitorCheckOut([FromBody] VisitorCheckInVM visitorCheckInVM)
+        {
+            visitorCheckInVM.CreatedBy = HttpContext.Current.User.Identity.GetUserId();
+            visitorCheckInVM.CheckInGate = 1;
+            var result = _visitorCheckInCheckOutHelper.SaveVisitorCheckOut(visitorCheckInVM);
+            return new ReturnResult { Message = (result == true ? "Success" : "Failure"), Success = (result == true ? true : false) };
+        }
     }
 }

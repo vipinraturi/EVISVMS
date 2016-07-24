@@ -65,9 +65,15 @@ namespace Evis.VMS.UI.HelperClasses
                         lstVisitorCheckInAndOuttimes.Add(new VisitorCheckInCheckOutHistoryVM
                                                         {
                                                             CheckInDate = item.CheckIn.Date.ToShortDateString(),
-                                                            CheckInTime = item.CheckIn.TimeOfDay.ToString(),
-                                                            CheckOutTime = (item.CheckOut == null ? string.Empty : item.CheckOut.Value.TimeOfDay.ToString()),
-                                                            TotalDuration =  "0 mins",
+                                                            CheckInTime = item.CheckIn.ToString("hh:mm tt"),
+                                                            CheckOutTime = (item.CheckOut == null ? string.Empty : item.CheckOut.Value.ToString("hh:mm tt")),
+                                                            TotalDuration = (item.CheckOut == null ? "N/A" : (string.Format("{0} Minutes", (item.CheckOut.Value.Subtract(item.CheckIn)).Minutes))),
+                                                            CompanyName = item.CompanyName,
+                                                            ContactPerson = item.ContactPerson,
+                                                            NoOfPerson = item.NoOfPerson.ToString(),
+                                                            Purpose = item.PurposeOfVisit,
+                                                            VahicleNumber = item.VahicleNumber,
+                                                            Floor = item.Floor
                                                         });
                     });
 
@@ -77,11 +83,11 @@ namespace Evis.VMS.UI.HelperClasses
 
                         if (string.IsNullOrEmpty(latestCheck.CheckOutTime))
                         {
-                            result.IsAlreadyCheckIn = false;
+                            result.IsAlreadyCheckIn = true; 
                         }
                         else
                         {
-                            result.IsAlreadyCheckIn = true;
+                            result.IsAlreadyCheckIn = false;
                         }
                     }
                 }
@@ -117,9 +123,29 @@ namespace Evis.VMS.UI.HelperClasses
             _visitDetails.CreatedBy = visitorCheckInVM.CreatedBy;
             _visitDetails.CheckInGate = visitorCheckInVM.CheckInGate;
             _visitDetails.CheckOutGate = visitorCheckInVM.CheckOutGate;
+            _visitDetails.CompanyName = visitorCheckInVM.CompanyName;
+            _visitDetails.VahicleNumber = visitorCheckInVM.VahicleNumber;
+            _visitDetails.Floor = visitorCheckInVM.Floor;
             _genericService.VisitDetails.Insert(_visitDetails);
             _genericService.Commit();
             return true;
+        }
+
+        public bool SaveVisitorCheckOut(VisitorCheckInVM visitorCheckInVM)
+        {
+            var visitDetail = _genericService.VisitDetails.GetAll().Where(item => item.VisitorId == visitorCheckInVM.VisitorId).OrderByDescending(item => item.CheckIn).FirstOrDefault();
+
+            if (visitDetail != null)
+            {
+                if (visitDetail.CheckOut == null)
+                {
+                    visitDetail.CheckOut = DateTime.UtcNow;
+                    _genericService.Commit();
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public List<VisitorJsonModel> GetVisitorData(string searchterm)

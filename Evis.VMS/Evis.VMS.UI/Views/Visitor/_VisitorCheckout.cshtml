@@ -23,43 +23,56 @@
                     <ul class="list-unstyled user_data">
                         <li>
                             <i class="fa fa-user favwhite user-profile-icon"></i>
-                            <label id="lblVisitorName" data-bind="text: VisitorName" />
+                            Visitor Name:<label id="lblVisitorName" data-bind="text: VisitorName" />
                         </li>
                         <li>
                             <i class="fa fa-mars favwhite user-profile-icon"></i>
-                            <label id="lblGender" data-bind="text: Gender" />
+                            Gender:<label id="lblGender" data-bind="text: Gender" />
                         </li>
                         <li>
                             <i class="fa fa-calendar favwhite user-profile-icon"></i>
-                            <label id="lblDOB" data-bind="text: DOB" />
+                            DOB:<label id="lblDOB" data-bind="text: DOB" />
                         </li>
                         <li>
                             <i class="fa fa-phone favwhite user-profile-icon"></i>
-                            <label id="lblMobileNo" data-bind="text: MobileNo" />
+                            Mobile No:<label id="lblMobileNo" data-bind="text: MobileNo" />
                         </li>
                         <li>
                             <i class="fa fa-envelope favwhite user-profile-icon"></i>
-                            <label id="lblEmailId" data-bind="text: EmailId" />
+                            EmailId:<label id="lblEmailId" data-bind="text: EmailId" />
                         </li>
                         <li>
                             <i class="fa fa-simplybuilt favwhite user-profile-icon"></i>
-                            <label id="lblIdentificationNo" data-bind="text: IdentificationNo" />
+                            Identification No:<label id="lblIdentificationNo" data-bind="text: IdentificationNo" />
                         </li>
                         <li>
                             <i class="fa fa-flag favwhite user-profile-icon"></i>
-                            <label id="lblNationality" data-bind="text: Nationality" />
+                            Nationality:<label id="lblNationality" data-bind="text: Nationality" />
                         </li>
                         <li>
-                            <i class="fa fa-user favwhite user-profile-icon"></i>
-                            <label id="lblMobileNo">[Contact Number]</label>
+                            <i class="fa fa-simplybuilt favwhite user-profile-icon"></i>
+                            Company Name:<label data-bind="text: CompanyName" />
                         </li>
                         <li>
-                            <i class="fa fa-user favwhite user-profile-icon"></i>
-                            <label id="lblMobileNo">[Number Of Person]</label>
+                            <i class="fa fa-simplybuilt favwhite user-profile-icon"></i>
+                            Vahicle Number:<label data-bind="text: VahicleNumber" />
                         </li>
                         <li>
-                            <i class="fa fa-user favwhite user-profile-icon"></i>
-                            <label id="lblMobileNo">[Purpose / Remark]</label>
+                            <i class="fa fa-simplybuilt favwhite user-profile-icon"></i>
+                            Floor: <label data-bind="text: Floor" />
+                        </li>
+
+                        <li>
+                            <i class="fa fa-simplybuilt favwhite user-profile-icon"></i>
+                            Contact Person:<label data-bind="text: ContactPerson" />
+                        </li>
+                        <li>
+                            <i class="fa fa-simplybuilt favwhite user-profile-icon"></i>
+                            No Of Persons: <label data-bind="text: NoOfPerson" />
+                        </li>
+                        <li>
+                            <i class="fa fa-simplybuilt favwhite user-profile-icon"></i>
+                            Purpose/Rmark: <label data-bind="text: Purpose_Remark" />
                         </li>
                     </ul>
                 </div>
@@ -85,9 +98,10 @@
                             <tr>
                                 <th style="width: 1%">#</th>
                                 <th style="width: 10%">Date</th>
-                                <th style="width: 12%">Check In</th>
-                                <th style="width: 12%">Check Out</th>
-                                <th style="width: 12%">Total Duration</th>
+                                <th style="width: 10%">Check In</th>
+                                <th style="width: 10%">Check Out</th>
+                                <th style="width: 10%">Duration</th>
+                                <th style="width: 6%"></th>
                             </tr>
                         </thead>
                         <tbody data-bind="foreach: VisitorHiostory">
@@ -96,7 +110,11 @@
                                 <td data-bind="text: CheckInDate"></td>
                                 <td data-bind="text: CheckInTime"></td>
                                 <td data-bind="text: CheckOutTime"></td>
-                                <td></td>
+                                <td data-bind="text: TotalDuration"></td>
+                                <td>
+                                    <a href="#" class="btn  btn-s"
+                                       title="click here to view record." data-bind="click: ViewHistory.bind($data)"><i class="fa fa-eye"></i></a>
+                                </td>
                             </tr>
                         </tbody>
                         <tbody data-bind="if:VisitorHiostory().length == 0">
