@@ -9,6 +9,7 @@
 using Evis.VMS.Data.Model.Entities;
 using Evis.VMS.UI.HelperClasses;
 using Evis.VMS.UI.ViewModel;
+using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -16,12 +17,14 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 
 namespace Evis.VMS.UI.Controllers.ApiControllers
 {
     public partial class AdministrationController
     {
+        readonly UserManager<ApplicationUser> _userManager;
 
         [Route("~/Api/ShiftAssignment/GetAllGates")]
         [HttpGet]
@@ -43,9 +46,25 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         [HttpGet]
         public async Task<IEnumerable<DropDownVM>> GetAllUsers(int GateId)
         {
+
+            var user = (await _userService.GetAllAsync()).Where(x => x.Id == HttpContext.Current.User.Identity.GetUserId() && x.IsActive == true).FirstOrDefault();
             var gates = _genericService.GateMaster.GetAll().FirstOrDefault(x => x.Id == GateId && x.IsActive == true);
-            var result = (await _userService.GetAllAsync()).Where(x => x.IsActive == true && x.OrganizationId == gates.BuildingMaster.OrganizationId)
-                .Select(y => new DropDownVM { Id = y.Id, Name = y.FullName });
+            //var result = (await _userService.GetAllAsync()).Where(x => x.IsActive == true && x.OrganizationId == gates.BuildingMaster.OrganizationId && x.Id == "1")
+            //   .Select(y => new DropDownVM { Id = y.Id, Name = y.FullName });
+            var getUsers = (await _userService.GetAllAsync()).Where(x => x.Organization.IsActive == true &&
+                           (user == null || (user != null && x.OrganizationId == user.OrganizationId))).AsQueryable();
+
+            var getRoles = (await _applicationRoleService.GetAllAsync()).AsQueryable();
+            var result = (from users in getUsers
+                          join roles in getRoles on users.Roles.First().RoleId equals roles.Id
+                          where roles.Id == "8179895d-54f2-4316-aab2-e86431fa8b3c"
+                          select new DropDownVM
+                          {
+                              Id = users.Id,
+                              Name = users.FullName
+
+                          }).AsQueryable();
+
             return result;
         }
 
@@ -60,12 +79,12 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     BuildingName = x.Gates.BuildingMaster.BuildingName,
                     GateId = x.GateId,
                     GateName = x.Gates.GateNumber,
-                    ShiftId = x.ShitfId,
+                    ShitfId = x.ShitfId,
                     ShiftName = x.Shitfs.ShitfName,
                     UserId = x.UserId,
                     UserName = x.ApplicationUser.FullName,
-                    FromDate = x.FromDate,
-                    ToDate = x.ToDate,
+                    FromDate = Convert.ToDateTime(x.FromDate.ToShortDateString()),
+                    ToDate = Convert.ToDateTime(x.ToDate.ToShortDateString()),
                     Id = x.Id
 
                 })

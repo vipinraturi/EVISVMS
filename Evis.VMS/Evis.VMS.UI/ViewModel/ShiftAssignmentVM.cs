@@ -16,7 +16,7 @@ namespace Evis.VMS.UI.ViewModel
     {
         public int Id { get; set; }
         public string UserId { get; set; }
-        public int ShiftId { get; set; }
+        public int ShitfId { get; set; }
         public int BuildingId { get; set; }
         public int GateId { get; set; }
         public string UserName { get; set; }
