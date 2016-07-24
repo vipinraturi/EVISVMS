@@ -3,7 +3,7 @@
 * Includes: core.css, accordion.css, autocomplete.css, button.css, datepicker.css, dialog.css, draggable.css, menu.css, progressbar.css, resizable.css, selectable.css, selectmenu.css, slider.css, sortable.css, spinner.css, tabs.css, tooltip.css, theme.css
 * To view and modify this theme, visit http://jqueryui.com/themeroller/?ffDefault=Verdana%2CArial%2Csans-serif&fwDefault=normal&fsDefault=1.1em&cornerRadius=4px&bgColorHeader=cccccc&bgTextureHeader=highlight_soft&bgImgOpacityHeader=75&borderColorHeader=aaaaaa&fcHeader=222222&iconColorHeader=222222&bgColorContent=ffffff&bgTextureContent=flat&bgImgOpacityContent=75&borderColorContent=aaaaaa&fcContent=222222&iconColorContent=222222&bgColorDefault=e6e6e6&bgTextureDefault=glass&bgImgOpacityDefault=75&borderColorDefault=d3d3d3&fcDefault=555555&iconColorDefault=888888&bgColorHover=dadada&bgTextureHover=glass&bgImgOpacityHover=75&borderColorHover=999999&fcHover=212121&iconColorHover=454545&bgColorActive=ffffff&bgTextureActive=glass&bgImgOpacityActive=65&borderColorActive=aaaaaa&fcActive=212121&iconColorActive=454545&bgColorHighlight=fbf9ee&bgTextureHighlight=glass&bgImgOpacityHighlight=55&borderColorHighlight=fcefa1&fcHighlight=363636&iconColorHighlight=2e83ff&bgColorError=fef1ec&bgTextureError=glass&bgImgOpacityError=95&borderColorError=cd0a0a&fcError=cd0a0a&iconColorError=cd0a0a&bgColorOverlay=aaaaaa&bgTextureOverlay=flat&bgImgOpacityOverlay=0&opacityOverlay=30&bgColorShadow=aaaaaa&bgTextureShadow=flat&bgImgOpacityShadow=0&opacityShadow=30&thicknessShadow=8px&offsetTopShadow=-8px&offsetLeftShadow=-8px&cornerRadiusShadow=8px
 * Copyright 2015 jQuery Foundation and other contributors; Licensed MIT */
- 
+
 /* Layout helpers
 ----------------------------------*/
 .ui-helper-hidden {
@@ -17,7 +17,7 @@
 	overflow: hidden;
 	padding: 0;
 	position: absolute;
-	width: 1px;   
+	width: 1px;
 }
 .ui-helper-reset {
 	margin: 0;
@@ -844,12 +844,13 @@ body .ui-tooltip {
 	font-size: 1em;
 }
 .ui-widget-content {
-	/*border: 1px solid #aaaaaa;
+	/*Anith
+        border: 1px solid #aaaaaa;
 	background: #ffffff url("images/ui-bg_flat_75_ffffff_40x100.png") 50% 50% repeat-x;
 	color: #222222;*/
-     border: 1px solid #000000;
-    background: rgba(255, 38, 38, 0.88) url("images/ui-bg_flat_75_ffffff_40x100.png") 50% 50% repeat-x;
-    color: #000000;
+     /*border: 1px solid #000000;*/
+    background: #cccccc url("images/ui-bg_flat_75_ffffff_40x100.png") 50% 50% repeat-x;
+    color: #000000 !important;
 
 }
 .ui-widget-content a {
@@ -875,9 +876,9 @@ body .ui-tooltip {
 	font-weight: normal;
 	color: #555555;*/
      border: 1px solid #000000;
-    background: #000000 url("images/ui-bg_glass_75_e6e6e6_1x400.png") 50% 50% repeat-x;
+    /*background: #000000 url("images/ui-bg_glass_75_e6e6e6_1x400.png") 50% 50% repeat-x;*/
     font-weight: normal;
-    color: #555;
+    color: #555 !important;
 
 }
 .ui-state-default a,
@@ -892,11 +893,11 @@ body .ui-tooltip {
 .ui-state-focus,
 .ui-widget-content .ui-state-focus
 /*.ui-widget-header .ui-state-focus*/ {
-	border: 1px solid #000;
-	background: #443f3f url("/images/ui-bg_glass_75_dadada_1x400.png") 50% 50% repeat-x;
+	/*border: 1px solid #000;*/
+	background: #cd0a0a url("/images/ui-bg_glass_75_dadada_1x400.png") 50% 50% repeat-x ;
 	font-weight: normal;
 	/*color: #212121;*/
-    color: yellow;
+    color: black;
 }
 .ui-state-hover a,
 .ui-state-hover a:hover,
@@ -913,7 +914,7 @@ body .ui-tooltip {
 .ui-widget-content .ui-state-active,
 .ui-widget-header .ui-state-active {
 	border: 1px solid #aaaaaa;
-	background: #555 url("images/ui-bg_glass_65_ffffff_1x400.png") 50% 50% repeat-x;
+	background: #cfcccc url("images/ui-bg_glass_65_ffffff_1x400.png") 50% 50% repeat-x;
 	font-weight: normal;
 	color: #212121;
 }
@@ -942,7 +943,7 @@ body .ui-tooltip {
 .ui-widget-content .ui-state-error,
 .ui-widget-header .ui-state-error {
 	border: 1px solid #cd0a0a;
-	background: #fef1ec url("images/ui-bg_glass_95_fef1ec_1x400.png") 50% 50% repeat-x;
+	background: #12d8de url("images/ui-bg_glass_95_fef1ec_1x400.png") 50% 50% repeat-x;
 	color: #cd0a0a;
 }
 .ui-state-error a,

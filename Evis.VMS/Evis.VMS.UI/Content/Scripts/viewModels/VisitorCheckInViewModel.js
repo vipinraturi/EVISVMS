@@ -196,7 +196,7 @@ BindAutoCompleteEvent = function () {
 .autocomplete("instance")._renderItem = function (ul, item) {
     return $('<li>')
          .data('item.autocomplete', item)
-         .append('<div  style="border: 1px solid black" class="row" ><div class=col-sm-8>'
+         .append('<div class="row" ><div class=col-sm-8>'
                     + ' Visitor Name: '+ item.VisitorName + '<br>'
                     + ' Email: ' + item.Email + '<br>'
                     + ' MobileNumber: ' + item.MobileNumber + '<br>'

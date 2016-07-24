@@ -16,7 +16,9 @@ namespace Evis.VMS.UI
                   "~/Content/Styles/bootstrap.min.css",
                "~/Content/Styles/font-awesome.min.css",
                "~/Content/Styles/bootstrap-progressbar-3.3.4.min.css",
-               "~/Content/Styles/jquery-jvectormap-2.0.3.css"
+               "~/Content/Styles/jquery-jvectormap-2.0.3.css",
+               "~/Content/Styles/jquery.timepicker.css"
+
                  ));
 
             bundles.Add(new StyleBundle("~/Content/theme1").Include(
@@ -113,7 +115,9 @@ namespace Evis.VMS.UI
             .Include("~/Content/Scripts/plugins/dropzone.min.js")
             .Include("~/Content/Scripts/plugins/Chart.bundle.js")
             .Include("~/Content/Scripts/plugins/googleapi.js")
-            .Include("~/Content/Scripts/plugins/custom.min.js");
+            .Include("~/Content/Scripts/plugins/custom.min.js")
+            .Include("~/Content/Scripts/plugins/jquery.timepicker.js");
+
 
             bundle.Orderer = new NonOrderingBundleOrderer();
             bundles.Add(bundle);
