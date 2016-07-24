@@ -55,7 +55,7 @@ namespace Evis.VMS.UI.HelperClasses
 
             if (visitorData != null)
             {
-                var query = _genericService.VisitDetails.GetAll().Where(x => x.VisitorId == visitorId);
+                var query = _genericService.VisitDetails.GetAll().Where(x => x.VisitorId == visitorId).OrderByDescending(item => item.CheckIn);
                 List<VisitorCheckInCheckOutHistoryVM> lstVisitorCheckInAndOuttimes = new List<VisitorCheckInCheckOutHistoryVM>();
 
                 if (query.Count() > 0)
@@ -64,12 +64,26 @@ namespace Evis.VMS.UI.HelperClasses
                     {
                         lstVisitorCheckInAndOuttimes.Add(new VisitorCheckInCheckOutHistoryVM
                                                         {
-                                                            CheckInDate = item.CheckIn.Date,
-                                                            CheckInTime = item.CheckIn.TimeOfDay,
-                                                            CheckOutTime = (item.CheckOut == null ? TimeSpan.MinValue : item.CheckOut.Value.TimeOfDay),
-                                                            TotalDuration =  "0 mins"
+                                                            CheckInDate = item.CheckIn.Date.ToShortDateString(),
+                                                            CheckInTime = item.CheckIn.TimeOfDay.ToString(),
+                                                            CheckOutTime = (item.CheckOut == null ? string.Empty : item.CheckOut.Value.TimeOfDay.ToString()),
+                                                            TotalDuration =  "0 mins",
                                                         });
                     });
+
+                    if (lstVisitorCheckInAndOuttimes.Count >0 )
+                    {
+                        var latestCheck = lstVisitorCheckInAndOuttimes.FirstOrDefault();
+
+                        if (string.IsNullOrEmpty(latestCheck.CheckOutTime))
+                        {
+                            result.IsAlreadyCheckIn = false;
+                        }
+                        else
+                        {
+                            result.IsAlreadyCheckIn = true;
+                        }
+                    }
                 }
 
                 var gateCount = _genericService.GateMaster.GetAll().Count();
@@ -84,6 +98,8 @@ namespace Evis.VMS.UI.HelperClasses
                 result.Nationality = visitorData.CountryMaster.LookUpValue;
                 result.VisitorId = visitorData.Id;
                 result.VisitorName = visitorData.VisitorName;
+
+                
             }
 
             return result;

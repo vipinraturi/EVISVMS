@@ -41,6 +41,10 @@
         self.DataGrid.GetData(true);
     }
 
+
+   
+
+
     self.LoadMasterData = function () {
         var lookUpTypes = [];
         lookUpTypes.push("Gender");

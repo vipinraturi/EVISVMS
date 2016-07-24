@@ -61,6 +61,8 @@ namespace Evis.VMS.UI.ViewModel
         public string VahicleNumber { get; set; }
 
         public string Floor { get; set; }
+
+        public bool IsAlreadyCheckIn { get; set; }
     }
 
     public class VisitorCheckInVM
@@ -92,11 +94,11 @@ namespace Evis.VMS.UI.ViewModel
     }
     public class VisitorCheckInCheckOutHistoryVM
     {
-        public DateTime CheckInDate { get; set; }
+        public string CheckInDate { get; set; }
 
-        public TimeSpan CheckInTime { get; set; }
+        public string CheckInTime { get; set; }
 
-        public TimeSpan? CheckOutTime { get; set; }
+        public string CheckOutTime { get; set; }
 
         public string TotalDuration { get; set; }
     }

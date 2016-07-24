@@ -22,7 +22,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
     {
         [Route("~/Api/VisitorManagement/GetVisitorCheckInHistory")]
         [HttpPost]
-        public async Task<VisitorDataVM> GetVisitorCheckInHistory(long visitorId)//int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC"
+        public async Task<VisitorDataVM> GetVisitorCheckInHistory(long visitorId)//, int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC")
         {
             var visitorDataVMData = _visitorCheckInCheckOutHelper.GetVisitorCheckInHistory(visitorId);
 
@@ -38,6 +38,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 {
                     visitorDataVMData.IsSecurityPerson = true;
                 }
+                
+                
             }
             return visitorDataVMData;
         }
