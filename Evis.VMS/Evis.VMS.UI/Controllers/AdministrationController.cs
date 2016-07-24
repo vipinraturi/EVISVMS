@@ -96,17 +96,22 @@ namespace Evis.VMS.UI.Controllers
             // var result = _genericService.Organization.GetAll().FirstOrDefault(item => item.Id == currentUser.OrganizationId);
             string orginization = string.Empty;
             string logoPath = string.Empty;
-
+            string imageLocation = string.Empty;
             if (currentUser.Organization == null)// in case of super admin only
             {
+                imageLocation = "\\images\\logo\\main_logo.png";
                 logoPath = string.Format("{0}\\images\\logo\\main_logo.png", Server.MapPath(@"\"));
+
             }
             else
             {
                 orginization = currentUser.Organization.CompanyName;
-                logoPath = string.Format("{0}images\\logo//" + orginization, Server.MapPath(@"\"));
+                imageLocation = "\\images\\logo\\" + orginization + "\\logo.png";
+                logoPath = string.Format("{0}images\\logo\\" + orginization, Server.MapPath(@"\"));
             }
-
+            var existingOrg = _genericService.Organization.GetById(currentUser.Organization.Id);
+            existingOrg.ImagePath = imageLocation;
+            _genericService.Organization.Update(existingOrg);
             string fName = "";
             try
             {
@@ -144,6 +149,7 @@ namespace Evis.VMS.UI.Controllers
 
             if (isSavedSuccessfully)
             {
+                _genericService.Commit();
                 return Json(new { Message = fName });
             }
             else
