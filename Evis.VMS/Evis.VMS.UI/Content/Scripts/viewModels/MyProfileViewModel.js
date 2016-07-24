@@ -47,7 +47,6 @@
         self.RoleId(data.Roles[0].RoleId);
         self.Nationality(data.CountryMaster.LookUpValue);
         $('#viewImageUnique').show();
-        $('.img_responsive_Avatar').attr('src', data.ProfilePicturePath).addClass('dz-message');
 
         self.Roles().forEach(function (item) {
             if (item.Id === self.RoleId()) {
@@ -87,9 +86,7 @@
         if ($('.dz-image img').attr('alt') != undefined) {
             srcURL = ($('.dz-image img').attr('alt'));
         }
-        else if ($('.img_responsive_Avatar').attr('src') != undefined) {
-            srcURL = ($('.img_responsive_Avatar').attr('src'));
-        }
+       
 
         if (srcURL.indexOf('/images/UserImages') == -1) {
             srcURL = '/images/UserImages/' + srcURL;

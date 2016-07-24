@@ -12,12 +12,10 @@
             <div class="x_content">
                 <div class="col-md-2 col-sm-3 col-xs-12 profile_left">
                     <div class="profile_img">
-                        @*<div id="crop-avatar">*@
-                            @*<img class="img-responsive avatar-view" src="../images/avatar.jpg" style="height: 225px;" alt="Avatar" title="Change the avatar" data-toggle="modal" data-target="#avatar-modal">*@
+                     
                             <form id="dropzoneMyProfileImageForm" class="dropzone-avatar dz-clickable img-responsive_Visitor avatar-view" action="~/Account/SaveMyProfilePicture"
                                   method="post" style="height: 129px !important; padding: 2px !important; "
                                   enctype="multipart/form-data" title="Change the avatar">
-                                <img class="img_responsive_Avatar" />
                             </form>
                         <a id="viewImageUnique" style="text-align:center;display:none" href="#" data-bind="click: ViewImage"><u>View Image</u></a>
 
@@ -42,7 +40,6 @@
                             </div>
                         </div>
 
-                        @*</div>*@
                     </div>
                     <h3 data-bind="text: DisplayName, visible: true"></h3>
                     <ul class="list-unstyled user_data">
@@ -129,11 +126,12 @@
         var myDropzone = new Dropzone("#dropzoneMyProfileImageForm");
         myDropzone.maxFiles = 2;
         myDropzone.on("maxfilesexceeded", function (file) {
-            //debugger;
             var res = eval('(' + file.xhr.responseText + ')');
             toastr.warning('Only two images allowed.');
         });
         myDropzone.on("addedfile", function (file) {
+            $('.dz-image-preview').empty();
+
             if (this.files[1] != null) {
                 this.removeFile(this.files[0]);
                 return;
@@ -154,7 +152,6 @@
         });
 
         myDropzone.on('success', function (file) {
-            $('.img_responsive_Avatar').removeAttr('src');
             $('.dz-image').addClass('dz-message');
         });
         myDropzone.on("init", function () {
