@@ -91,7 +91,7 @@ BindingViewModel = function (controllerUrl, viewModel) {
             $('#dateTo').datepicker();
         }
         if (controllerUrl == "/Administration/_Shifts") {
-            $('#txtToTime').timepicker();
+            $('.timepickerCtr').timepicker();
         }
     });
 }
