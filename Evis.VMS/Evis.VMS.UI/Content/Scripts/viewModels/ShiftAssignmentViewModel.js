@@ -13,12 +13,15 @@
         errorElementClass: 'err'
     });
     self.Id = ko.observable(0);
+
     self.ShitfId = ko.observable(undefined).extend({ required: true });
     self.UserId = ko.observable(undefined).extend({ required: true });
     self.BuildingId = ko.observable(undefined).extend({ required: true });
     self.GateId = ko.observable(undefined).extend({ required: true });
     self.FromDate = ko.observable('').extend({ required: true });
     self.ToDate = ko.observable('').extend({ required: true });
+
+
     self.errors = ko.validation.group(
       {
           BuildingId: this.BuildingId,
@@ -68,10 +71,7 @@
             })
         }
     }
-    //AjaxCall('/Api/ShiftAssignment/GetAllUsers', null, 'GET', function (data) {
-    //    //debugger;;
-    //    self.Users(data);
-    //})
+  
     self.ResetShiftAssignment = function () {
         self.GlobalSearch('');
         self.ShitfId('');
@@ -92,7 +92,7 @@
     }
     self.EditShift = function (tableItem) {
         // alert(tableItem.UserId);
-        debugger;
+        //debugger;
         if (tableItem != undefined) {
             self.Id(tableItem.Id);
             self.BuildingId(tableItem.BuildingId);
@@ -105,7 +105,17 @@
         }
     }
     SaveShiftAssignment = function () {
+        if (self.FromDate() == "" && $('#dateFrom').val() != "") {
+           // self.FromDate($('#dateFrom').val());
+            self.FromDate($('#dateFrom').val().split('/')[1] + '/' + $('#dateFrom').val().split('/')[0] + '/' + $('#dateFrom').val().split('/')[2]);
+        }
+        
+        if (self.ToDate() == "" && $('#dateTo').val() != "") {
+            //self.ToDate($('#dateTo').val());
+            self.ToDate($('#dateTo').val().split('/')[1] + '/' + $('#dateTo').val().split('/')[0] + '/' + $('#dateTo').val().split('/')[2]);
+        }
 
+        //debugger;
         if (self.errors().length > 0) {
             self.errors.showAllMessages(true);
             this.errors().forEach(function (data) {
@@ -113,13 +123,15 @@
         }
         else {
             var data = new Object();
-            data.Id = self.Id(),
-            data.ShitfId = self.ShitfId(),
-            data.UserId = self.UserId(),
-            data.BuildingId = self.BuildingId(),
-            data.GateId = self.GateId(),
-            data.FromDate = self.FromDate(),
-            data.ToDate = self.ToDate()
+            data.Id = self.Id();
+            data.ShitfId = self.ShitfId();
+            data.UserId = self.UserId();
+            data.BuildingId = self.BuildingId();
+            data.GateId = self.GateId();
+            data.FromDate = self.FromDate();
+            data.ToDate = self.ToDate();
+
+
             AjaxCall('/Api/ShiftAssignment/SaveShiftAssignment', data, 'POST', function () {
                 toastr.success('ShiftAssignment saved successfully!!')
                 ApplyCustomBinding('shiftassignment');

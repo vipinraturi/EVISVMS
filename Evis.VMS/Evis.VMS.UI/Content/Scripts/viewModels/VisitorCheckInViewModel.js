@@ -146,6 +146,7 @@
         self.Floor('');
         $('.searchVisitor').val('');
         self.EnabledFields();
+        //self.clearError();
     }
 
     self.ResetCheckInData = function ()
@@ -166,7 +167,7 @@
         self.Floor('');
         self.VisitorHiostory([]);
         $('.searchVisitor').val('');
-        $('.img-responsive').attr('src', '');
+        $('.visitorImageUnique').attr('src', '');
         self.EnabledFields();
 
         ApplyCustomBinding('visitorcheckin');
