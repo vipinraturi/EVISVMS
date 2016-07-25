@@ -99,15 +99,6 @@
     }
 
     self.ViewImage = function () {
-        var srcURL = '';
-        if ($('.dz-image img').attr('alt') != undefined) {
-            srcURL = ($('.dz-image img').attr('alt'));
-        }
-       
-
-        //if (srcURL.indexOf('/images/UserImages') == -1) {
-        //    srcURL = '/images/UserImages/' + srcURL;
-        //}
         $('#originalSize').attr('src', self.ProfilePicturePath());
         $('#imageModal').modal('show');
     }

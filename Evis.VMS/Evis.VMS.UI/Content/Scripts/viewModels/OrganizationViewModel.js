@@ -102,6 +102,8 @@ function OrganizationViewModel() {
             data.FaxNumber = self.FaxNumber(),
             data.ZipCode = self.ZipCode(),
             data.WebSite = self.WebSite();
+
+            $('.loader-div').show();
             //// display any error messages if we have them
             AjaxCall('/Api/Administration/SaveOrganization', data, 'POST', function (data) {
                 if (data.Success == true) {

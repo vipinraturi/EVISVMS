@@ -109,7 +109,8 @@
             data.Nationality = self.Nationality(),
             data.RoleId = self.RoleId();
             data.ProfilePicturePath = $('.dz-image img').attr('alt');
-
+            
+            $('.loader-div').show();
             //// display any error messages if we have them
             AjaxCall('/Api/Users/SaveUser', data, 'POST', function (data) {
                 if (data.Success == true) {
@@ -143,6 +144,7 @@
 
             $('.dz-image-preview').empty();
             var imagePath = tableItem.ProfilePicturePath;
+            self.ProfilePicturePath(tableItem.ProfilePicturePath);
             var mockFile = { name: tableItem.ImagePath, size: 1024 };
             myDropzone.emit("addedfile", mockFile);
             myDropzone.emit("thumbnail", mockFile, imagePath);
@@ -188,19 +190,7 @@
     }
 
     self.ViewImage = function () {
-        var srcURL = '';
-        if ($('.dz-image img').attr('alt') != undefined) {
-            srcURL = ($('.dz-image img').attr('alt'));
-        }
-        else if ($('.img_responsive_Avatar').attr('src') != undefined) {
-            srcURL = ($('.img_responsive_Avatar').attr('src'));
-        }
-
-        if (srcURL.indexOf('/images/UserImages') == -1) {
-            srcURL = '/images/UserImages/' + srcURL;
-        }
-
-        $('#originalSize').attr('src', srcURL);
+        $('#originalSize').attr('src', self.ProfilePicturePath());
         $('#imageModal').modal('show');
     }
 
