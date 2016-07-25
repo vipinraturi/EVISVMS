@@ -18,7 +18,7 @@
     });
     self.Buildings = ko.observableArray();
     AjaxCall('/Api/Gates/GetAllBuilding', null, 'GET', function (data) {
-        //debugger;;
+        ////debugger;;
         self.Buildings(data);
     })
     self.BuildingName = ko.observable('').extend({ required: true });
@@ -45,10 +45,10 @@
         self.DataGrid.GetData();
     }
     self.BuildingChanged = function () {
-        //  debugger;
+        //  //debugger;
         if (self.BuildingId() != undefined && self.BuildingId() != 0) {
             AjaxCall('/Api/Gates/GetAllBuildingDetails?id=' + self.BuildingId(), null, 'GET', function (data) {
-                //debugger;
+                ////debugger;
                 self.CityName(data[0].CityMaster.LookUpValue);
                 self.CityId(data[0].CityMaster.Id);
 
@@ -63,7 +63,7 @@
 
 
     self.EditGate = function (tableItem) {
-        //debugger;;
+        ////debugger;;
         if (tableItem != undefined) {
             self.Id(tableItem.Id);
             self.GateNumber(tableItem.GateNumber);
@@ -91,7 +91,7 @@
         $('#Building').attr('disabled', false);
     }
     self.SaveGate = function () {
-        //debugger;
+        ////debugger;
         if (self.errors().length > 0) {
             self.errors.showAllMessages(true);
             this.errors().forEach(function (data) {
@@ -101,7 +101,7 @@
         }
         else {
             var data = new Object();
-            //debugger;
+            ////debugger;
             data.Id = self.Id(),
             data.BuildingId = self.BuildingId(),
             data.GateNumber = self.GateNumber();
@@ -119,7 +119,7 @@
         }
     }
     self.GlobalSearchEnter = function (data) {
-        debugger;
+        //debugger;
         self.GetAllGateData();
         console.log(event);
     }

@@ -1,7 +1,7 @@
 ﻿
 function AjaxCall(apiUrl, formData, ajaxType, callback) {
 
-    //debugger;
+    ////debugger;
     $.ajax({
         type: ajaxType,
         url: apiUrl,
@@ -10,7 +10,7 @@ function AjaxCall(apiUrl, formData, ajaxType, callback) {
         dataType: "json",
         cache: false,
         success: function (data) {
-            debugger;
+            //debugger;
             callback(data);
         }
     });

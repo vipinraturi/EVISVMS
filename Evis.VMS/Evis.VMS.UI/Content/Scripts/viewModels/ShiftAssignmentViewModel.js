@@ -42,7 +42,7 @@
     }
     self.Gates = ko.observableArray();
     self.GetGates = function () {
-        //  debugger;
+        //  //debugger;
         if (self.BuildingId() != undefined && self.BuildingId() != 0) {
             AjaxCall('/Api/ShiftAssignment/GetAllGates?BuildingId=' + self.BuildingId(), null, 'GET', function (data) {
                 self.Gates(new Object());
@@ -62,7 +62,7 @@
     })
     self.Users = ko.observableArray();
     self.GetUsers = function () {
-        // debugger;
+        // //debugger;
         if (self.GateId() != undefined && self.GateId() != 0) {
             AjaxCall('/Api/ShiftAssignment/GetAllUsers?GateId=' + self.GateId(), null, 'GET', function (data) {
                 self.Users(new Object());
@@ -92,7 +92,7 @@
     }
     self.EditShift = function (tableItem) {
         // alert(tableItem.UserId);
-        //debugger;
+        ////debugger;
         if (tableItem != undefined) {
             self.Id(tableItem.Id);
             self.BuildingId(tableItem.BuildingId);
@@ -115,7 +115,7 @@
             self.ToDate($('#dateTo').val().split('/')[1] + '/' + $('#dateTo').val().split('/')[0] + '/' + $('#dateTo').val().split('/')[2]);
         }
 
-        //debugger;
+        ////debugger;
         if (self.errors().length > 0) {
             self.errors.showAllMessages(true);
             this.errors().forEach(function (data) {

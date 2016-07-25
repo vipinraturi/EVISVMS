@@ -297,6 +297,7 @@
     <Content Include="Content\Scripts\plugins\jquery.flot.stack.js" />
     <Content Include="Content\Scripts\plugins\jquery.flot.time.js" />
     <Content Include="Content\Scripts\plugins\jquery.min.js" />
+    <Content Include="Content\Scripts\plugins\jquery.timepicker.js" />
     <Content Include="Content\Scripts\plugins\jquery.validate.min.js" />
     <Content Include="Content\Scripts\plugins\knockout-2.3.0.debug.js" />
     <Content Include="Content\Scripts\plugins\knockout-2.3.0.js" />
@@ -347,6 +348,7 @@
     <Content Include="Content\Styles\green.png" />
     <Content Include="Content\Styles\jquery-jvectormap-2.0.3.css" />
     <Content Include="Content\Styles\jquery-ui.css" />
+    <Content Include="Content\Styles\jquery.timepicker.css" />
     <Content Include="Content\Styles\Logincustom.min.css" />
     <Content Include="Content\Styles\pager.css" />
     <Content Include="Content\Styles\toastr-custom.css" />
@@ -404,7 +406,6 @@
     <Content Include="images\WallImages\imagepath\changed files.PNG" />
     <Content Include="images\WallImages\imagepath\tesgsg1.PNG" />
     <Content Include="images\WallImages\imagepath\xamarin installation.png" />
-    <Content Include="SGHErrorLog\Jul-2016\24-Jul-2016.txt" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

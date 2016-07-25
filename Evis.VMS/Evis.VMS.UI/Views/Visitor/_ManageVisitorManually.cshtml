@@ -213,7 +213,7 @@
         myDropzone.maxFiles = 2;
 
         myDropzone.on("maxfilesexceeded", function (file) {
-            debugger;
+            //debugger;
             var res = eval('(' + file.xhr.responseText + ')');
             toastr.warning('Only two images allowed.');
         });
@@ -238,7 +238,7 @@
         });
 
         myDropzone.on("sending", function (file, xhr, formData) {
-            debugger;
+            //debugger;
             var name = new Date().getTime();
             formData.append(name, file);
         });

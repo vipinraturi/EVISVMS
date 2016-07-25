@@ -39,7 +39,7 @@
 
     self.Themes = ko.observableArray();
     AjaxCall('/Api/Administration/GetTheme', null, 'GET', function (data) {
-        debugger;
+        //debugger;
         self.Themes(data);
     });
 
@@ -80,7 +80,7 @@
 
 
                 var data = new Object();
-                //debugger;
+                ////debugger;
                 data.Id = self.Id(),
                 data.CompanyName = self.CompanyName(),
                 data.CityId = self.CityId(),
@@ -127,7 +127,7 @@
     //    POBox: self.POBox,
     //    WebSite: self.WebSite,
     //};
-    //debugger;
+    ////debugger;
     //self.Orginization = ko.observable(Orginization);
 
 
@@ -186,7 +186,7 @@
 
             formData.append("avatarInput", file);
         }
-        //debugger;
+        ////debugger;
         $.ajax({
             type: "POST",
             url: '/Administration/SaveUploadedFile',
@@ -210,7 +210,7 @@
 
 
 RefreshImage = function (Imagepath) {
-    debugger;
+    //debugger;
 
     setTimeout(function () {
         var d = new Date();

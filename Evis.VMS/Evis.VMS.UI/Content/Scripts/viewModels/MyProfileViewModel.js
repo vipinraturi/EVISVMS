@@ -51,7 +51,7 @@
             $('#viewImageUnique').show();
 
             $('.dz-image-preview').empty();
-            //debugger;
+            ////debugger;
             var imagePath = data.ProfilePicturePath;
             self.ProfilePicturePath(data.ProfilePicturePath);
 
@@ -88,7 +88,7 @@
             data.PhoneNumber = self.PhoneNumber();
             data.ContactAddress = self.ContactAddress();
             data.ProfilePicturePath = $('.dz-image img').attr('alt');
-            //debugger;
+            ////debugger;
             AjaxCall('/Api/MyProfile/SaveMyProfile', data, 'POST', function () {
                 toastr.success('My Profile updated successfully!!')
                 ApplyCustomBinding('myprofile');

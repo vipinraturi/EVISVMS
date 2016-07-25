@@ -140,7 +140,7 @@
             self.Nationality(tableItem.Nationality);
             $("#btnSaveUser").text("Update");
             //alert(tableItem.ProfilePicturePath);
-            //debugger;
+            ////debugger;
 
             $('.dz-image-preview').empty();
             var imagePath = tableItem.ProfilePicturePath;

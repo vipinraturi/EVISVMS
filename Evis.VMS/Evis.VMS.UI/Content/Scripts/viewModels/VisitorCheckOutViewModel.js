@@ -39,7 +39,7 @@
             self.IsAlreadyCheckIn(data.IsAlreadyCheckIn);
             self.TotalDuration(data.TotalDuration);
 
-            debugger;
+            //debugger;
 
             self.CompanyName(data.CompanyName);
             self.VahicleNumber(data.VahicleNumber);
@@ -80,7 +80,7 @@
 
 
     self.ViewHistory = function (tableItem) {
-        debugger;
+        //debugger;
         self.ContactPerson(tableItem.ContactPerson);
         self.NoOfPerson(tableItem.NoOfPerson);
         self.Purpose_Remark(tableItem.Purpose);

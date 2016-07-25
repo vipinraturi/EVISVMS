@@ -54,7 +54,7 @@
     self.DataGrid = new RIT.eW.DataGridAjax('/Api/Administration/GetBuildingData', 7);
 
     self.GetAllBuildingData = function () {
-        debugger;
+        //debugger;
         self.DataGrid.UpdateSearchParam('?globalSearch=' + self.GlobalSearch());
         self.DataGrid.GetData();
     }
@@ -66,10 +66,10 @@
 
     self.City = ko.observableArray();
     self.LoadCities = function () {
-        //debugger;
+        ////debugger;
         if (self.StateId() != undefined && self.StateId() != 0) {
             AjaxCall('/Api/Administration/GetAllStateOrCity?id=' + self.StateId(), null, 'GET', function (data) {
-                debugger;
+                //debugger;
                 self.City(data);
                 self.CityId(cityId);
 
@@ -78,10 +78,10 @@
     }
     self.State = ko.observableArray();
     self.LoadStates = function () {
-        debugger;
+        //debugger;
         if (self.NationalityId() != undefined && self.NationalityId() != 0) {
             AjaxCall('/Api/Administration/GetAllStateOrCity?id=' + self.NationalityId(), null, 'GET', function (data) {
-                debugger;
+                //debugger;
                 self.State(data);
                 self.StateId(stateId);
 
@@ -89,7 +89,7 @@
         }
     }
     self.SaveBuilding = function () {
-        debugger;
+        //debugger;
 
         var abc = self.BuildingName();
         //abc = self.StateName();
@@ -143,7 +143,7 @@
 
     }
     self.EditBuilding = function (tableItem) {
-        debugger;
+        //debugger;
         if (tableItem != undefined) {
             self.Id(tableItem.Id);
             self.BuildingName(tableItem.BuildingName);
@@ -161,7 +161,7 @@
     self.DeleteBuilding = function (tableItem) {
         var message = confirm("Are you sure, you want to delete selected record!");
         if (message == true) {
-            debugger;
+            //debugger;
             AjaxCall('/Api/Administration/DeleteBuilding', tableItem, 'POST', function () {
                 toastr.success('Building deleted successfully!!')
                 ApplyCustomBinding('buildings');
@@ -169,7 +169,7 @@
         }
     }
     self.GlobalSearchEnter = function (data) {
-        debugger;
+        //debugger;
         self.GetAllBuildingData();
         console.log(event);
     }

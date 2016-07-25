@@ -1,5 +1,5 @@
 ﻿$(function () {
-    //debugger;
+    ////debugger;
     ApplyCustomBinding('dashboard');
 
     $('.side-menu li').click(function () {

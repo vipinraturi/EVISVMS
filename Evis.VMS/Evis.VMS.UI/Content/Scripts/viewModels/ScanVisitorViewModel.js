@@ -56,6 +56,6 @@ function ScanVisitorViewModel() {
         ApplyCustomBinding('managevisitor');
     }
 
-    //debugger;
+    ////debugger;
     return dataToSend;
 } 

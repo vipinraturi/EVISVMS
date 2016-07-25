@@ -1,5 +1,5 @@
 ﻿function ChangePasswordViewModel() {
-    debugger;
+    //debugger;
     var self = this;
 
     self.Password = ko.observable('').extend({ required: true, minLength: 8 });
@@ -10,9 +10,9 @@
         var data = new Object();
         data.Password = self.Password(),
         data.NewPassword = self.NewPassword();
-        debugger;
+        //debugger;
         AjaxCall('/Api/User/ChangePassword', data, 'POST', function (result) {
-            debugger;
+            //debugger;
             if (result.Success) {
                 toastr.success(result.Message);
                 ApplyCustomBinding('dashboard');

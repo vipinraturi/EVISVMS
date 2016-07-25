@@ -31,7 +31,7 @@
         self.DataGrid.GetData();
     }
     self.Editshift = function (tableItem) {
-        debugger;
+        //debugger;
         if (tableItem != undefined) {
             self.Id(tableItem.Id);
             self.ShitfName(tableItem.ShitfName);
@@ -43,7 +43,7 @@
         }
     }
     self.Saveshift = function () {
-        debugger;
+        //debugger;
         if (self.errors().length > 0) {
             alert(self.errors());
             self.errors.showAllMessages(true);
@@ -60,7 +60,7 @@
             data.FromTime = self.strFromTime();
             data.ToTime = self.strToTime();
             AjaxCall('/Api/Shift/SaveShift', data, 'POST', function () {
-                debugger;
+                //debugger;
                 toastr.success('Shift saved successfully!!');
                 ApplyCustomBinding('newshiftcreate');
             })
@@ -77,7 +77,7 @@
         var message = confirm("Are you sure, you want to delete selected record!");
         if (message == true) {
             AjaxCall('/Api/Shift/DeleteShift', tableItem, 'POST', function () {
-                debugger;
+                //debugger;
                 toastr.success('Shift deleted successfully!!');
                 ApplyCustomBinding('newshiftcreate');
 
@@ -86,7 +86,7 @@
     }
 
     self.GlobalSearchEnter = function (data) {
-        debugger;
+        //debugger;
         self.GetAllShiftData();
         console.log(event);
     }

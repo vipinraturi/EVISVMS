@@ -163,7 +163,7 @@
             self.ContactAddress(tableItem.ContactAddress);
             
             $('.dz-image-preview').empty();
-            //debugger;
+            ////debugger;
             var imagePath = '/images/VisitorImages/' + tableItem.ImagePath;
             var mockFile = { name: tableItem.ImagePath, size: 1024 };
             myDropzone.emit("addedfile", mockFile);

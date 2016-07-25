@@ -59,7 +59,7 @@
     }
 
     self.ViewHistory = function (tableItem) {
-        //debugger;
+        ////debugger;
         self.ContactPerson(tableItem.ContactPerson);
         self.NoOfPerson(tableItem.NoOfPerson);
         self.Purpose_Remark(tableItem.Purpose);

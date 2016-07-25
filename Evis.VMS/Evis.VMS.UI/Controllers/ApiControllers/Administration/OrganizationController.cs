@@ -52,7 +52,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 //                "<br/><br/>Regards,<br/>Administrator";
 
                 // Send email on organization creation.
-                EmailHelper.SendMail(organization.EmailId, "Company Prfile is created", body);
+                //EmailHelper.SendMail(organization.EmailId, "Company Prfile is created", body);
                 message = "Organization saved successfully!!";
                 success = true;
             }
