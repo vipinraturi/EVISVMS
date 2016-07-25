@@ -60,11 +60,12 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         }
         [Route("~/Api/Administration/GetBuildingData")]
         [HttpPost]
-        public async Task<string> GetBuildingData(string globalSearch, int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC")
+        public string GetBuildingData(string globalSearch, int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC")
         {
-            var user = (await _userService.GetAllAsync()).Where(x => x.Id == System.Web.HttpContext.Current.User.Identity.GetUserId() && x.IsActive == true).FirstOrDefault();
+            //var user = (await _userService.GetAllAsync()).Where(x => x.Id == System.Web.HttpContext.Current.User.Identity.GetUserId() && x.IsActive == true).FirstOrDefault();
 
-            var lstBuildingVM = _genericService.BuildingMaster.GetAll().Where(x => x.IsActive == true && (user == null) ? true : x.OrganizationId == (int)user.OrganizationId).ToList()
+            //..&& (user == null) ? true : x.OrganizationId == (int)user.OrganizationId
+            var lstBuildingVM = _genericService.BuildingMaster.GetAll().Where(x => x.IsActive == true).ToList()
                 .Select(x => new BuildingVM
                 {
                     Id = x.Id,
