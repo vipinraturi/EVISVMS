@@ -91,15 +91,14 @@ namespace Evis.VMS.UI.HelperClasses
                         }
                     }
 
-                    var shiftAssignedOrNot = _genericService.ShitfAssignment.GetAll().Where(item => item.UserId == userId && item.IsActive).FirstOrDefault();
-                    if (shiftAssignedOrNot != null)
-                    {
-                        result.IsShiftAssignedToSecurity = true;
-                    }
-
-
                 }
 
+
+                var shiftAssignedOrNot = _genericService.ShitfAssignment.GetAll().Where(item => item.UserId == userId && item.IsActive).FirstOrDefault();
+                if (shiftAssignedOrNot != null)
+                {
+                    result.IsShiftAssignedToSecurity = true;
+                }
 
 
                 var gateCount = _genericService.GateMaster.GetAll().Count();
