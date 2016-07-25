@@ -14,5 +14,19 @@ namespace Evis.VMS.UI.ViewModel
 {
     public class ShiftDetailsVM
     {
+        public int Id { get; set; }
+        public string ShitfName { get; set; }
+
+
+        public DateTime FromTime { get; set; }
+
+
+        public DateTime ToTime { get; set; }
+
+
+        public string strFromTime { get; set; }
+
+
+        public string strToTime { get; set; }
     }
 }

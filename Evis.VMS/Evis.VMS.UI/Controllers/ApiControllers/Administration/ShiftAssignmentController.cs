@@ -9,6 +9,7 @@
 using Evis.VMS.Data.Model.Entities;
 using Evis.VMS.UI.HelperClasses;
 using Evis.VMS.UI.ViewModel;
+using Evis.VMS.Utilities;
 using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
 using System;
@@ -69,7 +70,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         [HttpPost]
         public string GetAllShiftAssignment(string globalSearch, int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC")
         {
-            var Shift = _genericService.ShitfAssignment.GetAll().Where(x => x.IsActive == true).ToList()
+            var Shift = _genericService.ShitfAssignment.GetAll().Where(x => x.IsActive == true)
                 .Select(x => new ShiftAssignmentVM
                 {
                     BuildingId = x.BuildingId,
@@ -80,12 +81,11 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     ShiftName = x.Shitfs.ShitfName,
                     UserId = x.UserId,
                     UserName = x.ApplicationUser.FullName,
-                    FromDate = Convert.ToDateTime(x.FromDate.ToShortDateString()),
-                    ToDate = Convert.ToDateTime(x.ToDate.ToShortDateString()),
+                    FromDate = x.FromDate,
+                    ToDate = x.ToDate,
                     Id = x.Id
 
-                })
-                .ToList();
+                });
             if (Shift.Count() > 0)
             {
                 if (!string.IsNullOrEmpty(globalSearch))
@@ -95,32 +95,24 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                         item.BuildingName.ToLower().Contains(globalSearch.ToLower()) ||
                          item.GateName.ToLower().Contains(globalSearch.ToLower()) ||
                         item.ShiftName.ToLower().Contains(globalSearch.ToLower())
-                        ).ToList();
+                        ).AsQueryable();
                 }
-
-
-                bool sortAscending = (sortOrder == "ASC" ? true : false);
-                if (!string.IsNullOrEmpty(sortField))
+                var paginationRequest = new PaginationRequest
                 {
-                    if (!sortAscending)
-                    {
-                        Shift = Shift
-                               .OrderBy(r => r.GetType().GetProperty(sortField).GetValue(r, null))
-                               .ToList();
-                    }
-                    else
-                    {
-                        Shift = Shift
-                               .OrderByDescending(r => r.GetType().GetProperty(sortField).GetValue(r, null))
-                               .ToList();
-                    }
-                }
-            }
+                    PageIndex = (pageIndex - 1),
+                    PageSize = pageSize,
+                    SearchText = globalSearch,
+                    Sort = new Sort { SortDirection = (sortOrder == "ASC" ? SortDirection.Ascending : SortDirection.Descending), SortBy = sortField }
+                };
 
-            var data = Shift.Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToList();
-            var jsonData = JsonConvert.SerializeObject(data);
-            var total = Shift.Count();
-            return JsonConvert.SerializeObject(new { totalRows = total, result = jsonData });
+                int totalCount = 0;
+                IList<ShiftAssignmentVM> result =
+                   GenericSorterPager.GetSortedPagedList<ShiftAssignmentVM>(Shift, paginationRequest, out totalCount);
+
+                var jsonData = JsonConvert.SerializeObject(result);
+                return JsonConvert.SerializeObject(new { totalRows = totalCount, result = jsonData });
+            }
+            return null;
         }
         [Route("~/Api/ShiftAssignment/SaveShiftAssignment")]
         [HttpPost]
@@ -130,6 +122,10 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             if (ShitfAssignment.Id == 0)
             {
                 ShitfAssignment.IsActive = true;
+                var ToDate = Convert.ToDateTime(ShitfAssignment.ToDate).ToShortDateString();
+                ShitfAssignment.ToDate = Convert.ToDateTime(ToDate);
+                var FromDate = Convert.ToDateTime(ShitfAssignment.FromDate).ToShortDateString();
+                ShitfAssignment.FromDate = Convert.ToDateTime(FromDate);
                 _genericService.ShitfAssignment.Insert(ShitfAssignment);
             }
 
@@ -148,7 +144,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     _genericService.ShitfAssignment.Update(existingShift);
                 };
             }
-            _genericService.Commit();
+             _genericService.Commit();
             return new ReturnResult { Message = "Success", Success = true };
         }
         [Route("~/Api/ShiftAssignment/DeleteShift")]

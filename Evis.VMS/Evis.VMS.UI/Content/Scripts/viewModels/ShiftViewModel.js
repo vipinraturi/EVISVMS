@@ -1,6 +1,5 @@
 ﻿function ShiftViewModel() {
-    debugger;
-
+    var self = this;
     ko.validation.rules.pattern.message = 'Invalid.';
     ko.validation.configure({
         registerExtenders: true,
@@ -11,47 +10,42 @@
         decorateElement: true,
         errorElementClass: 'err'
     })
-
-    var self = this;
-
-    //self.ShitfName = ko.observable().extend({
-    //    required: { message: 'Gate Number is required' },
-    //    deferValidation: true
-    //});
     self.Id = ko.observable(0);
     self.ShitfName = ko.observable('').extend({ required: true });
     self.FromTime = ko.observable('').extend({ required: true });
+    self.strFromTime = ko.observable('').extend({ required: true });
     self.ToTime = ko.observable('').extend({ required: true });
+    self.strToTime = ko.observable('').extend({ required: true });
     self.GlobalSearch = ko.observable('');
     self.errors = ko.validation.group(
        {
            ShitfName: this.ShitfName,
-           FromTime: this.FromTime,
-           ToTime: this.ToTime,
+           FromTime: this.strFromTime,
+           ToTime: this.strToTime,
 
        });
-    self.errors = ko.validation.group(self);
-
+    //self.errors = ko.validation.group(self);
     self.DataGrid = new RIT.eW.DataGridAjax('/Api/Shift/GetAllShift', 7);
-
     self.GetAllShiftData = function () {
         self.DataGrid.UpdateSearchParam('?globalSearch=' + self.GlobalSearch());
         self.DataGrid.GetData();
     }
-
-
     self.Editshift = function (tableItem) {
         debugger;
         if (tableItem != undefined) {
             self.Id(tableItem.Id);
             self.ShitfName(tableItem.ShitfName);
+            self.strFromTime(tableItem.strFromTime);
+            self.strToTime(tableItem.strToTime);
             self.FromTime(tableItem.FromTime);
             self.ToTime(tableItem.ToTime);
+            $("#btnSaveShift").text("Update");
         }
     }
     self.Saveshift = function () {
         debugger;
         if (self.errors().length > 0) {
+            alert(self.errors());
             self.errors.showAllMessages(true);
             this.errors().forEach(function (data) {
                 // toastr.warning(data);
@@ -61,9 +55,11 @@
             var data = new Object();
             data.Id = self.Id(),
             data.ShitfName = self.ShitfName(),
-            data.FromTime = self.FromTime();
-            data.ToTime = self.ToTime();
-            AjaxCall('/Api/Swift/SaveShift', data, 'POST', function () {
+            //data.FromTime = self.FromTime();
+            //data.ToTime = self.ToTime();
+            data.FromTime = self.strFromTime();
+            data.ToTime = self.strToTime();
+            AjaxCall('/Api/Shift/SaveShift', data, 'POST', function () {
                 debugger;
                 toastr.success('Shift saved successfully!!');
                 ApplyCustomBinding('newshiftcreate');
@@ -89,11 +85,23 @@
         }
     }
 
-    self.GlobalSearchEnter = function (data, event) {
-        if (event.which == 13 || event.keycode == 13) {
-            self.GetAllVisitor();
-            console.log(event.which);
-        }
+    self.GlobalSearchEnter = function (data) {
+        debugger;
+        self.GetAllShiftData();
+        console.log(event);
     }
+    ko.bindingHandlers.enterkey = {
+        init: function (element, valueAccessor, allBindings, viewModel) {
+            var callback = valueAccessor();
+            $(element).keypress(function (event) {
+                var keyCode = (event.which ? event.which : event.keyCode);
+                if (keyCode === 13) {
+                    callback.call(viewModel);
+                    return false;
+                }
+                return true;
+            });
+        }
+    };
     self.GetAllShiftData();
 }

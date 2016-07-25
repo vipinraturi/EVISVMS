@@ -139,6 +139,8 @@
         self.ZipCode('');
         self.City('');
         ApplyCustomBinding('buildings');
+        $('#Org').attr('disabled', false);
+
     }
     self.EditBuilding = function (tableItem) {
         debugger;
@@ -152,7 +154,8 @@
             stateId = (tableItem.StateId);
             cityId = (tableItem.CityId);
             self.IsInsert(false);
-            //data.CityId = self.CityId();
+            $("#btnSaveBuilding").text("Update");
+            $('#Org').attr('disabled', true);
         }
     }
     self.DeleteBuilding = function (tableItem) {
@@ -165,11 +168,23 @@
             });
         }
     }
-    self.GlobalSearchEnter = function (data, event) {
-        if (event.which == 13 || event.keycode == 13) {
-            self.GetAllVisitor();
-            console.log(event.which);
-        }
+    self.GlobalSearchEnter = function (data) {
+        debugger;
+        self.GetAllBuildingData();
+        console.log(event);
     }
+    ko.bindingHandlers.enterkey = {
+        init: function (element, valueAccessor, allBindings, viewModel) {
+            var callback = valueAccessor();
+            $(element).keypress(function (event) {
+                var keyCode = (event.which ? event.which : event.keyCode);
+                if (keyCode === 13) {
+                    callback.call(viewModel);
+                    return false;
+                }
+                return true;
+            });
+        }
+    };
     self.GetAllBuildingData();
 }

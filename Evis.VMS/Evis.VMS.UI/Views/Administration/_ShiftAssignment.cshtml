@@ -2,9 +2,7 @@
     <li><a href="#" class="a-color">Administration</a></li>
     <li><a href="#" class="a-color">Shifts Assignment</a></li>
 </ol>
-
 <div class="row">
-
     <div class="col-md-6 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
@@ -28,27 +26,25 @@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Security Person <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-
                             <select class="form-control" data-bind="options: Users, optionsText: 'Name' ,optionsValue: 'Id', value: UserId, optionsCaption: '-- Select --'"></select>
                         </div>
                     </div>
-
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Shift Name <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
                             <select class="form-control" data-bind="options: Shift, optionsText: 'Name' ,optionsValue: 'Id', value:ShitfId, optionsCaption: '-- Select --'"></select>
                         </div>
                     </div>
-                    <div class="form-group col-md-9 col-sm-9 col-xs-12">
-                        <label class="control-label col-md-4 col-sm-4 col-xs-12">From Date</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">From Date<span class="mandatoryField">*</span></label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
                             <input id="dateFrom" type="text" data-bind="value: FromDate" class="form-control" placeholder="[From Date]" />
                             @*<span class="fa fa-calendar favwhite form-control-feedback right" aria-hidden="true"></span>*@
                         </div>
                     </div>
-                    <div class="form-group col-md-9 col-sm-9 col-xs-12">
-                        <label class="control-label col-md-4 col-sm-4 col-xs-12">TO Date</label>
-                        <div class="col-md-8 col-sm-8 col-xs-12">
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">TO Date<span class="mandatoryField">*</span></label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
                             <input id="dateTo" type="text" data-bind="value: ToDate" class="form-control" placeholder="[TO Date]" />
                             @*<span class="fa fa-calendar favwhite form-control-feedback right" aria-hidden="true"></span>*@
                         </div>
@@ -56,15 +52,13 @@
                     <div class="form-group">
                         <div class="pull-right">
                             <button type="button" class="btn btn-primary" data-bind="click: ResetShiftAssignment.bind()">Reset <i class="fa fa-refresh"></i></button>
-                            <button type="button" class="btn btn-success" data-bind="click: SaveShiftAssignment.bind()">Save <i class="fa fa-save"></i></button>
+                            <button type="button" class="btn btn-success" data-bind="click: SaveShiftAssignment.bind()" id="btnSaveshiftassignment">Save <i class="fa fa-save"></i></button>
                         </div>
                     </div>
-
                 </form>
             </div>
         </div>
     </div>
-
     <div class="col-md-6 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
@@ -74,7 +68,8 @@
             <div class="x_content">
                 <div class="col-md-5 col-sm-5 col-xs-12  pull-right top_search">
                     <div class="input-group">
-                        <input id="txtGlobalSearch" type="text" class="form-control" placeholder="Global Search" data-bind="value: GlobalSearch, enterkey: GlobalSearchEnter.bind()" />
+                        <input id="txtGlobalSearch" type="text" class="form-control" placeholder="[Global Search]"
+                               data-bind="value: GlobalSearch, valueUpdate: 'afterkeydown', enterkey: GlobalSearchEnter.bind()" />
                         <span class="input-group-btn">
                             <button class="btn btn-default" type="button" data-bind="click: GetAllShiftAssignmentData.bind()"><i class="fa fa-search"></i></button>
                         </span>
@@ -104,7 +99,6 @@
                                     <a href="#" class="btn  btn-s" data-bind="click: DeleteShift.bind($data)" title="click here to delete record."><i class="fa fa-trash-o"></i></a>
                                 </td>
                             </tr>
-
                         </tbody>
                         <tr class="blank_row" data-bind="visible: (DataGrid.DataRows().length == 0)"><td colspan="10">No data, Add new records.</td></tr>
                     </table>
@@ -113,5 +107,4 @@
             </div>
         </div>
     </div>
-
 </div>

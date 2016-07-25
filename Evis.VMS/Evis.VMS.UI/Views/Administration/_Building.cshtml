@@ -2,9 +2,7 @@
     <li><a href="#" class="a-color">Administration</a></li>
     <li><a href="#" class="a-color">Building</a></li>
 </ol>
-
 <div class="row">
-
     <div class="col-md-6 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
@@ -12,23 +10,20 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content leftcontent">
-
                 <form class="form-horizontal form-label-left input_mask">
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Organization <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <select class="form-control" data-bind="options: Organizations, optionsText: 'Name', optionsValue: 'Id', value: OrganizationId, optionsCaption: '-- Select --'"></select>
+                            <select class="form-control" id="Org" data-bind="options: Organizations, optionsText: 'Name', optionsValue: 'Id', value: OrganizationId, optionsCaption: '-- Select --'"></select>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Building Name <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtBuildingName" type="text" class="form-control" placeholder="[Building Name]" data-bind="value: BuildingName" required="required" />
+                            <input id="txtBuildingName" type="text" class="form-control" placeholder="[Building Name]" data-bind="value: BuildingName" maxlength="50" required="required" />
                             <span class="fa fa-building favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
-
-
 
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Country <span class="mandatoryField">*</span></label>
@@ -36,14 +31,12 @@
                             <select class="form-control" data-bind="options: Countries, optionsText: 'Name', optionsValue: 'Id', value: NationalityId, optionsCaption: '-- Select --', event:{ change: LoadStates()}"></select>
                         </div>
                     </div>
-
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">State <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
                             <select class="form-control" data-bind="options: State, optionsText: 'Name', optionsValue: 'Id', value: StateId, optionsCaption: '-- Select --', event:{ change: LoadCities()}"></select>
                         </div>
                     </div>
-
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">City <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
@@ -53,32 +46,28 @@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Address <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <textarea id="txtAddress" class="form-control" rows="3" placeholder="Contact Address" style="resize: none;" data-bind="value: Address"></textarea>
+                            <textarea id="txtAddress" class="form-control" rows="3" placeholder="[Contact Address]" style="resize: none;" maxlength="90" data-bind="value: Address"></textarea>
                             <span class="fa fa-home favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
-
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Zip Code<span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtPOBox" type="text" class="form-control" placeholder="[PO Box]" required="required" data-bind="value:ZipCode" />
+                            <input id="txtPOBox" type="text" class="form-control" placeholder="[Zip Code]" required="required" maxlength="10" data-bind="value:ZipCode" />
                             <span class="fa fa-envelope-o favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
 
-
                     <div class="form-group">
                         <div class="pull-right">
                             <button type="button" class="btn btn-primary" data-bind="click: ResetBuilding.bind()">Reset <i class="fa fa-refresh"></i></button>
-                            <button type="button" class="btn btn-success" data-bind="click: SaveBuilding">Save <i class="fa fa-save"></i></button>
+                            <button type="button" class="btn btn-success" data-bind="click: SaveBuilding" id="btnSaveBuilding">Save <i class="fa fa-save"></i></button>
                         </div>
                     </div>
-
                 </form>
             </div>
         </div>
     </div>
-
     <div class="col-md-6 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
@@ -88,7 +77,8 @@
             <div class="x_content">
                 <div class="col-md-5 col-sm-5 col-xs-12  pull-right top_search">
                     <div class="input-group">
-                        <input id="txtGlobalSearch" type="text" class="form-control" placeholder="Global Search" data-bind="value: GlobalSearch, enterkey: GlobalSearchEnter.bind()" />
+                        <input id="txtGlobalSearch" type="text" class="form-control" placeholder="[Global Search]"
+                               data-bind="value: GlobalSearch, valueUpdate: 'afterkeydown', enterkey: GlobalSearchEnter.bind()" />
                         <span class="input-group-btn">
                             <button class="btn btn-default" type="button" data-bind="click: GetAllBuildingData.bind()"><i class="fa fa-search"></i></button>
                         </span>
@@ -100,8 +90,8 @@
                             <tr>
                                 <th style="width: 1%">#</th>
                                 <th style="width: 25%"> <a href="#" onclick="DataGrid.Sort('BuildingName')" class="sortCol">BuildingName</a> </th>
-                                <th style="width: 25%"> <a href="#" onclick="DataGrid.Sort('Address')" class="sortCol">Address</a></th>
-                                @*<th style="width: 24%"><a href="#" onclick="DataGrid.Sort('Address')" class="sortCol">Contact No</a></th>*@
+                                <th style="width: 25%"> <a href="#" onclick="DataGrid.Sort('OrganizationName')" class="sortCol">OrganizationName</a></th>
+                                <th style="width: 24%"><a href="#" onclick="DataGrid.Sort('Address')" class="sortCol">Address</a></th>
                                 <th style="width: 25%"></th>
                             </tr>
                         </thead>
@@ -109,13 +99,13 @@
                             <tr>
                                 <th scope="row" data-bind="text: $index() +1"></th>
                                 <td data-bind="text: BuildingName"></td>
+                                <td data-bind="text: OrganizationName"></td>
                                 <td data-bind="text: Address"></td>
                                 <td>
                                     <a href="#" class="btn  btn-s" data-bind="click: EditBuilding.bind($data)" title="click here to view or edit record."><i class="fa fa-pencil"></i></a>
                                     <a href="#" class="btn  btn-s" data-bind="click: DeleteBuilding.bind($data)" title="click here to delete record."><i class="fa fa-trash-o"></i></a>
                                 </td>
                             </tr>
-
                         </tbody>
                         <tr class="blank_row" data-bind="visible: (DataGrid.DataRows().length == 0)"><td colspan="10">No data, Add new records.</td></tr>
                     </table>
@@ -124,5 +114,4 @@
             </div>
         </div>
     </div>
-
 </div>

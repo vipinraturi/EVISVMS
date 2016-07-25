@@ -1,12 +1,9 @@
 ﻿
-
 <ol class="breadcrumb">
     <li><a href="#" class="a-color">Administration</a></li>
     <li><a href="#" class="a-color">Gates</a></li>
 </ol>
-
 <div class="row">
-
     <div class="col-md-6 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
@@ -18,35 +15,31 @@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Building Name <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <select class="form-control" data-bind="options: Buildings, optionsText: 'Name' ,optionsValue: 'Id', value: BuildingId, optionsCaption: '-- Select --',event:{ change: BuildingChanged()}"></select>
+                            <select class="form-control" id="Building" data-bind="options: Buildings, optionsText: 'Name' ,optionsValue: 'Id', value: BuildingId, optionsCaption: '-- Select --',event:{ change: BuildingChanged()}"></select>
                         </div>
                     </div>
-
 
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Country </label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtCountry" type="text" class="form-control inputdisable" placeholder="UAE" disabled data-bind="value:CountryName" />
+                            <input id="txtCountry" type="text" class="form-control inputdisable" placeholder="[Country]" disabled data-bind="value:CountryName" />
                             <span class="fa fa-globe favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
-
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">State </label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtState" type="text" class="form-control inputdisable" placeholder="Dubai" data-bind="value:StateName" />
+                            <input id="txtState" type="text" class="form-control inputdisable" placeholder="[State]" data-bind="value:StateName" />
                             <span class="fa fa-globe favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
-
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">City </label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtCity" type="text" class="form-control inputdisable" placeholder="Dubai" data-bind="value:CityName" disabled />
+                            <input id="txtCity" type="text" class="form-control inputdisable" placeholder="[City]" data-bind="value:CityName" disabled />
                             <span class="fa fa-globe favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
-
                     @*<div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Location </label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
@@ -54,28 +47,24 @@
                                 <span class="fa fa-map-marker favwhite form-control-feedback right" aria-hidden="true"></span>
                             </div>
                         </div>*@
-
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Gate Number <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtGateNumber" type="text" class="form-control" placeholder="[Gate Number]" required="required" data-bind="value:GateNumber" />
+                            <input id="txtGateNumber" type="text" class="form-control" placeholder="[Gate Number]" maxlength="50" required="required" data-bind="value:GateNumber" />
                             <span class="fa fa-envelope-o favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
 
-
                     <div class="form-group">
                         <div class="pull-right">
                             <button type="button" class="btn btn-primary" data-bind="click: ResetGates.bind()">Reset <i class="fa fa-refresh"></i></button>
-                            <button type="button" class="btn btn-success" data-bind="click: SaveGate.bind()">Save <i class="fa fa-save"></i></button>
+                            <button type="button" class="btn btn-success" data-bind="click: SaveGate.bind()" id="btnSaveGate">Save <i class="fa fa-save"></i></button>
                         </div>
                     </div>
-
                 </form>
             </div>
         </div>
     </div>
-
     <div class="col-md-6 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
@@ -85,7 +74,8 @@
             <div class="x_content">
                 <div class="col-md-5 col-sm-5 col-xs-12  pull-right top_search">
                     <div class="input-group">
-                        <input id="txtGlobalSearch" type="text" class="form-control" placeholder="Global Search" data-bind="value: GlobalSearch, enterkey: GlobalSearchEnter.bind()"/>
+                        <input id="txtGlobalSearch" type="text" class="form-control" placeholder="[Global Search]"
+                               data-bind="value: GlobalSearch, valueUpdate: 'afterkeydown', enterkey: GlobalSearchEnter.bind()" />
                         <span class="input-group-btn">
                             <button class="btn btn-default" type="button" data-bind="click: GetAllGateData.bind()"><i class="fa fa-search"></i></button>
                         </span>
@@ -122,6 +112,4 @@
             </div>
         </div>
     </div>
-
 </div>
-

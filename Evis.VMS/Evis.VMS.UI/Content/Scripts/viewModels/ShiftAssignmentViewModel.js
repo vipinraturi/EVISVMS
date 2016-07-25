@@ -101,6 +101,7 @@
             userId = tableItem.UserId;
             self.FromDate(tableItem.FromDate);
             self.ToDate(tableItem.ToDate);
+            $("#btnSaveshiftassignment").text("Update");
         }
     }
     SaveShiftAssignment = function () {
@@ -120,16 +121,27 @@
             data.FromDate = self.FromDate(),
             data.ToDate = self.ToDate()
             AjaxCall('/Api/ShiftAssignment/SaveShiftAssignment', data, 'POST', function () {
-                toastr.success('building saved successfully!!')
+                toastr.success('ShiftAssignment saved successfully!!')
                 ApplyCustomBinding('shiftassignment');
             })
         }
     }
-    self.GlobalSearchEnter = function (data, event) {
-        if (event.which == 13 || event.keycode == 13) {
-            self.GetAllVisitor();
-            console.log(event.which);
-        }
+    self.GlobalSearchEnter = function (data) {
+        self.GetAllBuildingData();
+        console.log(event);
     }
+    ko.bindingHandlers.enterkey = {
+        init: function (element, valueAccessor, allBindings, viewModel) {
+            var callback = valueAccessor();
+            $(element).keypress(function (event) {
+                var keyCode = (event.which ? event.which : event.keyCode);
+                if (keyCode === 13) {
+                    callback.call(viewModel);
+                    return false;
+                }
+                return true;
+            });
+        }
+    };
     self.GetAllShiftAssignmentData();
 }

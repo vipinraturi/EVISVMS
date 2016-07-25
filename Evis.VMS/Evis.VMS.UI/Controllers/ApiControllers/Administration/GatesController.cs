@@ -9,6 +9,7 @@
 using Evis.VMS.Data.Model.Entities;
 using Evis.VMS.UI.HelperClasses;
 using Evis.VMS.UI.ViewModel;
+using Evis.VMS.Utilities;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -56,7 +57,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         [HttpPost]
         public string GetAllGate(string globalSearch, int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC")
         {
-            var lstgateVM = _genericService.GateMaster.GetAll().Where(x => x.IsActive == true).ToList()
+            var lstgateVM = _genericService.GateMaster.GetAll().Where(x => x.IsActive == true)
                 .Select(x => new GatesVM
                 {
                     Id = x.Id,
@@ -64,8 +65,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     GateNumber = x.GateNumber,
                     BuildingName = x.BuildingMaster.BuildingName
 
-                })
-                .ToList();
+                });
             if (lstgateVM.Count() > 0)
             {
                 if (!string.IsNullOrEmpty(globalSearch))
@@ -73,32 +73,25 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     lstgateVM = lstgateVM.Where(item =>
                         item.GateNumber.ToLower().Contains(globalSearch.ToLower()) ||
                          item.BuildingName.ToLower().Contains(globalSearch.ToLower())
-                        ).ToList();
+                        ).AsQueryable();
                 }
 
+                var paginationRequest = new PaginationRequest
+                            {
+                                PageIndex = (pageIndex - 1),
+                                PageSize = pageSize,
+                                SearchText = globalSearch,
+                                Sort = new Sort { SortDirection = (sortOrder == "ASC" ? SortDirection.Ascending : SortDirection.Descending), SortBy = sortField }
+                            };
 
-                bool sortAscending = (sortOrder == "ASC" ? true : false);
-                if (!string.IsNullOrEmpty(sortField))
-                {
-                    if (!sortAscending)
-                    {
-                        lstgateVM = lstgateVM
-                               .OrderBy(r => r.GetType().GetProperty(sortField).GetValue(r, null))
-                               .ToList();
-                    }
-                    else
-                    {
-                        lstgateVM = lstgateVM
-                               .OrderByDescending(r => r.GetType().GetProperty(sortField).GetValue(r, null))
-                               .ToList();
-                    }
-                }
+                int totalCount = 0;
+                IList<GatesVM> result =
+                   GenericSorterPager.GetSortedPagedList<GatesVM>(lstgateVM, paginationRequest, out totalCount);
+
+                var jsonData = JsonConvert.SerializeObject(result);
+                return JsonConvert.SerializeObject(new { totalRows = totalCount, result = jsonData });
             }
-
-            var data = lstgateVM.Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToList();
-            var jsonData = JsonConvert.SerializeObject(data);
-            var total = lstgateVM.Count();
-            return JsonConvert.SerializeObject(new { totalRows = total, result = jsonData });
+            return null;
         }
         [Route("~/Api/Gates/GetAllBuildingDetails")]
         [HttpGet]

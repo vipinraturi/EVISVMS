@@ -9,6 +9,7 @@
 using Evis.VMS.Data.Model.Entities;
 using Evis.VMS.UI.HelperClasses;
 using Evis.VMS.UI.ViewModel;
+using Evis.VMS.Utilities;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -60,7 +61,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         [HttpPost]
         public string GetBuildingData(string globalSearch, int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC")
         {
-            var lstBuildingVM = _genericService.BuildingMaster.GetAll().Where(x => x.IsActive == true).ToList()
+            var lstBuildingVM = _genericService.BuildingMaster.GetAll().Where(x => x.IsActive == true)
                 .Select(x => new BuildingVM
                 {
                     Id = x.Id,
@@ -73,8 +74,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     StateId = x.CityMaster.ParentId,
                     OrganizationName = x.Organization.CompanyName
 
-                })
-                .ToList();
+                });
             if (lstBuildingVM.Count() > 0)
             {
                 if (!string.IsNullOrEmpty(globalSearch))
@@ -83,32 +83,26 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                         item.Address.ToLower().Contains(globalSearch.ToLower()) ||
                         item.BuildingName.ToLower().Contains(globalSearch.ToLower()) ||
                         item.ZipCode.ToLower().Contains(globalSearch.ToLower())
-                        ).ToList();
+                        ).AsQueryable();
                 }
 
 
-                bool sortAscending = (sortOrder == "ASC" ? true : false);
-                if (!string.IsNullOrEmpty(sortField))
-                {
-                    if (!sortAscending)
-                    {
-                        lstBuildingVM = lstBuildingVM
-                               .OrderBy(r => r.GetType().GetProperty(sortField).GetValue(r, null))
-                               .ToList();
-                    }
-                    else
-                    {
-                        lstBuildingVM = lstBuildingVM
-                               .OrderByDescending(r => r.GetType().GetProperty(sortField).GetValue(r, null))
-                               .ToList();
-                    }
-                }
+                var paginationRequest = new PaginationRequest
+              {
+                  PageIndex = (pageIndex - 1),
+                  PageSize = pageSize,
+                  SearchText = globalSearch,
+                  Sort = new Sort { SortDirection = (sortOrder == "ASC" ? SortDirection.Ascending : SortDirection.Descending), SortBy = sortField }
+              };
+
+                int totalCount = 0;
+                IList<BuildingVM> result =
+                   GenericSorterPager.GetSortedPagedList<BuildingVM>(lstBuildingVM, paginationRequest, out totalCount);
+
+                var jsonData = JsonConvert.SerializeObject(result);
+                return JsonConvert.SerializeObject(new { totalRows = totalCount, result = jsonData });
             }
-
-            var data = lstBuildingVM.Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToList();
-            var jsonData = JsonConvert.SerializeObject(data);
-            var total = lstBuildingVM.Count();
-            return JsonConvert.SerializeObject(new { totalRows = total, result = jsonData });
+            return null;
         }
         [Route("~/Api/Administration/DeleteBuilding")]
         [HttpPost]

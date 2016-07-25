@@ -69,7 +69,8 @@
             self.GateNumber(tableItem.GateNumber);
             self.BuildingId(tableItem.BuildingId);
             self.CityId(tableItem.CityId);
-            // self.CityName(tableItem.CityName);
+            $("#btnSaveGate").text("Update");
+            $('#Building').attr('disabled', true);
         }
     }
     self.DeleteGate = function (tableItem) {
@@ -87,6 +88,7 @@
         self.BuildingName('');
         self.CityName('');
         ApplyCustomBinding('gates');
+        $('#Building').attr('disabled', false);
     }
     self.SaveGate = function () {
         //debugger;
@@ -113,16 +115,26 @@
                     self.GateNumber('');
                     toastr.error('Gate name alreday exists!!')
                 }
-                //self.IsInsert(true);
             })
         }
     }
-    //}
-    self.GlobalSearchEnter = function (data, event) {
-        if (event.which == 13 || event.keycode == 13) {
-            self.GetAllVisitor();
-            console.log(event.which);
-        }
+    self.GlobalSearchEnter = function (data) {
+        debugger;
+        self.GetAllGateData();
+        console.log(event);
     }
+    ko.bindingHandlers.enterkey = {
+        init: function (element, valueAccessor, allBindings, viewModel) {
+            var callback = valueAccessor();
+            $(element).keypress(function (event) {
+                var keyCode = (event.which ? event.which : event.keyCode);
+                if (keyCode === 13) {
+                    callback.call(viewModel);
+                    return false;
+                }
+                return true;
+            });
+        }
+    };
     self.GetAllGateData();
 }

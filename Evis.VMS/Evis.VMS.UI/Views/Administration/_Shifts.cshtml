@@ -1,12 +1,9 @@
 ﻿
-
 <ol class="breadcrumb">
     <li><a href="#" class="a-color">Administration</a></li>
     <li><a href="#" class="a-color">Shifts</a></li>
 </ol>
-
 <div class="row">
-
     <div class="col-md-6 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
@@ -18,46 +15,40 @@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Shift Name <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtShiftName" type="text" class="form-control" placeholder="[Shift Name]" required="required" data-bind="value:ShitfName" />
+                            <input id="txtShiftName" type="text" class="form-control" placeholder="[Shift Name]" required="required" maxlength="50" data-bind="value:ShitfName" />
                             <span class="fa fa-building favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
 
-
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Shift From Time <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12 ">
-                            <input id="txtFromTime" type="text" class="form-control timepickerCtr" placeholder="[hh:mm:ss]" required="required" data-bind="value:FromTime" />
+                            <input id="txtFromTime" type="text" class="form-control timepickerCtr" placeholder="[hh:mm]" required="required" data-bind="value:strFromTime" />
                             <span class="fa fa-clock-o favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
-
                     </div>
                     @*<div class=" form-group input-group bootstrap-timepicker timepicker">http://jdewit.github.io/bootstrap-timepicker/index.html
                             <input id="timepicker1" type="text" class="form-control input-small">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
                         </div>*@
-
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Shift To Time <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtToTime" type="text" class="form-control input-small timepickerCtr" placeholder="[hh:mm:ss]" required="required" data-bind="value:ToTime" />
+                            <input id="txtToTime" type="text" class="form-control input-small timepickerCtr" placeholder="[hh:mm]" required="required" data-bind="value:strToTime" />
                             <span class="fa fa-clock-o  favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
 
-
                     <div class="form-group">
                         <div class="pull-right">
                             <button type="button" class="btn btn-primary" data-bind="click: Resetshift.bind()">Reset <i class="fa fa-refresh"></i></button>
-                            <button type="button" class="btn btn-success" data-bind="click: Saveshift.bind()">Save <i class="fa fa-save"></i></button>
+                            <button type="button" class="btn btn-success" data-bind="click: Saveshift.bind()" id="btnSaveShift">Save <i class="fa fa-save"></i></button>
                         </div>
                     </div>
-
                 </form>
             </div>
         </div>
     </div>
-
     <div class="col-md-6 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
@@ -67,7 +58,8 @@
             <div class="x_content">
                 <div class="col-md-5 col-sm-5 col-xs-12  pull-right top_search">
                     <div class="input-group">
-                        <input id="txtGlobalSearch" type="text" class="form-control" placeholder="Global Search" data-bind="value: GlobalSearch, enterkey: GlobalSearchEnter.bind()"/>
+                        <input id="txtGlobalSearch" type="text" class="form-control" placeholder="[Global Search]"
+                               data-bind="value: GlobalSearch, valueUpdate: 'afterkeydown', enterkey: GlobalSearchEnter.bind()" />
                         <span class="input-group-btn">
                             <button class="btn btn-default" type="button" data-bind="click: GetAllShiftData.bind()"><i class="fa fa-search"></i></button>
                         </span>
@@ -79,8 +71,8 @@
                             <tr>
                                 <th style="">#</th>
                                 <th style=""> <a href="#" onclick="DataGrid.Sort('ShitfName')" class="sortCol">Shift Name</a> </th>
-                                <th style=""> <a href="#" onclick="DataGrid.Sort('FromTime')" class="sortCol">To</a></th>
-                                <th style=""><a href="#" onclick="DataGrid.Sort('ToTime')" class="sortCol">From</a></th>
+                                <th style=""> <a href="#" onclick="DataGrid.Sort('strFromTime')" class="sortCol">To</a></th>
+                                <th style=""><a href="#" onclick="DataGrid.Sort('strToTime')" class="sortCol">From</a></th>
                                 <th style=""></th>
                             </tr>
                         </thead>
@@ -88,8 +80,8 @@
                             <tr>
                                 <th scope="row" data-bind="text: $index() +1"></th>
                                 <td data-bind="text:ShitfName"></td>
-                                <td data-bind="text: FromTime"></td>
-                                <td data-bind="text: ToTime"></td>
+                                <td data-bind="text: strFromTime"></td>
+                                <td data-bind="text: strToTime"></td>
                                 <td>
                                     <a href="#" class="btn  btn-s" data-bind="click: Editshift.bind($data)" title="click here to view or edit record."><i class="fa fa-pencil"></i></a>
                                     <a href="#" class="btn  btn-s" data-bind="click: DeleteSwift.bind($data)" title="click here to delete record."><i class="fa fa-trash-o"></i></a>
@@ -102,5 +94,4 @@
             </div>
         </div>
     </div>
-
 </div>

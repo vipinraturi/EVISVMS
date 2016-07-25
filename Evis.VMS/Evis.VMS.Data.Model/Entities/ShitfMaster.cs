@@ -20,9 +20,9 @@ namespace Evis.VMS.Data.Model.Entities
         public string ShitfName { get; set; }
 
         [Required]
-        public TimeSpan FromTime { get; set; }
+        public DateTime FromTime { get; set; }
 
         [Required]
-        public TimeSpan ToTime { get; set; }
+        public DateTime ToTime { get; set; }
     }
 }
