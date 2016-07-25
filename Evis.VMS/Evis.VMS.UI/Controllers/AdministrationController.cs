@@ -109,6 +109,7 @@ namespace Evis.VMS.UI.Controllers
                 imageLocation = "\\images\\logo\\" + orginization + "\\logo.png";
                 logoPath = string.Format("{0}images\\logo\\" + orginization, Server.MapPath(@"\"));
             }
+            
             var existingOrg = _genericService.Organization.GetById(currentUser.Organization.Id);
             existingOrg.ImagePath = imageLocation;
             _genericService.Organization.Update(existingOrg);
@@ -146,16 +147,20 @@ namespace Evis.VMS.UI.Controllers
 
             //return View();
 
-
-            if (isSavedSuccessfully)
+            if (Request.Files.Count > 0)
             {
-                _genericService.Commit();
-                return Json(new { Message = fName });
+                if (isSavedSuccessfully)
+                {
+                    _genericService.Commit();
+                    return Json(new { Message = fName });
+                }
+                else
+                {
+                    return Json(new { Message = "Error in saving file" });
+                }
             }
-            else
-            {
-                return Json(new { Message = "Error in saving file" });
-            }
+            return Json(new { Message = "No file to upload" });
+            
         }
 
     }
