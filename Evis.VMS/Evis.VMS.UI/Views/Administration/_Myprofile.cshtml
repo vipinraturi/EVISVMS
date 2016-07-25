@@ -11,10 +11,10 @@
             </div>
             <div class="x_content">
                 <div class="col-md-2 col-sm-3 col-xs-12 profile_left">
-                    <div class="profile_img">
+                    <div class="">
                      
                             <form id="dropzoneMyProfileImageForm" class="dropzone-avatar dz-clickable img-responsive_Visitor avatar-view" action="~/Account/SaveMyProfilePicture"
-                                  method="post" style="height: 129px !important; padding: 2px !important; "
+                                  method="post" style="height: 129px !important; width: 125px !important; padding: 2px !important; "
                                   enctype="multipart/form-data" title="Change the avatar">
                             </form>
                         <a id="viewImageUnique" style="text-align:center;display:none" href="#" data-bind="click: ViewImage"><u>View Image</u></a>
@@ -121,15 +121,17 @@
 
 
 <script type="text/javascript">
+    
     Dropzone.autoDiscover = false;
+    var myDropzoneUnique;
     $(function () {
-        var myDropzone = new Dropzone("#dropzoneMyProfileImageForm");
-        myDropzone.maxFiles = 2;
-        myDropzone.on("maxfilesexceeded", function (file) {
+        myDropzoneUnique = new Dropzone("#dropzoneMyProfileImageForm");
+        myDropzoneUnique.maxFiles = 2;
+        myDropzoneUnique.on("maxfilesexceeded", function (file) {
             var res = eval('(' + file.xhr.responseText + ')');
             toastr.warning('Only two images allowed.');
         });
-        myDropzone.on("addedfile", function (file) {
+        myDropzoneUnique.on("addedfile", function (file) {
             $('.dz-image-preview').empty();
 
             if (this.files[1] != null) {
@@ -146,15 +148,15 @@
             file.previewElement.appendChild(removeButton);
         });
 
-        myDropzone.on("sending", function (file, xhr, formData) {
+        myDropzoneUnique.on("sending", function (file, xhr, formData) {
             var name = new Date().getTime();
             formData.append(name, file);
         });
 
-        myDropzone.on('success', function (file) {
+        myDropzoneUnique.on('success', function (file) {
             $('.dz-image').addClass('dz-message');
         });
-        myDropzone.on("init", function () {
+        myDropzoneUnique.on("init", function () {
         });
     });
 </script>

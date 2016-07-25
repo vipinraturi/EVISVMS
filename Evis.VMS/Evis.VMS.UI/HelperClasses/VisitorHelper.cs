@@ -114,6 +114,7 @@ namespace Evis.VMS.UI.HelperClasses
                     visitor.Address = visitorDetailsVM.ContactAddress;
                     visitor.UpdatedBy = userId;
                     visitor.UpdatedDate = DateTime.Now;
+                    visitor.ImagePath = visitorDetailsVM.ImagePath;
                     _genericService.VisitorMaster.Update(visitor);
                     _genericService.Commit();
                 }

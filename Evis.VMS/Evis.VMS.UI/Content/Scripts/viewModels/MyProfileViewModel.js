@@ -36,24 +36,39 @@
         self.Roles(data);
     });
 
-    AjaxCall('/Api/MyProfile/GetMyProfile', null, 'GET', function (data) {
-        self.UserId(data.Id);
-        self.FullName(data.FullName);
-        self.DisplayName(data.FullName);
-        self.Email(data.Email);
-        self.PhoneNumber(data.PhoneNumber);
-        self.ContactAddress(data.ContactAddress);
-        self.GenderId(data.GenderId);
-        self.RoleId(data.Roles[0].RoleId);
-        self.Nationality(data.CountryMaster.LookUpValue);
-        $('#viewImageUnique').show();
+    setTimeout(function () {
 
-        self.Roles().forEach(function (item) {
-            if (item.Id === self.RoleId()) {
-                self.RoleName(item.Name);
-            }
+        AjaxCall('/Api/MyProfile/GetMyProfile', null, 'GET', function (data) {
+            self.UserId(data.Id);
+            self.FullName(data.FullName);
+            self.DisplayName(data.FullName);
+            self.Email(data.Email);
+            self.PhoneNumber(data.PhoneNumber);
+            self.ContactAddress(data.ContactAddress);
+            self.GenderId(data.GenderId);
+            self.RoleId(data.Roles[0].RoleId);
+            self.Nationality(data.CountryMaster.LookUpValue);
+            $('#viewImageUnique').show();
+
+            $('.dz-image-preview').empty();
+            //debugger;
+            var imagePath = data.ProfilePicturePath;
+            var mockFile = { name: "User Image", size: 1024 };
+            myDropzoneUnique.emit("addedfile", mockFile);
+            myDropzoneUnique.emit("thumbnail", mockFile, imagePath);
+            myDropzoneUnique.createThumbnailFromUrl(mockFile, imagePath);
+            $('.dz-image').addClass('dz-message');
+            $('.dz-image img').addClass('dz-message');
+
+
+            self.Roles().forEach(function (item) {
+                if (item.Id === self.RoleId()) {
+                    self.RoleName(item.Name);
+                }
+            });
         });
-    });
+
+    }, 1000);
 
     self.SaveMyProfile = function () {
         if (self.myProfileErrors().length > 0) {
@@ -88,9 +103,9 @@
         }
        
 
-        if (srcURL.indexOf('/images/UserImages') == -1) {
-            srcURL = '/images/UserImages/' + srcURL;
-        }
+        //if (srcURL.indexOf('/images/UserImages') == -1) {
+        //    srcURL = '/images/UserImages/' + srcURL;
+        //}
 
         $('#originalSize').attr('src', srcURL);
         $('#imageModal').modal('show');

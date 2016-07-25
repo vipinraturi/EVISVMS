@@ -144,6 +144,7 @@
             myDropzone.emit("addedfile", mockFile);
             myDropzone.emit("thumbnail", mockFile, imagePath);
             myDropzone.createThumbnailFromUrl(mockFile, imagePath);
+            $('.dz-image').addClass('dz-message');
             $('.dz-image img').addClass('dz-message');
 
             //$('.img_responsive_Avatar').attr('src', tableItem.ProfilePicturePath).addClass('dz-message');

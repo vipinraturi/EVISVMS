@@ -170,7 +170,8 @@ namespace Evis.VMS.UI.HelperClasses
                 .Where(item => (organizationId == null || item.ApplicationUser.OrganizationId == organizationId) &&
                     (item.VisitorName.ToLower().Contains(searchterm.ToLower()) ||
                     item.EmailId.ToLower().Contains(searchterm.ToLower()) ||
-                    item.ContactNo.ToLower().Contains(searchterm.ToLower()))
+                    item.ContactNo.ToLower().Contains(searchterm.ToLower()) ||
+                    item.IdNo.ToLower().Contains(searchterm.ToLower()))
                     );
 
             if (qryVisitors.Count() > 0)

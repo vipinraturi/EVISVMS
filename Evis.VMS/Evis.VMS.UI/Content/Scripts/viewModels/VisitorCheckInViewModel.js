@@ -32,7 +32,7 @@
 
     self.GetVisitorCheckInHistoryData = function (visitorId, logoURL, isResetFields) {
         AjaxCall('/Api/VisitorManagement/GetVisitorCheckInHistory?visitorId=' + visitorId, null, 'POST', function (data) {
-            $('.img-responsive').attr('src', logoURL);
+            $('.visitorImageUnique').attr('src', logoURL);
             self.logoURL(logoURL);
             self.VisitorId(data.VisitorId);
             self.VisitorName(data.VisitorName);
@@ -59,13 +59,14 @@
     }
 
     self.ViewHistory = function (tableItem) {
-        debugger;
+        //debugger;
         self.ContactPerson(tableItem.ContactPerson);
         self.NoOfPerson(tableItem.NoOfPerson);
         self.Purpose_Remark(tableItem.Purpose);
         self.CompanyName(tableItem.CompanyName);
         self.VahicleNumber(tableItem.VahicleNumber);
         self.Floor(tableItem.Floor);
+        self.DisabledFields();
     }
 
     self.SaveVisitorCheckIn = function () {
@@ -116,15 +117,27 @@
         }
     }
 
+    self.EnabledFields = function () {
+        $('#txtCompanyName').removeAttr('disabled').removeClass('inputdisable');
+        $('#txtContactPerson').removeAttr('disabled').removeClass('inputdisable');
+        $('#txtNumberOfPerson').removeAttr('disabled').removeClass('inputdisable');
+        $('#txtVahicleNumber').removeAttr('disabled').removeClass('inputdisable');
+        $('#txtFloorNumber').removeAttr('disabled').removeClass('inputdisable');
+        $('#txtAddress').removeAttr('disabled').removeClass('inputdisable');
+    }
+
+    
+    self.DisabledFields = function () {
+        $('#txtCompanyName').attr('disabled', 'disabled').addClass('inputdisable');
+        $('#txtContactPerson').attr('disabled', 'disabled').addClass('inputdisable');
+        $('#txtNumberOfPerson').attr('disabled', 'disabled').addClass('inputdisable');
+        $('#txtVahicleNumber').attr('disabled', 'disabled').addClass('inputdisable');
+        $('#txtFloorNumber').attr('disabled', 'disabled').addClass('inputdisable');
+        $('#txtAddress').attr('disabled', 'disabled').addClass('inputdisable');
+    }
+
 
     self.ResetCheckInFormData = function () {
-        //self.VisitorName('[Visitor Name]');
-        //self.Gender('[Gender]');
-        //self.DOB('[DOB]');
-        //self.MobileNo('[Mobile No]');
-        //self.EmailId('[EmailId]');
-        //self.IdentificationNo('[Identification No.]');
-        //self.Nationality(' [Nationality]');
         self.ContactPerson('');
         self.NoOfPerson('');
         self.Purpose_Remark('');
@@ -132,7 +145,7 @@
         self.VahicleNumber('');
         self.Floor('');
         $('.searchVisitor').val('');
-        //$('.img-responsive').attr('src', '');
+        self.EnabledFields();
     }
 
     self.ResetCheckInData = function ()
@@ -154,6 +167,9 @@
         self.VisitorHiostory([]);
         $('.searchVisitor').val('');
         $('.img-responsive').attr('src', '');
+        self.EnabledFields();
+
+        ApplyCustomBinding('visitorcheckin');
     }
 }
 
@@ -196,12 +212,12 @@ BindAutoCompleteEvent = function () {
 .autocomplete("instance")._renderItem = function (ul, item) {
     return $('<li>')
          .data('item.autocomplete', item)
-         .append('<div class="row" ><div class=col-sm-8>'
-                    + ' Visitor Name: '+ item.VisitorName + '<br>'
-                    + ' Email: ' + item.Email + '<br>'
-                    + ' MobileNumber: ' + item.MobileNumber + '<br>'
-                    + ' Indentity Number: ' + item.IndentityNumber
-                    + '</div><div class=col-sm-4><img class="pull-right" width=80px src='
+          .append('<div  style="border: 1px solid black" class="row" ><div class=col-sm-9>'
+                    + ' <strong>Visitor Name:</strong> ' + item.VisitorName + ', '
+                    + ' <strong>Email:</strong> ' + item.Email + '<br /> '
+                    + ' <strong>MobileNumber:</strong> ' + item.MobileNumber + ', '
+                    + ' <strong>Indentity Number:</strong> ' + item.IndentityNumber
+                    + '</div><div class=col-sm-3><img class="pull-right" width=80px src='
                     + item.logoUrl + ' alt="" /></div></div>')
          .appendTo(ul);
 };
