@@ -106,7 +106,7 @@ function OrganizationViewModel() {
             AjaxCall('/Api/Administration/SaveOrganization', data, 'POST', function (data) {
                 if (data.Success == true) {
                     toastr.success(data.Message);
-                    self.ResetOrganization();
+                    self.ResetOrganizationDetails();
                     self.GetAllOrganizations();
                 }
                 else {
