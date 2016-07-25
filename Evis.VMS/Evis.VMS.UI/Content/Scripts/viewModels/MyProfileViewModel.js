@@ -85,7 +85,7 @@
             data.ProfilePicturePath = $('.dz-image img').attr('alt');
             //debugger;
             AjaxCall('/Api/MyProfile/SaveMyProfile', data, 'POST', function () {
-                toastr.success('My Profile data is saved successfully!!')
+                toastr.success('My Profile updated successfully!!')
                 ApplyCustomBinding('myprofile');
                 //self.IsInsert(true);
             })

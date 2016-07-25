@@ -85,11 +85,11 @@ function OrganizationViewModel() {
     }
 
     self.SaveOrganization = function () {
-        debugger;
-        if (self.organizationErrors().length > 0) {
+        if (self.organizationErrors().length > 0 || ($("#txtWebsite").val() != '' && $("span.validationMessage").text() != '')) {
             self.organizationErrors.showAllMessages(true);
             return false;
         }
+
         else {
             var data = new Object();
             //
@@ -104,7 +104,6 @@ function OrganizationViewModel() {
             data.WebSite = self.WebSite();
             //// display any error messages if we have them
             AjaxCall('/Api/Administration/SaveOrganization', data, 'POST', function (data) {
-                debugger;
                 if (data.Success == true) {
                     toastr.success(data.Message);
                     self.ResetOrganization();
@@ -117,7 +116,7 @@ function OrganizationViewModel() {
         }
     }
 
-    self.ResetOrganization = function () {
+    self.ResetOrganizationDetails = function () {
         self.GlobalSearch('');
         self.CompanyName('');
         self.CityId(undefined);
@@ -128,6 +127,15 @@ function OrganizationViewModel() {
         self.ZipCode('');
         self.WebSite('');
         ApplyCustomBinding('organization');
+    }
+
+    self.ResetOrganization = function () {
+        if (self.Id() == undefined || self.Id() == 0) {
+            ResetOrganizationDetails();
+        }
+        else {
+            self.EditOrganization(editOrg);
+        }
     }
 
 
@@ -148,8 +156,10 @@ function OrganizationViewModel() {
         });
     }
 
+    var editOrg = new Object();
     self.EditOrganization = function (tableItem) {
         if (tableItem != undefined) {
+            editOrg = tableItem;
             self.Id(tableItem.Id);
             self.CompanyName(tableItem.CompanyName);
             self.CountryId(tableItem.CountryId);
@@ -160,13 +170,12 @@ function OrganizationViewModel() {
             self.FaxNumber(tableItem.FaxNumber);
             self.ContactNumber(tableItem.ContactNumber);
             self.ZipCode(tableItem.ZipCode);
-            self.WebSite(tableItem.WebSite);
+            self.WebSite(tableItem.Website);
             $("#btnSaveOrg").text("Update");
         }
     }
 
     self.GlobalSearchEnter = function (data) {
-        debugger;
         self.GetAllOrganizations();
         console.log(event);
     }

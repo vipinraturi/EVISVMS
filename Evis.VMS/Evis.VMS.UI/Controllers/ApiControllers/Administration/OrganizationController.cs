@@ -66,8 +66,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     existingOrg.ContactNumber = organization.ContactNumber;
                     existingOrg.ContactAddress = organization.ContactAddress;
                     existingOrg.ZipCode = organization.ZipCode;
-                    existingOrg.FaxNumber = existingOrg.FaxNumber;
-                    existingOrg.WebSite = existingOrg.WebSite;
+                    existingOrg.FaxNumber = organization.FaxNumber;
+                    existingOrg.WebSite = organization.WebSite;
                     organization.IsActive = true;
                     _genericService.Organization.Update(existingOrg);
                     message = "Organization updated successfully!!";
@@ -122,7 +122,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 IList<OrganisationVM> result =
                     GenericSorterPager.GetSortedPagedList<OrganisationVM>(organizationsList, paginationRequest, out totalCount);
 
-                var jsonData = JsonConvert.SerializeObject(result);
+                var jsonData = JsonConvert.SerializeObject(result.OrderByDescending(x => x.Id));
                 return JsonConvert.SerializeObject(new { totalRows = totalCount, result = jsonData });
             }
 

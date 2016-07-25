@@ -8,7 +8,7 @@
         deferValidation: true
     });
 
-    self.Email = ko.observable('').extend({ required: true, maxLength: 25, email: { message: "Invalid email" } });
+    self.Email = ko.observable('').extend({ required: true, maxLength: 50, email: { message: "Invalid email" } });
     self.ContactNumber = ko.observable('').extend({
         required: true,
         pattern: {
@@ -124,8 +124,10 @@
         }
     }
 
+    var editUser = new Object();
     self.EditUser = function (tableItem) {
         if (tableItem != undefined) {
+            editUser = tableItem;
             $('#viewImageUnique').show();
             self.UserId(tableItem.UserId);
             self.OrganizationId(tableItem.OrganizationId);
@@ -135,6 +137,7 @@
             self.GenderId(tableItem.GenderId);
             self.RoleId(tableItem.RoleId);
             self.Nationality(tableItem.Nationality);
+            $("#btnSaveUser").text("Update");
             //alert(tableItem.ProfilePicturePath);
             //debugger;
 
@@ -164,10 +167,15 @@
     }
 
     self.ResetUser = function () {
-        ResetUserDetails();
+        if (self.UserId() == undefined || self.UserId() == "" || self.UserId() == 0) {
+            self.ResetUserDetails();
+        }
+        else {
+            self.EditUser(editUser);
+        }
     }
 
-    self.ResetUser = function () {
+    self.ResetUserDetails = function () {
         self.UserId('');
         self.FullName('');
         self.Email('');

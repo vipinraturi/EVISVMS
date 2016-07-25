@@ -41,7 +41,7 @@
                         </div>
 
                     </div>
-                    <h3 data-bind="text: DisplayName, visible: true"></h3>
+                    <h4 data-bind="text: DisplayName, visible: true"></h4>
                     <ul class="list-unstyled user_data">
                         <li>
                             <i class="fa fa-map-marker user-profile-icon"></i> <span data-bind="text: Nationality, visible: true"></span>
@@ -66,7 +66,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Email Address <span class="mandatoryField">*</span></label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
-                                <input id="txtEmailAddress" type="text" maxlength="50" class="form-control" placeholder="Email Address" required="required" 
+                                <input id="txtEmailAddress inputdisable" type="text" maxlength="50" class="form-control" placeholder="Email Address" required="required"
                                        data-bind="value: Email" disabled />
                                 <span class="fa fa-envelope favwhite form-control-feedback right" aria-hidden="true"></span>
                             </div>
@@ -86,24 +86,24 @@
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Gender <span class="mandatoryField">*</span></label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
-                                <select class="form-control" data-bind="options: Genders, optionsText: 'Name', optionsValue: 'Id', value: GenderId"
+                                <select class="form-control inputdisable" data-bind="options: Genders, optionsText: 'Name', optionsValue: 'Id', value: GenderId"
                                         disabled></select>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Role<span class="mandatoryField">*</span></label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
-                                <select class="form-control" data-bind="options: Roles, optionsText: 'Name', optionsValue: 'Id', value: RoleId"
+                                <select class="form-control inputdisable" data-bind="options: Roles, optionsText: 'Name', optionsValue: 'Id', value: RoleId"
                                         disabled></select>
                             </div>
                         </div>
-                        <div class="form-group">
+                        @*<div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Address <span class="mandatoryField">*</span></label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
                                 <textarea id="txtAddress" class="form-control" rows="3" maxlength="100" placeholder="Contact Address" style="resize: none;" data-bind="value: ContactAddress"></textarea>
                                 <span class="fa fa-home favwhite form-control-feedback right" aria-hidden="true"></span>
                             </div>
-                        </div>
+                        </div>*@
 
                         <div class="form-group">
                             <div class="pull-right">

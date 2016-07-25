@@ -165,10 +165,10 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 string orgName = _genericService.Organization.GetById((int)usersVM.OrganizationId).CompanyName;
 
 
-                string subject = "User in company <b>" + orgName + "<b> created successfully!";
+                string subject = "User in company " + orgName + " created successfully!";
                 // Send email on account creation.
                 EmailHelper.SendMail(user.Email, subject, body);
-                message = "Save sucessfully!";
+                message = "User saved sucessfully!";
                 success = true;
             }
             else
@@ -184,7 +184,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     existingUser.Nationality = usersVM.Nationality;
                     existingUser.ProfilePicturePath = (string.IsNullOrEmpty(usersVM.ProfilePicturePath) ? string.Empty : string.Format("/images/UserImages/{0}", usersVM.ProfilePicturePath));
                     await _userService.UpdateAsync(existingUser, usersVM.RoleId);
-                    message = "Update sucessfully!";
+                    message = "User update sucessfully!";
                     success = true;
                 }
 
