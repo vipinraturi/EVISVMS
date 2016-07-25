@@ -77,13 +77,13 @@ namespace Evis.VMS.UI.HelperClasses
                                                         });
                     });
 
-                    if (lstVisitorCheckInAndOuttimes.Count >0 )
+                    if (lstVisitorCheckInAndOuttimes.Count > 0)
                     {
                         var latestCheck = lstVisitorCheckInAndOuttimes.FirstOrDefault();
 
                         if (string.IsNullOrEmpty(latestCheck.CheckOutTime))
                         {
-                            result.IsAlreadyCheckIn = true; 
+                            result.IsAlreadyCheckIn = true;
                         }
                         else
                         {
@@ -115,7 +115,7 @@ namespace Evis.VMS.UI.HelperClasses
                 result.VisitorId = visitorData.Id;
                 result.VisitorName = visitorData.VisitorName;
 
-                
+
             }
 
             return result;
@@ -164,14 +164,14 @@ namespace Evis.VMS.UI.HelperClasses
             return false;
         }
 
-        public List<VisitorJsonModel> GetVisitorData(string searchterm)
+        public List<VisitorJsonModel> GetVisitorData(string searchterm, int? organizationId)
         {
             var result = new List<VisitorJsonModel>();
             var qryVisitors = _genericService.VisitorMaster.GetAll()
-                .Where(item =>
-                    item.VisitorName.ToLower().Contains(searchterm.ToLower()) ||
+                .Where(item => (organizationId == null || item.ApplicationUser.OrganizationId == organizationId) &&
+                    (item.VisitorName.ToLower().Contains(searchterm.ToLower()) ||
                     item.EmailId.ToLower().Contains(searchterm.ToLower()) ||
-                    item.ContactNo.ToLower().Contains(searchterm.ToLower())
+                    item.ContactNo.ToLower().Contains(searchterm.ToLower()))
                     );
 
             if (qryVisitors.Count() > 0)

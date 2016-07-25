@@ -17,6 +17,7 @@
                 toastr.success(result.Message);
                 ApplyCustomBinding('dashboard');
             }
+            toastr.clear();
             toastr.warning(result.Message);
         })
     }

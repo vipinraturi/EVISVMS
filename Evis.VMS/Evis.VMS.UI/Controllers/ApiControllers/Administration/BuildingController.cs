@@ -15,7 +15,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
+using Microsoft.AspNet.Identity;
 
 namespace Evis.VMS.UI.Controllers.ApiControllers
 {
@@ -58,9 +60,11 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         }
         [Route("~/Api/Administration/GetBuildingData")]
         [HttpPost]
-        public string GetBuildingData(string globalSearch, int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC")
+        public async Task<string> GetBuildingData(string globalSearch, int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC")
         {
-            var lstBuildingVM = _genericService.BuildingMaster.GetAll().Where(x => x.IsActive == true).ToList()
+            var user = (await _userService.GetAllAsync()).Where(x => x.Id == System.Web.HttpContext.Current.User.Identity.GetUserId() && x.IsActive == true).FirstOrDefault();
+
+            var lstBuildingVM = _genericService.BuildingMaster.GetAll().Where(x => x.IsActive == true && (user == null) ? true : x.OrganizationId == (int)user.OrganizationId).ToList()
                 .Select(x => new BuildingVM
                 {
                     Id = x.Id,

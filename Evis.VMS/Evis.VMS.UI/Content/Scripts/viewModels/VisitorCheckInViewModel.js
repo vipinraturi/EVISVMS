@@ -166,7 +166,7 @@ BindAutoCompleteEvent = function () {
     $('.searchVisitor').autocomplete({
         source: function (request, response) {
             $.ajax({
-                url: '/Visitor/GetCompanyNames',
+                url: '/Visitor/GetVisitorsData',
                 data: { searchterm: request.term },
                 success: function (data) {
                     response($.map(data, function (item) {

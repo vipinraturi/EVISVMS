@@ -69,7 +69,7 @@
             data.ContactAddress = self.ContactAddress();
             data.ProfilePicturePath = $('.dz-image img').attr('alt');
             //debugger;
-            AjaxCall('/Api/MyProfile/SaveMyProfile', data, 'PUT', function () {
+            AjaxCall('/Api/MyProfile/SaveMyProfile', data, 'POST', function () {
                 toastr.success('My Profile data is saved successfully!!')
                 ApplyCustomBinding('myprofile');
                 //self.IsInsert(true);

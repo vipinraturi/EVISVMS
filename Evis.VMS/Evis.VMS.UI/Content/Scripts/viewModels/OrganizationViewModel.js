@@ -85,6 +85,7 @@ function OrganizationViewModel() {
     }
 
     self.SaveOrganization = function () {
+        debugger;
         if (self.organizationErrors().length > 0) {
             self.organizationErrors.showAllMessages(true);
             return false;
