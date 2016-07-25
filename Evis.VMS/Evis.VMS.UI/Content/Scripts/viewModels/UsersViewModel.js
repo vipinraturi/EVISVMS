@@ -114,7 +114,7 @@
             AjaxCall('/Api/Users/SaveUser', data, 'POST', function (data) {
                 if (data.Success == true) {
                     toastr.success(data.Message);
-                    self.ResetUser();
+                    self.ResetUserDetails();
                     self.GetAllUsers();
                 }
                 else {
