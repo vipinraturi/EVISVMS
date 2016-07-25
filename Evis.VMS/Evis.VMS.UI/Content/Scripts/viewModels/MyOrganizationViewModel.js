@@ -129,7 +129,7 @@
 
 
     AjaxCall('/Api/MyOrginization/GetMyOrginization', null, 'GET', function (data) {
-        debugger;
+
         self.IsInsert(false);
         self.CountryId(data.CityMaster.ParentValues.ParentId);
         self.stateId = data.CityMaster.ParentId;
@@ -146,9 +146,19 @@
         $("#myLogo").removeAttr('src');
         $("#myImg").attr('src', '');
         var d = new Date();
-        ImagePath = data.ImagePath;
-        $("#myLogo").attr('src', ImagePath + "?" + d.getTime());
-        $("#myImg").attr('src', ImagePath + "?" + d.getTime());
+        debugger;
+        if (data.ImagePath == null) {
+            ImagePath = "/images/logo/main_logo.png";
+            $("#myLogo").attr('src', ImagePath);
+            $("#myImg").attr('src', ImagePath);
+        } else {
+            ImagePath = data.ImagePath;
+            $("#myLogo").attr('src', ImagePath + "?" + d.getTime());
+            $("#myImg").attr('src', ImagePath + "?" + d.getTime());
+        }
+        debugger;
+
+
     })
 
     self.ApplyTheme = function () {
@@ -198,7 +208,7 @@
 
 RefreshImage = function (Imagepath) {
     debugger;
-    
+
     setTimeout(function () {
         var d = new Date();
         $("#myLogo").attr('src', '#');
