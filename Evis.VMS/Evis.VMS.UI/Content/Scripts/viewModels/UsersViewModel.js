@@ -136,7 +136,17 @@
             self.RoleId(tableItem.RoleId);
             self.Nationality(tableItem.Nationality);
             //alert(tableItem.ProfilePicturePath);
-            $('.img_responsive_Avatar').attr('src', tableItem.ProfilePicturePath).addClass('dz-message');
+            //debugger;
+
+            $('.dz-image-preview').empty();
+            var imagePath = tableItem.ProfilePicturePath;
+            var mockFile = { name: tableItem.ImagePath, size: 1024 };
+            myDropzone.emit("addedfile", mockFile);
+            myDropzone.emit("thumbnail", mockFile, imagePath);
+            myDropzone.createThumbnailFromUrl(mockFile, imagePath);
+            $('.dz-image img').addClass('dz-message');
+
+            //$('.img_responsive_Avatar').attr('src', tableItem.ProfilePicturePath).addClass('dz-message');
         }
     }
 
