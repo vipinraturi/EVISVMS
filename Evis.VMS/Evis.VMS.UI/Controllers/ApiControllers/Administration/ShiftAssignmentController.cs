@@ -25,7 +25,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 {
     public partial class AdministrationController
     {
-        readonly UserManager<ApplicationUser> _userManager;
+
 
         [Route("~/Api/ShiftAssignment/GetAllGates")]
         [HttpGet]
@@ -39,8 +39,9 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         [HttpGet]
         public IEnumerable<GeneralDropDownVM> GetAllShift()
         {
-            var result = _genericService.ShitfMaster.GetAll().Where(x => x.IsActive == true)
-                .Select(y => new GeneralDropDownVM { Id = y.Id, Name = y.ShitfName });////y.ShitfName + '(' + ' ' + y.FromTime + ' ' + y.ToTime + ')'
+            var result = _genericService.ShitfMaster.GetAll().Where(x => x.IsActive == true).AsEnumerable()
+                .Select(y => new GeneralDropDownVM { Id = y.Id, Name = y.ShitfName +" ("+ y.FromTime.ToString("hh:mm tt") +" - "+ y.ToTime.ToString("hh:mm tt")+")" });////y.ShitfName + '(' + ' ' + y.FromTime + ' ' + y.ToTime + ')'
+
             return result;
         }
         [Route("~/Api/ShiftAssignment/GetAllUsers")]
@@ -144,7 +145,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     _genericService.ShitfAssignment.Update(existingShift);
                 };
             }
-             _genericService.Commit();
+            _genericService.Commit();
             return new ReturnResult { Message = "Success", Success = true };
         }
         [Route("~/Api/ShiftAssignment/DeleteShift")]

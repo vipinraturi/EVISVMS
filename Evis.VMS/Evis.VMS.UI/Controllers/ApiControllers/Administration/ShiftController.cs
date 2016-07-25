@@ -71,8 +71,6 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                         item.ShitfName.ToLower().Contains(globalSearch.ToLower())
                         ).AsQueryable();
                 }
-
-
                 var paginationRequest = new PaginationRequest
                              {
                                  PageIndex = (pageIndex - 1),
@@ -80,11 +78,9 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                                  SearchText = globalSearch,
                                  Sort = new Sort { SortDirection = (sortOrder == "ASC" ? SortDirection.Ascending : SortDirection.Descending), SortBy = sortField }
                              };
-
                 int totalCount = 0;
                 IList<ShiftDetailsVM> result =
                    GenericSorterPager.GetSortedPagedList<ShiftDetailsVM>(ShitfMaster, paginationRequest, out totalCount);
-
                 var jsonData = JsonConvert.SerializeObject(result);
                 return JsonConvert.SerializeObject(new { totalRows = totalCount, result = jsonData });
             }
