@@ -53,7 +53,8 @@ namespace Evis.VMS.UI.Controllers
                                 {
                                     ThemeName = (string.IsNullOrEmpty(user.ThemeName) ? "theme1" : user.ThemeName),
                                     ImageLogoPath = (user.Organization == null ? "~\\images\\logo\\main_logo.png" : (string.IsNullOrEmpty(user.Organization.ImagePath) ? "~\\images\\logo\\main_logo.png" : user.Organization.ImagePath)),
-                                    UserRole = roleType
+                                    UserRole = roleType,
+                                    ProfilePicPath = user.ProfilePicturePath
                                 };
             Session["UserSession"] = userSessionData;
 

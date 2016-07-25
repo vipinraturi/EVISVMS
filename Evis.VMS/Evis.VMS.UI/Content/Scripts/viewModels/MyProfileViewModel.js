@@ -53,13 +53,15 @@
             $('.dz-image-preview').empty();
             //debugger;
             var imagePath = data.ProfilePicturePath;
+            self.ProfilePicturePath(data.ProfilePicturePath);
+
             var mockFile = { name: "User Image", size: 1024 };
             myDropzoneUnique.emit("addedfile", mockFile);
             myDropzoneUnique.emit("thumbnail", mockFile, imagePath);
             myDropzoneUnique.createThumbnailFromUrl(mockFile, imagePath);
             $('.dz-image').addClass('dz-message');
             $('.dz-image img').addClass('dz-message');
-
+            $('#imgUserAvatar').attr('src', imagePath);
 
             self.Roles().forEach(function (item) {
                 if (item.Id === self.RoleId()) {
@@ -106,8 +108,7 @@
         //if (srcURL.indexOf('/images/UserImages') == -1) {
         //    srcURL = '/images/UserImages/' + srcURL;
         //}
-
-        $('#originalSize').attr('src', srcURL);
+        $('#originalSize').attr('src', self.ProfilePicturePath());
         $('#imageModal').modal('show');
     }
 }

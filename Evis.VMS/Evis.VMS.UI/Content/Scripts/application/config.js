@@ -76,7 +76,14 @@ BindingViewModel = function (controllerUrl, viewModel) {
         DashboardBindEvent();
 
         if (controllerUrl == "/Visitor/_ManageVisitorManually") {
-            $('#dateDOB').datepicker();
+            $('#dateDOB').datepicker({
+
+                dateFormat: 'dd/mm/yy',
+            maxDate: 'now',
+            changeMonth: true,
+            changeYear: true
+            
+        });
         }
         if (controllerUrl == "/Visitor/_VisitorCheckIn") {
             BindAutoCompleteEvent();
@@ -85,10 +92,31 @@ BindingViewModel = function (controllerUrl, viewModel) {
             BindAutoCompleteEvent();
         }
         if (controllerUrl == "/Administration/_ShiftAssignment") {
-            $('#dateFrom').datepicker();
+            $('#dateFrom').datepicker({
+                dateFormat: 'dd/mm/yy',
+                minDate: 'now',
+            changeMonth: true,
+            changeYear: true,
+                onSelect: function (date) {
+                $('#dateTo').datepicker('option', 'minDate', date);
+            }
+
+            
+        });
+                
         }
         if (controllerUrl == "/Administration/_ShiftAssignment") {
-            $('#dateTo').datepicker();
+            $('#dateTo').datepicker({
+                dateFormat: 'dd/mm/yy',
+                minDate: 'now',
+            changeMonth: true,
+            changeYear: true,
+            onSelect: function (date) {
+                $('#dateFrom').datepicker('option', 'maxDate', date);
+            }
+
+            
+        });
         }
         if (controllerUrl == "/Administration/_Shifts") {
             $('.timepickerCtr').timepicker();
