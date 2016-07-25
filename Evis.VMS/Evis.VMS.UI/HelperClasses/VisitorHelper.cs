@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Microsoft.AspNet.Identity;
 
 namespace Evis.VMS.UI.HelperClasses
 {
@@ -24,16 +25,16 @@ namespace Evis.VMS.UI.HelperClasses
             _genericService = new GenericService();
         }
 
-        public IList<VisitorDetailsVM> GetAllVisitorsData(string globalSearch, int pageIndex, int pageSize, string sortField, string sortOrder, out int totalCount)
+        public IList<VisitorDetailsVM> GetAllVisitorsData(string globalSearch, int pageIndex, int pageSize, string sortField, string sortOrder, out int totalCount, int? organizationId)
         {
 
             var qryVisitors = _genericService.VisitorMaster.GetAll()
-                                                        .Where(item =>
-                                                            item.Address.Contains(globalSearch) ||
+                                                        .Where(item => (organizationId == null || (item.ApplicationUser.OrganizationId != null && item.ApplicationUser.OrganizationId == organizationId)) &&
+                                                            (item.Address.Contains(globalSearch) ||
                                                             item.ContactNo.Contains(globalSearch) ||
                                                             item.EmailId.Contains(globalSearch) ||
                                                             item.IdNo.Contains(globalSearch) ||
-                                                            item.VisitorName.Contains(globalSearch)
+                                                            item.VisitorName.Contains(globalSearch))
                                                         )
                                                         .Select(item => new VisitorDetailsVM
                                                         {
@@ -70,19 +71,20 @@ namespace Evis.VMS.UI.HelperClasses
 
         public bool SaveVisitor(VisitorDetailsVM visitorDetailsVM)
         {
+            var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
             if (visitorDetailsVM.IsInsert)
             {
                 _genericService
                     .VisitorMaster.Insert(new Data.Model.Entities.VisitorMaster
                     {
                         ContactNo = visitorDetailsVM.ContactNo,
-                        CreatedBy = null,
+                        CreatedBy = userId,
                         CreatedDate = DateTime.UtcNow,
                         DOB = visitorDetailsVM.DOB,
                         EmailId = visitorDetailsVM.EmailAddress,
                         VisitorName = visitorDetailsVM.VisitorName,
                         Nationality = visitorDetailsVM.Nationality,
-                        UpdatedBy = null,
+                        UpdatedBy = userId,
                         UpdatedDate = DateTime.Now,
                         GenderId = visitorDetailsVM.Gender,
                         TypeOfCardId = visitorDetailsVM.TypeOfCard,
@@ -110,6 +112,9 @@ namespace Evis.VMS.UI.HelperClasses
                     visitor.TypeOfCardId = visitorDetailsVM.TypeOfCard;
                     visitor.IdNo = visitorDetailsVM.IdNo;
                     visitor.Address = visitorDetailsVM.ContactAddress;
+                    visitor.UpdatedBy = userId;
+                    visitor.UpdatedDate = DateTime.Now;
+                    visitor.ImagePath = visitorDetailsVM.ImagePath;
                     _genericService.VisitorMaster.Update(visitor);
                     _genericService.Commit();
                 }

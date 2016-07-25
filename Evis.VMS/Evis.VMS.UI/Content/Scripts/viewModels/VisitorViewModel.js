@@ -17,6 +17,7 @@
 
     self.GlobalSearch = ko.observable('');
     self.IsInsert = ko.observable(true);
+    self.IsEdit = ko.observable(false);
     self.LookUpValues = ko.observableArray();
     self.Genders = ko.observableArray();
     self.TypeOfCards = ko.observableArray();
@@ -40,10 +41,6 @@
         self.DataGrid.UpdateSearchParam('?globalSearch=' + self.GlobalSearch());
         self.DataGrid.GetData(true);
     }
-
-
-   
-
 
     self.LoadMasterData = function () {
         var lookUpTypes = [];
@@ -91,9 +88,16 @@
             //// display any error messages if we have them
             AjaxCall('/Api/Visitor/SaveVisitor', data, 'POST', function (result) {
                 if (result.Success) {
-                    toastr.success('Visitor saved successfully!!')
+                    if (self.IsEdit()) {
+                        toastr.success('Visitor updated successfully!!')
+                    }
+                    else {
+                        toastr.success('Visitor saved successfully!!')
+                    }
+                    
                     self.ResetData();
                     self.IsInsert(true);
+
                     self.GetAllVisitor();
                 }
                 else {
@@ -104,12 +108,16 @@
     }
 
     self.ResetVisitor = function () {
+        
+        
         ResetData();
 
     }
 
     self.ResetData = function () {
+        $('#btnSave').html('Save <i class="fa fa-save"></i>');
         self.IsInsert(true);
+        self.IsEdit(false);
         self.GlobalSearch('');
         self.VisitorName('');
         self.Gender(undefined);
@@ -142,6 +150,7 @@
     self.EditVisitor = function (tableItem) {
         if (tableItem != undefined) {
             $('#viewVisitorImageUnique').show();
+            self.IsEdit(true);
             self.IsInsert(false);
             self.VisitorName(tableItem.VisitorName);
             self.EmailAddress(tableItem.EmailAddress);
@@ -154,12 +163,15 @@
             self.ContactAddress(tableItem.ContactAddress);
             
             $('.dz-image-preview').empty();
+            //debugger;
             var imagePath = '/images/VisitorImages/' + tableItem.ImagePath;
             var mockFile = { name: tableItem.ImagePath, size: 1024 };
             myDropzone.emit("addedfile", mockFile);
             myDropzone.emit("thumbnail", mockFile, imagePath);
             myDropzone.createThumbnailFromUrl(mockFile, imagePath);
+            $('.dz-image').addClass('dz-message');
             $('.dz-image img').addClass('dz-message');
+            $('#btnSave').html('Update <i class="fa fa-save"></i>');
         }
     }
 

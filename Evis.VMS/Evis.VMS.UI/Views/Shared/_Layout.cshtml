@@ -27,10 +27,10 @@
                     <div class="navbar nav_title" style="border: 0;">
                         <a href="/Home/Index" class="site_title">
 
-                            @if (@Session["UserSession"] != null)
+                                                        @if (@Session["UserSession"] != null)
                             {
                                 var userSessionData = (Evis.VMS.UI.ViewModel.UserSessionDataVM)Session["UserSession"];
-                                <img class="logoimg" id="mainLogo" src="@Url.Content(userSessionData.ImageLogoPath)" /><br />
+                                <img class="logoimg img-responsive" id="mainLogo" src="@Url.Content(userSessionData.ImageLogoPath)" /><br />
                             }
                             <span class="companyName-Span">CEENEX VMS</span>
                         </a>

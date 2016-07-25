@@ -732,7 +732,7 @@ a {
     width: 100%;
     color: #ECF0F1 !important;
     margin-left: 0 !important;
-    line-height: 59px;
+    line-height: 25px;
     display: block;
     height: 180px;
     margin: 0;
@@ -5229,7 +5229,7 @@ select option {
 }
 
 .logoimg {
-    height: 95px;
+    height: 120px;
     /*padding-left: 3px;*/
     padding-top: 8px;
 }

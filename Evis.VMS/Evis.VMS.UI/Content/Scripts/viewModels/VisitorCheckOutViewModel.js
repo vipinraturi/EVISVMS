@@ -22,10 +22,10 @@
     self.ContactPerson = ko.observable('');
     self.NoOfPerson = ko.observable('');
     self.Purpose_Remark = ko.observable('');
-    
+
     self.GetVisitorCheckInHistoryData = function (visitorId, logoURL) {
         AjaxCall('/Api/VisitorManagement/GetVisitorCheckInHistory?visitorId=' + visitorId, null, 'POST', function (data) {
-            $('.img-responsive').attr('src', logoURL);
+            $('.visitorImageUnique').attr('src', logoURL);
             self.logoURL(logoURL);
             self.VisitorId(data.VisitorId);
             self.VisitorName(data.VisitorName);
@@ -55,27 +55,27 @@
     }
 
     self.SaveVisitorCheckOut = function () {
-       
-            if (self.VisitorId() == '') {
-                toastr.warning('No visitor available to check-in.');
-                return;
-            }
 
-            if (self.IsAlreadyCheckIn() == false) {
-                toastr.warning('Visitor not checked-in yet.');
-                return;
-            }
+        if (self.VisitorId() == '') {
+            toastr.warning('No visitor available to check-in.');
+            return;
+        }
+
+        if (self.IsAlreadyCheckIn() == false) {
+            toastr.warning('Visitor not checked-in yet.');
+            return;
+        }
 
 
-            var data = new Object();
-            data.VisitorId = self.VisitorId();
-            
-            AjaxCall('/Api/VisitorManagement/SaveVisitorCheckOut', data, 'POST', function () {
-                toastr.success('Visitor CheckOut Successfully.!!');
-                //alert(self.VisitorId() + '  ' + self.logoURL());
-                self.GetVisitorCheckInHistoryData(self.VisitorId(), self.logoURL());
-                //self.ResetCheckInData();
-            })
+        var data = new Object();
+        data.VisitorId = self.VisitorId();
+
+        AjaxCall('/Api/VisitorManagement/SaveVisitorCheckOut', data, 'POST', function () {
+            toastr.success('Visitor CheckOut Successfully.!!');
+            //alert(self.VisitorId() + '  ' + self.logoURL());
+            self.GetVisitorCheckInHistoryData(self.VisitorId(), self.logoURL());
+            //self.ResetCheckInData();
+        })
     }
 
 
@@ -115,7 +115,7 @@ BindAutoCompleteEvent = function () {
     $('.searchVisitor').autocomplete({
         source: function (request, response) {
             $.ajax({
-                url: '/Visitor/GetCompanyNames',
+                url: '/Visitor/GetVisitorsData',
                 data: { searchterm: request.term },
                 success: function (data) {
                     response($.map(data, function (item) {
@@ -146,12 +146,12 @@ BindAutoCompleteEvent = function () {
     console.log(item.logoUrl);
     return $('<li>')
          .data('item.autocomplete', item)
-         .append('<div  style="border: 1px solid black" class="row" ><div class=col-sm-8>'
-                    + ' Visitor Name: ' + item.VisitorName + '<br>'
-                    + ' Email: ' + item.Email + '<br>'
-                    + ' MobileNumber: ' + item.MobileNumber + '<br>'
-                    + ' Indentity Number: ' + item.IndentityNumber
-                    + '</div><div class=col-sm-4><img class="pull-right" width=80px src='
+         .append('<div  style="border: 1px solid black" class="row" ><div class=col-sm-9>'
+                    + ' <strong>Visitor Name:</strong> ' + item.VisitorName + ', '
+                    + ' <strong>Email:</strong> ' + item.Email + '<br /> '
+                    + ' <strong>MobileNumber:</strong> ' + item.MobileNumber + ', '
+                    + ' <strong>Indentity Number:</strong> ' + item.IndentityNumber
+                    + '</div><div class=col-sm-3><img class="pull-right" width=80px src='
                     + item.logoUrl + ' alt="" /></div></div>')
          .appendTo(ul);
 };

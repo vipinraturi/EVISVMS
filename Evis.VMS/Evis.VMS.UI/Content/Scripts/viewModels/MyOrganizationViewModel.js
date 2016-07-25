@@ -24,7 +24,13 @@
         deferValidation: true
     });
     self.Email = ko.observable('').extend({ required: true, minLength: 2, maxLength: 40, email: { message: "Invalid email" } });
-    self.ContactNumber = ko.observable('').extend({ required: true, number: { message: "Numbers only" } });
+    self.ContactNumber = ko.observable('').extend({
+        required: true,
+        pattern: {
+            message: 'Invalid phone number.',
+            params: /^([0-9\(\)\/\+ \-\.]*)$/
+        }
+    });
     self.ContactAddress = ko.observable('').extend({ required: true });
     self.FaxNumber = ko.observable('').extend({ required: true });
     self.POBox = ko.observable('').extend({ required: true });
@@ -62,36 +68,39 @@
     }
 
     self.SaveOrganization = function () {
-        debugger;
-        if (self.errors().length > 0) {
-            self.errors.showAllMessages(true);
-            this.errors().forEach(function (data) {
-                toastr.warning(data);
-            });
-        }
-        else {
+        $('.loader-div').show();
+        setTimeout(function () {
+            if (self.errors().length > 0) {
+                self.errors.showAllMessages(true);
+                this.errors().forEach(function (data) {
+                    toastr.warning(data);
+                });
+            }
+            else {
 
 
-            var data = new Object();
-            //debugger;
-            data.Id = self.Id(),
-            data.CompanyName = self.CompanyName(),
-            data.CityId = self.CityId(),
-            data.EmailId = self.Email(),
-            data.ContactNumber = self.ContactNumber(),
-            data.ContactAddress = self.ContactAddress(),
-            data.FaxNumber = self.FaxNumber(),
-            data.ZipCode = self.POBox(),
-            data.WebSite = self.WebSite()
-            data.IsInsert = self.IsInsert();
+                var data = new Object();
+                //debugger;
+                data.Id = self.Id(),
+                data.CompanyName = self.CompanyName(),
+                data.CityId = self.CityId(),
+                data.EmailId = self.Email(),
+                data.ContactNumber = self.ContactNumber(),
+                data.ContactAddress = self.ContactAddress(),
+                data.FaxNumber = self.FaxNumber(),
+                data.ZipCode = self.POBox(),
+                data.WebSite = self.WebSite()
+                data.IsInsert = self.IsInsert();
 
-            //// display any error messages if we have them
-            AjaxCall('/Api/Administration/SaveOrganization', data, 'POST', function () {
-                toastr.success('Organization updated successfully!!')
-                ApplyCustomBinding('myorganization');
-                self.IsInsert(true);
-            })
-        }
+                //// display any error messages if we have them
+                AjaxCall('/Api/Administration/SaveOrganization', data, 'POST', function () {
+                    toastr.success('Organization updated successfully!!')
+                    ApplyCustomBinding('myorganization');
+                    self.IsInsert(true);
+                })
+            }
+            $('.loader-div').hide();
+        }, 2000);
     }
 
 
@@ -123,24 +132,37 @@
 
 
     AjaxCall('/Api/MyOrginization/GetMyOrginization', null, 'GET', function (data) {
-        debugger;
-        self.IsInsert(false);
-        self.CountryId(data.CityMaster.ParentValues.ParentId);
-        self.stateId = data.CityMaster.ParentId;
-        self.cityId = data.CityId;
-        self.Theme(data.ThemeName);
-        self.CompanyName(data.CompanyName);
-        self.ContactNumber(data.ContactNo);
-        self.Id(data.CompanyId);
-        self.Email(data.EmailAddress);
-        self.ContactAddress(data.Address);
-        self.FaxNumber(data.FaxNo);
-        self.POBox(data.ZipCode);
-        self.WebSite(data.WebSite);
-        var d = new Date();
-        ImagePath = data.ImagePath;
-        $("#myLogo").attr('src', ImagePath + "?" + d.getTime());
-        $("#myImg").attr('src', ImagePath + "?" + d.getTime());
+        $('.loader-div').show();
+        setTimeout(function () {
+            self.IsInsert(false);
+            self.CountryId(data.CityMaster.ParentValues.ParentId);
+            self.stateId = data.CityMaster.ParentId;
+            self.cityId = data.CityId;
+            self.Theme(data.ThemeName);
+            self.CompanyName(data.CompanyName);
+            self.ContactNumber(data.ContactNo);
+            self.Id(data.CompanyId);
+            self.Email(data.EmailAddress);
+            self.ContactAddress(data.Address);
+            self.FaxNumber(data.FaxNo);
+            self.POBox(data.ZipCode);
+            self.WebSite(data.WebSite);
+            $("#myLogo").removeAttr('src');
+            $("#myImg").attr('src', '');
+            var d = new Date();
+            if (data.ImagePath == null) {
+                ImagePath = "/images/logo/main_logo.png";
+                $("#myLogo").attr('src', ImagePath);
+                $("#myImg").attr('src', ImagePath);
+            } else {
+                ImagePath = data.ImagePath;
+                $("#myLogo").attr('src', ImagePath + "?" + d.getTime());
+                $("#myImg").attr('src', ImagePath + "?" + d.getTime());
+            }
+            $('.loader-div').hide();
+        }, 2000);
+
+
     })
 
     self.ApplyTheme = function () {
@@ -152,7 +174,7 @@
         }
     }
     self.SaveImage = function () {
-        debugger;
+        $('.loader-div').show();
         $("#myLogo").removeAttr('src');
         $("#mainLogo").removeAttr('src');
         $("#myImg").attr('src', '');
@@ -181,18 +203,23 @@
             }
 
         });
-        //RefreshImage(ImagePath);
+        RefreshImage(ImagePath);
     }
 
 }
 
 
-//RefreshImage = function (Imagepath) {
-//    //var d = new Date();
-//    //$("#myLogo").attr('src', '#');
-//    //$("#mainLogo").attr('src', '#');
-//    //$("#myImg").attr('src', '#');
-//    //$("#mainLogo").attr('src', Imagepath + "?" + d.getTime());
-//    //$("#myLogo").attr('src', Imagepath + "?" + d.getTime());
-//    //$("#myImg").attr('src', Imagepath + "?" + d.getTime());
-//}
+RefreshImage = function (Imagepath) {
+    debugger;
+
+    setTimeout(function () {
+        var d = new Date();
+        $("#myLogo").attr('src', '#');
+        $("#mainLogo").attr('src', '#');
+        $("#myImg").attr('src', '#');
+        $("#mainLogo").attr('src', Imagepath + "?" + d.getTime());
+        $("#myLogo").attr('src', Imagepath + "?" + d.getTime());
+        $("#myImg").attr('src', Imagepath + "?" + d.getTime());
+        $('.loader-div').hide();
+    }, 2000);
+}

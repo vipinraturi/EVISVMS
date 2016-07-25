@@ -27,7 +27,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
     {
 
         [Route("~/Api/MyProfile/SaveMyProfile")]
-        [HttpPut]
+        [HttpPost]
         public async Task<ReturnResult> SaveMyProfile([FromBody] MyProfileVM myProfileVM)
         {
             string userId = HttpContext.Current.User.Identity.GetUserId();

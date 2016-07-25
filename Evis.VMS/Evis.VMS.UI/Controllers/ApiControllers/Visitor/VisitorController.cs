@@ -16,7 +16,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
+using Microsoft.AspNet.Identity;
+using System.Threading.Tasks;
+using Evis.VMS.Business;
+
 
 namespace Evis.VMS.UI.Controllers.ApiControllers
 {
@@ -26,12 +31,14 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
 
         public readonly VisitorHelper _visitorHelper = null;
+        public readonly UserService _userService = null;
         public readonly VisitorCheckInCheckOutHelper _visitorCheckInCheckOutHelper = null;
 
         public VisitorController()
         {
             _visitorHelper = new VisitorHelper();
             _visitorCheckInCheckOutHelper = new VisitorCheckInCheckOutHelper();
+            _userService = new UserService();
         }
 
         [Route("~/Api/Visitor/SaveVisitor")]
@@ -44,13 +51,13 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
             if (visitorDetailsVM.IsInsert)
             {
-                message = _visitorHelper.IsVisitorEmailExist(visitorDetailsVM);                
+                message = _visitorHelper.IsVisitorEmailExist(visitorDetailsVM);
             }
 
             if (string.IsNullOrEmpty(message))
             {
                 result = _visitorHelper.SaveVisitor(visitorDetailsVM);
-                return new ReturnResult { Message = "Success" , Success = true  };
+                return new ReturnResult { Message = "Success", Success = true };
             }
 
             return new ReturnResult { Message = message, Success = false };
@@ -58,8 +65,10 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
         [Route("~/Api/Visitor/GetVisitorData")]
         [HttpPost]
-        public string GetVisitorData(int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC", string globalSearch = "")
+        public async Task<string> GetVisitorData(int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC", string globalSearch = "")
         {
+            var user = (await _userService.GetAllAsync()).Where(x => x.Id == HttpContext.Current.User.Identity.GetUserId() && x.IsActive == true).FirstOrDefault();
+
             if (string.IsNullOrEmpty(sortField))
             {
                 sortField = "VisitorName";
@@ -73,7 +82,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             int totalCount = 0;
             pageIndex = (pageIndex - 1);
 
-            var lstVisitorsFromDb = _visitorHelper.GetAllVisitorsData(globalSearch, pageIndex, pageSize, sortField, sortOrder, out totalCount);
+            var lstVisitorsFromDb = _visitorHelper.GetAllVisitorsData(globalSearch, pageIndex, pageSize, sortField, sortOrder, out totalCount, (user == null) ? null : user.OrganizationId);
             var jsonData = JsonConvert.SerializeObject(lstVisitorsFromDb);
             var total = totalCount;
             return JsonConvert.SerializeObject(new { totalRows = total, result = jsonData });

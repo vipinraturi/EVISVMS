@@ -88,12 +88,12 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
 
                 var paginationRequest = new PaginationRequest
-              {
-                  PageIndex = (pageIndex - 1),
-                  PageSize = pageSize,
-                  SearchText = globalSearch,
-                  Sort = new Sort { SortDirection = (sortOrder == "ASC" ? SortDirection.Ascending : SortDirection.Descending), SortBy = sortField }
-              };
+                {
+                    PageIndex = (pageIndex - 1),
+                    PageSize = pageSize,
+                    SearchText = globalSearch,
+                    Sort = new Sort { SortDirection = (sortOrder == "ASC" ? SortDirection.Ascending : SortDirection.Descending), SortBy = sortField }
+                };
 
                 int totalCount = 0;
                 IList<BuildingVM> result =

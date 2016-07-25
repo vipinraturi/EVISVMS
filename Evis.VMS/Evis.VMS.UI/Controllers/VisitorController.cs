@@ -6,14 +6,17 @@
  * Description  : 
  *******************************************************************************/
 
+using Evis.VMS.Business;
 using Evis.VMS.UI.HelperClasses;
 using Evis.VMS.UI.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 
 namespace Evis.VMS.UI.Controllers
 {
@@ -21,12 +24,14 @@ namespace Evis.VMS.UI.Controllers
     public class VisitorController : Controller
     {
         public readonly VisitorHelper _visitorHelper = null;
+        public readonly UserService _userService = null;
         public readonly VisitorCheckInCheckOutHelper _visitorCheckInCheckOutHelper = null;
 
         public VisitorController()
         {
             _visitorHelper = new VisitorHelper();
             _visitorCheckInCheckOutHelper = new VisitorCheckInCheckOutHelper();
+            _userService = new UserService();
         }
 
         public ActionResult _ScanVisitor()
@@ -173,10 +178,11 @@ namespace Evis.VMS.UI.Controllers
         }
 
 
-        public JsonResult GetCompanyNames(string searchterm)
+        public async Task<JsonResult> GetVisitorsData(string searchterm)
         {
+            var user = (await _userService.GetAllAsync()).Where(x => x.Id == System.Web.HttpContext.Current.User.Identity.GetUserId() && x.IsActive == true).FirstOrDefault();
             var visitorDeata = new List<VisitorJsonModel>();
-            visitorDeata = _visitorCheckInCheckOutHelper.GetVisitorData(searchterm);
+            visitorDeata = _visitorCheckInCheckOutHelper.GetVisitorData(searchterm, (user == null) ? null : user.OrganizationId);
             return Json(visitorDeata, JsonRequestBehavior.AllowGet);
         }
 	}
