@@ -24,7 +24,13 @@
         deferValidation: true
     });
     self.Email = ko.observable('').extend({ required: true, minLength: 2, maxLength: 40, email: { message: "Invalid email" } });
-    self.ContactNumber = ko.observable('').extend({ required: true, number: { message: "Numbers only" } });
+    self.ContactNumber = ko.observable('').extend({
+        required: true,
+        pattern: {
+            message: 'Invalid phone number.',
+            params: /^([0-9\(\)\/\+ \-\.]*)$/
+        }
+    });
     self.ContactAddress = ko.observable('').extend({ required: true });
     self.FaxNumber = ko.observable('').extend({ required: true });
     self.POBox = ko.observable('').extend({ required: true });
@@ -137,6 +143,8 @@
         self.FaxNumber(data.FaxNo);
         self.POBox(data.ZipCode);
         self.WebSite(data.WebSite);
+        $("#myLogo").removeAttr('src');
+        $("#myImg").attr('src', '');
         var d = new Date();
         ImagePath = data.ImagePath;
         $("#myLogo").attr('src', ImagePath + "?" + d.getTime());
@@ -153,6 +161,7 @@
     }
     self.SaveImage = function () {
         debugger;
+        $('.loader-div').show();
         $("#myLogo").removeAttr('src');
         $("#mainLogo").removeAttr('src');
         $("#myImg").attr('src', '');
@@ -181,18 +190,23 @@
             }
 
         });
-        //RefreshImage(ImagePath);
+        RefreshImage(ImagePath);
     }
 
 }
 
 
-//RefreshImage = function (Imagepath) {
-//    //var d = new Date();
-//    //$("#myLogo").attr('src', '#');
-//    //$("#mainLogo").attr('src', '#');
-//    //$("#myImg").attr('src', '#');
-//    //$("#mainLogo").attr('src', Imagepath + "?" + d.getTime());
-//    //$("#myLogo").attr('src', Imagepath + "?" + d.getTime());
-//    //$("#myImg").attr('src', Imagepath + "?" + d.getTime());
-//}
+RefreshImage = function (Imagepath) {
+    debugger;
+    
+    setTimeout(function () {
+        var d = new Date();
+        $("#myLogo").attr('src', '#');
+        $("#mainLogo").attr('src', '#');
+        $("#myImg").attr('src', '#');
+        $("#mainLogo").attr('src', Imagepath + "?" + d.getTime());
+        $("#myLogo").attr('src', Imagepath + "?" + d.getTime());
+        $("#myImg").attr('src', Imagepath + "?" + d.getTime());
+        $('.loader-div').hide();
+    }, 2000);
+}
