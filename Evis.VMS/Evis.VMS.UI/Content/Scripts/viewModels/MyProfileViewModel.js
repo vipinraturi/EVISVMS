@@ -61,7 +61,10 @@
             myDropzoneUnique.createThumbnailFromUrl(mockFile, imagePath);
             $('.dz-image').addClass('dz-message');
             $('.dz-image img').addClass('dz-message');
-            $('#imgUserAvatar').attr('src', imagePath);
+
+            if (imagePath != "") {
+                $('#imgUserAvatar').attr('src', imagePath);
+            }
 
             self.Roles().forEach(function (item) {
                 if (item.Id === self.RoleId()) {
