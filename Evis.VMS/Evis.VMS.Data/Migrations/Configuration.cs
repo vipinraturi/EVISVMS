@@ -139,6 +139,7 @@ namespace Evis.VMS.Data.Migrations
         {
             var systemAdminrole = context.Roles.Add(new ApplicationRole { Name = "SuperAdmin", Description = "SuperAdmin", IsActive = true });
 
+
             var newSystemAdminUser = new ApplicationUser
             {
                 FullName = "Super Admin",
