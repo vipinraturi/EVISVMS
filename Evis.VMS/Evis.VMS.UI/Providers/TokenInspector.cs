@@ -9,7 +9,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Security.Principal;
 using System.Xml;
 
-namespace SGH.Web.Security
+namespace Evis.VMS.UI.Providers
 {
     /// <summary>
     /// 
