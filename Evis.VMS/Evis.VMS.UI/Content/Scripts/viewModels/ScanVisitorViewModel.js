@@ -13,6 +13,7 @@ function ScanVisitorViewModel() {
     self.CompanyName = ko.observable('');
     self.EmailAddress = ko.observable('');
     self.ContactNumber = ko.observable('');
+    self.IdentityImages = ko.observableArray('');
 
     self.ReadImageData = function () {
         if ($('.dz-filename').length == 0) {
@@ -32,11 +33,17 @@ function ScanVisitorViewModel() {
         self.CompanyName('EVIS');
         self.EmailAddress('visitor@domain.com');
         self.ContactNumber('+971-2567789455');
+
+        $('.dz-image img').each(function () {
+            self.IdentityImages.push($(this).attr('alt'));
+        });
+
         self.PrepareData();
     }
 
     self.ResetImageData = function () {
         $('.dz-image-preview').empty();
+        self.IdentityImages([]);
         self.VisitorName('');
         self.Gender('');
         self.GenderText('');
@@ -49,10 +56,20 @@ function ScanVisitorViewModel() {
         self.PrepareData();
     }
 
-    self.PrepareData = function () {
-        dataToSend = self.VisitorName() + "_" + self.Gender() + "_" + self.Nationality() + "_" + self.DOB()
-      + "_" + self.TypeOfCard() + "_" + self.IdNumber() + "_" + self.Nationality()
-       + "_" + self.CompanyName() + "_" + self.EmailAddress() + "_" + self.ContactNumber();
+    self.PrepareData = function ()
+    {
+        dataToSend =
+            (self.VisitorName() + "_" +
+            self.Gender() + "_" +
+            self.Nationality() + "_" +
+            self.DOB() + "_" +
+            self.TypeOfCard() + "_" +
+            self.IdNumber() + "_" +
+            self.Nationality() + "_" +
+            self.CompanyName() + "_" +
+            self.EmailAddress() + "_" +
+            self.ContactNumber() + "_" +
+            self.IdentityImages());
     }
 
 

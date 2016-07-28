@@ -146,7 +146,7 @@
         self.Floor('');
         $('.searchVisitor').val('');
         self.EnabledFields();
-        //self.clearError();
+        self.errors([]);
     }
 
     self.ResetCheckInData = function ()
