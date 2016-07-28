@@ -44,6 +44,9 @@ namespace Evis.VMS.UI.Controllers
                 case "Security":
                     roleType = RoleType.Security;
                     break;
+                case "BuildingAdmin":
+                    roleType = RoleType.BuildingAdmin;
+                    break;
                 default:
                     break;
             }

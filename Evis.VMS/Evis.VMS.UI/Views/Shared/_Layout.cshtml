@@ -37,7 +37,6 @@
                     </div>
                     <div class="clearfix"></div>
                     <br />
-                    <!-- sidebar menu -->
                     <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                         <div class="menu_section">
                             <h3></h3>
@@ -54,11 +53,15 @@
                                         <li>
                                             <a><i class="fa fa-home"></i>Administration <span class="fa fa-chevron-down"></span></a>
                                             <ul class="nav child_menu">
-                                                @if (userSessionData.UserRole != Evis.VMS.UI.ViewModel.RoleType.SuperVisor)
+                                                @if (userSessionData.UserRole != Evis.VMS.UI.ViewModel.RoleType.SuperVisor
+                                                    && userSessionData.UserRole != Evis.VMS.UI.ViewModel.RoleType.BuildingAdmin)
                                                 {
                                                     <li id="organization"><a href="javascript:void(0)">Organization </a></li>
                                                 }
-                                                <li id="buildings"><a href="javascript:void(0)">Buildings</a></li>
+                                                @if (userSessionData.UserRole != Evis.VMS.UI.ViewModel.RoleType.SuperVisor)
+                                                {
+                                                    <li id="buildings"><a href="javascript:void(0)">Buildings</a></li>
+                                                }
                                                 <li id="gates"><a href="javascript:void(0)">Gates</a></li>
                                                 <li id="newuser"><a href="javascript:void(0)">Users</a></li>
                                                 <li id="newshiftcreate"><a href="javascript:void(0)">New Shifts</a></li>

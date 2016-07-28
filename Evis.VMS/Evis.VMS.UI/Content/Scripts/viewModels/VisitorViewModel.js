@@ -1,4 +1,7 @@
-﻿function VisitorViewModel(visitorName, gender, nationalityVal, dateOfBirth, typeOfCard, idNumber, nationalityVal, companyName, emailAddress, contactNumber) {
+﻿function VisitorViewModel(visitorName, gender, nationalityVal, dateOfBirth, typeOfCard, idNumber, nationalityVal, companyName, emailAddress, contactNumber, identityImages) {
+
+
+
     nationality = (nationalityVal != "" ? nationalityVal : undefined);
     typeOfCard = (typeOfCard != "" ? typeOfCard : undefined);
     gender = (gender != "" ? gender : undefined);
@@ -91,14 +94,13 @@
             AjaxCall('/Api/Visitor/SaveVisitor', data, 'POST', function (result) {
                 if (result.Success) {
 
-                    if (self.IsEdit())
-                    {
+                    if (self.IsEdit()) {
                         toastr.success('Visitor updated successfully!!')
                     }
                     else {
                         toastr.success('Visitor saved successfully!!')
                     }
-                    
+
                     self.ResetData();
                     self.IsInsert(true);
                     self.GetAllVisitor();
@@ -129,6 +131,8 @@
         self.ContactNo('');
         self.ContactAddress('');
         dataToSend = '';
+        identityImages = [];
+        //self.LoadIdentityImage(identityImages);
         $('#viewVisitorImageUnique').hide();
         ApplyCustomBinding('managevisitor');
     }
@@ -186,39 +190,54 @@
             $('.dz-image img').addClass('dz-message');
             $('#btnSave').html('Update <i class="fa fa-save"></i>');
 
-            //imagePath = '/images/VisitorImages/' + tableItem.ImagePath;
-            //mockFile = { name: tableItem.ImagePath, size: 1024 };
-            //dropZoneMultipleFiels.emit("addedfile", mockFile);
-            //dropZoneMultipleFiels.emit("thumbnail", mockFile, imagePath);
-            //dropZoneMultipleFiels.createThumbnailFromUrl(mockFile, imagePath);
+            identityImages = [];
+            self.LoadIdentityImage(identityImages);
 
-            var MultipleImagePath = [];
-            var obj = new Object();
-            obj.fileName = "Image-1";
-            obj.ImgURL = '/images/VisitorImages/' + tableItem.ImagePath;
-            obj.size = 1024;
-            MultipleImagePath.push(obj);
-            obj.fileName = "Image-2";
-            obj.ImgURL = '/images/VisitorImages/' + tableItem.ImagePath;
-            obj.size = 1024;
-            MultipleImagePath.push(obj);
 
-            $.each(MultipleImagePath, function (key, value) { //loop through it
-
-                var mockFile = { name: value.fileName, size: value.size }; // here we get the file name and size as response 
-
-                dropZoneMultipleFiels.options.addedfile.call(dropZoneMultipleFiels, mockFile);
-
-                dropZoneMultipleFiels.options.thumbnail.call(dropZoneMultipleFiels, mockFile, value.ImgURL);//uploadsfolder is the folder where you have all those uploaded files
-
-                dropZoneMultipleFiels.createThumbnailFromUrl(mockFile, imagePath); // Set Image in strech mode.
-
-            });
-           
         }
     }
 
-    
+
+    self.LoadIdentityImage = function (identityImages) {
+        $('#dropzoneForm .dz-image-preview').remove();
+        var MultipleImagePath = [];
+
+        if (identityImages != undefined && identityImages != "" && identityImages != null) {
+            if (identityImages.split(',').length > 0) {
+                var obj1 = new Object();
+                obj1.fileName = identityImages.split(',')[0];
+                obj1.ImgURL = '/images/VisitorImages/' + identityImages.split(',')[0];
+                obj1.size = 1024;
+                MultipleImagePath.push(obj1);
+            }
+
+            if (identityImages.split(',').length > 1) {
+                var obj2 = new Object();
+                obj2.fileName = identityImages.split(',')[1];
+                obj2.ImgURL = '/images/VisitorImages/' + identityImages.split(',')[1];
+                obj2.size = 1024;
+                MultipleImagePath.push(obj2);
+            }
+
+            if (identityImages.split(',').length > 2) {
+                var obj3 = new Object();
+                obj3.fileName = identityImages[2];
+                obj3.ImgURL = '/images/VisitorImages/' + identityImages.split(',')[2];
+                obj3.size = 1024;
+                MultipleImagePath.push(obj3);
+            }
+
+            $.each(MultipleImagePath, function (key, value) { //loop through it
+                var mockFile = { name: value.fileName, size: value.size }; // here we get the file name and size as response 
+                dropZoneMultipleFiels.options.addedfile.call(dropZoneMultipleFiels, mockFile);
+                dropZoneMultipleFiels.options.thumbnail.call(dropZoneMultipleFiels, mockFile, value.ImgURL);//uploadsfolder is the folder where you have all those uploaded files
+                dropZoneMultipleFiels.createThumbnailFromUrl(mockFile, value.ImgURL); // Set Image in strech mode.
+                $("#dropzoneForm .dz-progress").remove();
+            });
+        }
+    }
+
+
 
     self.ViewVisitorImage = function () {
         var srcURL = '';
@@ -242,4 +261,10 @@
 
     self.GetAllVisitor();
     self.LoadMasterData();
+
+    if (identityImages != undefined && identityImages != "") {
+        setTimeout(function () {
+            self.LoadIdentityImage(identityImages);
+        }, 1000);
+    }
 }
