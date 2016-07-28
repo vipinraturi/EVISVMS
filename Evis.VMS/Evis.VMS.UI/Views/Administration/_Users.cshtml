@@ -116,7 +116,7 @@
                         <thead>
                             <tr>
                                 <th style="width: 1%">#</th>
-                                <th style="width: 12%"><a href="#" onclick="DataGrid.Sort('UserName')" class="sortCol">Username</a> </th>
+                                <th style="width: 12%"><a href="#" onclick="DataGrid.Sort('FullName')" class="sortCol">Full Name</a> </th>
                                 <th style="width: 12%"><a href="#" onclick="DataGrid.Sort('ContactNumber')" class="sortCol">Contact No</a></th>
                                 <th style="width: 12%"><a href="#" onclick="DataGrid.Sort('RoleName')" class="sortCol">Role Name</a></th>
                                 <th style="width: 14%"></th>
@@ -125,7 +125,7 @@
                         <tbody data-bind="foreach: DataGrid.DataRows">
                             <tr>
                                 <th scope="row" data-bind="text: $index() +1"></th>
-                                <td data-bind="text: UserName"></td>
+                                <td data-bind="text: FullName"></td>
                                 <td data-bind="text: ContactNumber"></td>
                                 <td data-bind="text: RoleName"></td>
                                 <td>

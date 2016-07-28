@@ -62,11 +62,12 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 if (existingOrg != null)
                 {
                     existingOrg.CompanyName = organization.CompanyName;
-                    existingOrg.EmailId = organization.EmailId;
-                    existingOrg.ContactNumber = organization.ContactNumber;
-                    existingOrg.ContactAddress = organization.ContactAddress;
-                    existingOrg.ZipCode = organization.ZipCode;
-                    existingOrg.FaxNumber = organization.FaxNumber;
+                    existingOrg.CountryId = organization.CountryId;
+                    //existingOrg.EmailId = organization.EmailId;
+                    //existingOrg.ContactNumber = organization.ContactNumber;
+                    //existingOrg.ContactAddress = organization.ContactAddress;
+                    //existingOrg.ZipCode = organization.ZipCode;
+                    //existingOrg.FaxNumber = organization.FaxNumber;
                     existingOrg.WebSite = organization.WebSite;
                     organization.IsActive = true;
                     _genericService.Organization.Update(existingOrg);
@@ -87,15 +88,16 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             {
                 Id = x.Id,
                 CompanyName = x.CompanyName,
-                CountryId = x.CityMaster.ParentValues.ParentId,
-                StateId = x.CityMaster.ParentId,
-                CityId = x.CityId,
-                EmailId = x.EmailId,
-                ContactNumber = x.ContactNumber,
-                ContactAddress = x.ContactAddress,
-                ZipCode = x.ZipCode,
-                FaxNumber = x.FaxNumber,
-                Website = x.WebSite
+                CountryId = x.CountryId,
+                Country = x.CountryMaster.LookUpValue,
+                //StateId = x.CityMaster.ParentId,
+                //CityId = x.CityId,
+                //EmailId = x.EmailId,
+                //ContactNumber = x.ContactNumber,
+                //ContactAddress = x.ContactAddress,
+                //ZipCode = x.ZipCode,
+                //FaxNumber = x.FaxNumber,
+                WebSite = x.WebSite
             });
 
             if (organizationsList.Count() > 0)
@@ -104,8 +106,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 {
                     organizationsList = organizationsList.Where(item =>
                         item.CompanyName.ToLower().Contains(globalSearch.ToLower()) ||
-                        item.EmailId.ToLower().Contains(globalSearch.ToLower()) ||
-                        item.ContactNumber.ToLower().Contains(globalSearch.ToLower())
+                        item.Country.ToLower().Contains(globalSearch.ToLower()) ||
+                        item.WebSite.ToLower().Contains(globalSearch.ToLower())
                         ).AsQueryable();
                 }
 
