@@ -110,7 +110,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 IList<ShiftAssignmentVM> result =
                    GenericSorterPager.GetSortedPagedList<ShiftAssignmentVM>(Shift, paginationRequest, out totalCount);
 
-                var jsonData = JsonConvert.SerializeObject(result);
+                var jsonData = JsonConvert.SerializeObject(result.OrderByDescending(x=>x.Id));
                 return JsonConvert.SerializeObject(new { totalRows = totalCount, result = jsonData });
             }
             return null;

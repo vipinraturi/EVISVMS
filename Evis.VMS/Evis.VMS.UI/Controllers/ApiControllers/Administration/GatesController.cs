@@ -88,7 +88,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 IList<GatesVM> result =
                    GenericSorterPager.GetSortedPagedList<GatesVM>(lstgateVM, paginationRequest, out totalCount);
 
-                var jsonData = JsonConvert.SerializeObject(result);
+                var jsonData = JsonConvert.SerializeObject(result.OrderByDescending(x=>x.Id));
                 return JsonConvert.SerializeObject(new { totalRows = totalCount, result = jsonData });
             }
             return null;
