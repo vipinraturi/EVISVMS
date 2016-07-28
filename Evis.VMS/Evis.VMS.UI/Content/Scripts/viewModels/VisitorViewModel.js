@@ -192,9 +192,33 @@
             //dropZoneMultipleFiels.emit("thumbnail", mockFile, imagePath);
             //dropZoneMultipleFiels.createThumbnailFromUrl(mockFile, imagePath);
 
+            var MultipleImagePath = [];
+            var obj = new Object();
+            obj.fileName = "Image-1";
+            obj.ImgURL = '/images/VisitorImages/' + tableItem.ImagePath;
+            obj.size = 1024;
+            MultipleImagePath.push(obj);
+            obj.fileName = "Image-2";
+            obj.ImgURL = '/images/VisitorImages/' + tableItem.ImagePath;
+            obj.size = 1024;
+            MultipleImagePath.push(obj);
+
+            $.each(MultipleImagePath, function (key, value) { //loop through it
+
+                var mockFile = { name: value.fileName, size: value.size }; // here we get the file name and size as response 
+
+                dropZoneMultipleFiels.options.addedfile.call(dropZoneMultipleFiels, mockFile);
+
+                dropZoneMultipleFiels.options.thumbnail.call(dropZoneMultipleFiels, mockFile, value.ImgURL);//uploadsfolder is the folder where you have all those uploaded files
+
+                dropZoneMultipleFiels.createThumbnailFromUrl(mockFile, imagePath); // Set Image in strech mode.
+
+            });
            
         }
     }
+
+    
 
     self.ViewVisitorImage = function () {
         var srcURL = '';
