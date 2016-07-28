@@ -1,7 +1,6 @@
 ﻿@{
     ViewBag.Title = "_Organization";
 }
-
 <ol class="breadcrumb">
     <li><a href="#" class="a-color">Administration</a></li>
     <li><a href="#" class="a-color">Organization</a></li>
@@ -22,68 +21,67 @@
                             <span class="fa fa-suitcase favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
-
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Country <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <select class="form-control" data-bind="options: Countries, optionsText: 'Name', optionsValue: 'Id', value: CountryId, optionsCaption: '-- Select Country--', event:{change: LoadStates()}"></select>
+                            <select class="form-control" data-bind="options: Countries, optionsText: 'Name', optionsValue: 'Id', value: CountryId, optionsCaption: '-- Select Country--'"></select>
                         </div>
                     </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">State <span class="mandatoryField">*</span></label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                            <select class="form-control" data-bind="options: States, optionsText: 'Name', optionsValue: 'Id', value: StateId, optionsCaption: '-- Select State--',  event:{change: LoadCities()}"></select>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">City <span class="mandatoryField">*</span></label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                            <select class="form-control" data-bind="options: Cities, optionsText: 'Name', optionsValue: 'Id', value: CityId, optionsCaption: '-- Select City--'"></select>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Email Address <span class="mandatoryField">*</span></label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtEmail" type="text" class="form-control" maxlength="50" placeholder="[email@domain.com]" data-bind="value: EmailId" />
-                            <span class="fa fa-envelope favwhite form-control-feedback right" aria-hidden="true"></span>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Number <span class="mandatoryField">*</span></label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtContactNumber" type="text" maxlength="15" class="form-control" placeholder="[Contact Number]" data-bind="value: ContactNumber" />
-                            <span class="fa fa-phone favwhite form-control-feedback right" aria-hidden="true"></span>
+                    @*<div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">State <span class="mandatoryField">*</span></label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <select class="form-control" data-bind="options: States, optionsText: 'Name', optionsValue: 'Id', value: StateId, optionsCaption: '-- Select State--',  event:{change: LoadCities()}"></select>
+                            </div>
                         </div>
 
-                    </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">City <span class="mandatoryField">*</span></label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <select class="form-control" data-bind="options: Cities, optionsText: 'Name', optionsValue: 'Id', value: CityId, optionsCaption: '-- Select City--'"></select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Email Address <span class="mandatoryField">*</span></label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input id="txtEmail" type="text" class="form-control" maxlength="50" placeholder="[email@domain.com]" data-bind="value: EmailId" />
+                                <span class="fa fa-envelope favwhite form-control-feedback right" aria-hidden="true"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Number <span class="mandatoryField">*</span></label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input id="txtContactNumber" type="text" maxlength="15" class="form-control" placeholder="[Contact Number]" data-bind="value: ContactNumber" />
+                                <span class="fa fa-phone favwhite form-control-feedback right" aria-hidden="true"></span>
+                            </div>
+
+                        </div>
 
 
-                    <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Address <span class="mandatoryField">*</span></label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                            <textarea id="txtAddress" class="form-control" maxlength="500" rows="3" placeholder="[Contact Address]" data-bind="value: ContactAddress" style="resize: none;"></textarea>
-                            <span class="fa fa-home favwhite form-control-feedback right" aria-hidden="true"></span>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Address <span class="mandatoryField">*</span></label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <textarea id="txtAddress" class="form-control" maxlength="500" rows="3" placeholder="[Contact Address]" data-bind="value: ContactAddress" style="resize: none;"></textarea>
+                                <span class="fa fa-home favwhite form-control-feedback right" aria-hidden="true"></span>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">PO Box <span class="mandatoryField">*</span></label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtPostalCode" type="text" maxlength="8" class="form-control" placeholder="[PO Box]" data-bind="value: ZipCode" />
-                            <span class="fa fa-envelope-o favwhite form-control-feedback right" aria-hidden="true"></span>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">PO Box <span class="mandatoryField">*</span></label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input id="txtPostalCode" type="text" maxlength="8" class="form-control" placeholder="[PO Box]" data-bind="value: ZipCode" />
+                                <span class="fa fa-envelope-o favwhite form-control-feedback right" aria-hidden="true"></span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Fax  Number </label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtFaxNo" type="text" maxlength="15" class="form-control" placeholder="[Fax Number]" data-bind="value: FaxNumber" />
-                            <span class="fa fa-fax favwhite form-control-feedback right" aria-hidden="true"></span>
-                        </div>
-                    </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Fax  Number </label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input id="txtFaxNo" type="text" maxlength="15" class="form-control" placeholder="[Fax Number]" data-bind="value: FaxNumber" />
+                                <span class="fa fa-fax favwhite form-control-feedback right" aria-hidden="true"></span>
+                            </div>
+                        </div>*@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Website</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
@@ -101,7 +99,6 @@
             </div>
         </div>
     </div>
-
     <div class="col-md-6 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
@@ -124,8 +121,8 @@
                             <tr>
                                 <th style="width: 1%">#</th>
                                 <th style="width: 25%"> <a href="#" onclick="DataGrid.Sort('CompanyName')" class="sortCol">Name</a> </th>
-                                <th style="width: 25%"> <a href="#" onclick="DataGrid.Sort('EmailId')" class="sortCol">Email Address</a></th>
-                                <th style="width: 24%"><a href="#" onclick="DataGrid.Sort('ContactNumber')" class="sortCol">Contact No</a></th>
+                                <th style="width: 25%"> <a href="#" onclick="DataGrid.Sort('Country')" class="sortCol">Country</a></th>
+                                <th style="width: 24%"><a href="#" onclick="DataGrid.Sort('WebSite')" class="sortCol">WebSite</a></th>
                                 <th style="width: 25%"></th>
                             </tr>
                         </thead>
@@ -133,8 +130,8 @@
                             <tr>
                                 <th scope="row" data-bind="text: $index() +1"></th>
                                 <td data-bind="text: CompanyName"></td>
-                                <td data-bind="text: EmailId"></td>
-                                <td data-bind="text: ContactNumber"></td>
+                                <td data-bind="text: Country"></td>
+                                <td data-bind="text: WebSite"></td>
                                 <td>
                                     <a href="#" data-bind="click: EditOrganization.bind($data)" title="click here to view or edit record."><i class="fa fa-pencil"></i></a>
                                     <a href="#myModal" data-toggle="modal" data-bind="click: DeleteOrganization.bind($data)" title="click here to delete record."><i class="fa fa-trash-o"></i></a>
@@ -150,11 +147,9 @@
                         </tbody>
                     </table>
                     @Html.Partial("_Pager")
-
                     <!-- Modal -->
                     <div class="modal fade" id="myModal" role="dialog">
                         <div class="modal-dialog">
-
                             <!-- Modal content-->
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -170,7 +165,6 @@
                                     @*<a href="#" class="btn btn-s" data-bind="click: DeleteOrganization.bind($data)" title="click here to delete record."><i class="fa fa-trash-o"></i></a>*@
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </form>
@@ -178,6 +172,4 @@
         </div>
     </div>
 </div>
-
-
 
