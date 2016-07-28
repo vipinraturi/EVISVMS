@@ -98,7 +98,7 @@ namespace Evis.VMS.UI.HelperClasses
             {
                 var visitor =
                     _genericService.VisitorMaster.GetAll()
-                    .Where(item => item.EmailId == visitorDetailsVM.EmailAddress)
+                    .Where(item => item.Id == visitorDetailsVM.Id)
                     .FirstOrDefault();
 
                 if (visitor != null)

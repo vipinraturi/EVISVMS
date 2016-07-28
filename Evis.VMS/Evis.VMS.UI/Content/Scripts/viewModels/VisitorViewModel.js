@@ -1,4 +1,4 @@
-﻿function VisitorViewModel(visitorName, gender, nationalityVal, dateOfBirth, typeOfCard, idNumber, nationalityVal) {
+﻿function VisitorViewModel(visitorName, gender, nationalityVal, dateOfBirth, typeOfCard, idNumber, nationalityVal, companyName, emailAddress, contactNumber) {
     nationality = (nationalityVal != "" ? nationalityVal : undefined);
     typeOfCard = (typeOfCard != "" ? typeOfCard : undefined);
     gender = (gender != "" ? gender : undefined);
@@ -6,13 +6,13 @@
     var self = this;
     Id = ko.observable(0);
     VisitorName = ko.observable(visitorName).extend({ required: true });
-    EmailAddress = ko.observable('').extend({ required: true, email: { message: "Invalid email" } });
+    EmailAddress = ko.observable(emailAddress);
     Gender = ko.observable(gender).extend({ required: true });
     DOB = ko.observable(dateOfBirth).extend({ required: true });
     TypeOfCardValue = ko.observable(typeOfCard).extend({ required: true });
     IdNo = ko.observable(idNumber).extend({ required: true });
     Nationality = ko.observable(nationality).extend({ required: true });
-    ContactNo = ko.observable('').extend({ required: true });
+    ContactNo = ko.observable(contactNumber).extend({ required: true });
     ContactAddress = ko.observable('');
 
     self.GlobalSearch = ko.observable('');
@@ -22,9 +22,9 @@
     self.Genders = ko.observableArray();
     self.TypeOfCards = ko.observableArray();
     self.Nationalities = ko.observableArray();
+
     self.errors = ko.validation.group({
         VisitorName: this.VisitorName,
-        EmailAddress: this.EmailAddress,
         Gender: this.Gender,
         DOB: this.DOB,
         TypeOfCardValue: this.TypeOfCardValue,
@@ -73,10 +73,11 @@
         }
         else {
             var data = new Object();
+            var initial = self.DOB().split(/\//);
             data.VisitorName = self.VisitorName(),
             data.EmailAddress = self.EmailAddress(),
             data.Gender = self.Gender(),
-            data.DOB = self.DOB(),
+            data.DOB = [initial[1], initial[0], initial[2]].join('/'),
             data.TypeOfCard = self.TypeOfCardValue(),
             data.IdNo = self.IdNo(),
             data.Nationality = self.Nationality()
@@ -84,11 +85,14 @@
             data.ImagePath = $('.dz-image img').attr('alt');
             data.ContactAddress = self.ContactAddress()
             data.IsInsert = self.IsInsert();
+            data.Id = self.Id();
 
             //// display any error messages if we have them
             AjaxCall('/Api/Visitor/SaveVisitor', data, 'POST', function (result) {
                 if (result.Success) {
-                    if (self.IsEdit()) {
+
+                    if (self.IsEdit())
+                    {
                         toastr.success('Visitor updated successfully!!')
                     }
                     else {
@@ -97,7 +101,6 @@
                     
                     self.ResetData();
                     self.IsInsert(true);
-
                     self.GetAllVisitor();
                 }
                 else {
@@ -108,10 +111,7 @@
     }
 
     self.ResetVisitor = function () {
-        
-        
         ResetData();
-
     }
 
     self.ResetData = function () {
@@ -149,29 +149,50 @@
 
     self.EditVisitor = function (tableItem) {
         if (tableItem != undefined) {
+
+            var d = new Date(tableItem.DOB),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+            if (month.length < 2) month = '0' + month;
+            if (day.length < 2) day = '0' + day;
+            var dateDob = [day, month, year].join('/');
+
+
             $('#viewVisitorImageUnique').show();
             self.IsEdit(true);
             self.IsInsert(false);
+            self.Id(tableItem.Id);
             self.VisitorName(tableItem.VisitorName);
             self.EmailAddress(tableItem.EmailAddress);
             self.Gender(tableItem.Gender);
-            self.DOB(tableItem.DOB);
+            self.DOB(dateDob);
             self.TypeOfCardValue(tableItem.TypeOfCard);
             self.IdNo(tableItem.IdNo);
             self.Nationality(tableItem.Nationality);
             self.ContactNo(tableItem.ContactNo);
             self.ContactAddress(tableItem.ContactAddress);
-            
+            //debugger;
+
+
             $('.dz-image-preview').empty();
-            ////debugger;
+
             var imagePath = '/images/VisitorImages/' + tableItem.ImagePath;
             var mockFile = { name: tableItem.ImagePath, size: 1024 };
-            myDropzone.emit("addedfile", mockFile);
-            myDropzone.emit("thumbnail", mockFile, imagePath);
-            myDropzone.createThumbnailFromUrl(mockFile, imagePath);
+            dropZoneVisitorImage.emit("addedfile", mockFile);
+            dropZoneVisitorImage.emit("thumbnail", mockFile, imagePath);
+            dropZoneVisitorImage.createThumbnailFromUrl(mockFile, imagePath);
             $('.dz-image').addClass('dz-message');
             $('.dz-image img').addClass('dz-message');
             $('#btnSave').html('Update <i class="fa fa-save"></i>');
+
+            //imagePath = '/images/VisitorImages/' + tableItem.ImagePath;
+            //mockFile = { name: tableItem.ImagePath, size: 1024 };
+            //dropZoneMultipleFiels.emit("addedfile", mockFile);
+            //dropZoneMultipleFiels.emit("thumbnail", mockFile, imagePath);
+            //dropZoneMultipleFiels.createThumbnailFromUrl(mockFile, imagePath);
+
+           
         }
     }
 
@@ -180,7 +201,6 @@
         if ($('.dz-image img').attr('alt') != undefined) {
             srcURL = ($('.dz-image img').attr('alt'));
         }
-        
 
         if (srcURL.indexOf('/images/VisitorImages') == -1) {
             srcURL = '/images/VisitorImages/' + srcURL;

@@ -42,7 +42,7 @@ ApplyCustomBinding = function (elementName) {
             break;
         case 'managevisitor':
             var scanVisitorViewModel = ScanVisitorViewModel();
-            BindingViewModel("/Visitor/_ManageVisitorManually", VisitorViewModel(scanVisitorViewModel.split('_')[0], scanVisitorViewModel.split('_')[1], scanVisitorViewModel.split('_')[2], scanVisitorViewModel.split('_')[3], scanVisitorViewModel.split('_')[4], scanVisitorViewModel.split('_')[5], scanVisitorViewModel.split('_')[6]));
+            BindingViewModel("/Visitor/_ManageVisitorManually", VisitorViewModel(scanVisitorViewModel.split('_')[0], scanVisitorViewModel.split('_')[1], scanVisitorViewModel.split('_')[2], scanVisitorViewModel.split('_')[3], scanVisitorViewModel.split('_')[4], scanVisitorViewModel.split('_')[5], scanVisitorViewModel.split('_')[6], scanVisitorViewModel.split('_')[7], scanVisitorViewModel.split('_')[8], scanVisitorViewModel.split('_')[9]));
             break;
         case 'visitorcheckin':
             BindingViewModel("/Visitor/_VisitorCheckIn", VisitorCheckInViewModel());

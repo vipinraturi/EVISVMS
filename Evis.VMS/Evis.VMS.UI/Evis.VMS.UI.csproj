@@ -323,7 +323,6 @@
     <Content Include="Content\Scripts\viewModels\VisitorCheckInViewModel.js" />
     <Content Include="Content\Scripts\viewModels\VisitorViewModel.js" />
     <Content Include="Content\Scripts\viewModels\VisitorCheckOutViewModel.js" />
-    <Content Include="Content\Scripts\viewModels\VisitorDetailsViewModel.js" />
     <Content Include="Content\Scripts\viewModels\ShiftDetailsViewModel.js" />
     <Content Include="Content\Scripts\viewModels\DashboardViewModel.js" />
     <Content Include="Content\Scripts\viewModels\GatesViewModel.js" />
@@ -508,7 +507,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>63864</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:22752/</IISUrl>
+          <IISUrl>http://localhost:22779/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

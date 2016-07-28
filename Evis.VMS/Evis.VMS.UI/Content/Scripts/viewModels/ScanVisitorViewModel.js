@@ -10,6 +10,9 @@ function ScanVisitorViewModel() {
     self.IdNumber = ko.observable('');
     self.Nationality = ko.observable('');
     self.NationalityText = ko.observable('');
+    self.CompanyName = ko.observable('');
+    self.EmailAddress = ko.observable('');
+    self.ContactNumber = ko.observable('');
 
     self.ReadImageData = function () {
         if ($('.dz-filename').length == 0) {
@@ -26,9 +29,10 @@ function ScanVisitorViewModel() {
         self.IdNumber('H8888SHSJHDF');
         self.Nationality('36');
         self.NationalityText('Indian');
-        dataToSend = self.VisitorName() + "_" + self.Gender() + "_" + self.Nationality() + "_" + self.DOB()
-        + "_" + self.TypeOfCard() + "_" + self.IdNumber() + "_" + self.Nationality();
-
+        self.CompanyName('EVIS');
+        self.EmailAddress('visitor@domain.com');
+        self.ContactNumber('+971-2567789455');
+        self.PrepareData();
     }
 
     self.ResetImageData = function () {
@@ -42,9 +46,15 @@ function ScanVisitorViewModel() {
         self.IdNumber('');
         self.Nationality('');
         self.NationalityText('');
-        dataToSend = self.VisitorName() + "_" + self.Gender() + "_" + self.Nationality() + "_" + self.DOB()
-        + "_" + self.TypeOfCard() + "_" + self.IdNumber() + "_" + self.Nationality();
+        self.PrepareData();
     }
+
+    self.PrepareData = function () {
+        dataToSend = self.VisitorName() + "_" + self.Gender() + "_" + self.Nationality() + "_" + self.DOB()
+      + "_" + self.TypeOfCard() + "_" + self.IdNumber() + "_" + self.Nationality()
+       + "_" + self.CompanyName() + "_" + self.EmailAddress() + "_" + self.ContactNumber();
+    }
+
 
     self.ContinueRegistration = function () {
 

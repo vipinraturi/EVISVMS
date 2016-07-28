@@ -17,7 +17,7 @@
                     <div class="form-group">
                         <div class="col-md-offset-7" style="margin-top:5px">
                             <button type="button" id="btnReadImageData" class="btn btn-success pull-right" style="margin:5px;" data-bind="click: ReadImageData">Read Image</button>
-                            <button type="button" id="btnClearImage" class="btn btn-success pull-right" style="margin:5px;" data-bind="click: ResetImageData">Reset</button>
+                            <button type="button" id="btnClearImage" class="btn btn-primary pull-right" style="margin:5px;" data-bind="click: ResetImageData">Reset</button>
                         </div>
                     </div>
                 </div>
@@ -33,47 +33,70 @@
             <div class="x_content">
                 <form class="form-horizontal form-label-left input_mask">
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Visitor's Name</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Visitor Name:</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
                             <input id="txtFirstName" readonly="readonly" type="text" class="form-control inputdisable" placeholder="[Visitor Name]" data-bind="value: VisitorName" />
                             <span class="fa fa-user favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Gender</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Gender:</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
                             <input id="" readonly="readonly" type="text" class="form-control inputdisable" placeholder="[Gender]" data-bind="value: GenderText" />
                             <span class="fa fa-mars favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Date Of Birth</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Date Of Birth:</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
                             <input id="" readonly="readonly" type="text" class="form-control inputdisable" placeholder="[dd/mm/yyyy]" data-bind="value: DOB" />
                             <span class="fa fa-calendar favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Type Of Card</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Type Of Card:</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
                             <input id="" readonly="readonly" type="text" class="form-control inputdisable" placeholder="[Emirates Id]" data-bind="value: TypeOfCardText" />
                             <span class="fa fa-simplybuilt favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">ID Number</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">ID Number:</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
                             <input id="" readonly="readonly" type="text" class="form-control inputdisable" placeholder="[XXX-XXX-XXX-XXXX]" data-bind="value: IdNumber" />
                             <span class="fa fa-simplybuilt favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Nationality</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Company Name:</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input id="" readonly="readonly" type="text" class="form-control inputdisable" placeholder="[Company Name]" data-bind="value: CompanyName" />
+                            <span class="fa fa-flag favwhite form-control-feedback right" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Email Address:</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input id="" readonly="readonly" type="text" class="form-control inputdisable" placeholder="[Email Address]" data-bind="value: EmailAddress" />
+                            <span class="fa fa-flag favwhite form-control-feedback right" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Number:</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input id="" readonly="readonly" type="text" class="form-control inputdisable" placeholder="[Contact Number]" data-bind="value: ContactNumber" />
+                            <span class="fa fa-flag favwhite form-control-feedback right" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                  
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Nationality:</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
                             <input id="" readonly="readonly" type="text" class="form-control inputdisable" placeholder="[Nationality]" data-bind="value: NationalityText" />
                             <span class="fa fa-flag favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
+                    
                     <div class="form-group">
                         <div class="col-md-offset-7">
                             <button type="button" id="btnCompleteRegister" class="btn btn-success pull-right" data-bind="click: ContinueRegistration">Continue Registration</button>
