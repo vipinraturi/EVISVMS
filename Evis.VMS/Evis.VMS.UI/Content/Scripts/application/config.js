@@ -119,7 +119,8 @@ BindingViewModel = function (controllerUrl, viewModel) {
         });
         }
         if (controllerUrl == "/Administration/_Shifts") {
-            $('.timepickerCtr').timepicker();
+            $(".timepickerCtr").keypress(function (event) { event.preventDefault(); });
+           $('.timepickerCtr').timepicker();
         }
     });
 }
