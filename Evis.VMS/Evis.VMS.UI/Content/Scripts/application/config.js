@@ -92,6 +92,7 @@ BindingViewModel = function (controllerUrl, viewModel) {
             BindAutoCompleteEvent();
         }
         if (controllerUrl == "/Administration/_ShiftAssignment") {
+            $("#dateFrom").keypress(function (event) { event.preventDefault(); });
             $('#dateFrom').datepicker({
                 dateFormat: 'dd/mm/yy',
                 minDate: 'now',
@@ -106,6 +107,7 @@ BindingViewModel = function (controllerUrl, viewModel) {
                 
         }
         if (controllerUrl == "/Administration/_ShiftAssignment") {
+            $("#dateTo").keypress(function (event) { event.preventDefault(); });
             $('#dateTo').datepicker({
                 dateFormat: 'dd/mm/yy',
                 minDate: 'now',
