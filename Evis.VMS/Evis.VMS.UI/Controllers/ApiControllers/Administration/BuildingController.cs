@@ -51,6 +51,10 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     existingOrg.ZipCode = BuildingMaster.ZipCode;
                     existingOrg.OrganizationId = existingOrg.OrganizationId;
                     BuildingMaster.IsActive = true;
+                    existingOrg.EmailId = BuildingMaster.EmailId;
+                    existingOrg.ContactNumber = BuildingMaster.ContactNumber;
+                    existingOrg.FaxNumber = BuildingMaster.FaxNumber;
+                    existingOrg.WebSite = BuildingMaster.WebSite;
                     _genericService.BuildingMaster.Update(existingOrg);
                 };
             }
@@ -72,7 +76,11 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     ZipCode = x.ZipCode,
                     NationalityId = x.CityMaster.ParentValues.ParentId,
                     StateId = x.CityMaster.ParentId,
-                    OrganizationName = x.Organization.CompanyName
+                    OrganizationName = x.Organization.CompanyName,
+                    EmailId=x.EmailId,
+                    ContactNumber=x.ContactNumber,
+                    FaxNumber=x.FaxNumber,
+                    WebSite=x.WebSite
 
                 });
             if (lstBuildingVM.Count() > 0)
@@ -107,7 +115,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         [Route("~/Api/Administration/DeleteBuilding")]
         [HttpPost]
         public ReturnResult DeleteBuilding([FromBody] BuildingMaster BuildingMaster)
-        {
+            {
             if (BuildingMaster != null)
             {
                 var BuildingMasterDelete = _genericService.BuildingMaster.GetAll().Where(x => x.Id == BuildingMaster.Id).FirstOrDefault();

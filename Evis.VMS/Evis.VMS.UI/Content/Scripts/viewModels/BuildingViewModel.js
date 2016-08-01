@@ -24,6 +24,32 @@
     //self.StateName = ko.observable('').extend({ required: true });
     self.Address = ko.observable('').extend({ required: true });
     self.ZipCode = ko.observable('').extend({ required: true });
+    self.EmailId = ko.observable('').extend({ minLength: 2, maxLength: 40, email: { message: "Invalid email" } });
+    self.ContactNumber = ko.observable('').extend({
+        required: true,
+        pattern: {
+            message: 'Invalid phone number.',
+            params: /^([0-9\(\)\/\+ \-\.]*)$/
+        }
+    });
+
+    self.FaxNumber = ko.observable('').extend({ required: true });
+    self.WebSite = ko.observable('').extend({required: true, url: true });
+
+
+    ko.validation.rules['url'] = {
+        validator: function (val, required) {
+            if (!val) {
+                return !required
+            }
+            val = val.replace(/^\s+|\s+$/, ''); //Strip whitespace
+            //Regex by Diego Perini from: http://mathiasbynens.be/demo/url-regex
+            return val.match(/^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.‌​\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[‌​6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1‌​,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00‌​a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u‌​00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?$/i);
+        },
+        message: 'This field has to be a valid URL'
+    };
+    ko.validation.registerExtenders();
+
     //self.Nationality = ko.observable('').extend({ required: true });
     self.StateId = ko.observable(undefined).extend({ required: true });
     self.CityId = ko.observable(undefined).extend({ required: true });
@@ -42,7 +68,11 @@
             StateId: this.StateId,
             CityId: this.CityId,
             NationalityId: this.NationalityId,
-            OrganizationId: this.OrganizationId
+            OrganizationId: this.OrganizationId,
+            EmailId: this.EmailId,
+            ContactNumber: this.ContactNumber,
+            FaxNumber: this.FaxNumber,
+            WebSite: this.WebSite
         });
 
 
@@ -88,6 +118,7 @@
             })
         }
     }
+
     self.SaveBuilding = function () {
         //debugger;
 
@@ -100,6 +131,7 @@
         abc = self.CityId();
         abc = self.NationalityId();
         abc = self.OrganizationId();
+        abc = self.EmailId;
         if (self.errors().length > 0) {
             self.errors.showAllMessages(true);
             this.errors().forEach(function (data) {
@@ -116,6 +148,13 @@
             //data.State = self.State(),
             // data.Country = self.Country(),
             data.CityId = self.CityId(),
+             data.EmailId = self.EmailId(),
+            data.ContactNumber = self.ContactNumber(),
+            data.FaxNumber = self.FaxNumber(),
+             data.WebSite = self.WebSite();
+            //data.ContactNumber = self.ContactNumber,
+            //data.FaxNumber = self.Fax,
+            //data.WebSite=self.website
             //// display any error messages if we have them
             AjaxCall('/Api/Administration/SaveBuilding', data, 'POST', function (data) {
                 if (data.Message == "Success") {
@@ -138,14 +177,22 @@
         self.Address('');
         self.ZipCode('');
         self.City('');
+        self.EmailId('');
+        self.ContactNumber('');
+        self.FaxNumber('');
+        self.WebSite('');
         ApplyCustomBinding('buildings');
         $('#Org').attr('disabled', false);
 
     }
     self.EditBuilding = function (tableItem) {
-        //debugger;
+        debugger;
         if (tableItem != undefined) {
             self.Id(tableItem.Id);
+            self.EmailId(tableItem.EmailId);
+            self.ContactNumber(tableItem.ContactNumber);
+            self.FaxNumber(tableItem.FaxNumber);
+            self.WebSite(tableItem.WebSite);
             self.BuildingName(tableItem.BuildingName);
             self.Address(tableItem.Address);
             self.ZipCode(tableItem.ZipCode);
@@ -159,14 +206,30 @@
         }
     }
     self.DeleteBuilding = function (tableItem) {
-        var message = confirm("Are you sure, you want to delete selected record!");
-        if (message == true) {
-            //debugger;
-            AjaxCall('/Api/Administration/DeleteBuilding', tableItem, 'POST', function () {
-                toastr.success('Building deleted successfully!!')
+        //var message = confirm("Are you sure, you want to delete selected record!");
+        //if (message == true) {
+        //    //debugger;
+        //    AjaxCall('/Api/Administration/DeleteBuilding', tableItem, 'POST', function () {
+        //        toastr.success('Building deleted successfully!!')
+        //        ApplyCustomBinding('buildings');
+        //    });
+        //}
+        recordToDelete = tableItem;
+    }
+    self.DeleteConfirmed=function()
+    {
+        $('#myModal').modal('hide');
+        $('.modal-backdrop').modal('show');
+        $('.modal-backdrop').modal('hide');
+        AjaxCall('/Api/Administration/DeleteBuilding', recordToDelete, 'POST', function (data) {
+            if (data.Success == true) {
+                toastr.success(data.Message);
                 ApplyCustomBinding('buildings');
-            });
-        }
+            }
+            else if (data.Success == false) {
+                toastr.warning(data.Message);
+            }
+        });
     }
     self.GlobalSearchEnter = function (data) {
         //debugger;

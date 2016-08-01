@@ -162,6 +162,8 @@
 
     self.DeleteConfirmed = function () {
         $('#myModal').modal('hide');
+        $('.modal-backdrop').modal('show');
+        $('.modal-backdrop').modal('hide');
         AjaxCall('/Api/User/DeleteUser', recordToDelete, 'POST', function () {
             toastr.success('User deleted successfully!!')
             ApplyCustomBinding('newuser');

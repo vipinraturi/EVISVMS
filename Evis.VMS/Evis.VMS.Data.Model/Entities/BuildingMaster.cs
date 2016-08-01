@@ -24,6 +24,21 @@ namespace Evis.VMS.Data.Model.Entities
         [Required]
         public int CityId { get; set; }
 
+
+        //[Required]
+        [MaxLength(50)]
+        public string EmailId { get; set; }
+
+        [Required]
+        [MaxLength(15)]
+        public string ContactNumber { get; set; }
+
+        [MaxLength(15)]
+        public string FaxNumber { get; set; }
+
+        [MaxLength(50)]
+        public string WebSite { get; set; }
+
         [Required]
         [MaxLength(500)]
         public string Address { get; set; }

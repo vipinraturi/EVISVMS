@@ -86,6 +86,7 @@ function OrganizationViewModel() {
     }
 
     self.SaveOrganization = function () {
+        debugger;
         if (self.organizationErrors().length > 0 || ($("#txtWebsite").val() != '' && $("span.validationMessage").text() != '')) {
             self.organizationErrors.showAllMessages(true);
             return false;
@@ -107,6 +108,7 @@ function OrganizationViewModel() {
             $('.loader-div').show();
             //// display any error messages if we have them
             AjaxCall('/Api/Administration/SaveOrganization', data, 'POST', function (data) {
+                //$('.loader-div').hide();
                 if (data.Success == true) {
                     toastr.success(data.Message);
                     self.ResetOrganizationDetails();
@@ -116,6 +118,7 @@ function OrganizationViewModel() {
                     toastr.warning(data.Message);
                 }
             })
+            $('.loader-div').hide();
         }
     }
 
@@ -148,6 +151,8 @@ function OrganizationViewModel() {
 
     self.DeleteConfirmed = function () {
         $('#myModal').modal('hide');
+        $('.modal-backdrop').modal('show');
+        $('.modal-backdrop').modal('hide');
         AjaxCall('/Api/Administration/DeleteOrganization', recordToDelete, 'POST', function (data) {
             if (data.Success == true) {
                 toastr.success(data.Message);

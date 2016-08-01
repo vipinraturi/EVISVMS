@@ -63,7 +63,7 @@
 
 
     self.EditGate = function (tableItem) {
-        ////debugger;;
+      
         if (tableItem != undefined) {
             self.Id(tableItem.Id);
             self.GateNumber(tableItem.GateNumber);
@@ -74,6 +74,7 @@
         }
     }
     self.DeleteGate = function (tableItem) {
+        debugger;
         var message = confirm("Are you sure, you want to delete selected record!");
         if (message == true) {
             AjaxCall('/Api/Gates/DeleteGate', tableItem, 'POST', function () {
@@ -81,7 +82,23 @@
                 ApplyCustomBinding('gates');
             });
         }
+        //recordToDelete = tableItem;
     }
+    //self.DeleteConfirmed = function () {
+    //    debugger;
+    //    $('#myModaldelete').modal('hide');
+    //    $('.modal-backdrop').modal('show');
+    //    $('.modal-backdrop').modal('hide');
+    //    AjaxCall('/Api/Gates/DeleteGate', recordToDelete, 'POST', function (data) {
+    //        if (data.Success == true) {
+    //            toastr.success(data.Message);
+    //            ApplyCustomBinding('gates');
+    //        }
+    //        else if (data.Success == false) {
+    //            toastr.warning(data.Message);
+    //        }
+    //    });
+    //}
     self.ResetGates = function () {
         self.GlobalSearch('');
         self.GateNumber('');

@@ -36,6 +36,7 @@
 
     self.DataGrid = new RIT.eW.DataGridAjax('/Api/ShiftAssignment/GetAllShiftAssignment', 7);
 
+
     self.GetAllShiftAssignmentData = function () {
         self.DataGrid.UpdateSearchParam('?globalSearch=' + self.GlobalSearch());
         self.DataGrid.GetData();
@@ -82,13 +83,32 @@
 
     }
     self.DeleteShift = function (tableItem) {
-        var message = confirm("Are you sure, you want to delete selected record!");
-        if (message == true) {
-            AjaxCall('/Api/ShiftAssignment/DeleteShift', tableItem, 'POST', function () {
-                toastr.success('ShiftAssignment deleted successfully!!')
-                ApplyCustomBinding('shiftassignment');
+        //var message = confirm("Are you sure, you want to delete selected record!");
+        //if (message == true) {
+        //    AjaxCall('/Api/ShiftAssignment/DeleteShift', tableItem, 'POST', function () {
+        //        toastr.success('ShiftAssignment deleted successfully!!')
+        //        ApplyCustomBinding('shiftassignment');
+        //    });
+        //}
+        recordToDelete = tableItem;
+    }
+
+    self.DeleteConfirmed = function () {
+        $('#myModal').modal('hide');
+        $('.modal-backdrop').modal('show');
+        $('.modal-backdrop').modal('hide');
+        AjaxCall('/Api/ShiftAssignment/DeleteShift', recordToDelete, 'POST', function () {
+            toastr.success('Shift deleted successfully!!')
+            ApplyCustomBinding('shiftassignment');
             });
-        }
+        //    if (data.Success == true) {
+        //        toastr.success(data.Message);
+        //        ApplyCustomBinding('shiftassignment');
+        //    }
+        //    else if (data.Success == false) {
+        //        toastr.warning(data.Message);
+        //    }
+        //});
     }
     self.EditShift = function (tableItem) {
 
