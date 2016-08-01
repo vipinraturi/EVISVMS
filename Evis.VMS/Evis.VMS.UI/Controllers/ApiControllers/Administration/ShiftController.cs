@@ -96,6 +96,10 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 var ShitfDelete = _genericService.ShitfMaster.GetAll().Where(x => x.Id == ShitfMaster.Id).FirstOrDefault();
                 if (ShitfDelete != null)
                 {
+                    if (_genericService.ShitfAssignment.SearchFor(x => x.ShitfId == ShitfMaster.Id && x.IsActive == true).Any())
+                    {
+                        return new  ReturnResult { Message="Please first delete all the shifts under this shift assignment", Success=false};
+                    }
                     ShitfDelete.IsActive = false;
                     _genericService.ShitfMaster.Update(ShitfDelete);
                     _genericService.Commit();

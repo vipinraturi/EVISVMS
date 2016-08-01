@@ -59,6 +59,7 @@
     })
     self.Buildings = ko.observableArray();
     AjaxCall('/Api/Gates/GetAllBuilding', null, 'GET', function (data) {
+        debugger;
         self.Buildings(data);
     })
     self.Users = ko.observableArray();
@@ -111,6 +112,7 @@
         //});
     }
     self.EditShift = function (tableItem) {
+        debugger;
 
         var datetoFormat = new Date(tableItem.ToDate),
             month = '' + (datetoFormat.getMonth() + 1),

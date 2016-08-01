@@ -202,6 +202,10 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 var existingUser = await _userService.GetAsync(x => x.Id == usersVM.UserId);
                 if (existingUser != null)
                 {
+                    if (_genericService.ShitfAssignment.SearchFor(x => x.UserId ==usersVM.UserId && x.IsActive==true).Any())
+                    {
+                        return new ReturnResult { Message = "Please first delete all the shift assigment under this user", Success = false };
+                    }
                     //existingUser.IsActive = false;
                     await _userService.DeleteAsync(existingUser);
                     _genericService.Commit();

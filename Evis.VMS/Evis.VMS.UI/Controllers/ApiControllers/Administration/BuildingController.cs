@@ -121,6 +121,10 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 var BuildingMasterDelete = _genericService.BuildingMaster.GetAll().Where(x => x.Id == BuildingMaster.Id).FirstOrDefault();
                 if (BuildingMasterDelete != null)
                 {
+                    if (_genericService.GateMaster.SearchFor(x => x.BuildingId == BuildingMaster.Id && x.IsActive==true).Any())
+                    {
+                        return new ReturnResult { Message = "Please first delete all the gates under this building", Success = false };
+                    }
                     BuildingMasterDelete.IsActive = false;
                     _genericService.BuildingMaster.Update(BuildingMasterDelete);
                     _genericService.Commit();

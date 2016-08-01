@@ -61,7 +61,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 .Select(x => new GatesVM
                 {
                     Id = x.Id,
-                    BuildingId = x.Id,
+                    BuildingId = x.BuildingId,
                     GateNumber = x.GateNumber,
                     BuildingName = x.BuildingMaster.BuildingName
 
@@ -113,10 +113,14 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 var GaterDelete = _genericService.GateMaster.GetAll().Where(x => x.Id == GateMaster.Id).FirstOrDefault();
                 if (GaterDelete != null)
                 {
+                    if (_genericService.ShitfAssignment.SearchFor(x => x.GateId == GateMaster.Id && x.IsActive==true).Any())
+                    {
+                        return new ReturnResult { Message = "Please first delete all the shift assigment under this gate", Success = false };
+                    }
                     GaterDelete.IsActive = false;
                     _genericService.GateMaster.Update(GaterDelete);
                     _genericService.Commit();
-                    return new ReturnResult { Message = "Success", Success = true };
+                    return new ReturnResult { Message = "gate deleted successfully", Success = true };
                 }
             }
             return new ReturnResult { Message = "Failure", Success = false };

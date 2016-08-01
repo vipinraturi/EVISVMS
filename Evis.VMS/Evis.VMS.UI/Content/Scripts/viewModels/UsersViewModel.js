@@ -161,13 +161,22 @@
     }
 
     self.DeleteConfirmed = function () {
+        debugger;
         $('#myModal').modal('hide');
         $('.modal-backdrop').modal('show');
         $('.modal-backdrop').modal('hide');
-        AjaxCall('/Api/User/DeleteUser', recordToDelete, 'POST', function () {
-            toastr.success('User deleted successfully!!')
-            ApplyCustomBinding('newuser');
+        AjaxCall('/Api/User/DeleteUser', recordToDelete, 'POST', function (data) {
+            //toastr.success('User deleted successfully!!')
+            //ApplyCustomBinding('newuser');
+            if (data.Success == true) {
+                toastr.success(data.Message);
+                ApplyCustomBinding('newuser');
+            }
+            else if (data.Success == false) {
+                toastr.warning(data.Message);
+            }
         });
+       
     }
 
     self.ResetUser = function () {
