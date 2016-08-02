@@ -1,5 +1,6 @@
 ﻿
 function ScanVisitorViewModel() {
+
     var self = this;
     self.VisitorName = ko.observable('');
     self.Gender = ko.observable('');
@@ -53,7 +54,6 @@ function ScanVisitorViewModel() {
         self.IdNumber('');
         self.Nationality('');
         self.NationalityText('');
-        self.PrepareData();
     }
 
     self.PrepareData = function ()
@@ -74,15 +74,12 @@ function ScanVisitorViewModel() {
 
 
     self.ContinueRegistration = function () {
-
+        self.PrepareData();
         if (self.VisitorName() == "" ||  self.Gender() == '' || self.DOB() == '' || self.TypeOfCard() =='' || self.IdNumber() == '' || self.Nationality() =='') {
             toastr.warning('No scanned image data available to proceed.');
             return;
         }
-
         ApplyCustomBinding('managevisitor');
     }
-
-    ////debugger;
     return dataToSend;
 } 
