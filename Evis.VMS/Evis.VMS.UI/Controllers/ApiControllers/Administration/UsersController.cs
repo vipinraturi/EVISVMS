@@ -75,7 +75,21 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             var getUsers = (await _userService.GetAllAsync()).Where(x => x.Organization.IsActive == true &&
                             (user == null || (user != null && x.OrganizationId == user.OrganizationId))).AsQueryable();
 
-            var getRoles = (await _applicationRoleService.GetAllAsync()).AsQueryable();
+            ApplicationRole role = null;
+            if (user != null)
+            {
+                role = await _applicationRoleService.FindByIdAsync(user.Roles.FirstOrDefault().RoleId);
+            }
+
+            IQueryable<ApplicationRole> getRoles;
+            if (role != null && role.Name == "Supervisor")
+            {
+                getRoles = (await _applicationRoleService.GetAllAsync()).Where(x => x.Name == "Security").AsQueryable();
+            }
+            else
+            {
+                getRoles = (await _applicationRoleService.GetAllAsync()).AsQueryable();
+            }
 
             var temp = (from users in getUsers
                         join roles in getRoles on users.Roles.First().RoleId equals roles.Id
