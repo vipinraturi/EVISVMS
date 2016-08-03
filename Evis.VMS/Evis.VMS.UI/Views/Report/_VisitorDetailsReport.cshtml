@@ -17,32 +17,18 @@
                     <div class="form-group col-md-3 col-sm-4 col-xs-12">
                         <div class="col-xs-12">
                             <label class="control-label">
-                                Security Person
-                            </label>
-                        </div>
-                        <div class="col-xs-12">
-                            <select id="DDBEmployeeId" class="form-control" required="required">
-                                <option value="0">--Select--</option>
-                                <option value="1">ABC</option>
-                                <option value="2">XYZ</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group col-md-3 col-sm-4 col-xs-12">
-                        <div class="col-xs-12">
-                            <label class="control-label">
                                 Building Name
                             </label>
                         </div>
 
                         <div class="col-xs-12">
-                            <select id="DDBBuilding" class="form-control" required="required">
+                            <select class="form-control" data-bind="options: Buildings, optionsText: 'Name' ,optionsValue: 'Id', value: BuildingId, optionsCaption: '-- Select --',event:{ change: GetGates()}"></select>
+                            @*<select id="DDBBuilding" class="form-control" required="required">
                                 <option value="0">--Select--</option>
                                 <option value="1">Tigher</option>
                                 <option value="2">Carrefour</option>
                                 <option value="3">Lulu</option>
-                            </select>
+                            </select>*@
                         </div>
                     </div>
 
@@ -54,14 +40,31 @@
                         </div>
 
                         <div class="col-xs-12">
-                            <select id="DDBGateNo" class="form-control" required="required">
+                            @*<select id="DDBGateNo" class="form-control" required="required">
                                 <option value="0">--Select--</option>
                                 <option value="1">GateNo-1</option>
                                 <option value="2">GateNo-2</option>
                                 <option value="3">GateNo-3</option>
                                 <option value="3">GateNo-4</option>
                                 <option value="3">GateNo-5</option>
-                            </select>
+                            </select>*@
+                            <select class="form-control" data-bind="options: Gates, optionsText: 'Name' ,optionsValue: 'Id', value: GateId, optionsCaption: '-- Select --',event:{ change: GetUsers()}"></select>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-3 col-sm-4 col-xs-12">
+                        <div class="col-xs-12">
+                            <label class="control-label">
+                                Security Person
+                            </label>
+                        </div>
+                        <div class="col-xs-12">
+                            <select class="form-control" data-bind="options: Users, optionsText: 'Name' ,optionsValue: 'Id', value: UserId, optionsCaption: '-- Select --'"></select>
+                            @*<select id="DDBEmployeeId" class="form-control" required="required">
+                                <option value="0">--Select--</option>
+                                <option value="1">ABC</option>
+                                <option value="2">XYZ</option>
+                            </select>*@
                         </div>
                     </div>
 
@@ -101,7 +104,8 @@
                             </label>
                         </div>
                         <div class="col-xs-12">
-                            <input id="txtFromDate" type="text" class="form-control" placeholder="dd/mm/yyyy" required="required" />
+                            <input id="dateFrom" type="text" data-bind="value: FromDate" class="form-control" placeholder="[From Date]" />
+                            @*<input id="txtFromDate" type="text" class="form-control" placeholder="dd/mm/yyyy" required="required" />*@
                             <span class="fa fa-calendar favwhite  form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
@@ -113,7 +117,8 @@
                             </label>
                         </div>
                         <div class="col-xs-12">
-                            <input id="txtToDate" type="text" class="form-control" placeholder="dd/mm/yyyy" required="required" />
+                            <input id="dateTo" type="text" data-bind="value: ToDate" class="form-control" placeholder="[TO Date]" />
+                            @*<input id="txtToDate" type="text" class="form-control" placeholder="dd/mm/yyyy" required="required" />*@
                             <span class="fa fa-calendar favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
@@ -126,12 +131,14 @@
                             </label>
                         </div>
                         <div class="pull-right">
-                            <button type="submit" class="btn btn-success">
+                            @*<button type="submit" class="btn btn-success">
                                 Search  <i class="fa fa-search"></i>
                             </button>
                             <button type="button" class="btn btn-primary">
                                 Reset  <i class="fa fa-refresh"></i>
-                            </button>
+                            </button>*@
+                            <button type="button" class="btn btn-primary" data-bind="click: ResetVisitorsDetails.bind()">Reset <i class="fa fa-refresh"></i></button>
+                            <button type="button" class="btn btn-success" data-bind="click: SearchVisitorsDetails.bind()" id="btnSaveshiftassignment">Save <i class="fa fa-save"></i></button>
                         </div>
                     </div>
 
@@ -230,94 +237,28 @@
                         <thead>
                             <tr>
                                 <th style="width: 1%">#</th>
-                                <th style="width: 10%">Visitor Name</th>
-                                <th style="width: 9%">Visit Date</th>
-                                <th style="width: 8%">CheckIn</th>
-                                <th style="width: 8%">CheckOut</th>
-                                <th style="width: 10%">Contact No</th>
-                                <th style="width: 20%">Visit Detail</th>
+                                <th style="width: 15%"> <a href="#" onclick="DataGrid.Sort('VisitorName')" class="sortCol">Building Name</a> </th>
+                                <th style="width: 20%"> <a href="#" onclick="DataGrid.Sort('VisitDate')" class="sortCol">Gate Name</a></th>
+                                <th style="width: 20%"><a href="#" onclick="DataGrid.Sort('CheckIn')" class="sortCol">Shift Name</a></th>
+                                <th style="width: 15%"><a href="#" onclick="DataGrid.Sort('CheckOut')" class="sortCol">Security Name</a></th>
+                                <th style="width: 15%"><a href="#" onclick="DataGrid.Sort('ContactNumber')" class="sortCol">Security Name</a></th>
+                                <th style="width: 15%"><a href="#" onclick="DataGrid.Sort('VisitDetails')" class="sortCol">Security Name</a></th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody data-bind="foreach:DataGrid.DataRows">
                             <tr>
-                                <td>1</td>
-                                <td><a>XYZ</a></td>
-                                <td>01/06/2016</td>
-                                <td>09:30 AM</td>
-                                <td>04:10 PM</td>
-                                <td>0566545676</td>
-                                <td>Ashish Rathor, Tiger Building Block-A, 20th Floor</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td><a>XYZ</a></td>
-                                <td>01/06/2016</td>
-                                <td>09:30 AM</td>
-                                <td>04:10 PM</td>
-                                <td>0566545676</td>
-                                <td>Ashish Rathor, Tiger Building Block-A, 20th Floor</td>
-                            </tr>
-
-                            <tr>
-                                <td>3</td>
-                                <td><a>XYZ</a></td>
-                                <td>01/06/2016</td>
-                                <td>09:30 AM</td>
-                                <td>04:10 PM</td>
-                                <td>0566545676</td>
-                                <td>Ashish Rathor, Tiger Building Block-A, 20th Floor</td>
-                            </tr>
-
-                            <tr>
-                                <td>4</td>
-                                <td><a>XYZ</a></td>
-                                <td>01/06/2016</td>
-                                <td>09:30 AM</td>
-                                <td>04:10 PM</td>
-                                <td>0566545676</td>
-                                <td>Ashish Rathor, Tiger Building Block-A, 20th Floor</td>
-                            </tr>
-
-                            <tr>
-                                <td>5</td>
-                                <td><a>XYZ</a></td>
-                                <td>01/06/2016</td>
-                                <td>09:30 AM</td>
-                                <td>04:10 PM</td>
-                                <td>0566545676</td>
-                                <td>Ashish Rathor, Tiger Building Block-A, 20th Floor</td>
-                            </tr>
-
-                            <tr>
-                                <td>6</td>
-                                <td><a>XYZ</a></td>
-                                <td>01/06/2016</td>
-                                <td>09:30 AM</td>
-                                <td>04:10 PM</td>
-                                <td>0566545676</td>
-                                <td>Ashish Rathor, Tiger Building Block-A, 20th Floor</td>
-                            </tr>
-
-                            <tr>
-                                <td>7</td>
-                                <td><a>XYZ</a></td>
-                                <td>01/06/2016</td>
-                                <td>09:30 AM</td>
-                                <td>04:10 PM</td>
-                                <td>0566545676</td>
-                                <td>Ashish Rathor, Tiger Building Block-A, 20th Floor</td>
-                            </tr>
-                            <tr>
-                                <td>8</td>
-                                <td><a>XYZ</a></td>
-                                <td>01/06/2016</td>
-                                <td>09:30 AM</td>
-                                <td>04:10 PM</td>
-                                <td>0566545676</td>
-                                <td>Ashish Rathor, Tiger Building Block-A, 20th Floor</td>
+                                <th scope="row" data-bind="text: $index() +1"></th>
+                                <td data-bind="text: VisitorName"></td>
+                                <td data-bind="text: VisitDate"></td>
+                                <td data-bind="text: CheckIn"></td>
+                                <td data-bind="text: CheckOut"></td>
+                                <td data-bind="text: ContactNumber"></td>
+                                <td data-bind="text: VisitDetails"></td>
                             </tr>
                         </tbody>
+                        <tr class="blank_row" data-bind="visible: (DataGrid.DataRows().length == 0)"><td colspan="10">No data, Add new records.</td></tr>
                     </table>
+                    @Html.Partial("_Pager")
                 </form>
         </div>
     </div>

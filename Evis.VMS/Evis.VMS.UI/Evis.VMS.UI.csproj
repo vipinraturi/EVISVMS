@@ -248,6 +248,7 @@
     <Compile Include="ViewModel\BuildingVM.cs" />
     <Compile Include="ViewModel\OrganizationVM.cs" />
     <Compile Include="ViewModel\ResultSet.cs" />
+    <Compile Include="ViewModel\VisitorsDetailsVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Scripts\application\app.js" />
@@ -321,6 +322,7 @@
     <Content Include="Content\Scripts\viewModels\ShiftViewModel.js" />
     <Content Include="Content\Scripts\viewModels\ShiftAssignmentViewModel.js" />
     <Content Include="Content\Scripts\viewModels\VisitorCheckInViewModel.js" />
+    <Content Include="Content\Scripts\viewModels\VisitorDetailsViewModel.js" />
     <Content Include="Content\Scripts\viewModels\VisitorViewModel.js" />
     <Content Include="Content\Scripts\viewModels\VisitorCheckOutViewModel.js" />
     <Content Include="Content\Scripts\viewModels\ShiftDetailsViewModel.js" />
