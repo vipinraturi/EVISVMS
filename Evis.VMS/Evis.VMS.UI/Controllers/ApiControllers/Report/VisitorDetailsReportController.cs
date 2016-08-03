@@ -19,6 +19,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using System.Web.Script.Serialization;
 
 namespace Evis.VMS.UI.Controllers.ApiControllers
 {
@@ -33,14 +34,14 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
         [Route("~/Api/VisitorsDetails/GetVisitorsDetails")]
         [HttpPost]
-        public string GetVisitorData(VisitorsDetailsVM searchDetails, int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC", string globalSearch = "")
+        public string GetVisitorData(string search, int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC", string globalSearch = "")
         {
             var visitorsDetails = (from vm in _genericService.VisitorMaster.GetAll()
-                                       .Where(x => searchDetails != null && (searchDetails.SecurityId == "" || x.CreatedBy == searchDetails.SecurityId))
+                                   //.Where(x => searchDetails != null && (searchDetails.SecurityId == "" || x.CreatedBy == searchDetails.SecurityId))
                                    join vd in _genericService.VisitDetails.GetAll()
-                                       .Where(x => searchDetails != null &&
-                                             (searchDetails.GateId == 0 || x.CheckInGate == searchDetails.GateId || x.CheckOutGate == searchDetails.GateId) &&
-                                             (searchDetails.BuildingId == 0 || x.GateMaster.BuildingId == searchDetails.BuildingId))
+                                       //.Where(x => searchDetails != null &&
+                                       //      (searchDetails.GateId == 0 || x.CheckInGate == searchDetails.GateId || x.CheckOutGate == searchDetails.GateId) &&
+                                       //      (searchDetails.BuildingId == 0 || x.GateMaster.BuildingId == searchDetails.BuildingId))
                                    on vm.Id equals vd.VisitorId
                                    select new VisitorsDetailsVM
                                    {
@@ -50,8 +51,12 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                                        CheckIn = vd.CheckIn,
                                        CheckOut = vd.CheckOut,
                                        ContactNumber = vm.ContactNo,
-                                       VisitDetails = vd.PurposeOfVisit
-                                   }).AsQueryable();
+                                       VisitDetails = vd.PurposeOfVisit,
+                                       BuildingId = vd.GateMaster.BuildingId,
+                                       GateId = vd.CheckInGate,
+                                       SecurityId = vm.CreatedBy
+                                       //FromDate  = vm.end
+                                   }).ToList();
 
             //var user = (await .GetAllAsync()).Where(x => x.Id == HttpContext.Current.User.Identity.GetUserId() && x.IsActive == true).FirstOrDefault();
 
@@ -69,11 +74,20 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             {
                 //if (!string.IsNullOrEmpty(globalSearch))
                 //{
-                //    visitorsDetails = visitorsDetails.Where(item =>
-                //        item.CompanyName.ToLower().Contains(globalSearch.ToLower()) ||
-                //        item.Country.ToLower().Contains(globalSearch.ToLower()) ||
-                //        item.WebSite.ToLower().Contains(globalSearch.ToLower())
-                //        ).AsQueryable();
+                var searchDetails = JsonConvert.DeserializeObject<SearchVisitorVM>(search);
+
+                //JavaScriptSerializer json_serializer = new JavaScriptSerializer();
+                //SearchVisitorVM searchDetails = (SearchVisitorVM)json_serializer.DeserializeObject(search);
+
+                visitorsDetails = visitorsDetails.Where(
+                   x => (searchDetails == null ||
+                        ((searchDetails.SecurityId == "" || x.SecurityId == searchDetails.SecurityId) &&
+                        (searchDetails.GateId == 0 || x.GateId == searchDetails.GateId || x.GateId == searchDetails.GateId) &&
+                        (searchDetails.BuildingId == 0 || x.BuildingId == searchDetails.BuildingId) &&
+                        (searchDetails.VisitorName == "" || x.VisitorName.Contains(searchDetails.VisitorName)) &&
+                        (searchDetails.FromDate == "" || x.FromDate.Contains(searchDetails.FromDate)) &&
+                        (searchDetails.ToDate == "" || x.ToDate.Contains(searchDetails.ToDate)))
+                        )).ToList();
                 //}
 
                 //creating pager object to send for filtering and sorting
@@ -87,7 +101,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
                 int totalCount = 0;
                 IList<VisitorsDetailsVM> result =
-                    GenericSorterPager.GetSortedPagedList<VisitorsDetailsVM>(visitorsDetails, paginationRequest, out totalCount);
+                    GenericSorterPager.GetSortedPagedList<VisitorsDetailsVM>(visitorsDetails.AsQueryable(), paginationRequest, out totalCount);
 
                 var jsonData = JsonConvert.SerializeObject(result.OrderBy(x => x.VisitorName));
                 return JsonConvert.SerializeObject(new { totalRows = totalCount, result = jsonData });

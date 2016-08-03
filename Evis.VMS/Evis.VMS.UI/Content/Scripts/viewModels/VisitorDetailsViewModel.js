@@ -1,9 +1,9 @@
 ﻿function VisitorDetailsViewModel() {
     var self = this;
     var gateId = 0;
-    var userId = 0;
+    var securityId = '';
     self.BuildingId = ko.observable(undefined).extend({ required: false });
-    self.UserId = ko.observable(undefined).extend({ required: false });
+    self.SecurityId = ko.observable(undefined).extend({ required: false });
     self.GateId = ko.observable(undefined).extend({ required: false });
     self.VisitorName = ko.observable('').extend({ required: false });
     self.FromDate = ko.observable('').extend({ required: false });
@@ -14,9 +14,11 @@
     self.SearchVisitorsDetails = function () {
         //self.DataGrid.UpdateSearchParam('?search=' + self.Search());
         debugger;
-        self.DataGrid.UpdateSearchParam('?searchDetails=' + new Object());
+        self.DataGrid.UpdateSearchParam('?search=' + JSON.stringify(new Object()));
         self.DataGrid.GetData();
     }
+
+    self.SearchVisitorsDetails();
 
     // To get all buildings.
     self.Buildings = ko.observableArray();
@@ -44,21 +46,22 @@
             AjaxCall('/Api/ShiftAssignment/GetAllUsers?GateId=' + self.GateId(), null, 'GET', function (data) {
                 self.Users(new Object());
                 self.Users(data);
-                self.UserId(userId);
+                self.SecurityId(securityId);
             })
         }
     }
 
     self.SearchVisitorsDetails = function () {
+        debugger;
         var data = new Object();
         data.BuildingId = self.BuildingId();
         data.GateId = self.GateId();
-        data.UserId = self.UserId();
+        data.SecurityId = self.SecurityId();
         data.VisitorName = self.VisitorName();
         data.FromDate = self.FromDate();
         data.ToDate = self.ToDate();
 
-        self.DataGrid.UpdateSearchParam('?searchDetails=' + data);
+        self.DataGrid.UpdateSearchParam('?search=' + JSON.stringify(data));
         self.DataGrid.GetData();
 
         //AjaxCall('/Api/VisitorsDetails/GetVisitorsDetails', data, 'POST', function () {
@@ -70,7 +73,7 @@
     self.ResetVisitorsDetails = function () {
         self.BuildingId(undefined);
         self.GateId(undefined);
-        self.UserId(undefined);
+        self.SecurityId(undefined);
         self.VisitorName('');
         self.FromDate('');
         self.ToDate('');

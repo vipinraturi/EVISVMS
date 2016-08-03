@@ -5,11 +5,9 @@ using System.Web;
 
 namespace Evis.VMS.UI.ViewModel
 {
-    public class VisitorsDetailsVM
+    public class VisitorsDetailsVM : SearchVisitorVM
     {
         public long VisitorId { get; set; }
-
-        public string VisitorName { get; set; }
 
         public DateTime VisitDate { get; set; }
 
@@ -21,11 +19,25 @@ namespace Evis.VMS.UI.ViewModel
 
         public string VisitDetails { get; set; }
 
+    }
+
+    public class SearchVisitorVM
+    {
+        public SearchVisitorVM()
+        {
+            SecurityId = VisitorName = FromDate = ToDate = string.Empty;
+        }
         public int BuildingId { get; set; }
 
         public int GateId { get; set; }
 
         public string SecurityId { get; set; }
-       
+
+        public string VisitorName { get; set; }
+
+        public string FromDate { get; set; }
+
+        public string ToDate { get; set; }
+
     }
 }
