@@ -16,7 +16,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
+using Microsoft.AspNet.Identity;
 
 namespace Evis.VMS.UI.Controllers.ApiControllers
 {
@@ -24,15 +26,20 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
     {
         [Route("~/Api/Gates/SaveGate")]
         [HttpPost]
-        public ReturnResult SaveGate([FromBody]  GateMaster GateMaster)
+        public ReturnResult SaveGate([FromBody]  GateMaster gateMaster)
         {
-            if (GateMaster.Id == 0)
+            var currentUserId = HttpContext.Current.User.Identity.GetUserId();
+            if (gateMaster.Id == 0)
             {
-                var data = _genericService.GateMaster.GetAll().Where(x => x.GateNumber == GateMaster.GateNumber.Trim() && x.BuildingId == GateMaster.BuildingId).ToList();
+                var data = _genericService.GateMaster.GetAll().Where(x => x.GateNumber == gateMaster.GateNumber.Trim() && x.BuildingId == gateMaster.BuildingId).ToList();
                 if (data.Count() == 0)
                 {
-                    GateMaster.IsActive = true;
-                    _genericService.GateMaster.Insert(GateMaster);
+                    gateMaster.IsActive = true;
+                    gateMaster.CreatedBy = currentUserId;
+                    gateMaster.CreatedOn = DateTime.UtcNow;
+                    gateMaster.UpdatedBy = currentUserId;
+                    gateMaster.UpdatedOn = DateTime.UtcNow;
+                    _genericService.GateMaster.Insert(gateMaster);
                 }
                 else
                 {
@@ -41,12 +48,14 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             }
             else
             {
-                var existinggate = _genericService.GateMaster.GetById(GateMaster.Id);
+                var existinggate = _genericService.GateMaster.GetById(gateMaster.Id);
                 if (existinggate != null)
                 {
-                    existinggate.BuildingId = GateMaster.BuildingId;
-                    existinggate.GateNumber = GateMaster.GateNumber;
-                    GateMaster.IsActive = true;
+                    existinggate.BuildingId = gateMaster.BuildingId;
+                    existinggate.GateNumber = gateMaster.GateNumber;
+                    existinggate.UpdatedBy = currentUserId;
+                    existinggate.UpdatedOn = DateTime.UtcNow;
+                    gateMaster.IsActive = true;
                     _genericService.GateMaster.Update(existinggate);
                 };
             }

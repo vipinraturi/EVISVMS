@@ -119,7 +119,7 @@ namespace Evis.VMS.UI.Controllers
                 foreach (string fileName in Request.Files)
                 {
                     HttpPostedFileBase file = Request.Files[fileName];
-                    fName = file.FileName;
+                    fName = string.Format("{0}_{1}", fileName, file.FileName);
                     if (file != null && file.ContentLength > 0)
                     {
                         var originalDirectory = new DirectoryInfo(logoPath);

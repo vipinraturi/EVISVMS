@@ -25,7 +25,6 @@
     self.Genders = ko.observableArray();
     self.TypeOfCards = ko.observableArray();
     self.Nationalities = ko.observableArray();
-
     self.errors = ko.validation.group({
         VisitorName: this.VisitorName,
         Gender: this.Gender,
@@ -37,14 +36,11 @@
     });
 
     self.DataGrid = new RIT.eW.DataGridAjax('/Api/Visitor/GetVisitorData', 7);
-
     self.VisitorList = ko.observableArray([]);
-
     self.GetAllVisitor = function () {
         self.DataGrid.UpdateSearchParam('?globalSearch=' + self.GlobalSearch());
         self.DataGrid.GetData(true);
     }
-
     self.LoadMasterData = function () {
         var lookUpTypes = [];
         lookUpTypes.push("Gender");
@@ -65,7 +61,6 @@
             }));
         })
     }
-
     self.SaveVisitor = function () {
 
         if (self.errors().length > 0) {
@@ -85,7 +80,13 @@
             data.IdNo = self.IdNo(),
             data.Nationality = self.Nationality()
             data.ContactNo = self.ContactNo();
-            data.ImagePath = $('.dz-image img').attr('alt');
+
+            if ($('.dz-image img').attr('alt') == undefined) {
+                data.ImagePath = "";
+            }
+            else {
+                data.ImagePath = $('.dz-image img').attr('alt');
+            }
             data.ContactAddress = self.ContactAddress()
             data.IsInsert = self.IsInsert();
             data.Id = self.Id();
@@ -93,7 +94,6 @@
             //// display any error messages if we have them
             AjaxCall('/Api/Visitor/SaveVisitor', data, 'POST', function (result) {
                 if (result.Success) {
-
                     if (self.IsEdit()) {
                         toastr.success('Visitor updated successfully!!')
                     }
@@ -162,7 +162,7 @@
             if (day.length < 2) day = '0' + day;
             var dateDob = [day, month, year].join('/');
 
-
+           
             $('#viewVisitorImageUnique').show();
             self.IsEdit(true);
             self.IsInsert(false);
@@ -176,24 +176,20 @@
             self.Nationality(tableItem.Nationality);
             self.ContactNo(tableItem.ContactNo);
             self.ContactAddress(tableItem.ContactAddress);
-            //debugger;
-
-
             $('.dz-image-preview').empty();
 
-            var imagePath = '/images/VisitorImages/' + tableItem.ImagePath;
-            var mockFile = { name: tableItem.ImagePath, size: 1024 };
-            dropZoneVisitorImage.emit("addedfile", mockFile);
-            dropZoneVisitorImage.emit("thumbnail", mockFile, imagePath);
-            dropZoneVisitorImage.createThumbnailFromUrl(mockFile, imagePath);
-            $('.dz-image').addClass('dz-message');
-            $('.dz-image img').addClass('dz-message');
-            $('#btnSave').html('Update <i class="fa fa-save"></i>');
-
-            identityImages = [];
-            self.LoadIdentityImage(identityImages);
-
-
+            if (tableItem.ImagePath != undefined && tableItem.ImagePath != "") {
+                var imagePath = '/images/VisitorImages/' + tableItem.ImagePath;
+                var mockFile = { name: tableItem.ImagePath, size: 1024 };
+                dropZoneVisitorImage.emit("addedfile", mockFile);
+                dropZoneVisitorImage.emit("thumbnail", mockFile, imagePath);
+                dropZoneVisitorImage.createThumbnailFromUrl(mockFile, imagePath);
+                $('.dz-image').addClass('dz-message');
+                $('.dz-image img').addClass('dz-message');
+                $('#btnSave').html('Update <i class="fa fa-save"></i>');
+                identityImages = [];
+                self.LoadIdentityImage(identityImages);
+            }
         }
     }
 

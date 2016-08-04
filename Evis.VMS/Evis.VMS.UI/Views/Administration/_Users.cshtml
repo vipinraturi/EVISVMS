@@ -117,6 +117,7 @@
                             <tr>
                                 <th style="width: 1%">#</th>
                                 <th style="width: 12%"><a href="#" onclick="DataGrid.Sort('FullName')" class="sortCol">Full Name</a> </th>
+                                <th style="width: 12%"><a href="#" onclick="DataGrid.Sort('EmailAddress')" class="sortCol">Email Address</a> </th>
                                 <th style="width: 12%"><a href="#" onclick="DataGrid.Sort('ContactNumber')" class="sortCol">Contact No</a></th>
                                 <th style="width: 12%"><a href="#" onclick="DataGrid.Sort('RoleName')" class="sortCol">Role Name</a></th>
                                 <th style="width: 14%"></th>
@@ -126,6 +127,7 @@
                             <tr>
                                 <th scope="row" data-bind="text: $index() +1"></th>
                                 <td data-bind="text: FullName"></td>
+                                <td data-bind="text: Email"></td>
                                 <td data-bind="text: ContactNumber"></td>
                                 <td data-bind="text: RoleName"></td>
                                 <td>

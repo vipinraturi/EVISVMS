@@ -75,6 +75,12 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             var getUsers = (await _userService.GetAllAsync()).Where(x => x.Organization.IsActive == true &&
                             (user == null || (user != null && x.OrganizationId == user.OrganizationId))).AsQueryable();
 
+            if (string.IsNullOrEmpty(sortField))
+            {
+                sortField = "CreatedOn";
+                sortOrder = "DESC";
+            }
+
             ApplicationRole role = null;
             if (user != null)
             {
@@ -105,7 +111,11 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                             RoleName = roles.Name,
                             OrganizationId = users.OrganizationId,
                             Nationality = users.Nationality,
-                            ProfilePicturePath = users.ProfilePicturePath
+                            ProfilePicturePath = users.ProfilePicturePath,
+                            CreatedOn = users.CreatedOn,
+                            CreatedBy = users.CreatedBy,
+                            UpdatedBy = users.UpdatedBy,
+                            UpdatedOn = users.UpdatedOn
                         }).AsQueryable();
 
             if (temp.Count() > 0)
@@ -142,10 +152,14 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
         [Route("~/Api/Users/SaveUser")]
         [HttpPost]
-        public async Task<ReturnResult> SaveOrganization([FromBody] UsersVM usersVM)
+        public async Task<ReturnResult> SaveUser([FromBody] UsersVM usersVM)
         {
+
             string message = "Error occured, please try again with valid entered data again!";
             bool success = false;
+            var currentUserId = HttpContext.Current.User.Identity.GetUserId();
+
+            
             if (usersVM != null && string.IsNullOrEmpty(usersVM.UserId))
             {
                 var existingUser = await _userService.GetAsync(x => x.Email.ToString().Equals(usersVM.Email.ToString()));
@@ -162,6 +176,10 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 user.PhoneNumber = usersVM.ContactNumber;
                 user.GenderId = usersVM.GenderId;
                 user.Nationality = usersVM.Nationality;
+                user.CreatedOn = DateTime.UtcNow;
+                user.CreatedBy = currentUserId;
+                user.UpdatedOn = DateTime.UtcNow;
+                user.UpdatedBy = currentUserId;
                 user.IsActive = true;
                 user.ProfilePicturePath = (string.IsNullOrEmpty(usersVM.ProfilePicturePath) ? string.Empty : string.Format("/images/UserImages/{0}", usersVM.ProfilePicturePath));
                 await _userService.InsertAsync(user, password, usersVM.RoleId);
@@ -196,6 +214,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     existingUser.PhoneNumber = usersVM.ContactNumber;
                     existingUser.GenderId = usersVM.GenderId;
                     existingUser.Nationality = usersVM.Nationality;
+                    existingUser.UpdatedOn = DateTime.UtcNow;
+                    existingUser.UpdatedBy = currentUserId;
                     existingUser.ProfilePicturePath = (string.IsNullOrEmpty(usersVM.ProfilePicturePath) ? string.Empty : string.Format("/images/UserImages/{0}", usersVM.ProfilePicturePath));
                     await _userService.UpdateAsync(existingUser, usersVM.RoleId);
                     message = "User update sucessfully!";

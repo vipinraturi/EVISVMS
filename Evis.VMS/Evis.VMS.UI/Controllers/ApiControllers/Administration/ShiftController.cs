@@ -17,7 +17,10 @@ using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
+using Microsoft.AspNet.Identity;
+
 
 namespace Evis.VMS.UI.Controllers.ApiControllers
 {
@@ -25,25 +28,32 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
     {
         [Route("~/Api/Shift/SaveShift")]
         [HttpPost]
-        public ReturnResult Saveshift([FromBody]  ShitfMaster ShiftDetailsVM)
+        public ReturnResult Saveshift([FromBody]  ShitfMaster ShiftDetail)
         {
 
-            if (ShiftDetailsVM.Id == 0)
-            {
-                ShiftDetailsVM.IsActive = true;
-                _genericService.ShitfMaster.Insert(ShiftDetailsVM);
-            }
+            var currentUserId = HttpContext.Current.User.Identity.GetUserId();
 
+            if (ShiftDetail.Id == 0)
+            {
+                ShiftDetail.IsActive = true;
+                ShiftDetail.CreatedBy = currentUserId;
+                ShiftDetail.CreatedOn = DateTime.UtcNow;
+                ShiftDetail.UpdatedBy = currentUserId;
+                ShiftDetail.UpdatedOn = DateTime.UtcNow;
+                _genericService.ShitfMaster.Insert(ShiftDetail);
+            }
             else
             {
-                var Shift = _genericService.ShitfMaster.GetById(ShiftDetailsVM.Id);
-                if (Shift != null)
+                var shiftFromDb = _genericService.ShitfMaster.GetById(ShiftDetail.Id);
+                if (shiftFromDb != null)
                 {
-                    Shift.ShitfName = ShiftDetailsVM.ShitfName;
-                    Shift.FromTime = ShiftDetailsVM.FromTime;
-                    Shift.ToTime = ShiftDetailsVM.ToTime;
-                    ShiftDetailsVM.IsActive = true;
-                    _genericService.ShitfMaster.Update(ShiftDetailsVM);
+                    shiftFromDb.ShitfName = ShiftDetail.ShitfName;
+                    shiftFromDb.FromTime = ShiftDetail.FromTime;
+                    shiftFromDb.ToTime = ShiftDetail.ToTime;
+                    shiftFromDb.UpdatedBy = currentUserId;
+                    shiftFromDb.UpdatedOn = DateTime.UtcNow;
+                    ShiftDetail.IsActive = true;
+                    _genericService.ShitfMaster.Update(ShiftDetail);
                 };
             }
             _genericService.Commit();
