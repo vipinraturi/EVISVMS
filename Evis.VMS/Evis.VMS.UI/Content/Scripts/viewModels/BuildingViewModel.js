@@ -23,17 +23,30 @@
     self.BuildingName = ko.observable('').extend({ required: true });
     //self.StateName = ko.observable('').extend({ required: true });
     self.Address = ko.observable('').extend({ required: true });
-    self.ZipCode = ko.observable('').extend({ required: true });
+    self.ZipCode = ko.observable('').extend({
+        required: true,
+        pattern: {
+            message: "invalid Zip Code.",
+            params:  /^([0-9\(\)\/\+ \-\.]*)$/
+        }
+    });
+
     self.EmailId = ko.observable('').extend({ minLength: 2, maxLength: 40, email: { message: "Invalid email" } });
     self.ContactNumber = ko.observable('').extend({
         required: true,
-        pattern: {
-            message: 'Invalid phone number.',
+        pattern: { 
+            message: 'Invalid Contact Number.',
             params: /^([0-9\(\)\/\+ \-\.]*)$/
         }
     });
 
-    self.FaxNumber = ko.observable('').extend({ required: true });
+    self.FaxNumber = ko.observable('').extend({
+        required: true,
+        pattern: {
+            message: 'Invalid Fax Number.',
+            params: /^([0-9\(\)\/\+ \-\.]*)$/
+        }
+    });
     self.WebSite = ko.observable('').extend({required: true, url: true });
 
 
