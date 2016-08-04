@@ -34,7 +34,7 @@ function ScanVisitorViewModel() {
         self.CompanyName('EVIS');
         self.EmailAddress('visitor@domain.com');
         self.ContactNumber('+971-2567789455');
-
+        $('input[type=text]').removeAttr('readonly').removeClass('inputdisable');
         $('.dz-image img').each(function () {
             self.IdentityImages.push($(this).attr('alt'));
         });
@@ -44,6 +44,7 @@ function ScanVisitorViewModel() {
 
     self.ResetImageData = function () {
         $('.dz-image-preview').empty();
+        $('input[type=text]').attr('readonly', 'readonly').addClass('inputdisable');
         self.IdentityImages([]);
         self.VisitorName('');
         self.Gender('');

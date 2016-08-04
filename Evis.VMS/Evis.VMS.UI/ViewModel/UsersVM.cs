@@ -37,6 +37,13 @@ namespace Evis.VMS.UI.ViewModel
         public string ThemeName { get; set; }
 
         public string ProfilePicturePath { get; set; }
-        
+
+        public DateTime? CreatedOn { get; set; }
+
+        public string CreatedBy { get; set; }
+
+        public DateTime? UpdatedOn { get; set; }
+
+        public string UpdatedBy { get; set; }
     }
 }
