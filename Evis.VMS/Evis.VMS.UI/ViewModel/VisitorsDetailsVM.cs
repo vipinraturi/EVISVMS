@@ -9,15 +9,15 @@ namespace Evis.VMS.UI.ViewModel
     {
         public long VisitorId { get; set; }
 
-        public DateTime VisitDate { get; set; }
-
-        public DateTime CheckIn { get; set; }
-
-        public DateTime? CheckOut { get; set; }
-
         public string ContactNumber { get; set; }
 
         public string VisitDetails { get; set; }
+
+        public string Building { get; set; }
+
+        public string Gate { get; set; }
+
+        public string Security { get; set; }
 
     }
 
@@ -25,7 +25,7 @@ namespace Evis.VMS.UI.ViewModel
     {
         public SearchVisitorVM()
         {
-            SecurityId = VisitorName = FromDate = ToDate = string.Empty;
+            SecurityId = VisitorName = string.Empty;
         }
         public int BuildingId { get; set; }
 
@@ -35,9 +35,9 @@ namespace Evis.VMS.UI.ViewModel
 
         public string VisitorName { get; set; }
 
-        public string FromDate { get; set; }
+        public string CheckIn { get; set; }
 
-        public string ToDate { get; set; }
+        public string CheckOut { get; set; }
 
     }
 }

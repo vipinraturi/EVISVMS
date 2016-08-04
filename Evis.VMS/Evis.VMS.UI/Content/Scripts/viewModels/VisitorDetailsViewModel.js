@@ -2,12 +2,12 @@
     var self = this;
     var gateId = 0;
     var securityId = '';
-    self.BuildingId = ko.observable(undefined).extend({ required: false });
-    self.SecurityId = ko.observable(undefined).extend({ required: false });
-    self.GateId = ko.observable(undefined).extend({ required: false });
-    self.VisitorName = ko.observable('').extend({ required: false });
-    self.FromDate = ko.observable('').extend({ required: false });
-    self.ToDate = ko.observable('').extend({ required: false });
+    self.BuildingId = ko.observable(undefined); //.extend({ required: false });
+    self.SecurityId = ko.observable(undefined); // .extend({ required: false });
+    self.GateId = ko.observable(undefined);//.extend({ required: false });
+    self.VisitorName = ko.observable('');//.extend({ required: false });
+    self.CheckIn = ko.observable('');//.extend({ required: false });
+    self.CheckOut = ko.observable('');//.extend({ required: false });
 
     debugger;
     self.DataGrid = new RIT.eW.DataGridAjax('/Api/VisitorsDetails/GetVisitorsDetails', 7);
@@ -58,8 +58,8 @@
         data.GateId = self.GateId();
         data.SecurityId = self.SecurityId();
         data.VisitorName = self.VisitorName();
-        data.FromDate = self.FromDate();
-        data.ToDate = self.ToDate();
+        data.CheckIn = self.CheckIn();
+        data.CheckOut = self.CheckOut();
 
         self.DataGrid.UpdateSearchParam('?search=' + JSON.stringify(data));
         self.DataGrid.GetData();
@@ -75,8 +75,8 @@
         self.GateId(undefined);
         self.SecurityId(undefined);
         self.VisitorName('');
-        self.FromDate('');
-        self.ToDate('');
+        self.CheckIn('');
+        self.CheckOut('');
         ApplyCustomBinding('visitordetailsreport');
     }
 }
