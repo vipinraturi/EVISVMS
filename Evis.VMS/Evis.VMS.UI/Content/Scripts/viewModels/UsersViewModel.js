@@ -108,10 +108,13 @@
             data.GenderId = self.GenderId(),
             data.Nationality = self.Nationality(),
             data.RoleId = self.RoleId();
-            data.ProfilePicturePath = $('.dz-image img').attr('alt');
-            
+            if ($('.dz-image img').attr('alt') == undefined) {
+                data.ProfilePicturePath = "";
+            }
+            else {
+                data.ProfilePicturePath = $('.dz-image img').attr('alt');
+            }
             $('.loader-div').show();
-            //// display any error messages if we have them
             AjaxCall('/Api/Users/SaveUser', data, 'POST', function (data) {
                 if (data.Success == true) {
                     toastr.success(data.Message);
@@ -139,20 +142,20 @@
             self.RoleId(tableItem.RoleId);
             self.Nationality(tableItem.Nationality);
             $("#btnSaveUser").text("Update");
-            //alert(tableItem.ProfilePicturePath);
-            ////debugger;
 
             $('.dz-image-preview').empty();
-            var imagePath = tableItem.ProfilePicturePath;
-            self.ProfilePicturePath(tableItem.ProfilePicturePath);
-            var mockFile = { name: tableItem.ImagePath, size: 1024 };
-            myDropzone.emit("addedfile", mockFile);
-            myDropzone.emit("thumbnail", mockFile, imagePath);
-            myDropzone.createThumbnailFromUrl(mockFile, imagePath);
-            $('.dz-image').addClass('dz-message');
-            $('.dz-image img').addClass('dz-message');
 
-            //$('.img_responsive_Avatar').attr('src', tableItem.ProfilePicturePath).addClass('dz-message');
+            if (tableItem.ProfilePicturePath != undefined && tableItem.ProfilePicturePath != "")
+            {
+                var imagePath = tableItem.ProfilePicturePath;
+                self.ProfilePicturePath(tableItem.ProfilePicturePath);
+                var mockFile = { name: tableItem.ImagePath, size: 1024 };
+                myDropzone.emit("addedfile", mockFile);
+                myDropzone.emit("thumbnail", mockFile, imagePath);
+                myDropzone.createThumbnailFromUrl(mockFile, imagePath);
+                $('.dz-image').addClass('dz-message');
+                $('.dz-image img').addClass('dz-message');
+            }
         }
     }
 
@@ -161,20 +164,31 @@
     }
 
     self.DeleteConfirmed = function () {
+        debugger;
         $('#myModal').modal('hide');
-        AjaxCall('/Api/User/DeleteUser', recordToDelete, 'POST', function () {
-            toastr.success('User deleted successfully!!')
-            ApplyCustomBinding('newuser');
+        $('.modal-backdrop').modal('show');
+        $('.modal-backdrop').modal('hide');
+        AjaxCall('/Api/User/DeleteUser', recordToDelete, 'POST', function (data) {
+            //toastr.success('User deleted successfully!!')
+            //ApplyCustomBinding('newuser');
+            if (data.Success == true) {
+                toastr.success(data.Message);
+                ApplyCustomBinding('newuser');
+            }
+            else if (data.Success == false) {
+                toastr.warning(data.Message);
+            }
         });
+       
     }
 
     self.ResetUser = function () {
-        if (self.UserId() == undefined || self.UserId() == "" || self.UserId() == 0) {
+        //if (self.UserId() == undefined || self.UserId() == "" || self.UserId() == 0) {
             self.ResetUserDetails();
-        }
-        else {
-            self.EditUser(editUser);
-        }
+        //}
+        //else {
+        //    self.EditUser(editUser);
+        //}
     }
 
     self.ResetUserDetails = function () {

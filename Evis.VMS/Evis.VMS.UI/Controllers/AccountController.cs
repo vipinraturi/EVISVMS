@@ -273,7 +273,7 @@ namespace Evis.VMS.UI.Controllers
                 foreach (string fileName in Request.Files)
                 {
                     file = Request.Files[fileName];
-                    fName = file.FileName;
+                    fName = string.Format("{0}_{1}", fileName,  file.FileName);
                     if (file != null && file.ContentLength > 0)
                     {
                         var directoryPath = string.Format("{0}images\\UserImages", Server.MapPath(@"\"));
@@ -321,7 +321,7 @@ namespace Evis.VMS.UI.Controllers
                 foreach (string fileName in Request.Files)
                 {
                     file = Request.Files[fileName];
-                    fName = file.FileName;
+                    fName = string.Format("{0}_{1}", fileName, file.FileName);
                     if (file != null && file.ContentLength > 0)
                     {
                         var directoryPath = string.Format("{0}images\\UserImages", Server.MapPath(@"\"));
@@ -330,8 +330,8 @@ namespace Evis.VMS.UI.Controllers
                             Directory.CreateDirectory(directoryPath);
                         }
                         var originalDirectory = new DirectoryInfo(directoryPath);
-                        fileWithPath = System.IO.Path.Combine(originalDirectory.ToString(), file.FileName);
-                        var fileName1 = Path.GetFileName(file.FileName);
+                        fileWithPath = System.IO.Path.Combine(originalDirectory.ToString(), fName);
+                        var fileName1 = Path.GetFileName(fName);
                         var isExists = System.IO.File.Exists(fileWithPath);
 
                         if (isExists)

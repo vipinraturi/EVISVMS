@@ -119,12 +119,12 @@ namespace Evis.VMS.UI.Controllers
                 foreach (string fileName in Request.Files)
                 {
                     HttpPostedFileBase file = Request.Files[fileName];
-                    fName = file.FileName;
+                    fName = string.Format("{0}_{1}", fileName, file.FileName);
                     if (file != null && file.ContentLength > 0)
                     {
                         var originalDirectory = new DirectoryInfo(logoPath);
                         string fileWithPath = System.IO.Path.Combine(originalDirectory.ToString(), "logo.png");
-                        var fileName1 = Path.GetFileName(file.FileName);
+                        var fileName1 = Path.GetFileName(fName);
 
                         bool isfolderExists = System.IO.Directory.Exists(originalDirectory.ToString());
                         bool isExists = System.IO.File.Exists(fileWithPath);

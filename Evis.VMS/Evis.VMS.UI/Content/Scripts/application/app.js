@@ -19,12 +19,9 @@
         AttachClickEvent($(this).attr('class'));
     });
 
-    
-
     $('.themeSelection').click(function () {
         AttachClickEvent($(this).attr('class'));
     });
-
 
     AttachClickEvent = function (currentItem) {
         if (currentItem != undefined && currentItem != "") {

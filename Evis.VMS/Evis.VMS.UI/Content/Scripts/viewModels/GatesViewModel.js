@@ -18,7 +18,7 @@
     });
     self.Buildings = ko.observableArray();
     AjaxCall('/Api/Gates/GetAllBuilding', null, 'GET', function (data) {
-        ////debugger;;
+        //debugger;;
         self.Buildings(data);
     })
     self.BuildingName = ko.observable('').extend({ required: true });
@@ -45,10 +45,10 @@
         self.DataGrid.GetData();
     }
     self.BuildingChanged = function () {
-        //  //debugger;
+        //  debugger;
         if (self.BuildingId() != undefined && self.BuildingId() != 0) {
             AjaxCall('/Api/Gates/GetAllBuildingDetails?id=' + self.BuildingId(), null, 'GET', function (data) {
-                ////debugger;
+                //debugger;
                 self.CityName(data[0].CityMaster.LookUpValue);
                 self.CityId(data[0].CityMaster.Id);
 
@@ -63,23 +63,36 @@
 
 
     self.EditGate = function (tableItem) {
-        ////debugger;;
+        //debugger;;
         if (tableItem != undefined) {
             self.Id(tableItem.Id);
             self.GateNumber(tableItem.GateNumber);
             self.BuildingId(tableItem.BuildingId);
             self.CityId(tableItem.CityId);
-            $("#btnSaveGate").text("Update");
-            $('#Building').attr('disabled', true);
+            self.CountryId(tableItem.CountryId);
+            self.StateId(tableItem.StateId);
         }
     }
+
+
+
     self.DeleteGate = function (tableItem) {
+        debugger;
         var message = confirm("Are you sure, you want to delete selected record!");
         if (message == true) {
-            AjaxCall('/Api/Gates/DeleteGate', tableItem, 'POST', function () {
-                toastr.success('Gate deleted successfully!!')
-                ApplyCustomBinding('gates');
+            AjaxCall('/Api/Gates/DeleteGate', tableItem, 'POST', function (data) {
+
+                if (data.Success == true) {
+                    toastr.success(data.Message);
+                    ApplyCustomBinding('gates');
+                }
+                else if (data.Success == false) {
+                    toastr.warning(data.Message);
+                }
             });
+               // toastr.success('Gate deleted successfully!!')
+                //ApplyCustomBinding('gates');
+           
         }
     }
     self.ResetGates = function () {
@@ -88,10 +101,9 @@
         self.BuildingName('');
         self.CityName('');
         ApplyCustomBinding('gates');
-        $('#Building').attr('disabled', false);
     }
     self.SaveGate = function () {
-        ////debugger;
+        //debugger;
         if (self.errors().length > 0) {
             self.errors.showAllMessages(true);
             this.errors().forEach(function (data) {
@@ -101,7 +113,7 @@
         }
         else {
             var data = new Object();
-            ////debugger;
+            //debugger;
             data.Id = self.Id(),
             data.BuildingId = self.BuildingId(),
             data.GateNumber = self.GateNumber();
@@ -115,26 +127,16 @@
                     self.GateNumber('');
                     toastr.error('Gate name alreday exists!!')
                 }
+                //self.IsInsert(true);
             })
         }
     }
-    self.GlobalSearchEnter = function (data) {
-        //debugger;
-        self.GetAllGateData();
-        console.log(event);
-    }
-    ko.bindingHandlers.enterkey = {
-        init: function (element, valueAccessor, allBindings, viewModel) {
-            var callback = valueAccessor();
-            $(element).keypress(function (event) {
-                var keyCode = (event.which ? event.which : event.keyCode);
-                if (keyCode === 13) {
-                    callback.call(viewModel);
-                    return false;
-                }
-                return true;
-            });
+    //}
+    self.GlobalSearchEnter = function (data, event) {
+        if (event.which == 13 || event.keycode == 13) {
+            self.GetAllVisitor();
+            console.log(event.which);
         }
-    };
+    }
     self.GetAllGateData();
 }

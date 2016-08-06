@@ -30,6 +30,9 @@ namespace Evis.VMS.Data.Model.Entities
         [MaxLength(40)]
         public string CreatedBy { get; set; }
 
+        [ForeignKey("CreatedBy")]
+        public virtual ApplicationUser CreatedUser { get; set; }
+
         [Required]
         public int CheckInGate { get; set; }
 

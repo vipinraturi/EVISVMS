@@ -16,7 +16,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
+using Microsoft.AspNet.Identity;
 
 namespace Evis.VMS.UI.Controllers.ApiControllers
 {
@@ -24,15 +26,20 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
     {
         [Route("~/Api/Gates/SaveGate")]
         [HttpPost]
-        public ReturnResult SaveGate([FromBody]  GateMaster GateMaster)
+        public ReturnResult SaveGate([FromBody]  GateMaster gateMaster)
         {
-            if (GateMaster.Id == 0)
+            var currentUserId = HttpContext.Current.User.Identity.GetUserId();
+            if (gateMaster.Id == 0)
             {
-                var data = _genericService.GateMaster.GetAll().Where(x => x.GateNumber == GateMaster.GateNumber.Trim() && x.BuildingId == GateMaster.BuildingId).ToList();
+                var data = _genericService.GateMaster.GetAll().Where(x => x.GateNumber == gateMaster.GateNumber.Trim() && x.BuildingId == gateMaster.BuildingId && x.IsActive == true).ToList();
                 if (data.Count() == 0)
                 {
-                    GateMaster.IsActive = true;
-                    _genericService.GateMaster.Insert(GateMaster);
+                    gateMaster.IsActive = true;
+                    gateMaster.CreatedBy = currentUserId;
+                    gateMaster.CreatedOn = DateTime.UtcNow;
+                    gateMaster.UpdatedBy = currentUserId;
+                    gateMaster.UpdatedOn = DateTime.UtcNow;
+                    _genericService.GateMaster.Insert(gateMaster);
                 }
                 else
                 {
@@ -41,12 +48,14 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             }
             else
             {
-                var existinggate = _genericService.GateMaster.GetById(GateMaster.Id);
+                var existinggate = _genericService.GateMaster.GetById(gateMaster.Id);
                 if (existinggate != null)
                 {
-                    existinggate.BuildingId = GateMaster.BuildingId;
-                    existinggate.GateNumber = GateMaster.GateNumber;
-                    GateMaster.IsActive = true;
+                    existinggate.BuildingId = gateMaster.BuildingId;
+                    existinggate.GateNumber = gateMaster.GateNumber;
+                    existinggate.UpdatedBy = currentUserId;
+                    existinggate.UpdatedOn = DateTime.UtcNow;
+                    gateMaster.IsActive = true;
                     _genericService.GateMaster.Update(existinggate);
                 };
             }
@@ -61,11 +70,14 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 .Select(x => new GatesVM
                 {
                     Id = x.Id,
-                    BuildingId = x.Id,
+                    BuildingId = x.BuildingId,
                     GateNumber = x.GateNumber,
-                    BuildingName = x.BuildingMaster.BuildingName
-
+                    BuildingName = x.BuildingMaster.BuildingName,
+                    Country = x.BuildingMaster.CityMaster.ParentValues.LookUpValue,
+                    State = x.BuildingMaster.CityMaster.ParentValues.ParentValues.LookUpValue,
+                    City = x.BuildingMaster.CityMaster.LookUpValue
                 });
+
             if (lstgateVM.Count() > 0)
             {
                 if (!string.IsNullOrEmpty(globalSearch))
@@ -86,10 +98,11 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
                 int totalCount = 0;
                 IList<GatesVM> result =
-                   GenericSorterPager.GetSortedPagedList<GatesVM>(lstgateVM, paginationRequest, out totalCount);
+                    GenericSorterPager.GetSortedPagedList<GatesVM>(lstgateVM, paginationRequest, out totalCount);
 
-                var jsonData = JsonConvert.SerializeObject(result);
+                var jsonData = JsonConvert.SerializeObject(result.OrderByDescending(x => x.Id));
                 return JsonConvert.SerializeObject(new { totalRows = totalCount, result = jsonData });
+
             }
             return null;
         }
@@ -113,10 +126,14 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 var GaterDelete = _genericService.GateMaster.GetAll().Where(x => x.Id == GateMaster.Id).FirstOrDefault();
                 if (GaterDelete != null)
                 {
+                    if (_genericService.ShitfAssignment.SearchFor(x => x.GateId == GateMaster.Id && x.IsActive == true).Any())
+                    {
+                        return new ReturnResult { Message = "Please first delete all the shift assigment under this gate", Success = false };
+                    }
                     GaterDelete.IsActive = false;
                     _genericService.GateMaster.Update(GaterDelete);
                     _genericService.Commit();
-                    return new ReturnResult { Message = "Success", Success = true };
+                    return new ReturnResult { Message = "gate deleted successfully", Success = true };
                 }
             }
             return new ReturnResult { Message = "Failure", Success = false };

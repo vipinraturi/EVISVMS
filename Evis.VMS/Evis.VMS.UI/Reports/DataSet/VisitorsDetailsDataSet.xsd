@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="VisitorsDetailsDataSet" targetNamespace="http://tempuri.org/VisitorsDetailsDataSet.xsd" xmlns:mstns="http://tempuri.org/VisitorsDetailsDataSet.xsd" xmlns="http://tempuri.org/VisitorsDetailsDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="VisitorsDetailsDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="VisitorsDetailsDataSet" msprop:Generator_UserDSName="VisitorsDetailsDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DTVisitorsDetails" msprop:Generator_TableClassName="DTVisitorsDetailsDataTable" msprop:Generator_TableVarName="tableDTVisitorsDetails" msprop:Generator_TablePropName="DTVisitorsDetails" msprop:Generator_RowDeletingName="DTVisitorsDetailsRowDeleting" msprop:Generator_RowChangingName="DTVisitorsDetailsRowChanging" msprop:Generator_RowEvHandlerName="DTVisitorsDetailsRowChangeEventHandler" msprop:Generator_RowDeletedName="DTVisitorsDetailsRowDeleted" msprop:Generator_UserTableName="DTVisitorsDetails" msprop:Generator_RowChangedName="DTVisitorsDetailsRowChanged" msprop:Generator_RowEvArgName="DTVisitorsDetailsRowChangeEvent" msprop:Generator_RowClassName="DTVisitorsDetailsRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="VisitorId" msprop:Generator_ColumnVarNameInTable="columnVisitorId" msprop:Generator_ColumnPropNameInRow="VisitorId" msprop:Generator_ColumnPropNameInTable="VisitorIdColumn" msprop:Generator_UserColumnName="VisitorId" type="xs:long" minOccurs="0" />
+              <xs:element name="ContactNumber" msprop:Generator_ColumnVarNameInTable="columnContactNumber" msprop:Generator_ColumnPropNameInRow="ContactNumber" msprop:Generator_ColumnPropNameInTable="ContactNumberColumn" msprop:Generator_UserColumnName="ContactNumber" type="xs:string" minOccurs="0" />
+              <xs:element name="VisitDetails" msprop:Generator_ColumnVarNameInTable="columnVisitDetails" msprop:Generator_ColumnPropNameInRow="VisitDetails" msprop:Generator_ColumnPropNameInTable="VisitDetailsColumn" msprop:Generator_UserColumnName="VisitDetails" type="xs:string" minOccurs="0" />
+              <xs:element name="BuildingId" msprop:Generator_ColumnVarNameInTable="columnBuildingId" msprop:Generator_ColumnPropNameInRow="BuildingId" msprop:Generator_ColumnPropNameInTable="BuildingIdColumn" msprop:Generator_UserColumnName="BuildingId" type="xs:int" minOccurs="0" />
+              <xs:element name="GateId" msprop:Generator_ColumnVarNameInTable="columnGateId" msprop:Generator_ColumnPropNameInRow="GateId" msprop:Generator_ColumnPropNameInTable="GateIdColumn" msprop:Generator_UserColumnName="GateId" type="xs:int" minOccurs="0" />
+              <xs:element name="SecurityId" msprop:Generator_ColumnVarNameInTable="columnSecurityId" msprop:Generator_ColumnPropNameInRow="SecurityId" msprop:Generator_ColumnPropNameInTable="SecurityIdColumn" msprop:Generator_UserColumnName="SecurityId" type="xs:string" minOccurs="0" />
+              <xs:element name="VisitorName" msprop:Generator_ColumnVarNameInTable="columnVisitorName" msprop:Generator_ColumnPropNameInRow="VisitorName" msprop:Generator_ColumnPropNameInTable="VisitorNameColumn" msprop:Generator_UserColumnName="VisitorName" type="xs:string" minOccurs="0" />
+              <xs:element name="CheckIn" msprop:Generator_ColumnVarNameInTable="columnCheckIn" msprop:Generator_ColumnPropNameInRow="CheckIn" msprop:Generator_ColumnPropNameInTable="CheckInColumn" msprop:Generator_UserColumnName="CheckIn" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="CheckOut" msprop:Generator_ColumnVarNameInTable="columnCheckOut" msprop:Generator_ColumnPropNameInRow="CheckOut" msprop:Generator_ColumnPropNameInTable="CheckOutColumn" msprop:Generator_UserColumnName="CheckOut" type="xs:string" minOccurs="0" />
+              <xs:element name="BuildingName" msprop:Generator_ColumnVarNameInTable="columnBuildingName" msprop:Generator_ColumnPropNameInRow="BuildingName" msprop:Generator_ColumnPropNameInTable="BuildingNameColumn" msprop:Generator_UserColumnName="BuildingName" type="xs:string" minOccurs="0" />
+              <xs:element name="GateName" msprop:Generator_ColumnVarNameInTable="columnGateName" msprop:Generator_ColumnPropNameInRow="GateName" msprop:Generator_ColumnPropNameInTable="GateNameColumn" msprop:Generator_UserColumnName="GateName" type="xs:string" minOccurs="0" />
+              <xs:element name="SecurityPerson" msprop:Generator_ColumnVarNameInTable="columnSecurityPerson" msprop:Generator_ColumnPropNameInRow="SecurityPerson" msprop:Generator_ColumnPropNameInTable="SecurityPersonColumn" msprop:Generator_UserColumnName="SecurityPerson" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

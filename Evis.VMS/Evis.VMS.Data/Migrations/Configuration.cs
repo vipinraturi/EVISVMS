@@ -131,6 +131,7 @@ namespace Evis.VMS.Data.Migrations
 
         private static void GenerateRoles(VMSContext context)
         {
+            context.Roles.Add(new ApplicationRole { Name = "BuildingAdmin", Description = "BuildingAdmin", IsActive = true });
             context.Roles.Add(new ApplicationRole { Name = "Supervisor", Description = "Supervisor", IsActive = true });
             context.Roles.Add(new ApplicationRole { Name = "Security", Description = "Security", IsActive = true });
         }
@@ -138,6 +139,7 @@ namespace Evis.VMS.Data.Migrations
         private void GenerateSystemAdmin(VMSContext context)
         {
             var systemAdminrole = context.Roles.Add(new ApplicationRole { Name = "SuperAdmin", Description = "SuperAdmin", IsActive = true });
+
 
             var newSystemAdminUser = new ApplicationUser
             {

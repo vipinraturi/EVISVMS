@@ -17,7 +17,9 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
+using Microsoft.AspNet.Identity;
 
 namespace Evis.VMS.UI.Controllers.ApiControllers
 {
@@ -30,6 +32,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         public ReturnResult SaveOrganization([FromBody] Organization organization)
         {
             string message = "Error occured, please try again with valid entered data again!";
+            string currentUserId = HttpContext.Current.User.Identity.GetUserId();
             bool success = false;
             if (organization.Id == 0)
             {
@@ -40,6 +43,10 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     return new ReturnResult { Message = message, Success = success };
                 }
                 organization.IsActive = true;
+                organization.CreatedBy = currentUserId;
+                organization.CreatedOn = DateTime.UtcNow;
+                organization.UpdatedBy = currentUserId;
+                organization.UpdatedOn = DateTime.UtcNow;
                 _genericService.Organization.Insert(organization);
 
                 var proto = Request.GetRequestContext().Url.Request.RequestUri.Scheme;
@@ -47,9 +54,6 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
                 var emailFormat = _genericService.EmailFormats.GetAll().Where(x => x.Category == "OrganizationCreation").FirstOrDefault();
                 string body = string.Format(emailFormat.Format, organization.CompanyName);
-
-                //string body = "Dear Sir/Madam, <br/><br/>Your company with the name <b>" + organization.CompanyName + "</b> has been created successfully." +
-                //                "<br/><br/>Regards,<br/>Administrator";
 
                 // Send email on organization creation.
                 //EmailHelper.SendMail(organization.EmailId, "Company Prfile is created", body);
@@ -62,12 +66,10 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 if (existingOrg != null)
                 {
                     existingOrg.CompanyName = organization.CompanyName;
-                    existingOrg.EmailId = organization.EmailId;
-                    existingOrg.ContactNumber = organization.ContactNumber;
-                    existingOrg.ContactAddress = organization.ContactAddress;
-                    existingOrg.ZipCode = organization.ZipCode;
-                    existingOrg.FaxNumber = organization.FaxNumber;
+                    existingOrg.CountryId = organization.CountryId;
                     existingOrg.WebSite = organization.WebSite;
+                    existingOrg.UpdatedBy = currentUserId;
+                    existingOrg.UpdatedOn = DateTime.UtcNow;
                     organization.IsActive = true;
                     _genericService.Organization.Update(existingOrg);
                     message = "Organization updated successfully!!";
@@ -87,15 +89,9 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             {
                 Id = x.Id,
                 CompanyName = x.CompanyName,
-                CountryId = x.CityMaster.ParentValues.ParentId,
-                StateId = x.CityMaster.ParentId,
-                CityId = x.CityId,
-                EmailId = x.EmailId,
-                ContactNumber = x.ContactNumber,
-                ContactAddress = x.ContactAddress,
-                ZipCode = x.ZipCode,
-                FaxNumber = x.FaxNumber,
-                Website = x.WebSite
+                CountryId = x.CountryId,
+                Country = x.CountryMaster.LookUpValue,
+                WebSite = x.WebSite
             });
 
             if (organizationsList.Count() > 0)
@@ -104,8 +100,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 {
                     organizationsList = organizationsList.Where(item =>
                         item.CompanyName.ToLower().Contains(globalSearch.ToLower()) ||
-                        item.EmailId.ToLower().Contains(globalSearch.ToLower()) ||
-                        item.ContactNumber.ToLower().Contains(globalSearch.ToLower())
+                        item.Country.ToLower().Contains(globalSearch.ToLower()) ||
+                        item.WebSite.ToLower().Contains(globalSearch.ToLower())
                         ).AsQueryable();
                 }
 
@@ -143,7 +139,6 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     {
                         return new ReturnResult { Message = "Please first delete all the users, buildings, and gates under this organization", Success = false };
                     }
-                    //orgToDelete.IsActive = false;
                     _genericService.Organization.Delete(orgToDelete);
                     _genericService.Commit();
                     return new ReturnResult { Message = "Organization deleted successfully", Success = true };

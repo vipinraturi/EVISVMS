@@ -31,7 +31,20 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             var currentUser = await _userService.GetAsync(x => x.Id == userId);
             var result = _genericService.Organization.GetAll().FirstOrDefault(item => item.Id == currentUser.OrganizationId);
             // result.CityMaster = null;
-            return new OrganizationVM { CompanyId = result.Id, CityId = (int)result.CityId, CityMaster = result.CityMaster, Address = result.ContactAddress, CompanyName = result.CompanyName, ContactNo = result.ContactNumber, EmailAddress = result.EmailId, FaxNo = result.FaxNumber, WebSite = result.WebSite, ZipCode = result.ZipCode, Theme = result.ThemeName, ImagePath = result.ImagePath };
+            return new OrganizationVM 
+            { 
+                CompanyId = result.Id, 
+                CityId = (int)result.CountryId, 
+                CityMaster = result.CountryMaster,
+                //Address = result.ContactAddress, 
+                CompanyName = result.CompanyName, 
+                //ContactNo = result.ContactNumber, 
+                //EmailAddress = result.EmailId,
+                //FaxNo = result.FaxNumber, 
+                WebSite = result.WebSite, 
+                //ZipCode = result.ZipCode, 
+                Theme = result.ThemeName, 
+                ImagePath = result.ImagePath };
         }
     }
 

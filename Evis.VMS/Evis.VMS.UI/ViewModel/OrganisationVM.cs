@@ -14,6 +14,8 @@ namespace Evis.VMS.UI.ViewModel
 
         public int? CountryId { get; set; }
 
+        public string Country { get; set; }
+
         public int? StateId { get; set; }
 
         public int? CityId { get; set; }
@@ -28,7 +30,7 @@ namespace Evis.VMS.UI.ViewModel
 
         public string FaxNumber { get; set; }
 
-        public string Website { get; set; }
+        public string WebSite { get; set; }
                 
     }
 }

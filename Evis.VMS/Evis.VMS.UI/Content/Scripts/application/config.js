@@ -42,7 +42,7 @@ ApplyCustomBinding = function (elementName) {
             break;
         case 'managevisitor':
             var scanVisitorViewModel = ScanVisitorViewModel();
-            BindingViewModel("/Visitor/_ManageVisitorManually", VisitorViewModel(scanVisitorViewModel.split('_')[0], scanVisitorViewModel.split('_')[1], scanVisitorViewModel.split('_')[2], scanVisitorViewModel.split('_')[3], scanVisitorViewModel.split('_')[4], scanVisitorViewModel.split('_')[5], scanVisitorViewModel.split('_')[6]));
+            BindingViewModel("/Visitor/_ManageVisitorManually", VisitorViewModel(scanVisitorViewModel.split('_')[0], scanVisitorViewModel.split('_')[1], scanVisitorViewModel.split('_')[2], scanVisitorViewModel.split('_')[3], scanVisitorViewModel.split('_')[4], scanVisitorViewModel.split('_')[5], scanVisitorViewModel.split('_')[6], scanVisitorViewModel.split('_')[7], scanVisitorViewModel.split('_')[8], scanVisitorViewModel.split('_')[9], scanVisitorViewModel.split('_')[10]));
             break;
         case 'visitorcheckin':
             BindingViewModel("/Visitor/_VisitorCheckIn", VisitorCheckInViewModel());
@@ -92,6 +92,7 @@ BindingViewModel = function (controllerUrl, viewModel) {
             BindAutoCompleteEvent();
         }
         if (controllerUrl == "/Administration/_ShiftAssignment") {
+            $("#dateFrom").keypress(function (event) { event.preventDefault(); });
             $('#dateFrom').datepicker({
                 dateFormat: 'dd/mm/yy',
                 minDate: 'now',
@@ -106,6 +107,7 @@ BindingViewModel = function (controllerUrl, viewModel) {
                 
         }
         if (controllerUrl == "/Administration/_ShiftAssignment") {
+            $("#dateTo").keypress(function (event) { event.preventDefault(); });
             $('#dateTo').datepicker({
                 dateFormat: 'dd/mm/yy',
                 minDate: 'now',
@@ -119,7 +121,8 @@ BindingViewModel = function (controllerUrl, viewModel) {
         });
         }
         if (controllerUrl == "/Administration/_Shifts") {
-            $('.timepickerCtr').timepicker();
+            $(".timepickerCtr").keypress(function (event) { event.preventDefault(); });
+           $('.timepickerCtr').timepicker();
         }
     });
 }

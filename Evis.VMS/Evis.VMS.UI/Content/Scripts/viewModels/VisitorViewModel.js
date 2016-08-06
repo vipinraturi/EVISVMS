@@ -1,4 +1,7 @@
-﻿function VisitorViewModel(visitorName, gender, nationalityVal, dateOfBirth, typeOfCard, idNumber, nationalityVal) {
+﻿function VisitorViewModel(visitorName, gender, nationalityVal, dateOfBirth, typeOfCard, idNumber, nationalityVal, companyName, emailAddress, contactNumber, identityImages) {
+
+
+
     nationality = (nationalityVal != "" ? nationalityVal : undefined);
     typeOfCard = (typeOfCard != "" ? typeOfCard : undefined);
     gender = (gender != "" ? gender : undefined);
@@ -6,13 +9,13 @@
     var self = this;
     Id = ko.observable(0);
     VisitorName = ko.observable(visitorName).extend({ required: true });
-    EmailAddress = ko.observable('').extend({ required: true, email: { message: "Invalid email" } });
+    EmailAddress = ko.observable(emailAddress);
     Gender = ko.observable(gender).extend({ required: true });
     DOB = ko.observable(dateOfBirth).extend({ required: true });
     TypeOfCardValue = ko.observable(typeOfCard).extend({ required: true });
     IdNo = ko.observable(idNumber).extend({ required: true });
     Nationality = ko.observable(nationality).extend({ required: true });
-    ContactNo = ko.observable('').extend({ required: true });
+    ContactNo = ko.observable(contactNumber).extend({ required: true });
     ContactAddress = ko.observable('');
 
     self.GlobalSearch = ko.observable('');
@@ -24,7 +27,6 @@
     self.Nationalities = ko.observableArray();
     self.errors = ko.validation.group({
         VisitorName: this.VisitorName,
-        EmailAddress: this.EmailAddress,
         Gender: this.Gender,
         DOB: this.DOB,
         TypeOfCardValue: this.TypeOfCardValue,
@@ -34,14 +36,11 @@
     });
 
     self.DataGrid = new RIT.eW.DataGridAjax('/Api/Visitor/GetVisitorData', 7);
-
     self.VisitorList = ko.observableArray([]);
-
     self.GetAllVisitor = function () {
         self.DataGrid.UpdateSearchParam('?globalSearch=' + self.GlobalSearch());
         self.DataGrid.GetData(true);
     }
-
     self.LoadMasterData = function () {
         var lookUpTypes = [];
         lookUpTypes.push("Gender");
@@ -62,7 +61,6 @@
             }));
         })
     }
-
     self.SaveVisitor = function () {
 
         if (self.errors().length > 0) {
@@ -73,17 +71,25 @@
         }
         else {
             var data = new Object();
+            var initial = self.DOB().split(/\//);
             data.VisitorName = self.VisitorName(),
             data.EmailAddress = self.EmailAddress(),
             data.Gender = self.Gender(),
-            data.DOB = self.DOB(),
+            data.DOB = [initial[1], initial[0], initial[2]].join('/'),
             data.TypeOfCard = self.TypeOfCardValue(),
             data.IdNo = self.IdNo(),
             data.Nationality = self.Nationality()
             data.ContactNo = self.ContactNo();
-            data.ImagePath = $('.dz-image img').attr('alt');
+
+            if ($('.dz-image img').attr('alt') == undefined) {
+                data.ImagePath = "";
+            }
+            else {
+                data.ImagePath = $('.dz-image img').attr('alt');
+            }
             data.ContactAddress = self.ContactAddress()
             data.IsInsert = self.IsInsert();
+            data.Id = self.Id();
 
             //// display any error messages if we have them
             AjaxCall('/Api/Visitor/SaveVisitor', data, 'POST', function (result) {
@@ -94,10 +100,9 @@
                     else {
                         toastr.success('Visitor saved successfully!!')
                     }
-                    
+
                     self.ResetData();
                     self.IsInsert(true);
-
                     self.GetAllVisitor();
                 }
                 else {
@@ -108,10 +113,7 @@
     }
 
     self.ResetVisitor = function () {
-        
-        
         ResetData();
-
     }
 
     self.ResetData = function () {
@@ -129,6 +131,8 @@
         self.ContactNo('');
         self.ContactAddress('');
         dataToSend = '';
+        identityImages = [];
+        //self.LoadIdentityImage(identityImages);
         $('#viewVisitorImageUnique').hide();
         ApplyCustomBinding('managevisitor');
     }
@@ -149,38 +153,93 @@
 
     self.EditVisitor = function (tableItem) {
         if (tableItem != undefined) {
+
+            var d = new Date(tableItem.DOB),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+            if (month.length < 2) month = '0' + month;
+            if (day.length < 2) day = '0' + day;
+            var dateDob = [day, month, year].join('/');
+
+           
             $('#viewVisitorImageUnique').show();
             self.IsEdit(true);
             self.IsInsert(false);
+            self.Id(tableItem.Id);
             self.VisitorName(tableItem.VisitorName);
             self.EmailAddress(tableItem.EmailAddress);
             self.Gender(tableItem.Gender);
-            self.DOB(tableItem.DOB);
+            self.DOB(dateDob);
             self.TypeOfCardValue(tableItem.TypeOfCard);
             self.IdNo(tableItem.IdNo);
             self.Nationality(tableItem.Nationality);
             self.ContactNo(tableItem.ContactNo);
             self.ContactAddress(tableItem.ContactAddress);
-            
             $('.dz-image-preview').empty();
-            ////debugger;
-            var imagePath = '/images/VisitorImages/' + tableItem.ImagePath;
-            var mockFile = { name: tableItem.ImagePath, size: 1024 };
-            myDropzone.emit("addedfile", mockFile);
-            myDropzone.emit("thumbnail", mockFile, imagePath);
-            myDropzone.createThumbnailFromUrl(mockFile, imagePath);
-            $('.dz-image').addClass('dz-message');
-            $('.dz-image img').addClass('dz-message');
-            $('#btnSave').html('Update <i class="fa fa-save"></i>');
+
+            if (tableItem.ImagePath != undefined && tableItem.ImagePath != "") {
+                var imagePath = '/images/VisitorImages/' + tableItem.ImagePath;
+                var mockFile = { name: tableItem.ImagePath, size: 1024 };
+                dropZoneVisitorImage.emit("addedfile", mockFile);
+                dropZoneVisitorImage.emit("thumbnail", mockFile, imagePath);
+                dropZoneVisitorImage.createThumbnailFromUrl(mockFile, imagePath);
+                $('.dz-image').addClass('dz-message');
+                $('.dz-image img').addClass('dz-message');
+                $('#btnSave').html('Update <i class="fa fa-save"></i>');
+                identityImages = [];
+                self.LoadIdentityImage(identityImages);
+            }
         }
     }
+
+
+    self.LoadIdentityImage = function (identityImages) {
+        $('#dropzoneForm .dz-image-preview').remove();
+        var MultipleImagePath = [];
+
+        if (identityImages != undefined && identityImages != "" && identityImages != null) {
+            if (identityImages.split(',').length > 0) {
+                var obj1 = new Object();
+                obj1.fileName = identityImages.split(',')[0];
+                obj1.ImgURL = '/images/VisitorImages/' + identityImages.split(',')[0];
+                obj1.size = 1024;
+                MultipleImagePath.push(obj1);
+            }
+
+            if (identityImages.split(',').length > 1) {
+                var obj2 = new Object();
+                obj2.fileName = identityImages.split(',')[1];
+                obj2.ImgURL = '/images/VisitorImages/' + identityImages.split(',')[1];
+                obj2.size = 1024;
+                MultipleImagePath.push(obj2);
+            }
+
+            if (identityImages.split(',').length > 2) {
+                var obj3 = new Object();
+                obj3.fileName = identityImages[2];
+                obj3.ImgURL = '/images/VisitorImages/' + identityImages.split(',')[2];
+                obj3.size = 1024;
+                MultipleImagePath.push(obj3);
+            }
+
+            $.each(MultipleImagePath, function (key, value) { //loop through it
+                var mockFile = { name: value.fileName, size: value.size }; // here we get the file name and size as response 
+                dropZoneMultipleFiels.options.addedfile.call(dropZoneMultipleFiels, mockFile);
+                dropZoneMultipleFiels.options.thumbnail.call(dropZoneMultipleFiels, mockFile, value.ImgURL);//uploadsfolder is the folder where you have all those uploaded files
+                dropZoneMultipleFiels.createThumbnailFromUrl(mockFile, value.ImgURL); // Set Image in strech mode.
+                $("#dropzoneForm .dz-progress").remove();
+            });
+        }
+    }
+
+
 
     self.ViewVisitorImage = function () {
         var srcURL = '';
         if ($('.dz-image img').attr('alt') != undefined) {
             srcURL = ($('.dz-image img').attr('alt'));
         }
-        
 
         if (srcURL.indexOf('/images/VisitorImages') == -1) {
             srcURL = '/images/VisitorImages/' + srcURL;
@@ -198,4 +257,10 @@
 
     self.GetAllVisitor();
     self.LoadMasterData();
+
+    if (identityImages != undefined && identityImages != "") {
+        setTimeout(function () {
+            self.LoadIdentityImage(identityImages);
+        }, 1000);
+    }
 }

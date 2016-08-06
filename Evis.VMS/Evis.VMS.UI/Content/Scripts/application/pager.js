@@ -84,12 +84,13 @@ RIT.eW.DataGridAjax = (function () {
 
     DataGridAjax.prototype.OnGetDataDone = function (data) {
         var self = this;
-        self.DataRows(RIT.eW.Utils.GetJson(data.result));
-        self.GridParams.totalRows(RIT.eW.Utils.GetJson(data.totalRows));
-        var totalPages = Math.ceil(self.GridParams.totalRows() / self.GridParams.pageSize());
-        self.GridParams.totalPages(totalPages);
-        //////debugger;
-        self.GridParams.requestedPage(self.GridParams.pageIndex());
+        if (data != null) {
+            self.DataRows(RIT.eW.Utils.GetJson(data.result));
+            self.GridParams.totalRows(RIT.eW.Utils.GetJson(data.totalRows));
+            var totalPages = Math.ceil(self.GridParams.totalRows() / self.GridParams.pageSize());
+            self.GridParams.totalPages(totalPages);
+            self.GridParams.requestedPage(self.GridParams.pageIndex());
+        }
     };
 
     DataGridAjax.prototype.FlipPage = function (newPageNo) {

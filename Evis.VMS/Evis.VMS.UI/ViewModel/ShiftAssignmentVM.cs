@@ -23,10 +23,10 @@ namespace Evis.VMS.UI.ViewModel
         public string ShiftName { get; set; }
         public string BuildingName { get; set; }
         public string GateName { get; set; }
-
+        public string City { get; set; }
         public DateTime FromDate { get; set; }
-
-
+        public string strFromDate { get; set; }
+        public string strToDate { get; set; }
         public DateTime ToDate { get; set; }
 
     }

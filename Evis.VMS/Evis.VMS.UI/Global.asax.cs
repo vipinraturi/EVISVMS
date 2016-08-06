@@ -129,7 +129,7 @@ namespace Evis.VMS.UI
             FileStream fileStream = null;
             StreamWriter streamWriter = null;
 
-            string logFilePath = "~/SGHErrorLog/";
+            string logFilePath = "~/EvisErrorLog/";
             string FolderName = DateTime.Now.ToString("MMM") + "-" + DateTime.Today.Year.ToString() + "/";
             string fileName = DateTime.Now.Date.ToString("dd-MMM-yyyy") + "." + "txt";
             logFilePath += FolderName + fileName;

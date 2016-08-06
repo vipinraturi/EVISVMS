@@ -1,9 +1,12 @@
 ﻿
+
 <ol class="breadcrumb">
     <li><a href="#" class="a-color">Administration</a></li>
     <li><a href="#" class="a-color">Gates</a></li>
 </ol>
+
 <div class="row">
+
     <div class="col-md-6 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
@@ -15,17 +18,20 @@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Building Name <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <select class="form-control" id="Building" data-bind="options: Buildings, optionsText: 'Name' ,optionsValue: 'Id', value: BuildingId, optionsCaption: '-- Select --',event:{ change: BuildingChanged()}"></select>
+                            <select class="form-control" data-bind="options: Buildings, optionsText: 'Name' ,optionsValue: 'Id', value: BuildingId, optionsCaption: '-- Select --',event:{ change: BuildingChanged()}"></select>
                         </div>
                     </div>
+
 
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Country </label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
                             <input id="txtCountry" type="text" class="form-control inputdisable" placeholder="[Country]" disabled data-bind="value:CountryName" />
+
                             <span class="fa fa-globe favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
+
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">State </label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
@@ -33,13 +39,15 @@
                             <span class="fa fa-globe favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
+
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">City </label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtCity" type="text" class="form-control inputdisable" placeholder="[City]" data-bind="value:CityName" disabled />
+                            <input id="txtCity" type="text" class="form-control inputdisable" placeholder="Dubai" data-bind="value:CityName" disabled />
                             <span class="fa fa-globe favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
+
                     @*<div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Location </label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
@@ -47,24 +55,28 @@
                                 <span class="fa fa-map-marker favwhite form-control-feedback right" aria-hidden="true"></span>
                             </div>
                         </div>*@
+
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Gate Number <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtGateNumber" type="text" class="form-control" placeholder="[Gate Number]" maxlength="50" required="required" data-bind="value:GateNumber" />
+                            <input id="txtGateNumber" type="text" class="form-control" placeholder="[Gate Number]" required="required" data-bind="value:GateNumber" />
                             <span class="fa fa-envelope-o favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
 
+
                     <div class="form-group">
                         <div class="pull-right">
                             <button type="button" class="btn btn-primary" data-bind="click: ResetGates.bind()">Reset <i class="fa fa-refresh"></i></button>
-                            <button type="button" class="btn btn-success" data-bind="click: SaveGate.bind()" id="btnSaveGate">Save <i class="fa fa-save"></i></button>
+                            <button type="button" class="btn btn-success" data-bind="click: SaveGate.bind()">Save <i class="fa fa-save"></i></button>
                         </div>
                     </div>
+
                 </form>
             </div>
         </div>
     </div>
+
     <div class="col-md-6 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
@@ -74,8 +86,7 @@
             <div class="x_content">
                 <div class="col-md-5 col-sm-5 col-xs-12  pull-right top_search">
                     <div class="input-group">
-                        <input id="txtGlobalSearch" type="text" class="form-control" placeholder="[Global Search]"
-                               data-bind="value: GlobalSearch, valueUpdate: 'afterkeydown', enterkey: GlobalSearchEnter.bind()" />
+                        <input id="txtGlobalSearch" type="text" class="form-control" placeholder="Global Search" data-bind="value: GlobalSearch, enterkey: GlobalSearchEnter.bind()"/>
                         <span class="input-group-btn">
                             <button class="btn btn-default" type="button" data-bind="click: GetAllGateData.bind()"><i class="fa fa-search"></i></button>
                         </span>
@@ -88,8 +99,10 @@
                                 <th style="">#</th>
                                 <th style=""> <a href="#" onclick="DataGrid.Sort('GateNumber')" class="sortCol">Gate No</a> </th>
                                 <th style=""> <a href="#" onclick="DataGrid.Sort('BuildingName')" class="sortCol">Building Name</a></th>
-                                @*<th style=""><a href="#" onclick="DataGrid.Sort('Country')" class="sortCol">Country</a></th>*@
-                                @*<th style=""><a href="#" onclick="DataGrid.Sort('Location')" class="sortCol">Location</a></th>*@
+                                <th style=""> <a href="#" onclick="DataGrid.Sort('Country')" class="sortCol">Country</a></th>
+                                <th style=""> <a href="#" onclick="DataGrid.Sort('State')" class="sortCol">State</a></th>
+                                <th style=""> <a href="#" onclick="DataGrid.Sort('City')" class="sortCol">City</a></th>
+
                                 <th style=""></th>
                             </tr>
                         </thead>
@@ -98,8 +111,9 @@
                                 <th scope="row" data-bind="text: $index() +1"></th>
                                 <td data-bind="text: GateNumber"></td>
                                 <td data-bind="text: BuildingName"></td>
-                                @*<td data-bind="text: Country"></td>*@
-                                @*<td data-bind="text: Location"></td>*@
+                                <td data-bind="text: Country"></td>
+                                <td data-bind="text: State"></td>
+                                <td data-bind="text: City"></td>
                                 <td>
                                     <a href="#" class="btn  btn-s" data-bind="click: EditGate.bind($data)" title="click here to view or edit record."><i class="fa fa-pencil"></i></a>
                                     <a href="#" class="btn  btn-s" data-bind="click: DeleteGate.bind($data)" title="click here to delete record."><i class="fa fa-trash-o"></i></a>
@@ -107,9 +121,12 @@
                             </tr>
                         </tbody>
                     </table>
+
                     @Html.Partial("_Pager")
                 </form>
             </div>
         </div>
     </div>
+
 </div>
+

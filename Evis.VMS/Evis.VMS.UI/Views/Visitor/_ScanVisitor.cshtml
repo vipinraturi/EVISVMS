@@ -17,7 +17,7 @@
                     <div class="form-group">
                         <div class="col-md-offset-7" style="margin-top:5px">
                             <button type="button" id="btnReadImageData" class="btn btn-success pull-right" style="margin:5px;" data-bind="click: ReadImageData">Read Image</button>
-                            <button type="button" id="btnClearImage" class="btn btn-success pull-right" style="margin:5px;" data-bind="click: ResetImageData">Reset</button>
+                            <button type="button" id="btnClearImage" class="btn btn-primary pull-right" style="margin:5px;" data-bind="click: ResetImageData">Reset</button>
                         </div>
                     </div>
                 </div>
@@ -33,47 +33,74 @@
             <div class="x_content">
                 <form class="form-horizontal form-label-left input_mask">
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Visitor's Name</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Visitor Name: </label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtFirstName" readonly="readonly" type="text" class="form-control inputdisable" placeholder="[Visitor Name]" data-bind="value: VisitorName" />
+                            <input id="txtFirstName" type="text" class="form-control inputdisable" placeholder="[Visitor Name]" data-bind="value: VisitorName" readonly="readonly" />
                             <span class="fa fa-user favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Gender</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Gender:</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="" readonly="readonly" type="text" class="form-control inputdisable" placeholder="[Gender]" data-bind="value: GenderText" />
+                            <input id="" type="text" class="form-control inputdisable" placeholder="[Gender]" data-bind="value: GenderText"
+                                   readonly="readonly" />
                             <span class="fa fa-mars favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Date Of Birth</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Date Of Birth:</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="" readonly="readonly" type="text" class="form-control inputdisable" placeholder="[dd/mm/yyyy]" data-bind="value: DOB" />
+                            <input id="" type="text" class="form-control inputdisable" placeholder="[dd/mm/yyyy]" data-bind="value: DOB"
+                                   readonly="readonly" />
                             <span class="fa fa-calendar favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Type Of Card</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Type Of Card:</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="" readonly="readonly" type="text" class="form-control inputdisable" placeholder="[Emirates Id]" data-bind="value: TypeOfCardText" />
+                            <input id=""  type="text" class="form-control inputdisable" placeholder="[Emirates Id]" data-bind="value: TypeOfCardText" />
                             <span class="fa fa-simplybuilt favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">ID Number</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">ID Number:</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="" readonly="readonly" type="text" class="form-control inputdisable" placeholder="[XXX-XXX-XXX-XXXX]" data-bind="value: IdNumber" />
+                            <input id="" type="text" class="form-control inputdisable" placeholder="[ID Number]" data-bind="value: IdNumber"
+                                   readonly="readonly" />
                             <span class="fa fa-simplybuilt favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Nationality</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Company Name:</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="" readonly="readonly" type="text" class="form-control inputdisable" placeholder="[Nationality]" data-bind="value: NationalityText" />
+                            <input id="" type="text" class="form-control inputdisable" placeholder="[Company Name]" data-bind="value: CompanyName"
+                                   readonly="readonly" />
                             <span class="fa fa-flag favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Email Address:</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input id="" type="text" class="form-control inputdisable" placeholder="[Email Address]" data-bind="value: EmailAddress" readonly="readonly" />
+                            <span class="fa fa-flag favwhite form-control-feedback right" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Number:</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input id="" type="text" class="form-control inputdisable" placeholder="[Contact Number]" data-bind="value: ContactNumber" readonly="readonly" />
+                            <span class="fa fa-flag favwhite form-control-feedback right" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                  
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Nationality:</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input id="" type="text" class="form-control inputdisable" placeholder="[Nationality]" data-bind="value: NationalityText" readonly="readonly" />
+                            <span class="fa fa-flag favwhite form-control-feedback right" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                    
                     <div class="form-group">
                         <div class="col-md-offset-7">
                             <button type="button" id="btnCompleteRegister" class="btn btn-success pull-right" data-bind="click: ContinueRegistration">Continue Registration</button>
@@ -102,6 +129,10 @@
             toastr.warning('Only two images allowed.');
         });
 
+        myDropzone.on("sending", function (file, xhr, formData) {
+            var name = new Date().getTime();
+            formData.append(name, file);
+        });
 
         myDropzone.on("addedfile", function (file) {
 

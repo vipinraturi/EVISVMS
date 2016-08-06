@@ -17,6 +17,7 @@ namespace Evis.VMS.UI.ViewModel
     {
         SuperAdmin,
         SuperVisor,
-        Security
+        Security,
+        BuildingAdmin
     }
 }

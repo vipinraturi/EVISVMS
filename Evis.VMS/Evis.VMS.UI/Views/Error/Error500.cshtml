@@ -1,10 +1,4 @@
-﻿@using System.Web.Optimization;
-
-@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html>
 <head>
@@ -13,31 +7,19 @@
     <title>500 Error</title>
 
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    @Styles.Render("~/Content/SGHcss")
-
-
-    @Styles.Render("~/Content/Error")
-
-
-    @*<link href="~/Styles/Error/error.css" rel="stylesheet" />*@
 </head>
 <body>
-
-
-
-
     <div>
         <div id="wrapper">
             <!-- Content Wrapper. Contains page content -->
             <!-- Content Header (Page header) -->
             <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
                 <div class="page-header pull-left">
-                    <img src="/Content/images/logopng.png" width="100" alt="Saudi German Hospital Dubai">
+                    <img src="/Content/images/logopng.png" width="100" alt="Evis VMS">
                 </div>
-
                 <ol class="breadcrumb page-breadcrumb pull-right">
-                    <li><a href="#/Dashboard"><i class="fa fa-home fahome"></i>&nbsp;<span style="font-size: 14px !important; color: black !important; " ">Home</span></a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
-                    <li><span style="font-size: 14px !important; color: black !important;"></span></li>
+                    @*<li><a href="#/Dashboard"><i class="fa fa-home fahome"></i>&nbsp;<span style="font-size: 14px !important; color: black !important; " ">Home</span></a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
+                        <li><span style="font-size: 14px !important; color: black !important;"></span></li>*@
                 </ol>
                 <div class="clearfix">
                 </div>
@@ -47,8 +29,6 @@
             <div class="page-content">
                 <div id="tab-general">
                     <div class="row mbl">
-
-
                         <div class="error-page">
                             <h2 class="headline text-red">500</h2>
                             <div class="error-content">
@@ -60,24 +40,20 @@
                                 </p>
                                 <form class="search-form">
                                     <div class="input-group">
-
                                         <a class="btn btn-success" style="background-color: #00984a; color:white;" href="javascript: history.go(-1)" title="Click here to Return to Home.">Return To Home</a>
-
                                     </div><!-- /.input-group -->
                                 </form>
                             </div>
                         </div><!-- /.error-page -->
                         <!-- /.content -->
-
                     </div><!-- /.content-wrapper -->
                 </div>
             </div>
 
-
             <div id="footer">
                 <div class="copyright" style="text-align:center !important;">
                     <span style="color: black;">
-                        Copyright © 2016 Saudi German Hospital Dubai. All rights reserved&nbsp;MOH NO. GZ26066-5-12-2015
+                        Copyright © 2016 VMS-Visitor Management System - CEENEX All rights reserved
                     </span>
                 </div>
             </div>

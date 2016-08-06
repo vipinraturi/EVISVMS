@@ -1,5 +1,6 @@
 ﻿
 function ScanVisitorViewModel() {
+
     var self = this;
     self.VisitorName = ko.observable('');
     self.Gender = ko.observable('');
@@ -10,12 +11,20 @@ function ScanVisitorViewModel() {
     self.IdNumber = ko.observable('');
     self.Nationality = ko.observable('');
     self.NationalityText = ko.observable('');
+    self.CompanyName = ko.observable('');
+    self.EmailAddress = ko.observable('');
+    self.ContactNumber = ko.observable('');
+    self.IdentityImages = ko.observableArray('');
 
     self.ReadImageData = function () {
+        debugger;
         if ($('.dz-filename').length == 0) {
             toastr.warning('No image available to read text.');
             return;
         }
+        var firstimg = $('.dz-filename img').eq(0);
+        var secoundimg = $('.dz-filename img').eq(1);
+        var thirdimg = $('.dz-filename img').eq(2);
 
         self.VisitorName('Tintu John');
         self.Gender('1');
@@ -26,13 +35,21 @@ function ScanVisitorViewModel() {
         self.IdNumber('H8888SHSJHDF');
         self.Nationality('36');
         self.NationalityText('Indian');
-        dataToSend = self.VisitorName() + "_" + self.Gender() + "_" + self.Nationality() + "_" + self.DOB()
-        + "_" + self.TypeOfCard() + "_" + self.IdNumber() + "_" + self.Nationality();
+        self.CompanyName('EVIS');
+        self.EmailAddress('visitor@domain.com');
+        self.ContactNumber('+971-2567789455');
+        $('input[type=text]').removeAttr('readonly').removeClass('inputdisable');
+        $('.dz-image img').each(function () {
+            self.IdentityImages.push($(this).attr('alt'));
+        });
 
+        self.PrepareData();
     }
 
     self.ResetImageData = function () {
         $('.dz-image-preview').empty();
+        $('input[type=text]').attr('readonly', 'readonly').addClass('inputdisable');
+        self.IdentityImages([]);
         self.VisitorName('');
         self.Gender('');
         self.GenderText('');
@@ -42,20 +59,31 @@ function ScanVisitorViewModel() {
         self.IdNumber('');
         self.Nationality('');
         self.NationalityText('');
-        dataToSend = self.VisitorName() + "_" + self.Gender() + "_" + self.Nationality() + "_" + self.DOB()
-        + "_" + self.TypeOfCard() + "_" + self.IdNumber() + "_" + self.Nationality();
     }
 
-    self.ContinueRegistration = function () {
+    self.PrepareData = function () {
+        dataToSend =
+            (self.VisitorName() + "_" +
+            self.Gender() + "_" +
+            self.Nationality() + "_" +
+            self.DOB() + "_" +
+            self.TypeOfCard() + "_" +
+            self.IdNumber() + "_" +
+            self.Nationality() + "_" +
+            self.CompanyName() + "_" +
+            self.EmailAddress() + "_" +
+            self.ContactNumber() + "_" +
+            self.IdentityImages());
+    }
 
-        if (self.VisitorName() == "" ||  self.Gender() == '' || self.DOB() == '' || self.TypeOfCard() =='' || self.IdNumber() == '' || self.Nationality() =='') {
+
+    self.ContinueRegistration = function () {
+        self.PrepareData();
+        if (self.VisitorName() == "" || self.Gender() == '' || self.DOB() == '' || self.TypeOfCard() == '' || self.IdNumber() == '' || self.Nationality() == '') {
             toastr.warning('No scanned image data available to proceed.');
             return;
         }
-
         ApplyCustomBinding('managevisitor');
     }
-
-    ////debugger;
     return dataToSend;
-} 
+}

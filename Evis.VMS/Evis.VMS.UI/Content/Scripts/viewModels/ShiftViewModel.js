@@ -45,7 +45,7 @@
     self.Saveshift = function () {
         //debugger;
         if (self.errors().length > 0) {
-            alert(self.errors());
+           // alert(self.errors());
             self.errors.showAllMessages(true);
             this.errors().forEach(function (data) {
                 // toastr.warning(data);
@@ -74,15 +74,31 @@
         ApplyCustomBinding('newshiftcreate');
     }
     self.DeleteSwift = function (tableItem) {
-        var message = confirm("Are you sure, you want to delete selected record!");
-        if (message == true) {
-            AjaxCall('/Api/Shift/DeleteShift', tableItem, 'POST', function () {
-                //debugger;
-                toastr.success('Shift deleted successfully!!');
-                ApplyCustomBinding('newshiftcreate');
 
-            });
-        }
+        //var message = confirm("Are you sure, you want to delete selected record!");
+        //if (message == true) {
+        //    AjaxCall('/Api/Shift/DeleteShift', tableItem, 'POST', function () {
+        //        //debugger;
+        //        toastr.success('Shift deleted successfully!!');
+        //        ApplyCustomBinding('newshiftcreate');
+
+        //    });
+        //}
+        recordToDelete = tableItem;
+    }
+    self.DeleteConfirmed = function () {
+        $('#myModal').modal('hide');
+        $('.modal-backdrop').modal('show');
+        $('.modal-backdrop').modal('hide');
+        AjaxCall('/Api/Shift/DeleteShift', recordToDelete, 'POST', function (data) {
+            if (data.Success == true) {
+                toastr.success(data.Message);
+                ApplyCustomBinding('newshiftcreate');
+            }
+            else if (data.Success == false) {
+                toastr.warning(data.Message);
+            }
+        });
     }
 
     self.GlobalSearchEnter = function (data) {

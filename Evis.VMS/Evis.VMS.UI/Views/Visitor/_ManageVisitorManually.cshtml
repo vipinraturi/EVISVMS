@@ -1,6 +1,5 @@
-﻿<script src="@Url.Content("~/Content/Scripts/plugins/Webcam_Plugin/jquery.webcam.js")">
+﻿<script src="@Url.Content("~/Content/Scripts/plugins/Webcam_Plugin/jquery.webcam.js")"></script>
 
-</script>
 <ol class="breadcrumb">
     <li><a href="#" class="a-color">Visitor Management</a></li>
     <li><a href="#" class="a-color">Manage Visitor</a></li>
@@ -13,7 +12,6 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content leftcontent ">                
-                @*
                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                     <div class="">
                         <div class="x_content">
@@ -21,11 +19,11 @@
                             <div style="text-align:center">
                                 <form action="~/Visitor/SaveVisitorIdentityImages" method="post"
                                       enctype="multipart/form-data" class="dropzone dz-clickable" id="dropzoneForm"
-                                      style="min-height:120px !important"></form>
+                                      style="min-height:160px !important"></form>
                             </div>
                         </div>
                     </div>
-                </div>*@
+                </div>
                 <div class="form-horizontal form-label-left input_mask">
                     <div class="form-group col-md-3 col-sm-3 col-xs-12 pull-right">
 
@@ -66,7 +64,7 @@
                 </div>
                 <div class="form-group col-md-9 col-sm-9 col-xs-12">
                     <label class=" control-label col-md-4 col-sm-4 col-xs-12">
-                        Email Address <span class="mandatoryField">*</span>
+                        Email Address 
                     </label>
                     <div class="col-md-8 col-sm-8 col-xs-12">
                         <input maxlength="50" id="txtEmailAddress" type="text" data-bind="value: EmailAddress" class="form-control" placeholder="[email@domain.com]" />
@@ -172,7 +170,7 @@
                         <thead>
                             <tr>
                                 <th style="width: 1%">#</th>
-                                <th style="width: 15%"> <a href="#" class="sortCol">Visitor's Name</a> </th>
+                                <th style="width: 15%"> <a href="#" class="sortCol">Visitor Name</a> </th>
                                 <th style="width: 15%"> <a href="#" class="sortCol">Nationality</a></th>
                                 <th style="width: 13%"><a href="#" class="sortCol">Contact Number</a></th>
                                 <th style="width: 17%"></th>
@@ -206,19 +204,19 @@
 </div>
 <script type="text/javascript">
     Dropzone.autoDiscover = false;
-    var myDropzone;
-    $(function () {
-        //alert('dropzone');
-        myDropzone = new Dropzone("#dropzoneImageForm");
-        myDropzone.maxFiles = 2;
+    var dropZoneVisitorImage;
+    var dropZoneMultipleFiels;
 
-        myDropzone.on("maxfilesexceeded", function (file) {
+    $(function () {
+
+        dropZoneVisitorImage = new Dropzone("#dropzoneImageForm");
+        dropZoneVisitorImage.maxFiles = 2;
+        dropZoneVisitorImage.on("maxfilesexceeded", function (file) {
             //debugger;
             var res = eval('(' + file.xhr.responseText + ')');
             toastr.warning('Only two images allowed.');
         });
-
-        myDropzone.on("addedfile", function (file) {
+        dropZoneVisitorImage.on("addedfile", function (file) {
 
             $('.dz-image-preview').empty();
             if (this.files[1] != null) {
@@ -236,19 +234,69 @@
             });
             file.previewElement.appendChild(removeButton);
         });
-
-        myDropzone.on("sending", function (file, xhr, formData) {
-            //debugger;
+        dropZoneVisitorImage.on("sending", function (file, xhr, formData) {
             var name = new Date().getTime();
             formData.append(name, file);
         });
 
-        myDropzone.on('success', function (file) {
+        dropZoneVisitorImage.on('success', function (file) {
             $('.dz-image').addClass('dz-message');
         });
 
-        myDropzone.on("init", function () {
+        dropZoneVisitorImage.on("init", function () {
 
+        });
+
+        dropZoneMultipleFiels = new Dropzone("#dropzoneForm");
+        dropZoneMultipleFiels.maxFiles = 2;
+        dropZoneMultipleFiels.on("maxfilesexceeded", function (file) {
+            var res = eval('(' + file.xhr.responseText + ')');
+            toastr.warning('Only two images allowed.');
+        });
+
+        dropZoneMultipleFiels.on("addedfile", function (file) {
+            if (file.type != "image/jpeg" && file.type != "image/png" && file.type != "image/jpg") {
+                toastr.warning('Only jpg or png images allowed.');
+
+                if (this.files[0] != null) {
+                    this.removeFile(this.files[0]);
+                }
+
+                if (this.files[1] != null) {
+                    this.removeFile(this.files[1]);
+                }
+
+                if (this.files[2] != null) {
+                    this.removeFile(this.files[2]);
+                }
+            }
+            else
+            {
+                var maxLengthExceeded = false;
+                if (this.files[4] != null) {
+                    maxLengthExceeded = true;
+                    this.removeFile(this.files[0]);
+                }
+
+                if (this.files[3] != null) {
+                    maxLengthExceeded = true;
+                    this.removeFile(this.files[0]);
+                }
+
+                if (maxLengthExceeded) {
+                    toastr.clear();
+                    toastr.warning('Only 3 images can be uploaded.');
+                }
+
+                var removeButton = Dropzone.createElement("<i class='fa fa-remove red' aria-hidden='true'></i>");
+                var _this = this;
+                removeButton.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    _this.removeFile(file);
+                });
+                file.previewElement.appendChild(removeButton);
+            }
         });
     });
 </script>
