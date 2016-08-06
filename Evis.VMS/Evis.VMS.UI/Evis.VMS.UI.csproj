@@ -266,7 +266,6 @@
     <Content Include="Content\Scripts\application\ImageUpload.js" />
     <Content Include="Content\Scripts\application\pager.js" />
     <Content Include="Content\Scripts\application\toastr.min.js" />
-    <Content Include="Content\Scripts\plugins\bootstrap-progressbar.min - Copy.js" />
     <Content Include="Content\Scripts\plugins\bootstrap-progressbar.min.js" />
     <Content Include="Content\Scripts\plugins\bootstrap-timepicker.js" />
     <Content Include="Content\Scripts\plugins\bootstrap.js" />
@@ -284,6 +283,7 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Content\Scripts\plugins\jquery-1.10.2.intellisense.js" />
     <Content Include="Content\Scripts\plugins\Chart.bundle.js" />
+    <Content Include="Content\Scripts\plugins\Chart.min.js" />
     <Content Include="Content\Scripts\plugins\curvedLines.js" />
     <Content Include="Content\Scripts\plugins\custom.min.js" />
     <Content Include="Content\Scripts\plugins\date.js" />
