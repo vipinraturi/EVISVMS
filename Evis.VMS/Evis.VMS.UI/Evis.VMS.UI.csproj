@@ -413,9 +413,6 @@
     <Content Include="images\ui-icons_222222_256x240.png" />
     <Content Include="images\ui-icons_454545_256x240.png" />
     <Content Include="images\user.png" />
-    <Content Include="images\WallImages\imagepath\changed files.PNG" />
-    <Content Include="images\WallImages\imagepath\tesgsg1.PNG" />
-    <Content Include="images\WallImages\imagepath\xamarin installation.png" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
