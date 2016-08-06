@@ -20,6 +20,9 @@
     self.GateId = ko.observable(undefined).extend({ required: true });
     self.FromDate = ko.observable('').extend({ required: true });
     self.ToDate = ko.observable('').extend({ required: true });
+    self.City = ko.observable(undefined).extend({ required: true });
+    self.strFromDate = ko.observable('');
+    self.strToDate = ko.observable('');
 
 
     self.errors = ko.validation.group(
@@ -138,6 +141,7 @@
             self.BuildingId(tableItem.BuildingId);
             gateId = tableItem.GateId;
             self.ShitfId(tableItem.ShitfId);
+            self.City(tableItem.City);
             userId = tableItem.UserId;
             //self.FromDate(tableItem.FromDate);
             //self.ToDate(tableItem.ToDate);
@@ -184,10 +188,17 @@
             data.ToDate = self.ToDate();
 
 
-            AjaxCall('/Api/ShiftAssignment/SaveShiftAssignment', data, 'POST', function () {
-                toastr.success('ShiftAssignment saved successfully!!')
-                ApplyCustomBinding('shiftassignment');
+            AjaxCall('/Api/ShiftAssignment/SaveShiftAssignment', data, 'POST', function (data) {
+                debugger;
+                if (data.Message == "Success") {
+                    toastr.success('ShiftAssignment saved successfully!!')
+                    ApplyCustomBinding('shiftassignment');
+                }
+                else {
+                    toastr.error('shift already assigned!')
+                }
             })
+
         }
     }
     self.GlobalSearchEnter = function (data) {

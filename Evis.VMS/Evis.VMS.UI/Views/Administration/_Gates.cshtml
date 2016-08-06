@@ -26,7 +26,8 @@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Country </label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtCountry" type="text" class="form-control inputdisable" placeholder="UAE" disabled data-bind="value:CountryName" />
+                            <input id="txtCountry" type="text" class="form-control inputdisable" placeholder="[Country]" disabled data-bind="value:CountryName" />
+
                             <span class="fa fa-globe favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
@@ -34,7 +35,7 @@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">State </label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtState" type="text" class="form-control inputdisable" placeholder="Dubai" data-bind="value:StateName" />
+                            <input id="txtState" type="text" class="form-control inputdisable" placeholder="[State]" data-bind="value:StateName" />
                             <span class="fa fa-globe favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
@@ -98,8 +99,10 @@
                                 <th style="">#</th>
                                 <th style=""> <a href="#" onclick="DataGrid.Sort('GateNumber')" class="sortCol">Gate No</a> </th>
                                 <th style=""> <a href="#" onclick="DataGrid.Sort('BuildingName')" class="sortCol">Building Name</a></th>
-                                @*<th style=""><a href="#" onclick="DataGrid.Sort('Country')" class="sortCol">Country</a></th>*@
-                                @*<th style=""><a href="#" onclick="DataGrid.Sort('Location')" class="sortCol">Location</a></th>*@
+                                <th style=""> <a href="#" onclick="DataGrid.Sort('Country')" class="sortCol">Country</a></th>
+                                <th style=""> <a href="#" onclick="DataGrid.Sort('State')" class="sortCol">State</a></th>
+                                <th style=""> <a href="#" onclick="DataGrid.Sort('City')" class="sortCol">City</a></th>
+
                                 <th style=""></th>
                             </tr>
                         </thead>
@@ -108,8 +111,9 @@
                                 <th scope="row" data-bind="text: $index() +1"></th>
                                 <td data-bind="text: GateNumber"></td>
                                 <td data-bind="text: BuildingName"></td>
-                                @*<td data-bind="text: Country"></td>*@
-                                @*<td data-bind="text: Location"></td>*@
+                                <td data-bind="text: Country"></td>
+                                <td data-bind="text: State"></td>
+                                <td data-bind="text: City"></td>
                                 <td>
                                     <a href="#" class="btn  btn-s" data-bind="click: EditGate.bind($data)" title="click here to view or edit record."><i class="fa fa-pencil"></i></a>
                                     <a href="#" class="btn  btn-s" data-bind="click: DeleteGate.bind($data)" title="click here to delete record."><i class="fa fa-trash-o"></i></a>
@@ -117,6 +121,7 @@
                             </tr>
                         </tbody>
                     </table>
+
                     @Html.Partial("_Pager")
                 </form>
             </div>

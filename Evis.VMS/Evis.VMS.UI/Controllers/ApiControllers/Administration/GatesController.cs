@@ -31,7 +31,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             var currentUserId = HttpContext.Current.User.Identity.GetUserId();
             if (gateMaster.Id == 0)
             {
-                var data = _genericService.GateMaster.GetAll().Where(x => x.GateNumber == gateMaster.GateNumber.Trim() && x.BuildingId == gateMaster.BuildingId).ToList();
+                var data = _genericService.GateMaster.GetAll().Where(x => x.GateNumber == gateMaster.GateNumber.Trim() && x.BuildingId == gateMaster.BuildingId && x.IsActive == true).ToList();
                 if (data.Count() == 0)
                 {
                     gateMaster.IsActive = true;
@@ -72,9 +72,12 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     Id = x.Id,
                     BuildingId = x.BuildingId,
                     GateNumber = x.GateNumber,
-                    BuildingName = x.BuildingMaster.BuildingName
-
+                    BuildingName = x.BuildingMaster.BuildingName,
+                    Country = x.BuildingMaster.CityMaster.ParentValues.LookUpValue,
+                    State = x.BuildingMaster.CityMaster.ParentValues.ParentValues.LookUpValue,
+                    City = x.BuildingMaster.CityMaster.LookUpValue
                 });
+
             if (lstgateVM.Count() > 0)
             {
                 if (!string.IsNullOrEmpty(globalSearch))
@@ -95,10 +98,11 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
                 int totalCount = 0;
                 IList<GatesVM> result =
-                   GenericSorterPager.GetSortedPagedList<GatesVM>(lstgateVM, paginationRequest, out totalCount);
+                    GenericSorterPager.GetSortedPagedList<GatesVM>(lstgateVM, paginationRequest, out totalCount);
 
-                var jsonData = JsonConvert.SerializeObject(result.OrderByDescending(x=>x.Id));
+                var jsonData = JsonConvert.SerializeObject(result.OrderByDescending(x => x.Id));
                 return JsonConvert.SerializeObject(new { totalRows = totalCount, result = jsonData });
+
             }
             return null;
         }
@@ -122,7 +126,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 var GaterDelete = _genericService.GateMaster.GetAll().Where(x => x.Id == GateMaster.Id).FirstOrDefault();
                 if (GaterDelete != null)
                 {
-                    if (_genericService.ShitfAssignment.SearchFor(x => x.GateId == GateMaster.Id && x.IsActive==true).Any())
+                    if (_genericService.ShitfAssignment.SearchFor(x => x.GateId == GateMaster.Id && x.IsActive == true).Any())
                     {
                         return new ReturnResult { Message = "Please first delete all the shift assigment under this gate", Success = false };
                     }

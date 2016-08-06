@@ -17,6 +17,7 @@
                             <select class="form-control" data-bind="options: Buildings, optionsText: 'Name' ,optionsValue: 'Id', value: BuildingId, optionsCaption: '-- Select --',event:{ change: GetGates()}"></select>
                         </div>
                     </div>
+
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Gate No <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
@@ -81,9 +82,12 @@
                             <tr>
                                 <th style="width: 1%">#</th>
                                 <th style="width: 15%"> <a href="#" onclick="DataGrid.Sort('BuildingName')" class="sortCol">Building Name</a> </th>
-                                <th style="width: 20%"> <a href="#" onclick="DataGrid.Sort('GateName')" class="sortCol">Gate Name</a></th>
-                                <th style="width: 20%"><a href="#" onclick="DataGrid.Sort('ShiftName')" class="sortCol">Shift Name</a></th>
+                                <th style="width: 15%"> <a href="#" onclick="DataGrid.Sort('City')" class="sortCol">City</a> </th>
+                                <th style="width: 15%"> <a href="#" onclick="DataGrid.Sort('GateName')" class="sortCol">Gate Name</a></th>
+                                <th style="width: 15%"><a href="#" onclick="DataGrid.Sort('ShiftName')" class="sortCol">Shift Name</a></th>
                                 <th style="width: 15%"><a href="#" onclick="DataGrid.Sort('UserName')" class="sortCol">Security Name</a></th>
+                                <th style="width: 15%"><a href="#" onclick="DataGrid.Sort('strFromDate')" class="sortCol">From Date</a></th>
+                                <th style="width: 15%"><a href="#" onclick="DataGrid.Sort('strToDate')" class="sortCol">To Date</a></th>
                                 <th style="width: 15%"></th>
                             </tr>
                         </thead>
@@ -91,9 +95,12 @@
                             <tr>
                                 <th scope="row" data-bind="text: $index() +1"></th>
                                 <td data-bind="text: BuildingName"></td>
+                                <td data-bind="text: City"></td>
                                 <td data-bind="text: GateName"></td>
                                 <td data-bind="text: ShiftName"></td>
                                 <td data-bind="text: UserName"></td>
+                                <td data-bind="text: strFromDate"></td>
+                                <td data-bind="text: strToDate"></td>
                                 <td>
                                     <a href="#" class="btn  btn-s" data-bind="click: EditShift.bind($data)" title="click here to view or edit record."><i class="fa fa-pencil"></i></a>
                                     <a href="#myModal" data-toggle="modal" class="btn  btn-s" data-bind="click: DeleteShift.bind($data)" title="click here to delete record."><i class="fa fa-trash-o"></i></a>

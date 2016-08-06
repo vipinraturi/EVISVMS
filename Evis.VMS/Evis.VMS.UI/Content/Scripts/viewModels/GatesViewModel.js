@@ -69,9 +69,12 @@
             self.GateNumber(tableItem.GateNumber);
             self.BuildingId(tableItem.BuildingId);
             self.CityId(tableItem.CityId);
-            // self.CityName(tableItem.CityName);
+            self.CountryId(tableItem.CountryId);
+            self.StateId(tableItem.StateId);
         }
     }
+
+
 
     self.DeleteGate = function (tableItem) {
         debugger;
