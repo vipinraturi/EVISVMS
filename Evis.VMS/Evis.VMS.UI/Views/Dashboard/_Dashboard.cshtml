@@ -4,9 +4,9 @@
 
 <div class="row top_tiles">
     <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-        <div class="tile-stats">
+        <div class="tile-stats box1">
             <a href="javascript:void(0)" id="lnkVisitorCheckIn">
-                <div class="icon" style="color:#f2ece9"><i class="fa fa-user-plus fa-1"></i></div>
+                <div class="icon" style="color: #22A7F0"><i class="fa fa-user-plus fa-1"></i></div>
                 <div class="count">3</div>
                 <h3>Checked-In visitors</h3>
                 <p>checked-In visitors</p>
@@ -14,9 +14,9 @@
         </div>
     </div>
     <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-        <div class="tile-stats">
+        <div class="tile-stats box2">
             <a href="javascript:void(0)" id="lnkTotalVisitor">
-                <div class="icon" style="color:#f2ece9"><i class="fa fa-users fa-1"></i></div>
+                <div class="icon" style="color: #FABE28"><i class="fa fa-users fa-1"></i></div>
                 <div class="count">14</div>
                 <h3>Visitors</h3>
                 <p>Total visitors current day</p>
@@ -24,9 +24,9 @@
         </div>
     </div>
     <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-        <div class="tile-stats">
+        <div class="tile-stats box3">
             <a href="javascript:void(0)" id="lnkBuilding">
-                <div class="icon" style="color:#f2ece9"><i class="fa fa-building-o"></i></div>
+                <div class="icon" style="color: #1ABC9C"><i class="fa fa-building-o"></i></div>
                 <div class="count">3</div>
                 <h3>Building</h3>
                 <p>Total bulding</p>
@@ -34,9 +34,9 @@
         </div>
     </div>
     <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-        <div class="tile-stats">
+        <div class="tile-stats box4">
             <a href="javascript:void(0)" id="lnkGates">
-                <div class="icon" style="color:#f2ece9"><i class="fa fa-outdent"></i></div>
+                <div class="icon" style="color: #fb927d"><i class="fa fa-outdent"></i></div>
                 <div class="count">12</div>
                 <h3>Gates</h3>
                 <p>Total gates</p>
@@ -47,200 +47,368 @@
 
 </div>
 
-
 <div class="row">
-
-    <div class="col-md-8 col-xs-12">
-        <canvas id="canvas"></canvas>
-    </div>
-    <div class="col-md-4 col-xs-12">
-        <div id="map_canvas" style="height:400px;"></div>
-
-        <h4 style=" text-align:center;">Bulding locations</h4>
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="dashboard_graph x_panel">
+            <div class="row x_title">
+                <div class="col-md-6">
+                    <h3>Visitor Count <small>Graph </small></h3>
+                </div>
+              
+            </div>
+            <div class="x_content">
+                <div class="demo-container" style="height:250px">
+                    <div id="placeholder3xx3" class="demo-placeholder" style="width: 100%; height: 250px; padding: 0px; position: relative;"><canvas class="flot-base" width="1281" height="250" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 1281px; height: 250px;"></canvas><div class="flot-text" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; font-size: smaller; color: rgb(84, 84, 84);"><div class="flot-x-axis flot-x1-axis xAxis x1Axis" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; display: block;"><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 75px; top: 234px; left: 15px; text-align: center;">0</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 75px; top: 234px; left: 93px; text-align: center;">1</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 75px; top: 234px; left: 172px; text-align: center;">2</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 75px; top: 234px; left: 250px; text-align: center;">3</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 75px; top: 234px; left: 329px; text-align: center;">4</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 75px; top: 234px; left: 407px; text-align: center;">5</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 75px; top: 234px; left: 486px; text-align: center;">6</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 75px; top: 234px; left: 564px; text-align: center;">7</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 75px; top: 234px; left: 643px; text-align: center;">8</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 75px; top: 234px; left: 721px; text-align: center;">9</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 75px; top: 234px; left: 796px; text-align: center;">10</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 75px; top: 234px; left: 875px; text-align: center;">11</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 75px; top: 234px; left: 953px; text-align: center;">12</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 75px; top: 234px; left: 1032px; text-align: center;">13</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 75px; top: 234px; left: 1110px; text-align: center;">14</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 75px; top: 234px; left: 1189px; text-align: center;">15</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 75px; top: 234px; left: 1267px; text-align: center;">16</div></div><div class="flot-y-axis flot-y1-axis yAxis y1Axis" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; display: block;"><div class="flot-tick-label tickLabel" style="position: absolute; top: 222px; left: 7px; text-align: right;">0</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 194px; left: 7px; text-align: right;">5</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 166px; left: 1px; text-align: right;">10</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 139px; left: 1px; text-align: right;">15</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 111px; left: 1px; text-align: right;">20</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 83px; left: 1px; text-align: right;">25</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 56px; left: 1px; text-align: right;">30</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 28px; left: 1px; text-align: right;">35</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 1px; left: 1px; text-align: right;">40</div></div></div><canvas class="flot-overlay" width="1281" height="250" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 1281px; height: 250px;"></canvas><div class="legend"><div style="position: absolute; width: 76px; height: 15px; top: 13px; right: 13px; opacity: 0.85; background-color: rgb(255, 255, 255);"> </div><table style="position:absolute;top:13px;right:13px;;font-size:smaller;color:#545454"><tbody><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(38,185,154);overflow:hidden"></div></div></td><td class="legendLabel">Registrations</td></tr></tbody></table></div></div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+<div class="row">
+    <div class="col-md-6 col-sm-6 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Daily active users <small>Sessions</small></h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="#">Settings 1</a>
+                            </li>
+                            <li>
+                                <a href="#">Settings 2</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li> 
+                        <a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <ul class="list-unstyled timeline">
+                    <li>
+                        <div class="block">
+                            <div class="tags">
+                                <a href="" class="tag">
+                                    <span>Entertainment</span>
+                                </a>
+                            </div>
+                            <div class="block_content">
+                                <h2 class="title">
+                                    <a>Who Needs Sundance When You’ve Got&nbsp;Crowdfunding?</a>
+                                </h2>
+                                <div class="byline">
+                                    <span>13 hours ago</span> by <a>Jane Smith</a>
+                                </div>
+                                <p class="excerpt">
+                                    Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… <a>Read&nbsp;More</a>
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="block">
+                            <div class="tags">
+                                <a href="" class="tag">
+                                    <span>Entertainment</span>
+                                </a>
+                            </div>
+                            <div class="block_content">
+                                <h2 class="title">
+                                    <a>Who Needs Sundance When You’ve Got&nbsp;Crowdfunding?</a>
+                                </h2>
+                                <div class="byline">
+                                    <span>13 hours ago</span> by <a>Jane Smith</a>
+                                </div>
+                                <p class="excerpt">
+                                    Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… <a>Read&nbsp;More</a>
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="block">
+                            <div class="tags">
+                                <a href="" class="tag">
+                                    <span>Entertainment</span>
+                                </a>
+                            </div>
+                            <div class="block_content">
+                                <h2 class="title">
+                                    <a>Who Needs Sundance When You’ve Got&nbsp;Crowdfunding?</a>
+                                </h2>
+                                <div class="byline">
+                                    <span>13 hours ago</span> by <a>Jane Smith</a>
+                                </div>
+                                <p class="excerpt">
+                                    Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… <a>Read&nbsp;More</a>
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
 
-<br />
-<style type="text/css">
-    .infoDiv {
-        height: 80px;
-        width: 150px;
-        font-size: small;
-        -webkit-user-select: none;
-        background-color: white;
-        color: black;
-    }
-</style>
+            </div>
+        </div>
+    </div>
+</div>
+    <script>
+        $(document).ready(function () {
+            //random data
+            var d1 = [
+              [0, 1],
+              [1, 9],
+              [2, 6],
+              [3, 10],
+              [4, 5],
+              [5, 17],
+              [6, 6],
+              [7, 10],
+              [8, 7],
+              [9, 11],
+              [10, 35],
+              [11, 9],
+              [12, 12],
+              [13, 5],
+              [14, 3],
+              [15, 4],
+              [16, 9]
+            ];
 
-<script>
-    var config = {
-        type: 'bar',
-        fontColor: '#fff',
-        data: {
-            labels: ["12/06", "13/06", "14/06", "15/06", "16/06", "17/06", "18/06"],
-            fontColor: '#fff',
-            datasets: [{
-                label: "",
-                fontColor: '#fff',
-                data: [1, 10, 25, 40, 30, 14, 23],
-                fill: false,
-                backgroundColor:'#fff'
-            }]
-        },
-        options: {
-            responsive: true,
-            font: '#fff',
-            elements: { rectangle: { borderWidth: 2, borderColor:'#fff', borderSkipped: 'bottom' } },
-            title: {
-                display: true,
-                fontColor: '#fff',
-                text: 'Visitors/Week',
-
-            },
-            legend: {
-                display: false,
-                labels: {
-                    fontColor: 'rgb(255, 99, 132)'
+            //flot options
+            var options = {
+                series: {
+                    curvedLines: {
+                        apply: true,
+                        active: true,
+                        monotonicFit: true
+                    }
+                },
+                colors: ["#26B99A"],
+                grid: {
+                    borderWidth: {
+                        top: 0,
+                        right: 0,
+                        bottom: 1,
+                        left: 1
+                    },
+                    borderColor: {
+                        bottom: "#7F8790",
+                        left: "#7F8790"
+                    }
                 }
-            },
-            tooltips: {
-                mode: 'label',
-                callbacks: {
-                    // beforeTitle: function() {
-                    //     return '...beforeTitle';
-                    // },
-                    // afterTitle: function() {
-                    //     return '...afterTitle';
-                    // },
-                    // beforeBody: function() {
-                    //     return '...beforeBody';
-                    // },
-                    // afterBody: function() {
-                    //     return '...afterBody';
-                    // },
-                    // beforeFooter: function() {
-                    //     return '...beforeFooter';
-                    // },
-                    // footer: function() {
-                    //     return 'Footer';
-                    // },
-                    // afterFooter: function() {
-                    //     return '...afterFooter';
-                    // },
+            };
+            var plot = $.plot($("#placeholder3xx3"), [{
+                label: "Registrations",
+                data: d1,
+                lines: {
+                    fillColor: "rgba(150, 202, 89, 0.12)"
+                }, //#96CA59 rgba(150, 202, 89, 0.42)
+                points: {
+                    fillColor: "#fff"
                 }
-            },
-            hover: {
-                mode: ''
-            },
-            scales: {
-                xAxes: [{
-                    display: true,
+            }], options);
+        });
+    </script>
+    @*<div class="row">
+
+            <div class="col-md-8 col-xs-12">
+                <canvas id="canvas"></canvas>
+            </div>
+            <div class="col-md-4 col-xs-12">
+                <div id="map_canvas" style="height:400px;"></div>
+
+                <h4 style=" text-align:center;">Bulding locations</h4>
+            </div>
+        </div>
+
+        <br />
+        <style type="text/css">
+            .infoDiv {
+                height: 80px;
+                width: 150px;
+                font-size: small;
+                -webkit-user-select: none;
+                background-color: white;
+                color: black;
+            }
+        </style>
+
+        <script>
+            var config = {
+                type: 'bar',
+                fontColor: '#fff',
+                data: {
+                    labels: ["12/06", "13/06", "14/06", "15/06", "16/06", "17/06", "18/06"],
                     fontColor: '#fff',
-                    scaleLabel: {
+                    datasets: [{
+                        label: "",
+                        fontColor: '#fff',
+                        data: [1, 10, 25, 40, 30, 14, 23],
+                        fill: false,
+                        backgroundColor:'#fff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    font: '#fff',
+                    elements: { rectangle: { borderWidth: 2, borderColor:'#fff', borderSkipped: 'bottom' } },
+                    title: {
                         display: true,
                         fontColor: '#fff',
-                        labelString: 'Date'
+                        text: 'Visitors/Week',
 
-                    }
-                }],
-                yAxes: [{
-                    display: true,
-                    scaleLabel: {
-                        display: true,
-                        labelString: 'No. of Visitors',
-                        fontColor: '#fff'
                     },
-                    ticks: {
-                        suggestedMin: 0,
-                        suggestedMax: 50
+                    legend: {
+                        display: false,
+                        labels: {
+                            fontColor: 'rgb(255, 99, 132)'
+                        }
+                    },
+                    tooltips: {
+                        mode: 'label',
+                        callbacks: {
+                            // beforeTitle: function() {
+                            //     return '...beforeTitle';
+                            // },
+                            // afterTitle: function() {
+                            //     return '...afterTitle';
+                            // },
+                            // beforeBody: function() {
+                            //     return '...beforeBody';
+                            // },
+                            // afterBody: function() {
+                            //     return '...afterBody';
+                            // },
+                            // beforeFooter: function() {
+                            //     return '...beforeFooter';
+                            // },
+                            // footer: function() {
+                            //     return 'Footer';
+                            // },
+                            // afterFooter: function() {
+                            //     return '...afterFooter';
+                            // },
+                        }
+                    },
+                    hover: {
+                        mode: ''
+                    },
+                    scales: {
+                        xAxes: [{
+                            display: true,
+                            fontColor: '#fff',
+                            scaleLabel: {
+                                display: true,
+                                fontColor: '#fff',
+                                labelString: 'Date'
+
+                            }
+                        }],
+                        yAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'No. of Visitors',
+                                fontColor: '#fff'
+                            },
+                            ticks: {
+                                suggestedMin: 0,
+                                suggestedMax: 50
+                            }
+                        }]
                     }
-                }]
-            }
 
-        }
-    };
+                }
+            };
 
 
 
-    $.each(config.data.datasets, function (i, dataset) {
+            $.each(config.data.datasets, function (i, dataset) {
 
-        dataset.borderColor = 'rgba(255,255,255,1)';
-        //alert(dataset.borderColor);
-        dataset.backgroundColor = 'rgba(255,99,45,0.5)';
-        dataset.pointBorderColor = 'rgba(255,255,255,0.7)';
-        dataset.pointBackgroundColor = 'rgba(255,255,255,0.5)';
-        dataset.pointBorderWidth = 2;
-    });
-    $(document).ready(function () {
+                dataset.borderColor = 'rgba(255,255,255,1)';
+                //alert(dataset.borderColor);
+                dataset.backgroundColor = 'rgba(255,99,45,0.5)';
+                dataset.pointBorderColor = 'rgba(255,255,255,0.7)';
+                dataset.pointBackgroundColor = 'rgba(255,255,255,0.5)';
+                dataset.pointBorderWidth = 2;
+            });
+            $(document).ready(function () {
 
-        var ctx = document.getElementById("canvas").getContext("2d");
-        window.myLine = new Chart(ctx, config);
-        // Initialize();
-    });
-
-
-    // Where all the fun happens
+                var ctx = document.getElementById("canvas").getContext("2d");
+                window.myLine = new Chart(ctx, config);
+                // Initialize();
+            });
 
 
-    // Google has tweaked their interface somewhat - this tells the api to use that new UI
-    google.maps.visualRefresh = true;
-    var UAE = new google.maps.LatLng(25.204849, 55.270783);
-
-    // These are options that set initial zoom level, where the map is centered globally to start, and the type of map to show
-    var mapOptions = {
-        zoom: 7,
-        center: UAE,
-        mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
-    };
-
-    // This makes the div with id "map_canvas" a google map
-    var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
-
-    // This shows adding a simple pin "marker" - United Arab Emirates!
-    var myLatlng = new google.maps.LatLng(25.204849, 55.270783);
-
-    var marker = new google.maps.Marker({
-        position: myLatlng,
-        map: map,
-        title: 'United Arab Emirates'
-    });
-
-    // You can make markers different colors...  google it up!
-    marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
-
-    // a sample list of JSON encoded data of places to visit in United Arab Emirates
-    // you can either make up a JSON list server side, or call it from a controller using JSONResult
-    var data = [
-              { "Id": 1, "PlaceName": "Burj Khalifa", "OpeningHours": "7-10", "GeoLong": "25.2048", "GeoLat": "55.2708" },
-              { "Id": 2, "PlaceName": "Sheikh Sayad Mosque ", "OpeningHours": "7-4", "GeoLong": "24.2992", "GeoLat": "54.6973" },
-              { "Id": 3, "PlaceName": "Emirates Wheel", "OpeningHours": "9-7", "GeoLong": "25.3223", "GeoLat": "55.5136" },
-              { "Id": 4, "PlaceName": "Khor fakkan Beach", "OpeningHours": "8-12", "GeoLong": "25.4111", "GeoLat": "56.2482" },
-              { "Id": 5, "PlaceName": "Al Barsha", "OpeningHours": "10-10", "GeoLong": "25.0838", "GeoLat": "55.2204" }
-
-    ];
-
-    // Using the JQuery "each" selector to iterate through the JSON list and drop marker pins
-    $.each(data, function (i, item) {
-        var marker = new google.maps.Marker({
-            'position': new google.maps.LatLng(item.GeoLong, item.GeoLat),
-            'map': map,
-            'title': item.PlaceName
-        });
-
-        // Make the marker-pin blue!
-        marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png')
-
-        // put in some information about each json object - in this case, the opening hours.
-        var infowindow = new google.maps.InfoWindow({
-            content: "<div class='infoDiv'><h4>" + item.PlaceName + "</h4>" + "<div><h5>Opening hours: " + item.OpeningHours + "</h5></div></div>"
-        });
-
-        // finally hook up an "OnClick" listener to the map so it pops up out info-window when the marker-pin is clicked!
-        google.maps.event.addListener(marker, 'click', function () {
-            infowindow.open(map, marker);
-        });
-
-    })
+            // Where all the fun happens
 
 
-</script>
+            // Google has tweaked their interface somewhat - this tells the api to use that new UI
+            google.maps.visualRefresh = true;
+            var UAE = new google.maps.LatLng(25.204849, 55.270783);
+
+            // These are options that set initial zoom level, where the map is centered globally to start, and the type of map to show
+            var mapOptions = {
+                zoom: 7,
+                center: UAE,
+                mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
+            };
+
+            // This makes the div with id "map_canvas" a google map
+            var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+
+            // This shows adding a simple pin "marker" - United Arab Emirates!
+            var myLatlng = new google.maps.LatLng(25.204849, 55.270783);
+
+            var marker = new google.maps.Marker({
+                position: myLatlng,
+                map: map,
+                title: 'United Arab Emirates'
+            });
+
+            // You can make markers different colors...  google it up!
+            marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
+
+            // a sample list of JSON encoded data of places to visit in United Arab Emirates
+            // you can either make up a JSON list server side, or call it from a controller using JSONResult
+            var data = [
+                      { "Id": 1, "PlaceName": "Burj Khalifa", "OpeningHours": "7-10", "GeoLong": "25.2048", "GeoLat": "55.2708" },
+                      { "Id": 2, "PlaceName": "Sheikh Sayad Mosque ", "OpeningHours": "7-4", "GeoLong": "24.2992", "GeoLat": "54.6973" },
+                      { "Id": 3, "PlaceName": "Emirates Wheel", "OpeningHours": "9-7", "GeoLong": "25.3223", "GeoLat": "55.5136" },
+                      { "Id": 4, "PlaceName": "Khor fakkan Beach", "OpeningHours": "8-12", "GeoLong": "25.4111", "GeoLat": "56.2482" },
+                      { "Id": 5, "PlaceName": "Al Barsha", "OpeningHours": "10-10", "GeoLong": "25.0838", "GeoLat": "55.2204" }
+
+            ];
+
+            // Using the JQuery "each" selector to iterate through the JSON list and drop marker pins
+            $.each(data, function (i, item) {
+                var marker = new google.maps.Marker({
+                    'position': new google.maps.LatLng(item.GeoLong, item.GeoLat),
+                    'map': map,
+                    'title': item.PlaceName
+                });
+
+                // Make the marker-pin blue!
+                marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png')
+
+                // put in some information about each json object - in this case, the opening hours.
+                var infowindow = new google.maps.InfoWindow({
+                    content: "<div class='infoDiv'><h4>" + item.PlaceName + "</h4>" + "<div><h5>Opening hours: " + item.OpeningHours + "</h5></div></div>"
+                });
+
+                // finally hook up an "OnClick" listener to the map so it pops up out info-window when the marker-pin is clicked!
+                google.maps.event.addListener(marker, 'click', function () {
+                    infowindow.open(map, marker);
+                });
+
+            })
+
+
+        </script>*@
