@@ -330,8 +330,8 @@ namespace Evis.VMS.UI.Controllers
                             Directory.CreateDirectory(directoryPath);
                         }
                         var originalDirectory = new DirectoryInfo(directoryPath);
-                        fileWithPath = System.IO.Path.Combine(originalDirectory.ToString(), file.FileName);
-                        var fileName1 = Path.GetFileName(file.FileName);
+                        fileWithPath = System.IO.Path.Combine(originalDirectory.ToString(), fName);
+                        var fileName1 = Path.GetFileName(fName);
                         var isExists = System.IO.File.Exists(fileWithPath);
 
                         if (isExists)

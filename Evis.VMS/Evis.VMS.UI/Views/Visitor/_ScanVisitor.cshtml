@@ -129,6 +129,10 @@
             toastr.warning('Only two images allowed.');
         });
 
+        myDropzone.on("sending", function (file, xhr, formData) {
+            var name = new Date().getTime();
+            formData.append(name, file);
+        });
 
         myDropzone.on("addedfile", function (file) {
 

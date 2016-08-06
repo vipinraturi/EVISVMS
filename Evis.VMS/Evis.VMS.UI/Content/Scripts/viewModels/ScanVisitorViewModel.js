@@ -17,10 +17,14 @@ function ScanVisitorViewModel() {
     self.IdentityImages = ko.observableArray('');
 
     self.ReadImageData = function () {
+        debugger;
         if ($('.dz-filename').length == 0) {
             toastr.warning('No image available to read text.');
             return;
         }
+        var firstimg = $('.dz-filename img').eq(0);
+        var secoundimg = $('.dz-filename img').eq(1);
+        var thirdimg = $('.dz-filename img').eq(2);
 
         self.VisitorName('Tintu John');
         self.Gender('1');
@@ -57,8 +61,7 @@ function ScanVisitorViewModel() {
         self.NationalityText('');
     }
 
-    self.PrepareData = function ()
-    {
+    self.PrepareData = function () {
         dataToSend =
             (self.VisitorName() + "_" +
             self.Gender() + "_" +
@@ -76,11 +79,11 @@ function ScanVisitorViewModel() {
 
     self.ContinueRegistration = function () {
         self.PrepareData();
-        if (self.VisitorName() == "" ||  self.Gender() == '' || self.DOB() == '' || self.TypeOfCard() =='' || self.IdNumber() == '' || self.Nationality() =='') {
+        if (self.VisitorName() == "" || self.Gender() == '' || self.DOB() == '' || self.TypeOfCard() == '' || self.IdNumber() == '' || self.Nationality() == '') {
             toastr.warning('No scanned image data available to proceed.');
             return;
         }
         ApplyCustomBinding('managevisitor');
     }
     return dataToSend;
-} 
+}

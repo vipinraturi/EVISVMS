@@ -124,7 +124,7 @@ namespace Evis.VMS.UI.Controllers
                     {
                         var originalDirectory = new DirectoryInfo(logoPath);
                         string fileWithPath = System.IO.Path.Combine(originalDirectory.ToString(), "logo.png");
-                        var fileName1 = Path.GetFileName(file.FileName);
+                        var fileName1 = Path.GetFileName(fName);
 
                         bool isfolderExists = System.IO.Directory.Exists(originalDirectory.ToString());
                         bool isExists = System.IO.File.Exists(fileWithPath);

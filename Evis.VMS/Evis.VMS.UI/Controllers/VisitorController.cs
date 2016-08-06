@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using MODI;
 
 namespace Evis.VMS.UI.Controllers
 {
@@ -76,8 +77,8 @@ namespace Evis.VMS.UI.Controllers
                         }
 
                         var originalDirectory = new DirectoryInfo(directoryPath);
-                        fileWithPath = System.IO.Path.Combine(originalDirectory.ToString(), file.FileName);
-                        var fileName1 = Path.GetFileName(file.FileName);
+                        fileWithPath = System.IO.Path.Combine(originalDirectory.ToString(), fName);
+                        var fileName1 = Path.GetFileName(fName);
                         var isExists = System.IO.File.Exists(fileWithPath);
                         
                         if (isExists)
@@ -124,8 +125,8 @@ namespace Evis.VMS.UI.Controllers
                             Directory.CreateDirectory(directoryPath);
                         }
                         var originalDirectory = new DirectoryInfo(directoryPath);
-                        fileWithPath = System.IO.Path.Combine(originalDirectory.ToString(), file.FileName);
-                        var fileName1 = Path.GetFileName(file.FileName);
+                        fileWithPath = System.IO.Path.Combine(originalDirectory.ToString(), fName);
+                        var fileName1 = Path.GetFileName(fName);
                         var isExists = System.IO.File.Exists(fileWithPath);
 
                         if (isExists)
@@ -184,6 +185,18 @@ namespace Evis.VMS.UI.Controllers
             var visitorDeata = new List<VisitorJsonModel>();
             visitorDeata = _visitorCheckInCheckOutHelper.GetVisitorData(searchterm, (user == null) ? null : user.OrganizationId);
             return Json(visitorDeata, JsonRequestBehavior.AllowGet);
+        }
+
+
+        private string ExtractTextFromImage(string filePath)
+        {
+            Document modiDocument = new Document();
+            modiDocument.Create(filePath);
+            modiDocument.OCR(MiLANGUAGES.miLANG_ENGLISH);
+            MODI.Image modiImage = (modiDocument.Images[0] as MODI.Image);
+            string extractedText = modiImage.Layout.Text;
+            modiDocument.Close();
+            return extractedText;
         }
 	}
 }
