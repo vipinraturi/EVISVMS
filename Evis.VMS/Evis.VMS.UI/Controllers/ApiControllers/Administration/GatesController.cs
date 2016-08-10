@@ -84,8 +84,9 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 {
                     lstgateVM = lstgateVM.Where(item =>
                         item.GateNumber.ToLower().Contains(globalSearch.ToLower()) ||
-                         item.BuildingName.ToLower().Contains(globalSearch.ToLower())
-                        ).AsQueryable();
+                         item.BuildingName.ToLower().Contains(globalSearch.ToLower()) ||
+                         item.Country.ToLower().Contains(globalSearch.ToLower()) ||
+                         item.State.ToLower().Contains(globalSearch.ToLower()) || item.City.ToLower().Contains(globalSearch.ToLower())).AsQueryable();
                 }
 
                 var paginationRequest = new PaginationRequest

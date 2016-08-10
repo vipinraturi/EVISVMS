@@ -22,27 +22,36 @@ function ScanVisitorViewModel() {
             toastr.warning('No image available to read text.');
             return;
         }
-        var firstimg = $('.dz-filename img').eq(0);
-        var secoundimg = $('.dz-filename img').eq(1);
-        var thirdimg = $('.dz-filename img').eq(2);
+        var firstimg = $('.dz-image-preview img').eq(0).attr("alt");
+        var secoundimg = $('.dz-image-preview img').eq(1).attr("alt");
+        var thirdimg = $('.dz-image-preview img').eq(2).attr("alt");
+        var data = [];
+        data.push(firstimg);
+        data.push(secoundimg);
+        data.push(thirdimg);
+        AjaxCall('/Api/Visitor/ScanImage', data, 'POST', function (data) {
+            debugger;
+            self.VisitorName(data.VisitorName);
+            self.Gender(data.Gender);
+            self.GenderText(data.Gender);
+            self.DOB(data.DateOfBirth);
+            self.TypeOfCard(data.TypeOfCard);
+            self.TypeOfCardText(data.TypeOfCard);
+            self.IdNumber(data.IDNumber);
+            self.Nationality(data.Nationality);
+            self.NationalityText(data.Nationality);
+            self.CompanyName('EVIS');
+            self.EmailAddress('visitor@domain.com');
+            self.ContactNumber('+971-2567789455');
+            $('input[type=text]').removeAttr('readonly').removeClass('inputdisable');
+            $('.dz-image img').each(function () {
+                self.IdentityImages.push($(this).attr('alt'));
+            });
 
-        self.VisitorName('Tintu John');
-        self.Gender('1');
-        self.GenderText('Male');
-        self.DOB('01/04/1989');
-        self.TypeOfCard('32');
-        self.TypeOfCardText('Emirates Id');
-        self.IdNumber('H8888SHSJHDF');
-        self.Nationality('36');
-        self.NationalityText('Indian');
-        self.CompanyName('EVIS');
-        self.EmailAddress('visitor@domain.com');
-        self.ContactNumber('+971-2567789455');
-        $('input[type=text]').removeAttr('readonly').removeClass('inputdisable');
-        $('.dz-image img').each(function () {
-            self.IdentityImages.push($(this).attr('alt'));
-        });
 
+        })
+
+    
         self.PrepareData();
     }
 

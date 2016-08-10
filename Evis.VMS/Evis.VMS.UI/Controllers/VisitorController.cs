@@ -105,6 +105,7 @@ namespace Evis.VMS.UI.Controllers
             }
         }
 
+
         public ActionResult SaveVisitorProfilePicture()
         {
             HttpPostedFileBase file = null;
