@@ -202,7 +202,7 @@
         }
     }
     self.GlobalSearchEnter = function (data) {
-        self.GetAllBuildingData();
+        self.GetAllShiftAssignmentData();
         console.log(event);
     }
     ko.bindingHandlers.enterkey = {

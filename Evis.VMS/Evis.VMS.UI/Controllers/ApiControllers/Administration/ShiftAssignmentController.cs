@@ -130,7 +130,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
             if (ShitfAssignment.Id == 0)
             {
-                var data = _genericService.ShitfAssignment.GetAll().Where(x => x.UserId == ShitfAssignment.UserId && x.ShitfId == ShitfAssignment.ShitfId && x.IsActive == true).ToList();
+                var data = _genericService.ShitfAssignment.GetAll().Where(x => x.UserId== ShitfAssignment.UserId && x.ShitfId == ShitfAssignment.ShitfId && x.IsActive == true).ToList();//&& x.ToDate<=ShitfAssignment.FromDate   
                 if (data.Count() == 0)
                 {
                     ShitfAssignment.IsActive = true;
@@ -160,7 +160,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     _genericService.ShitfAssignment.Update(existingShift);
                 };
             }
-            _genericService.Commit();
+            // _genericService.Commit();
             return new ReturnResult { Message = "Success", Success = true };
         }
         [Route("~/Api/ShiftAssignment/DeleteShift")]
