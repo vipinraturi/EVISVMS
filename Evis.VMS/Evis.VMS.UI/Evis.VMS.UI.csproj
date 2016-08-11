@@ -232,6 +232,11 @@
     <Compile Include="ModelsOld\IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\TokenInspector.cs" />
+    <Compile Include="Reports\DataSet\ShiftDetailReportDataset1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ShiftDetailReportDataset.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Reports\DataSet\VisitorsDetailsDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -326,6 +331,7 @@
     <Content Include="Content\Scripts\viewModels\MyProfileViewModel.js" />
     <Content Include="Content\Scripts\viewModels\BuildingViewModel.js" />
     <Content Include="Content\Scripts\viewModels\MyOrganizationViewModel.js" />
+    <Content Include="Content\Scripts\viewModels\ShiftDetailsViewModel.js" />
     <Content Include="Content\Scripts\viewModels\ThemeSelectionViewModel.js" />
     <Content Include="Content\Scripts\viewModels\UsersViewModel.js" />
     <Content Include="Content\Scripts\viewModels\ShiftViewModel.js" />
@@ -334,7 +340,6 @@
     <Content Include="Content\Scripts\viewModels\VisitorDetailsViewModel.js" />
     <Content Include="Content\Scripts\viewModels\VisitorViewModel.js" />
     <Content Include="Content\Scripts\viewModels\VisitorCheckOutViewModel.js" />
-    <Content Include="Content\Scripts\viewModels\ShiftDetailsViewModel.js" />
     <Content Include="Content\Scripts\viewModels\DashboardViewModel.js" />
     <Content Include="Content\Scripts\viewModels\GatesViewModel.js" />
     <Content Include="Content\Scripts\viewModels\OrganizationViewModel.js" />
@@ -440,7 +445,6 @@
     <Content Include="Views\Visitor\_ManageVisitorManually.cshtml" />
     <Content Include="Views\Visitor\_VisitorCheckIn.cshtml" />
     <Content Include="Views\Report\_VisitorDetailsReport.cshtml" />
-    <Content Include="Views\Report\_ShiftDetailsReport.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Shared\_Pager.cshtml" />
     <Content Include="Views\Administration\_ThemeSelection.cshtml" />
@@ -457,6 +461,17 @@
     <Content Include="Reports\DataSet\VisitorsDetailsDataSet.xsc">
       <DependentUpon>VisitorsDetailsDataSet.xsd</DependentUpon>
     </Content>
+    <Content Include="Reports\DataSet\ShiftDetailReportDataset.xsc">
+      <DependentUpon>ShiftDetailReportDataset.xsd</DependentUpon>
+    </Content>
+    <None Include="Reports\DataSet\ShiftDetailReportDataset.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ShiftDetailReportDataset1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Reports\DataSet\ShiftDetailReportDataset.xss">
+      <DependentUpon>ShiftDetailReportDataset.xsd</DependentUpon>
+    </Content>
     <None Include="Reports\DataSet\VisitorsDetailsDataSet.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
@@ -465,6 +480,7 @@
     <Content Include="Reports\DataSet\VisitorsDetailsDataSet.xss">
       <DependentUpon>VisitorsDetailsDataSet.xsd</DependentUpon>
     </Content>
+    <Content Include="Views\Report\_ShiftDetailsReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
