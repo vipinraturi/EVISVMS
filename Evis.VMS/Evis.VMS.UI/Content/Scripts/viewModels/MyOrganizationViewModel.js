@@ -14,26 +14,27 @@
 
 
     self.errors = ko.validation.group(self);
-    self.Id = ko.observable(0);
-    self.Theme = ko.observable(undefined).extend({ required: true });
-    self.CountryId = ko.observable(undefined).extend({ required: true });
-    self.StateId = ko.observable(undefined).extend({ required: true });
-    self.CityId = ko.observable(undefined).extend({ required: true });
     self.CompanyName = ko.observable().extend({
         required: true,
         deferValidation: true
     });
-    self.Email = ko.observable('').extend({ required: true, minLength: 2, maxLength: 40, email: { message: "Invalid email" } });
-    self.ContactNumber = ko.observable('').extend({
-        required: true,
-        pattern: {
-            message: 'Invalid phone number.',
-            params: /^([0-9\(\)\/\+ \-\.]*)$/
-        }
-    });
-    self.ContactAddress = ko.observable('').extend({ required: true });
-    self.FaxNumber = ko.observable('').extend({ required: true });
-    self.POBox = ko.observable('').extend({ required: true });
+    self.Id = ko.observable(0);
+    self.Theme = ko.observable(undefined).extend({ required: true });
+    self.CountryId = ko.observable(undefined).extend({ required: true });
+    //self.StateId = ko.observable(undefined).extend({ required: true });
+    //self.CityId = ko.observable(undefined).extend({ required: true });
+   
+    //self.Email = ko.observable('').extend({ required: true, minLength: 2, maxLength: 40, email: { message: "Invalid email" } });
+    //self.ContactNumber = ko.observable('').extend({
+    //    required: true,
+    //    pattern: {
+    //        message: 'Invalid phone number.',
+    //        params: /^([0-9\(\)\/\+ \-\.]*)$/
+    //    }
+    //});
+    //self.ContactAddress = ko.observable('').extend({ required: true });
+    //self.FaxNumber = ko.observable('').extend({ required: true });
+    //self.POBox = ko.observable('').extend({ required: true });
     self.WebSite = ko.observable('').extend({ required: true });
     self.IsInsert = ko.observable(false);
 
@@ -49,23 +50,23 @@
         self.Countries(data);
     });
 
-    self.States = ko.observableArray();
-    self.LoadStates = function () {
-        AjaxCall('/Api/Administration/GetStatesOrCities?id=' + self.CountryId(), null, 'GET', function (data) {
-            self.States(new Object());
-            self.States(data);
-            self.StateId(stateId);
-        });
-    }
+    //self.States = ko.observableArray();
+    //self.LoadStates = function () {
+    //    AjaxCall('/Api/Administration/GetStatesOrCities?id=' + self.CountryId(), null, 'GET', function (data) {
+    //        self.States(new Object());
+    //        self.States(data);
+    //        self.StateId(stateId);
+    //    });
+    //}
 
-    self.Cities = ko.observableArray();
-    self.LoadCities = function () {
-        AjaxCall('/Api/Administration/GetStatesOrCities?id=' + self.StateId(), null, 'GET', function (data) {
-            self.Cities(new Object());
-            self.Cities(data);
-            self.CityId(cityId);
-        });
-    }
+    //self.Cities = ko.observableArray();
+    //self.LoadCities = function () {
+    //    AjaxCall('/Api/Administration/GetStatesOrCities?id=' + self.StateId(), null, 'GET', function (data) {
+    //        self.Cities(new Object());
+    //        self.Cities(data);
+    //        self.CityId(cityId);
+    //    });
+    //}
 
     self.SaveOrganization = function () {
         $('.loader-div').show();
@@ -83,12 +84,12 @@
                 ////debugger;
                 data.Id = self.Id(),
                 data.CompanyName = self.CompanyName(),
-                data.CityId = self.CityId(),
-                data.EmailId = self.Email(),
-                data.ContactNumber = self.ContactNumber(),
-                data.ContactAddress = self.ContactAddress(),
-                data.FaxNumber = self.FaxNumber(),
-                data.ZipCode = self.POBox(),
+                //data.CityId = self.CityId(),
+                //data.EmailId = self.Email(),
+                //data.ContactNumber = self.ContactNumber(),
+                //data.ContactAddress = self.ContactAddress(),
+                //data.FaxNumber = self.FaxNumber(),
+                //data.ZipCode = self.POBox(),
                 data.WebSite = self.WebSite()
                 data.IsInsert = self.IsInsert();
 
@@ -108,44 +109,42 @@
         self.IsInsert(true);
         self.GlobalSearch('');
         self.CompanyName('');
-        self.Email('');
-        self.ContactAddress('');
-        self.FaxNumber('');
-        self.ContactNumber('');
-        self.POBox('');
+        //self.Email('');
+        //self.ContactAddress('');
+        //self.FaxNumber('');
+        //self.ContactNumber('');
+        //self.POBox('');
         self.WebSite('');
         ApplyCustomBinding('organization');
     }
     //var User = {
     //    OrginizationId: self.OrginizationId
     //};
-    //var Orginization = {
-    //    CompanyName: self.CompanyName,
-    //    ContactNumber: self.ContactNumber,
-    //    Email: self.Email,
-    //    PhoneNumber: self.PhoneNumber,
-    //    POBox: self.POBox,
-    //    WebSite: self.WebSite,
-    //};
+    var Orginization = {
+        CompanyName: self.CompanyName,
+        
+    };
     ////debugger;
-    //self.Orginization = ko.observable(Orginization);
+    self.Orginization = ko.observable(Orginization);
 
 
     AjaxCall('/Api/MyOrginization/GetMyOrginization', null, 'GET', function (data) {
         $('.loader-div').show();
         setTimeout(function () {
+            debugger;
             self.IsInsert(false);
-            self.CountryId(data.CityMaster.ParentValues.ParentId);
-            self.stateId = data.CityMaster.ParentId;
-            self.cityId = data.CityId;
-            self.Theme(data.ThemeName);
+            self.CountryId(data.CountryId);
             self.CompanyName(data.CompanyName);
-            self.ContactNumber(data.ContactNo);
-            self.Id(data.CompanyId);
-            self.Email(data.EmailAddress);
-            self.ContactAddress(data.Address);
-            self.FaxNumber(data.FaxNo);
-            self.POBox(data.ZipCode);
+            //self.stateId = data.CityMaster.ParentId;
+            //self.cityId = data.CityId;
+            //self.Theme(data.ThemeName);
+           // self.CompanyName(data.CompanyName);
+            //self.ContactNumber(data.ContactNo);
+            //self.Id(data.CompanyId);
+            //self.Email(data.EmailAddress);
+            //self.ContactAddress(data.Address);
+            //self.FaxNumber(data.FaxNo);
+            //self.POBox(data.ZipCode);
             self.WebSite(data.WebSite);
             $("#myLogo").removeAttr('src');
             $("#myImg").attr('src', '');

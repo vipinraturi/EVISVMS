@@ -33,9 +33,9 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             // result.CityMaster = null;
             return new OrganizationVM 
             { 
-                CompanyId = result.Id, 
-                CityId = (int)result.CountryId, 
-                CityMaster = result.CountryMaster,
+                CompanyId = result.Id,
+                CountryId = (int)result.CountryId, 
+                //CityMaster = result.CountryMaster,
                 //Address = result.ContactAddress, 
                 CompanyName = result.CompanyName, 
                 //ContactNo = result.ContactNumber, 

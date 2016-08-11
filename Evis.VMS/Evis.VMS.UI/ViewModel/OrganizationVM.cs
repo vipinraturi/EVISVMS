@@ -40,6 +40,8 @@ namespace Evis.VMS.UI.ViewModel
 
         public bool IsInsert { get; set; }
 
+        public int CountryId { get; set; }
+
         public int CityId { get; set; }
 
         [ForeignKey("CityId")]
