@@ -14,9 +14,9 @@
     </ul>
     <div class="pagerNumWrap">
         <span># of rows in page </span>
-        <select style="background-color:transparent !important; color:#fff !important;" data-bind="options: DataGrid.GridParams.pageSizeOptions, value: DataGrid.SelectedPageSizeOption "></select>
-    </div>
-    <!--this is for demo only. unhide it in style to view -->
+        <select style="background-color:transparent !important;"  data-bind="options: DataGrid.GridParams.pageSizeOptions, value: DataGrid.SelectedPageSizeOption "></select>
+    </div> 
+    <!--this is for demo only. unhide it in style to view color:#fff !important; -->
     <ul class="grdPager" data-bind="foreach: new Array(DataGrid.GridParams.totalPages())" style="display:none">
         <li><a href='#' data-bind="click: function () { DataGrid.FlipPage($index() + 1) }, text: ($index() + 1), style: { color: ($index() + 1) == DataGrid.GridParams.pageIndex() ? 'black' : 'blue' } "></a></li>
     </ul>
