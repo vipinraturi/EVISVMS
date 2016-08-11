@@ -10,6 +10,7 @@ using Evis.VMS.Business;
 using Evis.VMS.UI.HelperClasses;
 using Evis.VMS.UI.ViewModel;
 using Evis.VMS.Utilities;
+using Microsoft.Reporting.WebForms;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -51,6 +52,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             var jsonData = JsonConvert.SerializeObject(result.OrderBy(x => x.VisitorName));
             return JsonConvert.SerializeObject(new { totalRows = totalCount, result = jsonData });
         }
+
     }
 
 }

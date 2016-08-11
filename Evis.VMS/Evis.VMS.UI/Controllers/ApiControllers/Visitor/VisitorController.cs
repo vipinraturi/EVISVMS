@@ -21,6 +21,7 @@ using System.Web.Http;
 using Microsoft.AspNet.Identity;
 using System.Threading.Tasks;
 using Evis.VMS.Business;
+using MODI;
 
 
 namespace Evis.VMS.UI.Controllers.ApiControllers
@@ -34,11 +35,14 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         public readonly UserService _userService = null;
         public readonly VisitorCheckInCheckOutHelper _visitorCheckInCheckOutHelper = null;
 
+        public readonly ScanVisitorHelper _scanVisitorHelper = null;
+
         public VisitorController()
         {
             _visitorHelper = new VisitorHelper();
             _visitorCheckInCheckOutHelper = new VisitorCheckInCheckOutHelper();
             _userService = new UserService();
+            _scanVisitorHelper = new ScanVisitorHelper();
         }
 
         [Route("~/Api/Visitor/SaveVisitor")]
@@ -62,7 +66,20 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
             return new ReturnResult { Message = message, Success = false };
         }
-
+        [Route("~/Api/Visitor/ScanImage")]
+        [HttpPost]
+        public ScanVisitorVM ScanImage([FromBody] string[] values)
+        {
+            ScanVisitorVM result = null;
+            foreach (var item in values)
+            {
+                if (!string.IsNullOrEmpty(item))
+                {
+                    result = _scanVisitorHelper.ScanDetails(item);
+                }
+            }
+            return result;
+        }
         [Route("~/Api/Visitor/GetVisitorData")]
         [HttpPost]
         public async Task<string> GetVisitorData(int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC", string globalSearch = "")
@@ -83,7 +100,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             pageIndex = (pageIndex - 1);
 
             var lstVisitorsFromDb = _visitorHelper.GetAllVisitorsData(globalSearch, pageIndex, pageSize, sortField, sortOrder, out totalCount, (user == null) ? null : user.OrganizationId);
-            var jsonData = JsonConvert.SerializeObject(lstVisitorsFromDb.OrderByDescending(x=>x.Id));
+            var jsonData = JsonConvert.SerializeObject(lstVisitorsFromDb.OrderByDescending(x => x.Id));
             var total = totalCount;
             return JsonConvert.SerializeObject(new { totalRows = total, result = jsonData });
         }

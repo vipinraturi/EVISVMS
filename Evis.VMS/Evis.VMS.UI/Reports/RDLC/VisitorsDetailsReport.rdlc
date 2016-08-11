@@ -38,7 +38,7 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>0.81423in</Width>
+              <Width>1.0434in</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>0.91964in</Width>
@@ -546,8 +546,8 @@
         <DataSetName>VisitorsDetailsDataSet</DataSetName>
         <Top>0.66542in</Top>
         <Left>0.10119in</Left>
-        <Height>0.58333in</Height>
-        <Width>6.64458in</Width>
+        <Height>0.58334in</Height>
+        <Width>6.87377in</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
@@ -621,7 +621,7 @@
         </Field>
         <Field Name="CheckOut">
           <DataField>CheckOut</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="BuildingName">
           <DataField>BuildingName</DataField>
@@ -638,7 +638,7 @@
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>VisitorsDetailsDataSet</rd:DataSetName>
-        <rd:SchemaPath>E:\Junaid Ameen\EvisVMSgithub\EVISVMS\Evis.VMS\Evis.VMS.UI\Reports\DataSet\VisitorsDetailsDataSet.xsd</rd:SchemaPath>
+        <rd:SchemaPath>C:\Users\shj2\Source\Repos\EVISVMS\Evis.VMS\Evis.VMS.UI\Reports\DataSet\VisitorsDetailsDataSett.xsd</rd:SchemaPath>
         <rd:TableName>DTVisitorsDetails</rd:TableName>
         <rd:TableAdapterFillMethod />
         <rd:TableAdapterGetDataMethod />

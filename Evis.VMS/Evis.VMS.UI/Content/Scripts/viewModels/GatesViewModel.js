@@ -77,23 +77,38 @@
 
 
     self.DeleteGate = function (tableItem) {
-        debugger;
-        var message = confirm("Are you sure, you want to delete selected record!");
-        if (message == true) {
-            AjaxCall('/Api/Gates/DeleteGate', tableItem, 'POST', function (data) {
+        //debugger;
+        //var message = confirm("Are you sure, you want to delete selected record!");
+        //if (message == true) {
+        //    AjaxCall('/Api/Gates/DeleteGate', tableItem, 'POST', function (data) {
 
-                if (data.Success == true) {
-                    toastr.success(data.Message);
-                    ApplyCustomBinding('gates');
-                }
-                else if (data.Success == false) {
-                    toastr.warning(data.Message);
-                }
-            });
-               // toastr.success('Gate deleted successfully!!')
-                //ApplyCustomBinding('gates');
+        //        if (data.Success == true) {
+        //            toastr.success(data.Message);
+        //            ApplyCustomBinding('gates');
+        //        }
+        //        else if (data.Success == false) {
+        //            toastr.warning(data.Message);
+        //        }
+        //    });
+        //       // toastr.success('Gate deleted successfully!!')
+        //        //ApplyCustomBinding('gates');
            
-        }
+        //}
+        recordToDelete = tableItem;
+    }
+    self.DeleteConfirmed = function () {
+        $('#myModal').modal('hide');
+        $('.modal-backdrop').modal('show');
+        $('.modal-backdrop').modal('hide');
+        AjaxCall('/Api/Gates/DeleteGate', recordToDelete, 'POST', function (data) {
+            if (data.Success == true) {
+                toastr.success(data.Message);
+                ApplyCustomBinding('gates');
+            }
+            else if (data.Success == false) {
+                toastr.warning(data.Message);
+            }
+        });
     }
     self.ResetGates = function () {
         self.GlobalSearch('');
@@ -132,11 +147,24 @@
         }
     }
     //}
-    self.GlobalSearchEnter = function (data, event) {
-        if (event.which == 13 || event.keycode == 13) {
-            self.GetAllVisitor();
-            console.log(event.which);
-        }
+    self.GlobalSearchEnter = function (data) {
+        //debugger;
+        self.GetAllGateData();
+        console.log(event);
     }
+    ko.bindingHandlers.enterkey = {
+        init: function (element, valueAccessor, allBindings, viewModel) {
+            var callback = valueAccessor();
+            debugger;
+            $(element).keypress(function (event) {
+                var keyCode = (event.which ? event.which : event.keyCode);
+                if (keyCode === 13) {
+                    callback.call(viewModel);
+                    return false;
+                }
+                return true;
+            });
+        }
+    };
     self.GetAllGateData();
 }

@@ -78,8 +78,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 if (!string.IsNullOrEmpty(globalSearch))
                 {
                     ShitfMaster = ShitfMaster.Where(item =>
-                        item.ShitfName.ToLower().Contains(globalSearch.ToLower())
-                        ).AsQueryable();
+                        item.ShitfName.ToLower().Contains(globalSearch.ToLower()) || item.strFromTime.ToLower().Contains(globalSearch.ToLower())||
+                        item.strToTime.ToLower().Contains(globalSearch.ToLower())).AsQueryable();
                 }
                 var paginationRequest = new PaginationRequest
                              {

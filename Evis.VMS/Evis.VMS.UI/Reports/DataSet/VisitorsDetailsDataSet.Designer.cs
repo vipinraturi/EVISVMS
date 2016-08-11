@@ -469,7 +469,7 @@ namespace Evis.VMS.UI.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public DTVisitorsDetailsRow AddDTVisitorsDetailsRow(long VisitorId, string ContactNumber, string VisitDetails, int BuildingId, int GateId, string SecurityId, string VisitorName, System.DateTime CheckIn, string CheckOut, string BuildingName, string GateName, string SecurityPerson) {
+            public DTVisitorsDetailsRow AddDTVisitorsDetailsRow(long VisitorId, string ContactNumber, string VisitDetails, int BuildingId, int GateId, string SecurityId, string VisitorName, string CheckIn, string CheckOut, string BuildingName, string GateName, string SecurityPerson) {
                 DTVisitorsDetailsRow rowDTVisitorsDetailsRow = ((DTVisitorsDetailsRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         VisitorId,
@@ -537,7 +537,7 @@ namespace Evis.VMS.UI.Reports.DataSet {
                 base.Columns.Add(this.columnSecurityId);
                 this.columnVisitorName = new global::System.Data.DataColumn("VisitorName", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnVisitorName);
-                this.columnCheckIn = new global::System.Data.DataColumn("CheckIn", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                this.columnCheckIn = new global::System.Data.DataColumn("CheckIn", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnCheckIn);
                 this.columnCheckOut = new global::System.Data.DataColumn("CheckOut", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnCheckOut);
@@ -801,10 +801,10 @@ namespace Evis.VMS.UI.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public System.DateTime CheckIn {
+            public string CheckIn {
                 get {
                     try {
-                        return ((global::System.DateTime)(this[this.tableDTVisitorsDetails.CheckInColumn]));
+                        return ((string)(this[this.tableDTVisitorsDetails.CheckInColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("The value for column \'CheckIn\' in table \'DTVisitorsDetails\' is DBNull.", e);
