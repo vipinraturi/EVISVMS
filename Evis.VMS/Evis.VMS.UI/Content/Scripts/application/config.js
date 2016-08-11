@@ -79,11 +79,11 @@ BindingViewModel = function (controllerUrl, viewModel) {
             $('#dateDOB').datepicker({
 
                 dateFormat: 'dd/mm/yy',
-            maxDate: 'now',
-            changeMonth: true,
-            changeYear: true
-            
-        });
+                maxDate: 'now',
+                changeMonth: true,
+                changeYear: true
+
+            });
         }
         if (controllerUrl == "/Visitor/_VisitorCheckIn") {
             BindAutoCompleteEvent();
@@ -96,33 +96,61 @@ BindingViewModel = function (controllerUrl, viewModel) {
             $('#dateFrom').datepicker({
                 dateFormat: 'dd/mm/yy',
                 minDate: 'now',
-            changeMonth: true,
-            changeYear: true,
+                changeMonth: true,
+                changeYear: true,
                 onSelect: function (date) {
-                $('#dateTo').datepicker('option', 'minDate', date);
-            }
+                    $('#dateTo').datepicker('option', 'minDate', date);
+                }
 
-            
-        });
-                
+
+            });
+
         }
         if (controllerUrl == "/Administration/_ShiftAssignment") {
             $("#dateTo").keypress(function (event) { event.preventDefault(); });
             $('#dateTo').datepicker({
                 dateFormat: 'dd/mm/yy',
                 minDate: 'now',
-            changeMonth: true,
-            changeYear: true,
-            onSelect: function (date) {
-                $('#dateFrom').datepicker('option', 'maxDate', date);
-            }
+                changeMonth: true,
+                changeYear: true,
+                onSelect: function (date) {
+                    $('#dateFrom').datepicker('option', 'maxDate', date);
+                }
 
-            
-        });
+
+            });
         }
+        if (controllerUrl = "/Report/_VisitorDetailsReport") {
+            $("#dateFromCheckIn").keypress(function (event) { event.preventDefault(); })
+            $("#dateFromCheckIn").datepicker({
+                dateFormat: 'dd/mm/yy',
+              //  minDate: 'now',
+                changeMonth: true,
+                changeYear: true,
+                onSelect: function (date) {
+                  //  $("#dateToCheckOut").datepicker('option', 'minDate', date)
+                }
+
+                });
+        }
+        if (controllerUrl = "/Report/_VisitorDetailsReport") {
+            $("#dateToCheckOut").keypress(function (event) { event.preventDefault(); })
+            $("#dateToCheckOut").datepicker({
+                dateFormat: 'dd/mm/yy',
+             //   minDate: 'now',
+                changeMonth: true,
+                changeYear: true,
+                onSelect: function (date) {
+                   // $("#dateFromCheckIn").datepicker('option', 'maxDate', date)
+                }
+
+            });
+
+        }
+
         if (controllerUrl == "/Administration/_Shifts") {
             $(".timepickerCtr").keypress(function (event) { event.preventDefault(); });
-           $('.timepickerCtr').timepicker();
+            $('.timepickerCtr').timepicker();
         }
     });
 }

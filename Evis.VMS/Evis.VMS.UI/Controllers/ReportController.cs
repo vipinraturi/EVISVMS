@@ -49,7 +49,7 @@ namespace Evis.VMS.UI.Controllers
                 InvoiceRow.BuildingName = item.Building;
                 InvoiceRow.GateName = item.Gate;
                 InvoiceRow.SecurityPerson = item.Security;
-                InvoiceRow.CheckIn = Convert.ToDateTime(item.CheckIn);
+                InvoiceRow.CheckIn =item.CheckIn;
                 //InvoiceRow.CheckOut = string.IsNullOrEmpty(item.CheckOut) ? null : Convert.ToDateTime(item.CheckOut);
                 InvoiceRow.CheckOut = item.CheckOut;
                 InvoiceRow.ContactNumber = item.ContactNumber;
@@ -98,6 +98,55 @@ namespace Evis.VMS.UI.Controllers
         private string GetReportPath()
         {
             return AppDomain.CurrentDomain.BaseDirectory + "Reports\\RDLC";
+        }
+        //smitha added
+        public ActionResult GenerateRDLCReport(string searchData)
+        {
+            //string search = "{}";
+            int pageIndex = 1;
+            int pageSize = 7;
+            string sortField = "";
+            string sortOrder = "ASC";
+            int totalCount = 0;
+            var visitorDetailsList = _visitorDetailsReportHelper.GetVisitorData(searchData, pageIndex, pageSize, sortField, sortOrder, out totalCount);
+
+            var visitorDetailDataSet = new Reports.DataSet.VisitorsDetailsDataSet();
+            foreach (var visitorDetails in visitorDetailsList)
+            {
+                var visitorDetailDataRow = visitorDetailDataSet.DTVisitorsDetails.NewDTVisitorsDetailsRow();
+
+                visitorDetailDataRow.VisitorName = visitorDetails.VisitorName;
+                visitorDetailDataRow.BuildingName = visitorDetails.Building;
+                visitorDetailDataRow.GateName = visitorDetails.Gate;
+                visitorDetailDataRow.SecurityPerson = visitorDetails.Security;
+                visitorDetailDataRow.CheckIn = visitorDetails.CheckIn;
+                visitorDetailDataRow.CheckOut = visitorDetails.CheckOut;
+                visitorDetailDataRow.ContactNumber = visitorDetails.ContactNumber;
+
+                visitorDetailDataSet.DTVisitorsDetails.AddDTVisitorsDetailsRow(visitorDetailDataRow);
+            }
+
+            var visitorDetailReportData = new ReportDataSource("VisitorsDetailsDataSet", visitorDetailDataSet.Tables[0]);
+            var viewer = new ReportViewer { ProcessingMode = ProcessingMode.Local };
+            viewer.LocalReport.ReportPath = "Reports/RDLC/VisitorsDetailsReport.rdlc";
+            viewer.LocalReport.DataSources.Add(visitorDetailReportData);
+
+            byte[] bytes = null;
+            Warning[] warnings;
+            string[] streamIds;
+            string mimeType;
+            string encoding;
+            string extension;
+            bytes = viewer.LocalReport.Render("pdf", null, out mimeType, out encoding, out extension, out streamIds, out warnings);
+
+            System.Web.HttpContext.Current.Response.Buffer = true;
+            System.Web.HttpContext.Current.Response.Clear();
+            System.Web.HttpContext.Current.Response.ContentType = "application/pdf";
+            System.Web.HttpContext.Current.Response.BinaryWrite(bytes);
+            System.Web.HttpContext.Current.Response.Flush();
+
+
+            return new EmptyResult();
         }
     }
 }
