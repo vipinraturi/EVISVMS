@@ -19,6 +19,9 @@ using System.Threading.Tasks;
 using Evis.VMS.Data.Model.Entities;
 using System.Web;
 using Microsoft.AspNet.Identity;
+using Evis.VMS.Utilities;
+using System.Globalization;
+using Newtonsoft.Json;
 
 namespace Evis.VMS.UI.Controllers.ApiControllers
 {
@@ -96,27 +99,58 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
         [Route("~/Api/Report/GetShiftDetailsGrid")]
         [HttpPost]
-         public async Task<IList<ShiftAssignmentVM>> GetShiftDetails()
+        public string GetShiftDetails(int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC")
         {
-            //string search, int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC", string globalSearch = ""
-            var userDetails = (await _userService.GetAllAsync());
-            var shiftDetails = (from SHFTASSIGN in _genericService.ShitfAssignment.GetAll()
-                               // join USRDET in userDetails on SHFTASSIGN.UserId equals USRDET.Id
-                                join BLDG in _genericService.BuildingMaster.GetAll() on SHFTASSIGN.BuildingId equals BLDG.Id
-                                join GATE in _genericService.GateMaster.GetAll() on SHFTASSIGN.GateId equals GATE.Id
-                                join SHIFT in _genericService.ShitfMaster.GetAll() on SHFTASSIGN.ShitfId equals SHIFT.Id
-                               
-                                select new ShiftAssignmentVM
-                                {
-                                   // UserName = USRDET.UserName,
-                                    BuildingName = BLDG.BuildingName,
-                                    GateName = GATE.GateNumber,
-                                    ShiftName = SHIFT.ShitfName,
-                                    FromDate = SHFTASSIGN.FromDate,
-                                    ToDate = SHFTASSIGN.ToDate
+            var Shift = _genericService.ShitfAssignment.GetAll().Where(x => x.IsActive == true)
+             .Select(x => new ShiftAssignmentVM
+               {
+                   BuildingId = x.BuildingId,
+                   BuildingName = x.Gates.BuildingMaster.BuildingName,
+                   GateId = x.GateId,
+                   GateName = x.Gates.GateNumber,
+                   ShitfId = x.ShitfId,
+                   ShiftName = x.Shitfs.ShitfName,
+                   UserId = x.UserId,
+                   UserName = x.ApplicationUser.FullName,
+                   FromDate = x.FromDate,
+                   ToDate = x.ToDate,
+                   strFromDate = x.ToDate.ToString(),
+                   strToDate = x.ToDate.ToString(),
+                   Id = x.Id,
+                   City = x.BuildingMaster.CityMaster.LookUpValue
+               }).AsQueryable();
+            // if (Shift.Count() > 0)
+            //{
+            //    if (!string.IsNullOrEmpty(globalSearch))
+            //    {
+            //        Shift = Shift.Where(item =>
+            //            item.UserName.ToLower().Contains(globalSearch.ToLower()) ||
+            //            item.BuildingName.ToLower().Contains(globalSearch.ToLower()) ||
+            //             item.GateName.ToLower().Contains(globalSearch.ToLower()) ||
+            //            item.ShiftName.ToLower().Contains(globalSearch.ToLower())
+            //            ).AsQueryable();
+            //    }
+             
+           var paginationRequest = new PaginationRequest
+                {
+                    PageIndex = (pageIndex - 1),
+                    PageSize = pageSize,
+                    //SearchText = globalSearch,
+                    Sort = new Sort { SortDirection = (sortOrder == "ASC" ? SortDirection.Ascending : SortDirection.Descending), SortBy = sortField }
+                };
 
-                                }).AsEnumerable();
+                int totalCount = 0;
+                IList<ShiftAssignmentVM> results =
+                   GenericSorterPager.GetSortedPagedList<ShiftAssignmentVM>(Shift, paginationRequest, out totalCount);
 
+                var jsonData = JsonConvert.SerializeObject(results.OrderByDescending(x => x.Id));
+                return JsonConvert.SerializeObject(new { totalRows = totalCount, result = jsonData });
+
+        //}
+             //return null;
+
+        }
+         
         //    //Reports.DataSet.ShiftDetailReportDataset _shiftDetailReportDataset;
         //    //_shiftDetailReportDataset = new Reports.DataSet.ShiftDetailReportDataset();
 
@@ -134,8 +168,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
         //    //}
 
-            return shiftDetails.ToList();
-        }
+            //return shiftDetails.ToList();
+        //}
         
     }
 }

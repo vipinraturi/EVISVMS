@@ -6,18 +6,24 @@
     self.SecurityId = ko.observable(undefined);
     self.ShiftId = ko.observableArray(undefined);
 
-    self.DataGrid = new RIT.eW.DataGridAjax('/Api/Report/GetShiftDetailsGrid', 7);
-    self.DataGrid.GetData();
 
     self.GetOrganization = function () {
-        //debugger;
-     AjaxCall('/Api/Report/Getorganisation', null, 'GET', function (data) {
-     self.organisationId=(data.OrganizationId);
-     alert(self.organisationId);
+        debugger;
+        AjaxCall('/Api/Report/Getorganisation', null, 'GET', function (data) {
+            self.organisationId = (data.OrganizationId);
+            alert(self.organisationId);
         });
     }
     GetOrganization();
-    
+    debugger;
+    self.GetAllShiftAssignmentData=function(){
+     self.DataGrid = new RIT.eW.DataGridAjax('/Api/Report/GetShiftDetailsGrid', 7)
+        self.DataGrid.GetData();
+
+    }
+   
+
+    self.GetAllShiftAssignmentData();
 
    
 
@@ -34,6 +40,7 @@
    //To get the buildings
     self.Buildings = ko.observableArray();
     self.GetBuildings = function () {
+        //debugger;
         AjaxCall('/Api/Report/GetBuildings?id=' + self.organisationId, null, 'GET', function (data) {
             self.Buildings(data);
         });
