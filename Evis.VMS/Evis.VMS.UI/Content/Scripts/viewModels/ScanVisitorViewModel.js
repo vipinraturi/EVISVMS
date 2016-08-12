@@ -17,7 +17,6 @@ function ScanVisitorViewModel() {
     self.IdentityImages = ko.observableArray('');
 
     self.ReadImageData = function () {
-        debugger;
         if ($('.dz-filename').length == 0) {
             toastr.warning('No image available to read text.');
             return;
@@ -29,29 +28,78 @@ function ScanVisitorViewModel() {
         data.push(firstimg);
         data.push(secoundimg);
         data.push(thirdimg);
+        ShowLoader();
         AjaxCall('/Api/Visitor/ScanImage', data, 'POST', function (data) {
-            debugger;
+            //debugger;
+            var gender = data.Gender.trim().toLowerCase();
+            if (gender == "m" || gender == "male") {
+                self.Gender(1);
+            }
+            else if (gender == "f" || gender == "female") {
+                self.Gender(2);
+            }
+            else {
+                self.TypeOfCard('-1');
+            }
+
+            var typeOfCardVal = data.TypeOfCard.trim().toLowerCase();
+            if (typeOfCardVal.indexOf("emirates") != -1) {
+                self.TypeOfCard('32');//Emirates
+            }
+            else if (typeOfCardVal.indexOf("license") != -1) {
+                self.TypeOfCard('36');//Driving licence
+            }
+            else {
+                self.TypeOfCard('-1');
+            }
+
+            var nationalityVal = data.Nationality.trim().toLowerCase();
+            if (nationalityVal.indexOf("arab") != -1) {
+                self.Nationality('35');//UAE
+            }
+            else if (nationalityVal.indexOf("ind") != -1) {
+                self.Nationality('32');//Emirates
+            }
+            else {
+                self.TypeOfCard('-1');
+            }
+
             self.VisitorName(data.VisitorName);
-            self.Gender(data.Gender);
-            self.GenderText(data.Gender);
-            self.DOB(data.DateOfBirth);
-            self.TypeOfCard(data.TypeOfCard);
             self.TypeOfCardText(data.TypeOfCard);
             self.IdNumber(data.IDNumber);
-            self.Nationality(data.Nationality);
+            self.GenderText(data.Gender);
+            self.DOB(data.DateOfBirth);
             self.NationalityText(data.Nationality);
-            self.CompanyName('EVIS');
-            self.EmailAddress('visitor@domain.com');
-            self.ContactNumber('+971-2567789455');
+            self.CompanyName(data.CompanyName);
+            self.EmailAddress(data.EmailAddress);
+            self.ContactNumber(data.ContactNumber);
             $('input[type=text]').removeAttr('readonly').removeClass('inputdisable');
             $('.dz-image img').each(function () {
                 self.IdentityImages.push($(this).attr('alt'));
             });
 
+            //self.VisitorName('Tintu John');
+            //self.Gender('1');
+            //self.GenderText('Male');
+            //self.DOB('01/04/1989');
+            //self.TypeOfCard('32');
+            //self.TypeOfCardText('Emirates Id');
+            //self.IdNumber('H8888SHSJHDF');
+            //self.Nationality('36');
+            //self.NationalityText('Indian');
+            //self.CompanyName('EVIS');
+            //self.EmailAddress('visitor@domain.com');
+            //self.ContactNumber('+971-2567789455');
+            //$('input[type=text]').removeAttr('readonly').removeClass('inputdisable');
+            //$('.dz-image img').each(function () {
+            //    self.IdentityImages.push($(this).attr('alt'));
+            //});
 
+
+            HideLoader();
         })
 
-    
+
         self.PrepareData();
     }
 

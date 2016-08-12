@@ -1,8 +1,15 @@
 ﻿var dataToSend = '';
 
+ShowLoader = function () {
+    $('.loader-div').show();
+}
+
+HideLoader = function () {
+    $('.loader-div').hide();
+}
 
 ApplyCustomBinding = function (elementName) {
-    $('.loader-div').show();
+    ShowLoader();
     switch (elementName) {
 
         //Administration module  
@@ -72,7 +79,7 @@ BindingViewModel = function (controllerUrl, viewModel) {
     $('#content').load(controllerUrl, function () {
         ko.cleanNode($('#content')[0]);
         ko.applyBindings(viewModel, $('#content')[0]);
-        $('.loader-div').hide();
+        HideLoader();
         DashboardBindEvent();
 
         if (controllerUrl == "/Visitor/_ManageVisitorManually") {
