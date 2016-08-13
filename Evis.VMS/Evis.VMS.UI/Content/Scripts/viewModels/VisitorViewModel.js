@@ -1,6 +1,6 @@
 ﻿function VisitorViewModel(visitorName, gender, nationalityVal, dateOfBirth, typeOfCard, idNumber, nationalityVal, companyName, emailAddress, contactNumber, identityImages) {
 
-
+    alert(identityImages);
 
     nationality = (nationalityVal != "" ? nationalityVal : undefined);
     typeOfCard = (typeOfCard != "" ? typeOfCard : undefined);
@@ -37,10 +37,12 @@
 
     self.DataGrid = new RIT.eW.DataGridAjax('/Api/Visitor/GetVisitorData', 7);
     self.VisitorList = ko.observableArray([]);
+
     self.GetAllVisitor = function () {
         self.DataGrid.UpdateSearchParam('?globalSearch=' + self.GlobalSearch());
         self.DataGrid.GetData(true);
     }
+
     self.LoadMasterData = function () {
         var lookUpTypes = [];
         lookUpTypes.push("Gender");
@@ -131,7 +133,7 @@
         self.ContactNo('');
         self.ContactAddress('');
         dataToSend = '';
-        identityImages = [];
+        //identityImages = [];
         //self.LoadIdentityImage(identityImages);
         $('#viewVisitorImageUnique').hide();
         ApplyCustomBinding('managevisitor');
@@ -187,7 +189,7 @@
                 $('.dz-image').addClass('dz-message');
                 $('.dz-image img').addClass('dz-message');
                 $('#btnSave').html('Update <i class="fa fa-save"></i>');
-                identityImages = [];
+                //identityImages = [];
                 self.LoadIdentityImage(identityImages);
             }
         }
@@ -195,6 +197,7 @@
 
 
     self.LoadIdentityImage = function (identityImages) {
+        
         $('#dropzoneForm .dz-image-preview').remove();
         var MultipleImagePath = [];
 
@@ -202,7 +205,7 @@
             if (identityImages.split(',').length > 0) {
                 var obj1 = new Object();
                 obj1.fileName = identityImages.split(',')[0];
-                obj1.ImgURL = '/images/VisitorImages/' + identityImages.split(',')[0];
+                obj1.ImgURL = '/images/VisitorIdentityImages/' + identityImages.split(',')[0];
                 obj1.size = 1024;
                 MultipleImagePath.push(obj1);
             }
@@ -210,7 +213,7 @@
             if (identityImages.split(',').length > 1) {
                 var obj2 = new Object();
                 obj2.fileName = identityImages.split(',')[1];
-                obj2.ImgURL = '/images/VisitorImages/' + identityImages.split(',')[1];
+                obj2.ImgURL = '/images/VisitorIdentityImages/' + identityImages.split(',')[1];
                 obj2.size = 1024;
                 MultipleImagePath.push(obj2);
             }
@@ -218,7 +221,7 @@
             if (identityImages.split(',').length > 2) {
                 var obj3 = new Object();
                 obj3.fileName = identityImages[2];
-                obj3.ImgURL = '/images/VisitorImages/' + identityImages.split(',')[2];
+                obj3.ImgURL = '/images/VisitorIdentityImages/' + identityImages.split(',')[2];
                 obj3.size = 1024;
                 MultipleImagePath.push(obj3);
             }

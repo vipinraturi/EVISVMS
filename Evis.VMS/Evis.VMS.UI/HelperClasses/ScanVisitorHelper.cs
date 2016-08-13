@@ -28,7 +28,7 @@ namespace Evis.VMS.UI.HelperClasses
         {
             var modiDocument = new Document();
             var rootImagePath = System.Web.HttpContext.Current.Server.MapPath(@"~/images");
-            var filePath = string.Format("{0}\\VisitorIdentityImages\\file_{1}", rootImagePath, item); 
+            var filePath = string.Format("{0}\\VisitorIdentityImages\\{1}", rootImagePath, item); 
             modiDocument.Create(filePath);
             modiDocument.OCR(MiLANGUAGES.miLANG_ENGLISH);
             MODI.Image modiImage = (modiDocument.Images[0] as MODI.Image);
