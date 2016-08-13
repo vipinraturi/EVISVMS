@@ -2,7 +2,7 @@
 <script src="~/Content/Scripts/plugins/Chart.min.js"></script>
 <script src="~/Content/Scripts/plugins/curvedLines.js"></script>
 <script src="~/Content/Scripts/plugins/jquery.flot.js"></script>
-
+<script src="~/Content/Scripts/plugins/jquery.flot.time.js"></script>
 <div class="row top_tiles">
     <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
         <div class="tile-stats box1">
@@ -44,10 +44,8 @@
             </a>
         </div>
     </div>
-    
 
 </div>
-
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="dashboard_graph x_panel">
@@ -55,11 +53,59 @@
                 <div class="col-md-6">
                     <h3>Visitor Count <small>Graph </small></h3>
                 </div>
-              
+
             </div>
             <div class="x_content">
                 <div class="demo-container" style="height:250px">
-                    <div id="placeholder3xx3" class="demo-placeholder" style="width: 100%; height: 250px; padding: 0px; position: relative;"><canvas class="flot-base" width="1281" height="250" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 1281px; height: 250px;"></canvas><div class="flot-text" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; font-size: smaller; color: rgb(84, 84, 84);"><div class="flot-x-axis flot-x1-axis xAxis x1Axis" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; display: block;"><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 75px; top: 234px; left: 15px; text-align: center;">0</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 75px; top: 234px; left: 93px; text-align: center;">1</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 75px; top: 234px; left: 172px; text-align: center;">2</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 75px; top: 234px; left: 250px; text-align: center;">3</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 75px; top: 234px; left: 329px; text-align: center;">4</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 75px; top: 234px; left: 407px; text-align: center;">5</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 75px; top: 234px; left: 486px; text-align: center;">6</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 75px; top: 234px; left: 564px; text-align: center;">7</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 75px; top: 234px; left: 643px; text-align: center;">8</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 75px; top: 234px; left: 721px; text-align: center;">9</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 75px; top: 234px; left: 796px; text-align: center;">10</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 75px; top: 234px; left: 875px; text-align: center;">11</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 75px; top: 234px; left: 953px; text-align: center;">12</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 75px; top: 234px; left: 1032px; text-align: center;">13</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 75px; top: 234px; left: 1110px; text-align: center;">14</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 75px; top: 234px; left: 1189px; text-align: center;">15</div><div class="flot-tick-label tickLabel" style="position: absolute; max-width: 75px; top: 234px; left: 1267px; text-align: center;">16</div></div><div class="flot-y-axis flot-y1-axis yAxis y1Axis" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; display: block;"><div class="flot-tick-label tickLabel" style="position: absolute; top: 222px; left: 7px; text-align: right;">0</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 194px; left: 7px; text-align: right;">5</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 166px; left: 1px; text-align: right;">10</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 139px; left: 1px; text-align: right;">15</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 111px; left: 1px; text-align: right;">20</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 83px; left: 1px; text-align: right;">25</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 56px; left: 1px; text-align: right;">30</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 28px; left: 1px; text-align: right;">35</div><div class="flot-tick-label tickLabel" style="position: absolute; top: 1px; left: 1px; text-align: right;">40</div></div></div><canvas class="flot-overlay" width="1281" height="250" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 1281px; height: 250px;"></canvas><div class="legend"><div style="position: absolute; width: 76px; height: 15px; top: 13px; right: 13px; opacity: 0.85; background-color: rgb(255, 255, 255);"> </div><table style="position:absolute;top:13px;right:13px;;font-size:smaller;color:#545454"><tbody><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid rgb(38,185,154);overflow:hidden"></div></div></td><td class="legendLabel">Registrations</td></tr></tbody></table></div></div>
+                    <div id="placeholder3xx3" class="demo-placeholder" style="width: 100%; height: 250px; padding: 0px; position: relative;">
+                        @*<canvas class="flot-base" width="1281" height="250" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 1281px; height: 250px;"></canvas>*@
+                        @*<div class="flot-text" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; font-size: smaller; color: rgb(84, 84, 84);">*@
+                        @*<div class="flot-x-axis flot-x1-axis xAxis x1Axis" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; display: block;">
+                            <div class="flot-tick-label tickLabel" style="position: absolute; max-width: 75px; top: 234px; left: 15px; text-align: center;">0</div>
+                            <div class="flot-tick-label tickLabel" style="position: absolute; max-width: 75px; top: 234px; left: 93px; text-align: center;">1</div>
+                            <div class="flot-tick-label tickLabel" style="position: absolute; max-width: 75px; top: 234px; left: 172px; text-align: center;">2</div>
+                            <div class="flot-tick-label tickLabel" style="position: absolute; max-width: 75px; top: 234px; left: 250px; text-align: center;">3</div>
+                            <div class="flot-tick-label tickLabel" style="position: absolute; max-width: 75px; top: 234px; left: 329px; text-align: center;">4</div>
+                            <div class="flot-tick-label tickLabel" style="position: absolute; max-width: 75px; top: 234px; left: 407px; text-align: center;">5</div>
+                            <div class="flot-tick-label tickLabel" style="position: absolute; max-width: 75px; top: 234px; left: 486px; text-align: center;">6</div>
+                            <div class="flot-tick-label tickLabel" style="position: absolute; max-width: 75px; top: 234px; left: 564px; text-align: center;">7</div>
+                            <div class="flot-tick-label tickLabel" style="position: absolute; max-width: 75px; top: 234px; left: 643px; text-align: center;">8</div>
+                            <div class="flot-tick-label tickLabel" style="position: absolute; max-width: 75px; top: 234px; left: 721px; text-align: center;">9</div>
+                            <div class="flot-tick-label tickLabel" style="position: absolute; max-width: 75px; top: 234px; left: 796px; text-align: center;">10</div>
+                            <div class="flot-tick-label tickLabel" style="position: absolute; max-width: 75px; top: 234px; left: 875px; text-align: center;">11</div>
+                            <div class="flot-tick-label tickLabel" style="position: absolute; max-width: 75px; top: 234px; left: 953px; text-align: center;">12</div>
+                            <div class="flot-tick-label tickLabel" style="position: absolute; max-width: 75px; top: 234px; left: 1032px; text-align: center;">13</div>
+                            <div class="flot-tick-label tickLabel" style="position: absolute; max-width: 75px; top: 234px; left: 1110px; text-align: center;">14</div>
+                            <div class="flot-tick-label tickLabel" style="position: absolute; max-width: 75px; top: 234px; left: 1189px; text-align: center;">15</div>
+                            <div class="flot-tick-label tickLabel" style="position: absolute; max-width: 75px; top: 234px; left: 1267px; text-align: center;">16</div></div>*@
+                        @*<div class="flot-y-axis flot-y1-axis yAxis y1Axis" style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; display: block;">
+                            <div class="flot-tick-label tickLabel" style="position: absolute; top: 222px; left: 7px; text-align: right;">0</div>
+                            <div class="flot-tick-label tickLabel" style="position: absolute; top: 194px; left: 7px; text-align: right;">5</div>
+                            <div class="flot-tick-label tickLabel" style="position: absolute; top: 166px; left: 1px; text-align: right;">10</div>
+                            <div class="flot-tick-label tickLabel" style="position: absolute; top: 139px; left: 1px; text-align: right;">15</div>
+                            <div class="flot-tick-label tickLabel" style="position: absolute; top: 111px; left: 1px; text-align: right;">20</div>
+                            <div class="flot-tick-label tickLabel" style="position: absolute; top: 83px; left: 1px; text-align: right;">25</div>
+                            <div class="flot-tick-label tickLabel" style="position: absolute; top: 56px; left: 1px; text-align: right;">30</div>
+                            <div class="flot-tick-label tickLabel" style="position: absolute; top: 28px; left: 1px; text-align: right;">35</div>
+                            <div class="flot-tick-label tickLabel" style="position: absolute; top: 1px; left: 1px; text-align: right;">40</div></div>*@
+                        @*</div>*@
+                        @*<canvas class="flot-overlay" width="1281" height="250" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 1281px; height: 250px;"></canvas>*@
+                        <div class="legend">
+                            <div style="position: absolute; width: 76px; height: 15px; top: 13px; right: 13px; opacity: 0.85; background-color: rgb(255, 255, 255);"> </div>
+                            <table style="position:absolute;top:13px;right:13px;font-size:smaller;color:#545454">
+                                <tbody>
+                                    <tr>
+                                        <td class="legendColorBox">
+                                            <div style="border:1px solid #ccc;padding:1px">
+                                                <div style="width:4px;height:0;border:5px solid rgb(38,185,154);overflow:hidden"></div>
+                                            </div>
+                                        </td>
+                                        @*<td class="legendLabel">Registrations</td>*@
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -70,7 +116,7 @@
         <div class="x_panel">
             <div class="">
                 <h2>Shift Details</h2>
-             
+
             </div>
             <div class="x_content">
                 <ul class="list-unstyled timeline">
@@ -94,7 +140,7 @@
                             </div>
                         </div>
                     </li>
-                    
+
                     <li>
                         <div class="block">
                             <div class="tags">
@@ -126,14 +172,14 @@
         <div class="x_panel">
             <div class="">
                 <h2>Daily activities</h2>
-                
+
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
                 <ul class="list-unstyled msg_list">
                     <li>
                         <a>
-                          
+
                             <span>
                                 <span> Smith</span>
                                 <span class="time">3 mins ago</span>
@@ -145,274 +191,381 @@
                     </li>
                     <li>
                         <a>
-                           
+
                             <span>
                                 <span>John </span>
                                 <span class="time">3 mins ago</span>
                             </span>
                             <span class="message">
-                               Test 2
+                                Test 2
                             </span>
                         </a>
                     </li>
-                  
+
                 </ul>
             </div>
         </div>
     </div>
 
 </div>
-    <script>
-        $(document).ready(function () {
-            //random data
-            var d1 = [
-              [0, 1],
-              [1, 9],
-              [2, 6],
-              [3, 10],
-              [4, 5],
-              [5, 17],
-              [6, 6],
-              [7, 10],
-              [8, 7],
-              [9, 11],
-              [10, 35],
-              [11, 9],
-              [12, 12],
-              [13, 5],
-              [14, 3],
-              [15, 4],
-              [16, 9]
-            ];
-
-            //flot options
-            var options = {
-                series: {
-                    curvedLines: {
-                        apply: true,
-                        active: true,
-                        monotonicFit: true
-                    }
-                },
-                colors: ["#26B99A"],
-                grid: {
-                    borderWidth: {
-                        top: 0,
-                        right: 0,
-                        bottom: 1,
-                        left: 1
-                    },
-                    borderColor: {
-                        bottom: "#7F8790",
-                        left: "#7F8790"
-                    }
-                }
-            };
-            var plot = $.plot($("#placeholder3xx3"), [{
-                label: "Registrations",
-                data: d1,
-                lines: {
-                    fillColor: "rgba(150, 202, 89, 0.12)"
-                }, //#96CA59 rgba(150, 202, 89, 0.42)
-                points: {
-                    fillColor: "#fff"
-                }
-            }], options);
-        });
-    </script>
-    @*<div class="row">
-
-            <div class="col-md-8 col-xs-12">
-                <canvas id="canvas"></canvas>
-            </div>
-            <div class="col-md-4 col-xs-12">
-                <div id="map_canvas" style="height:400px;"></div>
-
-                <h4 style=" text-align:center;">Bulding locations</h4>
-            </div>
-        </div>
-
-        <br />
-        <style type="text/css">
-            .infoDiv {
-                height: 80px;
-                width: 150px;
-                font-size: small;
-                -webkit-user-select: none;
-                background-color: white;
-                color: black;
+<script>
+    $(document).ready(function () {
+        //random data
+        var graphData;
+        var fromDate = new Date();
+        var toDate = new Date();
+        var arr = [];
+        AjaxCall('/Api/DashBoard/LoadGraph', null, 'GET', function (data) {
+         //   debugger;
+            //$.each(data, function (inx, val) {
+            //    var obj = [];
+            //    obj[0] = val.Date;
+            //    obj[1] = val.Count;
+            //    // obj.label = val.label;
+            //    arr.push(obj);
+            //});
+            graphData = data;
+            var dataArray = new Array(graphData.length);
+            for (var i = 0; i < graphData.length; i++) {
+                var dataValue = new Array(2);
+                dataValue[0] = gd(graphData[i].m_Item2);
+                dataValue[1] = graphData[i].m_Item1;
+                dataArray[i] = dataValue;
             }
-        </style>
 
-        <script>
-            var config = {
-                type: 'bar',
-                fontColor: '#fff',
-                data: {
-                    labels: ["12/06", "13/06", "14/06", "15/06", "16/06", "17/06", "18/06"],
-                    fontColor: '#fff',
-                    datasets: [{
-                        label: "",
-                        fontColor: '#fff',
-                        data: [1, 10, 25, 40, 30, 14, 23],
-                        fill: false,
-                        backgroundColor:'#fff'
-                    }]
+            arr = dataArray;
+
+        });
+
+
+
+        //for (var arrayIndex in graphData) {
+        //    debugger;
+        //    grph = "[" + arrayIndex[1] + "," + arrayIndex[0] + "],";
+        //}
+       // debugger;
+        var d1 = [
+          //[gd(2013, 1, 2), 1],
+          //[gd(2013, 1, 3), 9],
+          //  [gd(2013, 1, 4), 1],
+          //[gd(2013, 1, 5), 9],
+          //  [gd(2013, 1, 6), 1],
+          //[gd(2013, 1, 7), 9]
+
+          //[2, 6],
+          //[3, 10],
+          //[4, 5],
+          //[5, 17],
+          //[6, 6],
+          //[7, 10],
+          //[8, 7],
+          //[9, 11],
+          //[10, 35],
+          //[11, 9],
+          //[12, 12],
+          //[13, 5],
+          //[14, 3],
+          //[15, 4],
+          //[16, 9]
+        ];
+
+        //flot options
+        var options = {
+            series: {
+                curvedLines: {
+                    apply: true,
+                    active: true,
+                    monotonicFit: true
+                }
+            },
+            xaxes: [
+            //    {
+            //    mode: "time",
+            //    //tickFormatter: function (val, axis) {
+            //    //    return dayOfWeek[new Date(val).getDay()];
+            //    //},
+            //  //  color: "black",
+            //    position: "bottom",
+            //    axisLabel: "Day of week",
+            //   // axisLabelUseCanvas: true,
+            //    axisLabelFontSizePixels: 12,
+            //    axisLabelFontFamily: 'Verdana, Arial',
+            //    axisLabelPadding: 0
+            //},
+           {
+               mode: "time",
+               timeformat: "%m/%d",
+               tickSize: [1, "day"],
+               tickLength: 1,
+               color: "black",
+               axisLabel: "Date",
+             //  axisLabelUseCanvas: true,
+               axisLabelFontSizePixels: 12,
+               axisLabelFontFamily: 'Verdana, Arial',
+               axisLabelPadding: 0
+           }],
+            yaxis: {
+                
+                tickDecimals: 0,
+                axisLabel: "",
+               
+            },
+            colors: ["#26B99A"],
+            legend: {
+                noColumns: 0,
+                labelBoxBorderColor: "#000000",
+                position: "nw"
+            },
+            grid: {
+                borderWidth: {
+                    top: 0,
+                    right: 1,
+                    bottom: 1,
+                    left: 1
                 },
-                options: {
-                    responsive: true,
-                    font: '#fff',
-                    elements: { rectangle: { borderWidth: 2, borderColor:'#fff', borderSkipped: 'bottom' } },
-                    title: {
+                borderColor: {
+                    bottom: "#7F8790",
+                    left: "#7F8790"
+                },
+                hoverable: true,
+              //  borderWidth: 3,
+                mouseActiveRadius: 50,
+               // backgroundColor: { colors: ["#ffffff", "#EDF5FF"] },
+              //  axisMargin: 20
+            }
+        };
+        debugger;
+        var dataset = [
+            {
+                label: "Visitors",
+                data: arr,
+                color: "#FF0000",
+                points: { fillColor: "#FF0000", show: true },
+                lines: { show: true }
+            }
+
+        ];
+
+        var dayOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thr", "Fri", "Sat"];
+
+        
+
+        var plot = $.plot($("#placeholder3xx3"), dataset, options);
+
+        function gd(date) {
+            //alert(date);
+            var arrDate = date.split('/');
+            debugger;
+           // userData.DOB = ([initial[1], initial[0], initial[2]].join('/'));
+            return new Date(arrDate[2], arrDate[1] - 1, arrDate[0]).getTime();
+        }
+
+        //var plot = $.plot($("#placeholder3xx3"), [{
+        //    label: "",
+        //    data: d1,
+
+        //    lines: {
+        //        fillColor: "rgba(150, 202, 89, 0.12)"
+        //    }, //#96CA59 rgba(150, 202, 89, 0.42)
+        //    points: {
+        //        fillColor: "#fff"
+        //    }
+        //}], options);
+    });
+</script>
+@*<div class="row">
+
+        <div class="col-md-8 col-xs-12">
+            <canvas id="canvas"></canvas>
+        </div>
+        <div class="col-md-4 col-xs-12">
+            <div id="map_canvas" style="height:400px;"></div>
+
+            <h4 style=" text-align:center;">Bulding locations</h4>
+        </div>
+    </div>
+
+    <br />
+    <style type="text/css">
+        .infoDiv {
+            height: 80px;
+            width: 150px;
+            font-size: small;
+            -webkit-user-select: none;
+            background-color: white;
+            color: black;
+        }
+    </style>
+
+    <script>
+        var config = {
+            type: 'bar',
+            fontColor: '#fff',
+            data: {
+                labels: ["12/06", "13/06", "14/06", "15/06", "16/06", "17/06", "18/06"],
+                fontColor: '#fff',
+                datasets: [{
+                    label: "",
+                    fontColor: '#fff',
+                    data: [1, 10, 25, 40, 30, 14, 23],
+                    fill: false,
+                    backgroundColor:'#fff'
+                }]
+            },
+            options: {
+                responsive: true,
+                font: '#fff',
+                elements: { rectangle: { borderWidth: 2, borderColor:'#fff', borderSkipped: 'bottom' } },
+                title: {
+                    display: true,
+                    fontColor: '#fff',
+                    text: 'Visitors/Week',
+
+                },
+                legend: {
+                    display: false,
+                    labels: {
+                        fontColor: 'rgb(255, 99, 132)'
+                    }
+                },
+                tooltips: {
+                    mode: 'label',
+                    callbacks: {
+                        // beforeTitle: function() {
+                        //     return '...beforeTitle';
+                        // },
+                        // afterTitle: function() {
+                        //     return '...afterTitle';
+                        // },
+                        // beforeBody: function() {
+                        //     return '...beforeBody';
+                        // },
+                        // afterBody: function() {
+                        //     return '...afterBody';
+                        // },
+                        // beforeFooter: function() {
+                        //     return '...beforeFooter';
+                        // },
+                        // footer: function() {
+                        //     return 'Footer';
+                        // },
+                        // afterFooter: function() {
+                        //     return '...afterFooter';
+                        // },
+                    }
+                },
+                hover: {
+                    mode: ''
+                },
+                scales: {
+                    xAxes: [{
                         display: true,
                         fontColor: '#fff',
-                        text: 'Visitors/Week',
-
-                    },
-                    legend: {
-                        display: false,
-                        labels: {
-                            fontColor: 'rgb(255, 99, 132)'
-                        }
-                    },
-                    tooltips: {
-                        mode: 'label',
-                        callbacks: {
-                            // beforeTitle: function() {
-                            //     return '...beforeTitle';
-                            // },
-                            // afterTitle: function() {
-                            //     return '...afterTitle';
-                            // },
-                            // beforeBody: function() {
-                            //     return '...beforeBody';
-                            // },
-                            // afterBody: function() {
-                            //     return '...afterBody';
-                            // },
-                            // beforeFooter: function() {
-                            //     return '...beforeFooter';
-                            // },
-                            // footer: function() {
-                            //     return 'Footer';
-                            // },
-                            // afterFooter: function() {
-                            //     return '...afterFooter';
-                            // },
-                        }
-                    },
-                    hover: {
-                        mode: ''
-                    },
-                    scales: {
-                        xAxes: [{
+                        scaleLabel: {
                             display: true,
                             fontColor: '#fff',
-                            scaleLabel: {
-                                display: true,
-                                fontColor: '#fff',
-                                labelString: 'Date'
+                            labelString: 'Date'
 
-                            }
-                        }],
-                        yAxes: [{
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        scaleLabel: {
                             display: true,
-                            scaleLabel: {
-                                display: true,
-                                labelString: 'No. of Visitors',
-                                fontColor: '#fff'
-                            },
-                            ticks: {
-                                suggestedMin: 0,
-                                suggestedMax: 50
-                            }
-                        }]
-                    }
-
+                            labelString: 'No. of Visitors',
+                            fontColor: '#fff'
+                        },
+                        ticks: {
+                            suggestedMin: 0,
+                            suggestedMax: 50
+                        }
+                    }]
                 }
-            };
+
+            }
+        };
 
 
 
-            $.each(config.data.datasets, function (i, dataset) {
+        $.each(config.data.datasets, function (i, dataset) {
 
-                dataset.borderColor = 'rgba(255,255,255,1)';
-                //alert(dataset.borderColor);
-                dataset.backgroundColor = 'rgba(255,99,45,0.5)';
-                dataset.pointBorderColor = 'rgba(255,255,255,0.7)';
-                dataset.pointBackgroundColor = 'rgba(255,255,255,0.5)';
-                dataset.pointBorderWidth = 2;
-            });
-            $(document).ready(function () {
+            dataset.borderColor = 'rgba(255,255,255,1)';
+            //alert(dataset.borderColor);
+            dataset.backgroundColor = 'rgba(255,99,45,0.5)';
+            dataset.pointBorderColor = 'rgba(255,255,255,0.7)';
+            dataset.pointBackgroundColor = 'rgba(255,255,255,0.5)';
+            dataset.pointBorderWidth = 2;
+        });
+        $(document).ready(function () {
 
-                var ctx = document.getElementById("canvas").getContext("2d");
-                window.myLine = new Chart(ctx, config);
-                // Initialize();
-            });
-
-
-            // Where all the fun happens
+            var ctx = document.getElementById("canvas").getContext("2d");
+            window.myLine = new Chart(ctx, config);
+            // Initialize();
+        });
 
 
-            // Google has tweaked their interface somewhat - this tells the api to use that new UI
-            google.maps.visualRefresh = true;
-            var UAE = new google.maps.LatLng(25.204849, 55.270783);
+        // Where all the fun happens
 
-            // These are options that set initial zoom level, where the map is centered globally to start, and the type of map to show
-            var mapOptions = {
-                zoom: 7,
-                center: UAE,
-                mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
-            };
 
-            // This makes the div with id "map_canvas" a google map
-            var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+        // Google has tweaked their interface somewhat - this tells the api to use that new UI
+        google.maps.visualRefresh = true;
+        var UAE = new google.maps.LatLng(25.204849, 55.270783);
 
-            // This shows adding a simple pin "marker" - United Arab Emirates!
-            var myLatlng = new google.maps.LatLng(25.204849, 55.270783);
+        // These are options that set initial zoom level, where the map is centered globally to start, and the type of map to show
+        var mapOptions = {
+            zoom: 7,
+            center: UAE,
+            mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
+        };
 
+        // This makes the div with id "map_canvas" a google map
+        var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+
+        // This shows adding a simple pin "marker" - United Arab Emirates!
+        var myLatlng = new google.maps.LatLng(25.204849, 55.270783);
+
+        var marker = new google.maps.Marker({
+            position: myLatlng,
+            map: map,
+            title: 'United Arab Emirates'
+        });
+
+        // You can make markers different colors...  google it up!
+        marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
+
+        // a sample list of JSON encoded data of places to visit in United Arab Emirates
+        // you can either make up a JSON list server side, or call it from a controller using JSONResult
+        var data = [
+                  { "Id": 1, "PlaceName": "Burj Khalifa", "OpeningHours": "7-10", "GeoLong": "25.2048", "GeoLat": "55.2708" },
+                  { "Id": 2, "PlaceName": "Sheikh Sayad Mosque ", "OpeningHours": "7-4", "GeoLong": "24.2992", "GeoLat": "54.6973" },
+                  { "Id": 3, "PlaceName": "Emirates Wheel", "OpeningHours": "9-7", "GeoLong": "25.3223", "GeoLat": "55.5136" },
+                  { "Id": 4, "PlaceName": "Khor fakkan Beach", "OpeningHours": "8-12", "GeoLong": "25.4111", "GeoLat": "56.2482" },
+                  { "Id": 5, "PlaceName": "Al Barsha", "OpeningHours": "10-10", "GeoLong": "25.0838", "GeoLat": "55.2204" }
+
+        ];
+
+        // Using the JQuery "each" selector to iterate through the JSON list and drop marker pins
+        $.each(data, function (i, item) {
             var marker = new google.maps.Marker({
-                position: myLatlng,
-                map: map,
-                title: 'United Arab Emirates'
+                'position': new google.maps.LatLng(item.GeoLong, item.GeoLat),
+                'map': map,
+                'title': item.PlaceName
             });
 
-            // You can make markers different colors...  google it up!
-            marker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
+            // Make the marker-pin blue!
+            marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png')
 
-            // a sample list of JSON encoded data of places to visit in United Arab Emirates
-            // you can either make up a JSON list server side, or call it from a controller using JSONResult
-            var data = [
-                      { "Id": 1, "PlaceName": "Burj Khalifa", "OpeningHours": "7-10", "GeoLong": "25.2048", "GeoLat": "55.2708" },
-                      { "Id": 2, "PlaceName": "Sheikh Sayad Mosque ", "OpeningHours": "7-4", "GeoLong": "24.2992", "GeoLat": "54.6973" },
-                      { "Id": 3, "PlaceName": "Emirates Wheel", "OpeningHours": "9-7", "GeoLong": "25.3223", "GeoLat": "55.5136" },
-                      { "Id": 4, "PlaceName": "Khor fakkan Beach", "OpeningHours": "8-12", "GeoLong": "25.4111", "GeoLat": "56.2482" },
-                      { "Id": 5, "PlaceName": "Al Barsha", "OpeningHours": "10-10", "GeoLong": "25.0838", "GeoLat": "55.2204" }
+            // put in some information about each json object - in this case, the opening hours.
+            var infowindow = new google.maps.InfoWindow({
+                content: "<div class='infoDiv'><h4>" + item.PlaceName + "</h4>" + "<div><h5>Opening hours: " + item.OpeningHours + "</h5></div></div>"
+            });
 
-            ];
+            // finally hook up an "OnClick" listener to the map so it pops up out info-window when the marker-pin is clicked!
+            google.maps.event.addListener(marker, 'click', function () {
+                infowindow.open(map, marker);
+            });
 
-            // Using the JQuery "each" selector to iterate through the JSON list and drop marker pins
-            $.each(data, function (i, item) {
-                var marker = new google.maps.Marker({
-                    'position': new google.maps.LatLng(item.GeoLong, item.GeoLat),
-                    'map': map,
-                    'title': item.PlaceName
-                });
-
-                // Make the marker-pin blue!
-                marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png')
-
-                // put in some information about each json object - in this case, the opening hours.
-                var infowindow = new google.maps.InfoWindow({
-                    content: "<div class='infoDiv'><h4>" + item.PlaceName + "</h4>" + "<div><h5>Opening hours: " + item.OpeningHours + "</h5></div></div>"
-                });
-
-                // finally hook up an "OnClick" listener to the map so it pops up out info-window when the marker-pin is clicked!
-                google.maps.event.addListener(marker, 'click', function () {
-                    infowindow.open(map, marker);
-                });
-
-            })
+        })
 
 
-        </script>*@
+    </script>*@
