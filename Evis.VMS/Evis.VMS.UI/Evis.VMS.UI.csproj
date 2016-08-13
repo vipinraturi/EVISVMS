@@ -232,7 +232,6 @@
     <Compile Include="ModelsOld\IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\TokenInspector.cs" />
-    <Compile Include="Reports\DataSet\ShiftDetailReportDataset.Designer.cs" />
     <Compile Include="Reports\DataSet\ShiftDetailReportDataset1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
