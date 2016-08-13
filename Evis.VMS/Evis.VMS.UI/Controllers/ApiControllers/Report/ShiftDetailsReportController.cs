@@ -99,55 +99,23 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
         [Route("~/Api/Report/GetShiftDetailsGrid")]
         [HttpPost]
-        public string GetShiftDetails(int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC")
+         public string GetShiftDataGrid(string search, int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC", string globalSearch = "")
         {
-            var Shift = _genericService.ShitfAssignment.GetAll().Where(x => x.IsActive == true)
-             .Select(x => new ShiftAssignmentVM
-               {
-                   BuildingId = x.BuildingId,
-                   BuildingName = x.Gates.BuildingMaster.BuildingName,
-                   GateId = x.GateId,
-                   GateName = x.Gates.GateNumber,
-                   ShitfId = x.ShitfId,
-                   ShiftName = x.Shitfs.ShitfName,
-                   UserId = x.UserId,
-                   UserName = x.ApplicationUser.FullName,
-                   FromDate = x.FromDate,
-                   ToDate = x.ToDate,
-                   strFromDate = x.ToDate.ToString(),
-                   strToDate = x.ToDate.ToString(),
-                   Id = x.Id,
-                   City = x.BuildingMaster.CityMaster.LookUpValue
-               }).AsQueryable();
-            // if (Shift.Count() > 0)
-            //{
-            //    if (!string.IsNullOrEmpty(globalSearch))
-            //    {
-            //        Shift = Shift.Where(item =>
-            //            item.UserName.ToLower().Contains(globalSearch.ToLower()) ||
-            //            item.BuildingName.ToLower().Contains(globalSearch.ToLower()) ||
-            //             item.GateName.ToLower().Contains(globalSearch.ToLower()) ||
-            //            item.ShiftName.ToLower().Contains(globalSearch.ToLower())
-            //            ).AsQueryable();
-            //    }
-             
-           var paginationRequest = new PaginationRequest
-                {
-                    PageIndex = (pageIndex - 1),
-                    PageSize = pageSize,
-                    //SearchText = globalSearch,
-                    Sort = new Sort { SortDirection = (sortOrder == "ASC" ? SortDirection.Ascending : SortDirection.Descending), SortBy = sortField }
-                };
+            if (string.IsNullOrEmpty(sortField))
+            {
+                sortField = "";
+            }
 
-                int totalCount = 0;
-                IList<ShiftAssignmentVM> results =
-                   GenericSorterPager.GetSortedPagedList<ShiftAssignmentVM>(Shift, paginationRequest, out totalCount);
+            int totalCount = 0;
+            pageIndex = (pageIndex - 1);
 
-                var jsonData = JsonConvert.SerializeObject(results.OrderByDescending(x => x.Id));
-                return JsonConvert.SerializeObject(new { totalRows = totalCount, result = jsonData });
+            var result = _ShiftDetailsReportHelper.GetShiftData(search, pageIndex, pageSize, sortField, sortOrder, out totalCount);
 
-        //}
-             //return null;
+            var jsonData = JsonConvert.SerializeObject(result.OrderBy(x => x.UserName));
+            return JsonConvert.SerializeObject(new { totalRows = totalCount, result = jsonData });
+        }
+           
+
 
         }
          
@@ -171,5 +139,5 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             //return shiftDetails.ToList();
         //}
         
-    }
+    
 }

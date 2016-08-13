@@ -5,25 +5,28 @@
     self.GateId = ko.observable(undefined);
     self.SecurityId = ko.observable(undefined);
     self.ShiftId = ko.observableArray(undefined);
-
+    
+    //self.DataGrid = new RIT.eW.DataGridAjax('/Api/Report/GetShiftDetailsGrid', 7);
+    //self.SearchShiftDetails = function () {
+    //    self.DataGrid.UpdateSearchParam('?search=' + JSON.stringify(new Object()));
+    //    self.DataGrid.GetData();
+    //}
 
     self.GetOrganization = function () {
-        debugger;
+        
         AjaxCall('/Api/Report/Getorganisation', null, 'GET', function (data) {
             self.organisationId = (data.OrganizationId);
-            alert(self.organisationId);
+            //alert(self.organisationId);
         });
     }
     GetOrganization();
-    debugger;
+  
     self.GetAllShiftAssignmentData=function(){
-     self.DataGrid = new RIT.eW.DataGridAjax('/Api/Report/GetShiftDetailsGrid', 7)
+        self.DataGrid = new RIT.eW.DataGridAjax('/Api/Report/GetShiftDetailsGrid', 7);
+        self.DataGrid.UpdateSearchParam('?search=' + JSON.stringify(new Object()));
         self.DataGrid.GetData();
-
     }
-   
-
-    self.GetAllShiftAssignmentData();
+    GetAllShiftAssignmentData();
 
    
 
@@ -73,7 +76,7 @@
         self.GetShiftname = function () {
             AjaxCall('/Api/Report/GetShifts', null, 'GET', function (data) {
                 self.shift(data);
-                //self.ShiftId(ShiftId)
+              
 
             });
 
@@ -81,18 +84,31 @@
         }
         GetShiftname();
 
-        //self.SearchDetails = function () {
-        //    debugger;
-        //    var data = new Object();
-        //    data.BuildingId = self.BuildingId();
-        //    data.GateId = self.GateId();
-        //    data.SecurityId = self.SecurityId();
-        //    data.ShiftName = self.ShiftId();
-        //    data.FromDate = self.FromDate();
-        //    data.ToDate = self.ToDate();
+        self.SearchDetails = function () {
+            //debugger;
+            var data = new Object();
+            data.BuildingId = self.BuildingId();
+            data.GateId = self.GateId();
+            data.SecurityId = self.SecurityId();
+            data.ShiftName = self.ShiftId();
+            data.FromDate = self.FromDate();
+            data.ToDate = self.ToDate();
 
-        //    self.DataGrid.UpdateSearchParam('?search=' + JSON.stringify(data));
-        //    self.DataGrid.GetData();
-        //}
+            self.DataGrid.UpdateSearchParam('?search=' + JSON.stringify(data));
+            self.DataGrid.GetData();
+        }
+
+        self.GenerateRDLCReportPDF = function () {
+            debugger;
+            var data = new Object();
+            data.BuildingId = self.BuildingId();
+            data.GateId = self.GateId();
+            data.SecurityId = self.SecurityId();
+            data.ShiftName = self.ShiftId();
+            data.FromDate = $('#txtFromDate').val();
+            data.ToDate = $('#txtFromDate').val();
+            window.open('../Report/PrintShiftDetailReport?searchData=' + JSON.stringify(data), '_blankl');
+          
+        }
 
 }
