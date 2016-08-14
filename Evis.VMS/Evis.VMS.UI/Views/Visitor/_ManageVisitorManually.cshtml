@@ -157,13 +157,6 @@
             </div>
             <div class="x_content">
                 <div class="col-md-5 col-sm-5 col-xs-12  pull-right top_search">
-                    @*<div class="input-group">
-                        <input id="txtGlobalSearch" type="text" class="form-control" placeholder="Global Search"
-                               data-bind="value: GlobalSearch, enterkey: GlobalSearchEnter.bind()" />
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" type="button" data-bind="click: GetAllVisitor.bind()"><i class="fa fa-search"></i></button>
-                        </span>
-                    </div>*@
                     <div class="input-group">
                         <input id="txtGlobalSearch" type="text" class="form-control" placeholder="[Global Search]"
                                data-bind="value: GlobalSearch, valueUpdate: 'afterkeydown', enterkey: GlobalSearchEnter.bind()" />
@@ -243,8 +236,10 @@
             file.previewElement.appendChild(removeButton);
         });
         dropZoneVisitorImage.on("sending", function (file, xhr, formData) {
-            var name = new Date().getTime();
-            formData.append(name, file);
+            var timeStamp = new Date().getTime();
+            var $jQueryTest = $(file.previewElement.children[0].firstChild);
+            $jQueryTest.attr('img-name-unique', (timeStamp + "_" + file.name));
+            formData.append(timeStamp, file);
         });
 
         dropZoneVisitorImage.on('success', function (file) {
@@ -260,6 +255,13 @@
         dropZoneMultipleFiels.on("maxfilesexceeded", function (file) {
             var res = eval('(' + file.xhr.responseText + ')');
             toastr.warning('Only two images allowed.');
+        });
+
+        dropZoneMultipleFiels.on("sending", function (file, xhr, formData) {
+            var timeStamp = new Date().getTime();
+            var $jQueryTest = $(file.previewElement.children[0].firstChild);
+            $jQueryTest.attr('img-name-unique', (timeStamp + "_" + file.name));
+            formData.append(timeStamp, file);
         });
 
         dropZoneMultipleFiels.on("addedfile", function (file) {
