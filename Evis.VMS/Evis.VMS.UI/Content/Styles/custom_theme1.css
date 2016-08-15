@@ -1312,8 +1312,9 @@ table.jambo_table {
 }
 
     table.jambo_table thead {
-        background: rgba(52,73,94,0.94);
-        color: #ECF0F1;
+        /*background: rgba(52,73,94,0.94);*/
+        background: #eee;
+        /*color: #ECF0F1;*/
     }
 
     table.jambo_table tbody tr:hover td {
@@ -3695,7 +3696,7 @@ ul.project_files li {
 
 .avatar-view {
     display: block;
-    border: 3px solid #fff;
+    border: 3px solid #ccc;
     border-radius: 5px;
     box-shadow: 0 0 5px rgba(0,0,0,0.15);
     cursor: pointer;
@@ -5133,7 +5134,7 @@ ul.notifications {
 
 .dropzone {
     min-height: 300px;
-    border: 1px solid #e5e5e5;
+    border: 1px solid #ccc !important;
 }
 
 
