@@ -46,7 +46,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             //// string q;
             //List<GraphVM> onjvm = new List<GraphVM>();
 
-            //string[] formats = { "dd/MM/yyyy" };
+            string[] formats = { "MM/dd/yyyy" };
             ////onjvm.Add(new GraphVM() { Date = "12/07", Count = 10 });
             ////DateTime.Parse("13/07/2016",new CultureInfo("en-US", true))
             //onjvm.Add(new GraphVM() { Date = DateTime.ParseExact("13/07/2016", formats, new CultureInfo("en-US"), DateTimeStyles.None), Count = 14 });
@@ -83,7 +83,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             {
                 if (item.CreateTime >= lastDate && item.CreateTime < currentDate)
                 {
-                    mydict.Add(new Tuple<int, string,DateTime>(item.Count, (Convert.ToDateTime(item.CreateTime)).ToShortDateString(),Convert.ToDateTime(item.CreateTime)));
+                    mydict.Add(new Tuple<int, string,DateTime>(item.Count, (Convert.ToDateTime(item.CreateTime)).ToString("dd/MM/yyyy"),Convert.ToDateTime(item.CreateTime)));
                 }
                 // mydict.Add(item.Count, item.Date);
                 // q=q+"["+item.Date+","+item.Count+"],";
@@ -93,7 +93,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             {
                 if(!mydict.Any(s=>s.Item2==day.Date.ToShortDateString()))
                 {
-                    mydict.Add(new Tuple<int, string,DateTime>(0, (Convert.ToDateTime(day.Date)).ToShortDateString(),day));
+                    mydict.Add(new Tuple<int, string, DateTime>(0, (Convert.ToDateTime(day.Date)).ToString("dd/MM/yyyy"), day));
                 }
             }
             return mydict.OrderByDescending(x => x.Item3).ToList();

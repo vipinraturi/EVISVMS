@@ -256,7 +256,7 @@
                 xaxes: [
                {
                    mode: "time",
-                   timeformat: "%m/%d",
+                   timeformat: "%d/%m",
                    tickSize: [1, "day"],
                    tickLength: 1,
                    color: "black",
@@ -310,20 +310,20 @@
 
         //flot options
         
-        debugger;
+      //  debugger;
 
 
-        var dayOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thr", "Fri", "Sat"];
+       // var dayOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thr", "Fri", "Sat"];
 
 
 
       //  var plot = $.plot($("#placeholder3xx3"), dataset, options);
 
         function gd(date) {
-            //alert(date);
+           // alert(date);
             var arrDate = date.split('/');
-            debugger;
             // userData.DOB = ([initial[1], initial[0], initial[2]].join('/'));
+           // alert(new Date(arrDate[2], arrDate[1] - 1, arrDate[0]).getTime());
             return new Date(arrDate[2], arrDate[1] - 1, arrDate[0]).getTime();
         }
 
