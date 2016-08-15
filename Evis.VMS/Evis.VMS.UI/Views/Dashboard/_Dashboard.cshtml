@@ -216,7 +216,7 @@
         var toDate = new Date();
         var arr = [];
         // evt.preventDeafult();
-        AjaxCall('/Api/DashBoard/LoadGraph', null, 'GET', function (data) {
+        AjaxCall('../Api/DashBoard/LoadGraph', null, 'GET', function (data) {
             //   debugger;
             //$.each(data, function (inx, val) {
             //    var obj = [];
@@ -310,7 +310,7 @@
 
         //flot options
         
-        debugger;
+      
 
 
         var dayOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thr", "Fri", "Sat"];
@@ -322,7 +322,6 @@
         function gd(date) {
             //alert(date);
             var arrDate = date.split('/');
-            debugger;
             // userData.DOB = ([initial[1], initial[0], initial[2]].join('/'));
             return new Date(arrDate[2], arrDate[1] - 1, arrDate[0]).getTime();
         }
