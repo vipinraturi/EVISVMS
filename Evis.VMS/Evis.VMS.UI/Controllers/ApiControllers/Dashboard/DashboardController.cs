@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 
 namespace Evis.VMS.UI.Controllers.ApiControllers
 {
@@ -15,18 +16,22 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
     {
 
         GenericService _genericService = new GenericService();
+        private readonly UserService _userService = new UserService();
         //
         // GET: /Dashboard/
 
 
         [Route("~/Api/DashBoard/LoadGraph")]
         [HttpGet]
-        public List<Tuple<int, string,DateTime>> GetGraphData()//, int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC")
+        public async Task<List<Tuple<int, string,DateTime>>> GetGraphData()//, int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC")
         {
 
-
+            var currentUserId = HttpContext.Current.User.Identity.GetUserId();
+            var currentUser = await _userService.GetAsync(x => x.Id == currentUserId);
             var myData = from visitorDetails in _genericService.VisitDetails.GetAll()
+                         where visitorDetails.GateMaster.BuildingMaster.OrganizationId == (currentUser.OrganizationId==null ? 1:currentUser.OrganizationId)
                          group visitorDetails by EntityFunctions.TruncateTime(visitorDetails.CheckIn) into g
+                         
                          orderby g.Key
                          select new { CreateTime = g.Key, Count = g.Count() };
 

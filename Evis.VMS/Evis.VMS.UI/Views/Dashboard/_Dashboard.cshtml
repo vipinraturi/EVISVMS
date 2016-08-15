@@ -215,8 +215,9 @@
         var fromDate = new Date();
         var toDate = new Date();
         var arr = [];
+        // evt.preventDeafult();
         AjaxCall('/Api/DashBoard/LoadGraph', null, 'GET', function (data) {
-         //   debugger;
+            //   debugger;
             //$.each(data, function (inx, val) {
             //    var obj = [];
             //    obj[0] = val.Date;
@@ -234,7 +235,68 @@
             }
 
             arr = dataArray;
+            var dataset = [
+           {
+               label: "Visitors",
+               data: arr,
+               color: "#FF0000",
+               points: { fillColor: "#FF0000", show: true },
+               lines: { show: true }
+           }
 
+            ];
+            var options = {
+                series: {
+                    curvedLines: {
+                        apply: true,
+                        active: true,
+                        monotonicFit: true
+                    }
+                },
+                xaxes: [
+               {
+                   mode: "time",
+                   timeformat: "%m/%d",
+                   tickSize: [1, "day"],
+                   tickLength: 1,
+                   color: "black",
+                   axisLabel: "Date",
+                   //  axisLabelUseCanvas: true,
+                   axisLabelFontSizePixels: 12,
+                   axisLabelFontFamily: 'Verdana, Arial',
+                   axisLabelPadding: 0
+               }],
+                yaxis: {
+
+                    tickDecimals: 0,
+                    axisLabel: "",
+
+                },
+                colors: ["#26B99A"],
+                legend: {
+                    noColumns: 0,
+                    labelBoxBorderColor: "#000000",
+                    position: "nw"
+                },
+                grid: {
+                    borderWidth: {
+                        top: 0,
+                        right: 1,
+                        bottom: 1,
+                        left: 1
+                    },
+                    borderColor: {
+                        bottom: "#7F8790",
+                        left: "#7F8790"
+                    },
+                    hoverable: true,
+                    //  borderWidth: 3,
+                    mouseActiveRadius: 50,
+                    // backgroundColor: { colors: ["#ffffff", "#EDF5FF"] },
+                    //  axisMargin: 20
+                }
+            };
+            var plot = $.plot($("#placeholder3xx3"), dataset, options);
         });
 
 
@@ -243,120 +305,25 @@
         //    debugger;
         //    grph = "[" + arrayIndex[1] + "," + arrayIndex[0] + "],";
         //}
-       // debugger;
-        var d1 = [
-          //[gd(2013, 1, 2), 1],
-          //[gd(2013, 1, 3), 9],
-          //  [gd(2013, 1, 4), 1],
-          //[gd(2013, 1, 5), 9],
-          //  [gd(2013, 1, 6), 1],
-          //[gd(2013, 1, 7), 9]
+        // debugger;
 
-          //[2, 6],
-          //[3, 10],
-          //[4, 5],
-          //[5, 17],
-          //[6, 6],
-          //[7, 10],
-          //[8, 7],
-          //[9, 11],
-          //[10, 35],
-          //[11, 9],
-          //[12, 12],
-          //[13, 5],
-          //[14, 3],
-          //[15, 4],
-          //[16, 9]
-        ];
 
         //flot options
-        var options = {
-            series: {
-                curvedLines: {
-                    apply: true,
-                    active: true,
-                    monotonicFit: true
-                }
-            },
-            xaxes: [
-            //    {
-            //    mode: "time",
-            //    //tickFormatter: function (val, axis) {
-            //    //    return dayOfWeek[new Date(val).getDay()];
-            //    //},
-            //  //  color: "black",
-            //    position: "bottom",
-            //    axisLabel: "Day of week",
-            //   // axisLabelUseCanvas: true,
-            //    axisLabelFontSizePixels: 12,
-            //    axisLabelFontFamily: 'Verdana, Arial',
-            //    axisLabelPadding: 0
-            //},
-           {
-               mode: "time",
-               timeformat: "%m/%d",
-               tickSize: [1, "day"],
-               tickLength: 1,
-               color: "black",
-               axisLabel: "Date",
-             //  axisLabelUseCanvas: true,
-               axisLabelFontSizePixels: 12,
-               axisLabelFontFamily: 'Verdana, Arial',
-               axisLabelPadding: 0
-           }],
-            yaxis: {
-                
-                tickDecimals: 0,
-                axisLabel: "",
-               
-            },
-            colors: ["#26B99A"],
-            legend: {
-                noColumns: 0,
-                labelBoxBorderColor: "#000000",
-                position: "nw"
-            },
-            grid: {
-                borderWidth: {
-                    top: 0,
-                    right: 1,
-                    bottom: 1,
-                    left: 1
-                },
-                borderColor: {
-                    bottom: "#7F8790",
-                    left: "#7F8790"
-                },
-                hoverable: true,
-              //  borderWidth: 3,
-                mouseActiveRadius: 50,
-               // backgroundColor: { colors: ["#ffffff", "#EDF5FF"] },
-              //  axisMargin: 20
-            }
-        };
+        
         debugger;
-        var dataset = [
-            {
-                label: "Visitors",
-                data: arr,
-                color: "#FF0000",
-                points: { fillColor: "#FF0000", show: true },
-                lines: { show: true }
-            }
 
-        ];
 
         var dayOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thr", "Fri", "Sat"];
 
-        
 
-        var plot = $.plot($("#placeholder3xx3"), dataset, options);
+
+      //  var plot = $.plot($("#placeholder3xx3"), dataset, options);
 
         function gd(date) {
             //alert(date);
             var arrDate = date.split('/');
             debugger;
-           // userData.DOB = ([initial[1], initial[0], initial[2]].join('/'));
+            // userData.DOB = ([initial[1], initial[0], initial[2]].join('/'));
             return new Date(arrDate[2], arrDate[1] - 1, arrDate[0]).getTime();
         }
 
