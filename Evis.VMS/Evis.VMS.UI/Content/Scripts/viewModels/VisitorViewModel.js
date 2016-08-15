@@ -184,6 +184,7 @@
 
             $('.dz-image-preview').empty();
 
+        
             if (tableItem.ImagePath != undefined && tableItem.ImagePath != "") {
                 var imagePath = '/images/VisitorImages/' + tableItem.ImagePath;
                 var mockFile = { name: tableItem.ImagePath, size: 1024 };
@@ -196,7 +197,7 @@
                 self.LoadIdentityImage(identityImages);
             }
 
-            if (tableItem.IdentityImage1_Path != undefined && tableItem.IdentityImage1_Path != "") {
+           if (tableItem.IdentityImage1_Path != null && tableItem.IdentityImage1_Path != undefined && tableItem.IdentityImage1_Path != "") {
                 var imagePath = '/images/VisitorIdentityImages/' + tableItem.IdentityImage1_Path;
                 var mockFile = { name: tableItem.IdentityImage1_Path, size: 1024 };
                 dropZoneMultipleFiels.emit("addedfile", mockFile);
@@ -208,7 +209,7 @@
                 self.LoadIdentityImage(identityImages);
             }
 
-            if (tableItem.IdentityImage2_Path != undefined && tableItem.IdentityImage2_Path != "") {
+            if (tableItem.IdentityImage2_Path != null && tableItem.IdentityImage2_Path != undefined && tableItem.IdentityImage2_Path != "") {
                 var imagePath = '/images/VisitorIdentityImages/' + tableItem.IdentityImage2_Path;
                 var mockFile = { name: tableItem.IdentityImage2_Path, size: 1024 };
                 dropZoneMultipleFiels.emit("addedfile", mockFile);
@@ -220,7 +221,7 @@
                 self.LoadIdentityImage(identityImages);
             }
 
-            if (tableItem.IdentityImage3_Path != undefined && tableItem.IdentityImage3_Path != "") {
+            if (tableItem.IdentityImage3_Path != null && tableItem.IdentityImage3_Path != undefined && tableItem.IdentityImage3_Path != "") {
                 var imagePath = '/images/VisitorIdentityImages/' + tableItem.IdentityImage3_Path;
                 var mockFile = { name: tableItem.IdentityImage3_Path, size: 1024 };
                 dropZoneMultipleFiels.emit("addedfile", mockFile);
