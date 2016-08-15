@@ -20,10 +20,12 @@ namespace Evis.VMS.UI.Controllers
     public class ReportController : Controller
     {
         public readonly VisitorDetailsReportHelper _visitorDetailsReportHelper = null;
+        public readonly ShiftDetailsReportHelper _ShiftDetailsReportHelper = null;
 
         public ReportController()
         {
             _visitorDetailsReportHelper = new VisitorDetailsReportHelper();
+            _ShiftDetailsReportHelper = new ShiftDetailsReportHelper();
         }
 
         public ActionResult _VisitorDetailsReport()
@@ -34,6 +36,48 @@ namespace Evis.VMS.UI.Controllers
         public ActionResult _ShiftDetailsReport()
         {
             return View();
+        }
+
+
+        public ActionResult PrintShiftDetailReport(string searchData)
+        {
+            Reports.DataSet.ShiftDetailReportDataset shiftDetailDataset = new Reports.DataSet.ShiftDetailReportDataset();
+
+            var result = _ShiftDetailsReportHelper.GetShiftDataPrint(searchData);
+
+            foreach (var item in result)
+            {
+                var TabledataRow = shiftDetailDataset.ShiftDetailDatatable.NewShiftDetailDatatableRow();
+                TabledataRow.FullName = item.UserName;
+                TabledataRow.BuildingName = item.BuildingName;
+                TabledataRow.GateNumber = item.GateName;
+                TabledataRow.ShiftName = item.ShiftName;
+                TabledataRow.FromDate = item.FromDate.ToString();
+                TabledataRow.ToDate = item.ToDate.ToString();
+
+                shiftDetailDataset.ShiftDetailDatatable.AddShiftDetailDatatableRow(TabledataRow);
+            }
+                var reportData = new ReportDataSource("ShiftDetailReportDataset", shiftDetailDataset.Tables[0]);
+                var reportViewer = new ReportViewer { ProcessingMode = ProcessingMode.Local };
+                reportViewer.LocalReport.ReportPath = GetReportPath() + "\\ShiftDetailReport.rdlc";
+                Warning[] warnings;
+                string[] streamIds;
+                string mimeType;
+                string encoding;
+                string extension;
+
+                reportViewer.LocalReport.DataSources.Add(reportData);
+
+                byte[] bytes = reportViewer.LocalReport.Render("PDF", null, out mimeType, out encoding, out extension, out streamIds, out warnings);
+                System.Web.HttpContext.Current.Response.Buffer = true;
+                System.Web.HttpContext.Current.Response.Clear();
+                System.Web.HttpContext.Current.Response.ContentType = "application/pdf";
+                System.Web.HttpContext.Current.Response.BinaryWrite(bytes);
+                System.Web.HttpContext.Current.Response.Flush();
+
+
+            
+            return new EmptyResult();
         }
 
         public ActionResult PrintVisitorsDetailsReport(SearchVisitorVM search)
@@ -148,5 +192,7 @@ namespace Evis.VMS.UI.Controllers
 
             return new EmptyResult();
         }
+
+
     }
 }

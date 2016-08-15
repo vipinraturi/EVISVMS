@@ -185,7 +185,10 @@ namespace Evis.VMS.UI.HelperClasses
                         Email = item.EmailId.ToString(),
                         MobileNumber = item.ContactNo.ToString(),
                         IndentityNumber = item.IdNo.ToString(),
-                        LogoUrl = "/images/VisitorImages/" + item.ImagePath
+                        LogoUrl = "/images/VisitorImages/" + item.ProfilePicPath,
+                        IdentityImage1_Path = "/images/VisitorIdentityImages/" + item.IdentityImage1_Path,
+                        IdentityImage2_Path = "/images/VisitorIdentityImages/" + item.IdentityImage2_Path,
+                        IdentityImage3_Path = "/images/VisitorIdentityImages/" + item.IdentityImage3_Path
                     });
                 });
             }

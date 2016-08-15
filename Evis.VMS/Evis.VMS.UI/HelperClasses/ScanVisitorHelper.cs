@@ -26,99 +26,83 @@ namespace Evis.VMS.UI.HelperClasses
 
         public ScanVisitorVM ScanDetails(string item)
         {
-            Document modiDocument = new Document();
-            var filePath = @"E:\Ashish_3\Evis VMS\Evis.VMS\Evis.VMS.UI\images\VisitorIdentityImages\file_" + item + "";
+            var modiDocument = new Document();
+            var rootImagePath = System.Web.HttpContext.Current.Server.MapPath(@"~/images");
+            var filePath = string.Format("{0}\\VisitorIdentityImages\\{1}", rootImagePath, item); 
             modiDocument.Create(filePath);
             modiDocument.OCR(MiLANGUAGES.miLANG_ENGLISH);
             MODI.Image modiImage = (modiDocument.Images[0] as MODI.Image);
-            string extractedText = modiImage.Layout.Text.Replace(Environment.NewLine, "<br />").Trim(new char[] { '\\' });
-            string[] result1 = extractedText.Split('>');
+            var extractedText = modiImage.Layout.Text.Replace(Environment.NewLine, "<br />").Trim(new char[] { '\\' });
+            string[] resultSplitted = extractedText.Split('>');
 
-            if (extractedText.Contains("United Arab Emêrates") && extractedText.Contains("Idenmy Card") && extractedText.Contains("Date of Birth"))
-            //Front and back page of emirates id card
-            {
-                if (obj.IDNumber != null)
-                {
-                    obj.IDNumber = result1[3].Replace("<br /", "");
-                }
-                if (obj.VisitorName != null)
-                {
-                    obj.VisitorName = result1[5].Replace("<br /", "").Replace("Name:", "");
-                }
-                if (obj.Nationality != null)
-                {
-                    obj.Nationality = result1[7].Replace("<br /", "").Replace("NaonahIy:", "");
-                }
-                if (obj.TypeOfCard != null)
-                {
-                    obj.TypeOfCard = "Emirates Id";
-                }
-                if (obj.Gender != null)
-                {
-                    obj.Gender = result1[0].Split(':')[1]; ;
-                }
-                if (obj.DateOfBirth != null)
-                {
-                    obj.DateOfBirth = result1[0].Split(':')[2].Replace("<br /", " ").Replace("Date of Birth", " ").Replace("j1", "");
-                }
-            }
-            else if (extractedText.Contains("United Arab Emêrates") && extractedText.Contains("Idenmy Card"))
+            if (extractedText.Contains("United Arab Emêrates") || extractedText.Contains("United Arab Emirates") 
+                || extractedText.Contains("Idenmy Card"))
             //Front page of emirates id card
             {
-                if (obj.IDNumber != null)
+                obj.TypeOfCard = "Emirates Id";
+                if (resultSplitted.Length >= 4 && !string.IsNullOrEmpty(resultSplitted[3]))
                 {
-                    obj.IDNumber = result1[3].Replace("<br /", "");
+                    obj.IDNumber = resultSplitted[3].Replace("<br /", "").Replace(" ", "");
                 }
-                if (obj.VisitorName != null)
+                if (resultSplitted.Length >= 6 && !string.IsNullOrEmpty(resultSplitted[5]))
                 {
-                    obj.VisitorName = result1[5].Replace("<br /", "").Replace("Name:", "");
+                    obj.VisitorName = resultSplitted[5].Replace("<br /", "").Replace("Name:", "").Replace(" ", "");
                 }
-                if (obj.Nationality != null)
+                if (resultSplitted.Length >= 8 && !string.IsNullOrEmpty(resultSplitted[7]))
                 {
-                    obj.Nationality = result1[7].Replace("<br /", "").Replace("NaonahIy:", "");
-                }
-                if (obj.TypeOfCard != null)
-                {
-                    obj.TypeOfCard = "Emirates Id";
+                    obj.Nationality = resultSplitted[7].Replace("<br /", "").Replace("NaonahIy:", "").Replace("Nationality:", "").Replace(" ", "");
                 }
             }
             else if (extractedText.Contains("Date of Birth"))
             {
+                obj.TypeOfCard = "Emirates Id";
                 //Back page of emirates id card 
-                if (obj.Gender != null)
+                if (resultSplitted.Length >= 1 && !string.IsNullOrEmpty(resultSplitted[0]))
                 {
-                    obj.Gender = result1[0].Split(':')[1]; ;
-                }
-                if (obj.DateOfBirth != null)
-                {
-                    obj.DateOfBirth = result1[0].Split(':')[2].Replace("<br /", " ").Replace("Date of Birth", " ").Replace("j1", "");
-                }
-                if (obj.TypeOfCard != null)
-                {
-                    obj.TypeOfCard = "Emirates Id";
+                    obj.Gender = resultSplitted[0].Split(':')[1];
+                    obj.DateOfBirth = resultSplitted[0].Split(':')[2].Replace("<br /", " ").Replace("Date of Birth", " ").Replace("j1", "").Replace(" ", "");
                 }
             }
             else if (extractedText.Contains("License No"))
             //Driving licence
             {
-                if (obj.LienceNo != null)
+                obj.TypeOfCard = "License";
+                if (resultSplitted.Length >= 4 && !string.IsNullOrEmpty(resultSplitted[3]))
                 {
-                    obj.LienceNo = result1[16].Replace("License No.", "").Replace("<br /", "");
-                }
-                if (obj.TypeOfCard != null)
-                {
-                    obj.TypeOfCard = "License";
+                    obj.LienceNo = resultSplitted[16].Replace("License No.", "").Replace("<br /", "");
                 }
             }
             else //visiting card
             {
-                if (obj.EmailAddress != null)
+                obj.CompanyName = "";
+                //logic to retrieve email address
+                foreach (var curreIitem in extractedText.Split('<'))
                 {
-                    obj.EmailAddress = "";
+                    if (curreIitem.Contains("@") || curreIitem.ToLower().Contains("email"))
+                    {
+                        obj.EmailAddress = curreIitem
+                                            .Replace("br />", "")
+                                            .Replace(":", "")
+                                            .Replace("—", "")
+                                            .Replace("Email", "").Replace("email", "")
+                                            .Replace(" ", "");
+                        break;
+                    }
                 }
-                if (obj.ContactNumber != null)
+                //logic to retrieve contact number
+                foreach (var curreIitem in extractedText.Split('<'))
                 {
-                    obj.ContactNumber = "";
+                    if (curreIitem.Contains("+") || curreIitem.ToLower().Contains("tel")
+                        || curreIitem.ToLower().Contains("cell") || curreIitem.ToLower().Contains("mob"))
+                    {
+                        obj.ContactNumber = curreIitem.Replace("br />", "")
+                            .Replace(":", "")
+                            .Replace("Tel", "").Replace("tel", "")
+                            .Replace("Mob", "").Replace("mob", "")
+                            .Replace("Cell", "").Replace("cell", "")
+                            .Replace(" ", "");
+                        break;
+                    }
                 }
             }
             modiDocument.Close();
@@ -126,3 +110,9 @@ namespace Evis.VMS.UI.HelperClasses
         }
     }
 }
+//Review Comment
+//1) No Server.MapPath, it was hardcode Ashish path
+//2) Wrong logic,   if (obj.IDNumber != null). It will never go inside this condition
+//3) for type of card, no other if condition needed. if coming witin condition, it should show. 
+//4) No logics written, if user is scanning on driving licenece
+//5) No logic for visiting card

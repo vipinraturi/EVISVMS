@@ -249,6 +249,7 @@
     <Compile Include="ViewModel\MyOrganizationVM.cs" />
     <Compile Include="ViewModel\OrganisationVM.cs" />
     <Compile Include="ViewModel\ResetPasswordVM.cs" />
+    <Compile Include="ViewModel\SearchShiftReport.cs" />
     <Compile Include="ViewModel\UserSessionDataVM.cs" />
     <Compile Include="ViewModel\VisitorCheckInViewModel.cs" />
     <Compile Include="ViewModel\VisitorDetailsVM.cs" />
@@ -525,6 +526,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Reports\RDLC\ShiftDetailReport.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\VisitorsDetailsReport.rdlc" />
   </ItemGroup>
   <ItemGroup>

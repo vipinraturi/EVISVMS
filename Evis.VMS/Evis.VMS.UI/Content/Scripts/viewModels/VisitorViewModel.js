@@ -1,7 +1,5 @@
 ﻿function VisitorViewModel(visitorName, gender, nationalityVal, dateOfBirth, typeOfCard, idNumber, nationalityVal, companyName, emailAddress, contactNumber, identityImages) {
 
-
-
     nationality = (nationalityVal != "" ? nationalityVal : undefined);
     typeOfCard = (typeOfCard != "" ? typeOfCard : undefined);
     gender = (gender != "" ? gender : undefined);
@@ -37,10 +35,12 @@
 
     self.DataGrid = new RIT.eW.DataGridAjax('/Api/Visitor/GetVisitorData', 7);
     self.VisitorList = ko.observableArray([]);
+
     self.GetAllVisitor = function () {
         self.DataGrid.UpdateSearchParam('?globalSearch=' + self.GlobalSearch());
         self.DataGrid.GetData(true);
     }
+
     self.LoadMasterData = function () {
         var lookUpTypes = [];
         lookUpTypes.push("Gender");
@@ -81,12 +81,17 @@
             data.Nationality = self.Nationality()
             data.ContactNo = self.ContactNo();
 
-            if ($('.dz-image img').attr('alt') == undefined) {
+            if ($('.dz-image img').attr("img-name-unique") == undefined) {
                 data.ImagePath = "";
             }
             else {
-                data.ImagePath = $('.dz-image img').attr('alt');
+                data.ImagePath = $('.dz-image img').attr("img-name-unique");
             }
+
+            data.IdentityImage1_Path = $('.dz-image-preview img').eq(0).attr("img-name-unique");
+            data.IdentityImage2_Path = $('.dz-image-preview img').eq(1).attr("img-name-unique");
+            data.IdentityImage3_Path = $('.dz-image-preview img').eq(2).attr("img-name-unique");
+
             data.ContactAddress = self.ContactAddress()
             data.IsInsert = self.IsInsert();
             data.Id = self.Id();
@@ -131,7 +136,7 @@
         self.ContactNo('');
         self.ContactAddress('');
         dataToSend = '';
-        identityImages = [];
+        //identityImages = [];
         //self.LoadIdentityImage(identityImages);
         $('#viewVisitorImageUnique').hide();
         ApplyCustomBinding('managevisitor');
@@ -176,8 +181,10 @@
             self.Nationality(tableItem.Nationality);
             self.ContactNo(tableItem.ContactNo);
             self.ContactAddress(tableItem.ContactAddress);
+
             $('.dz-image-preview').empty();
 
+        
             if (tableItem.ImagePath != undefined && tableItem.ImagePath != "") {
                 var imagePath = '/images/VisitorImages/' + tableItem.ImagePath;
                 var mockFile = { name: tableItem.ImagePath, size: 1024 };
@@ -187,7 +194,42 @@
                 $('.dz-image').addClass('dz-message');
                 $('.dz-image img').addClass('dz-message');
                 $('#btnSave').html('Update <i class="fa fa-save"></i>');
-                identityImages = [];
+                self.LoadIdentityImage(identityImages);
+            }
+
+           if (tableItem.IdentityImage1_Path != null && tableItem.IdentityImage1_Path != undefined && tableItem.IdentityImage1_Path != "") {
+                var imagePath = '/images/VisitorIdentityImages/' + tableItem.IdentityImage1_Path;
+                var mockFile = { name: tableItem.IdentityImage1_Path, size: 1024 };
+                dropZoneMultipleFiels.emit("addedfile", mockFile);
+                dropZoneMultipleFiels.emit("thumbnail", mockFile, imagePath);
+                dropZoneMultipleFiels.createThumbnailFromUrl(mockFile, imagePath);
+                $('.dz-image').addClass('dz-message');
+                $('.dz-image img').addClass('dz-message');
+                $('#btnSave').html('Update <i class="fa fa-save"></i>');
+                self.LoadIdentityImage(identityImages);
+            }
+
+            if (tableItem.IdentityImage2_Path != null && tableItem.IdentityImage2_Path != undefined && tableItem.IdentityImage2_Path != "") {
+                var imagePath = '/images/VisitorIdentityImages/' + tableItem.IdentityImage2_Path;
+                var mockFile = { name: tableItem.IdentityImage2_Path, size: 1024 };
+                dropZoneMultipleFiels.emit("addedfile", mockFile);
+                dropZoneMultipleFiels.emit("thumbnail", mockFile, imagePath);
+                dropZoneMultipleFiels.createThumbnailFromUrl(mockFile, imagePath);
+                $('.dz-image').addClass('dz-message');
+                $('.dz-image img').addClass('dz-message');
+                $('#btnSave').html('Update <i class="fa fa-save"></i>');
+                self.LoadIdentityImage(identityImages);
+            }
+
+            if (tableItem.IdentityImage3_Path != null && tableItem.IdentityImage3_Path != undefined && tableItem.IdentityImage3_Path != "") {
+                var imagePath = '/images/VisitorIdentityImages/' + tableItem.IdentityImage3_Path;
+                var mockFile = { name: tableItem.IdentityImage3_Path, size: 1024 };
+                dropZoneMultipleFiels.emit("addedfile", mockFile);
+                dropZoneMultipleFiels.emit("thumbnail", mockFile, imagePath);
+                dropZoneMultipleFiels.createThumbnailFromUrl(mockFile, imagePath);
+                $('.dz-image').addClass('dz-message');
+                $('.dz-image img').addClass('dz-message');
+                $('#btnSave').html('Update <i class="fa fa-save"></i>');
                 self.LoadIdentityImage(identityImages);
             }
         }
@@ -195,6 +237,7 @@
 
 
     self.LoadIdentityImage = function (identityImages) {
+        
         $('#dropzoneForm .dz-image-preview').remove();
         var MultipleImagePath = [];
 
@@ -202,7 +245,7 @@
             if (identityImages.split(',').length > 0) {
                 var obj1 = new Object();
                 obj1.fileName = identityImages.split(',')[0];
-                obj1.ImgURL = '/images/VisitorImages/' + identityImages.split(',')[0];
+                obj1.ImgURL = '/images/VisitorIdentityImages/' + identityImages.split(',')[0];
                 obj1.size = 1024;
                 MultipleImagePath.push(obj1);
             }
@@ -210,7 +253,7 @@
             if (identityImages.split(',').length > 1) {
                 var obj2 = new Object();
                 obj2.fileName = identityImages.split(',')[1];
-                obj2.ImgURL = '/images/VisitorImages/' + identityImages.split(',')[1];
+                obj2.ImgURL = '/images/VisitorIdentityImages/' + identityImages.split(',')[1];
                 obj2.size = 1024;
                 MultipleImagePath.push(obj2);
             }
@@ -218,7 +261,7 @@
             if (identityImages.split(',').length > 2) {
                 var obj3 = new Object();
                 obj3.fileName = identityImages[2];
-                obj3.ImgURL = '/images/VisitorImages/' + identityImages.split(',')[2];
+                obj3.ImgURL = '/images/VisitorIdentityImages/' + identityImages.split(',')[2];
                 obj3.size = 1024;
                 MultipleImagePath.push(obj3);
             }
@@ -237,8 +280,8 @@
 
     self.ViewVisitorImage = function () {
         var srcURL = '';
-        if ($('.dz-image img').attr('alt') != undefined) {
-            srcURL = ($('.dz-image img').attr('alt'));
+        if ($('.dz-image img').attr("img-name-unique") != undefined) {
+            srcURL = ($('.dz-image img').attr("img-name-unique"));
         }
 
         if (srcURL.indexOf('/images/VisitorImages') == -1) {

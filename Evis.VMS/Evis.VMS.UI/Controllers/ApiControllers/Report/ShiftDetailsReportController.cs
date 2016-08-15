@@ -19,6 +19,9 @@ using System.Threading.Tasks;
 using Evis.VMS.Data.Model.Entities;
 using System.Web;
 using Microsoft.AspNet.Identity;
+using Evis.VMS.Utilities;
+using System.Globalization;
+using Newtonsoft.Json;
 
 namespace Evis.VMS.UI.Controllers.ApiControllers
 {
@@ -96,27 +99,26 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
         [Route("~/Api/Report/GetShiftDetailsGrid")]
         [HttpPost]
-         public async Task<IList<ShiftAssignmentVM>> GetShiftDetails()
+         public string GetShiftDataGrid(string search, int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC", string globalSearch = "")
         {
-            //string search, int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC", string globalSearch = ""
-            var userDetails = (await _userService.GetAllAsync());
-            var shiftDetails = (from SHFTASSIGN in _genericService.ShitfAssignment.GetAll()
-                               // join USRDET in userDetails on SHFTASSIGN.UserId equals USRDET.Id
-                                join BLDG in _genericService.BuildingMaster.GetAll() on SHFTASSIGN.BuildingId equals BLDG.Id
-                                join GATE in _genericService.GateMaster.GetAll() on SHFTASSIGN.GateId equals GATE.Id
-                                join SHIFT in _genericService.ShitfMaster.GetAll() on SHFTASSIGN.ShitfId equals SHIFT.Id
-                               
-                                select new ShiftAssignmentVM
-                                {
-                                   // UserName = USRDET.UserName,
-                                    BuildingName = BLDG.BuildingName,
-                                    GateName = GATE.GateNumber,
-                                    ShiftName = SHIFT.ShitfName,
-                                    FromDate = SHFTASSIGN.FromDate,
-                                    ToDate = SHFTASSIGN.ToDate
+            if (string.IsNullOrEmpty(sortField))
+            {
+                sortField = "";
+            }
 
-                                }).AsEnumerable();
+            int totalCount = 0;
+            pageIndex = (pageIndex - 1);
 
+            var result = _ShiftDetailsReportHelper.GetShiftData(search, pageIndex, pageSize, sortField, sortOrder, out totalCount);
+
+            var jsonData = JsonConvert.SerializeObject(result.OrderBy(x => x.UserName));
+            return JsonConvert.SerializeObject(new { totalRows = totalCount, result = jsonData });
+        }
+           
+
+
+        }
+         
         //    //Reports.DataSet.ShiftDetailReportDataset _shiftDetailReportDataset;
         //    //_shiftDetailReportDataset = new Reports.DataSet.ShiftDetailReportDataset();
 
@@ -134,8 +136,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
         //    //}
 
-            return shiftDetails.ToList();
-        }
+            //return shiftDetails.ToList();
+        //}
         
-    }
+    
 }

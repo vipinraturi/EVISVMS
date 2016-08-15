@@ -545,7 +545,8 @@ h1, .h1, h2, .h2, h3, .h3 {
 }
 
 a {
-    color: #5A738E;
+    /*color: #5A738E;*/
+     color: #5A738E;
     text-decoration: none;
 }
 
@@ -770,7 +771,7 @@ a {
 
     .top_search .input-group-btn button {
         border-radius: 0px 25px 25px 0px;
-        border: 1px solid rgba(221,226,232,0.49);
+        /*border: 1px solid rgba(221,226,232,0.49);*/
         border-left: 0;
         box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
         color: #93A2B2;
@@ -1311,8 +1312,9 @@ table.jambo_table {
 }
 
     table.jambo_table thead {
-        background: rgba(52,73,94,0.94);
-        color: #ECF0F1;
+        /*background: rgba(52,73,94,0.94);*/
+        background: #eee;
+        /*color: #ECF0F1;*/
     }
 
     table.jambo_table tbody tr:hover td {
@@ -2377,7 +2379,7 @@ span.section {
 .form-control {
     border-radius: 0;
     width: 100%;
-    border: 1px solid #ccc !important;
+    border: 1px solid #b1afaf !important;
 }
 
 .form-horizontal .control-label {
@@ -3694,7 +3696,7 @@ ul.project_files li {
 
 .avatar-view {
     display: block;
-    border: 3px solid #fff;
+    border: 3px solid #ccc;
     border-radius: 5px;
     box-shadow: 0 0 5px rgba(0,0,0,0.15);
     cursor: pointer;
@@ -5132,7 +5134,7 @@ ul.notifications {
 
 .dropzone {
     min-height: 300px;
-    border: 1px solid #e5e5e5;
+    border: 1px solid #ccc !important;
 }
 
 
@@ -5221,7 +5223,7 @@ select option {
 }
 
 .inputdisable {
-    background-color: #838080;
+    /*background-color: #838080;*/
 }
 
 

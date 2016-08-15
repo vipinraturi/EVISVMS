@@ -130,8 +130,10 @@
         });
 
         myDropzone.on("sending", function (file, xhr, formData) {
-            var name = new Date().getTime();
-            formData.append(name, file);
+            var timeStamp = new Date().getTime();
+            var $jQueryTest = $(file.previewElement.children[0].firstChild);
+            $jQueryTest.attr('img-name-unique', (timeStamp + "_"+ file.name));
+            formData.append(timeStamp, file);
         });
 
         myDropzone.on("addedfile", function (file) {

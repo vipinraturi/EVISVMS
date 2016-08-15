@@ -127,5 +127,8 @@ namespace Evis.VMS.UI.ViewModel
         public string IndentityNumber { get; set; }
         public string VisitorId { get; set; }
         public string LogoUrl { get; set; }
+        public string IdentityImage1_Path { get; set; }
+        public string IdentityImage2_Path { get; set; }
+        public string IdentityImage3_Path { get; set; }
     }
 }

@@ -1367,6 +1367,7 @@ button, input, select, textarea {
 
 a {
     color: #337ab7;
+    color: #1abb9c;
     text-decoration: none;
 }
 
@@ -2963,20 +2964,20 @@ output {
     .form-control::-moz-placeholder {
         /*Anith*/
          /*color: #999;*/
-          color:#ddd;
+          color:#d7d7d7;
         opacity: 10 !important;
     }
 
     .form-control:-ms-input-placeholder {
          /*Anith*/
         /*color: #999;*/
-        color:#ddd;
+        color:#d7d7d7;
     }
 
     .form-control::-webkit-input-placeholder {
           /*Anith*/
          /*color: #999;*/
-        color:#ddd;
+        color:#d7d7d7;
     }
 
     .form-control::-ms-expand {
@@ -3488,7 +3489,8 @@ a.btn.disabled, fieldset[disabled] a.btn {
 
 .btn-primary {
     color: #fff;
-    background-color: #337ab7;
+    /*background-color: #337ab7;*/
+   background-color: #5a738e;
     border-color: #2e6da4;
 }
 
@@ -5103,7 +5105,7 @@ select[multiple].input-group-sm > .form-control, select[multiple].input-group-sm
 
         .breadcrumb > li + li:before {
             padding: 0 5px;
-            color: #fff;
+            /*color: #fff;*/
             content: "/\00a0";
         }
 

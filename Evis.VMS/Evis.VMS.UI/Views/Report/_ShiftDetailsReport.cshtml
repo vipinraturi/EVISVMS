@@ -113,7 +113,8 @@
                 <h2>Searched Result</h2>
                 <div class="pull-right">
                     <button type="button" class="btn btn-success">Excel <i class="fa fa-file-excel-o"></i></button>
-                    <button type="button" class="btn btn-success">Pdf <i class="fa fa-file-pdf-o"></i></button>
+                    <button type="button" class="btn btn-success" data-bind="click:GenerateRDLCReportPDF.bind()">Pdf <i class="fa fa-file-pdf-o"></i></button>
+                    @*data-bind="click:GenerateRDLCReportPDF.bind()"GenerateRDLCReportPDF*@
                 </div>
                 <div class="clearfix"></div>
             </div>

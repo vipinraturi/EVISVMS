@@ -38,5 +38,9 @@ namespace Evis.VMS.UI.ViewModel
 
         public string ImagePath { get; set; }
 
+        public string IdentityImage1_Path { get; set; }
+        public string IdentityImage2_Path { get; set; }
+        public string IdentityImage3_Path { get; set; }
+
     }
 }

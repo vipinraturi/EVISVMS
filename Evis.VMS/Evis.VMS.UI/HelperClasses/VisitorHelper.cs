@@ -48,7 +48,10 @@ namespace Evis.VMS.UI.HelperClasses
                                                             IdNo = item.IdNo,
                                                             Nationality = item.Nationality ?? 0,
                                                             TypeOfCard = item.TypeOfCardId,
-                                                            ImagePath = item.ImagePath
+                                                            ImagePath = item.ProfilePicPath,
+                                                            IdentityImage1_Path = item.IdentityImage1_Path,
+                                                            IdentityImage2_Path = item.IdentityImage2_Path,
+                                                            IdentityImage3_Path = item.IdentityImage3_Path,
                                                         })
                                                         .AsQueryable();
 
@@ -90,7 +93,10 @@ namespace Evis.VMS.UI.HelperClasses
                         TypeOfCardId = visitorDetailsVM.TypeOfCard,
                         IdNo = visitorDetailsVM.IdNo,
                         Address = visitorDetailsVM.ContactAddress,
-                        ImagePath = visitorDetailsVM.ImagePath
+                        ProfilePicPath = visitorDetailsVM.ImagePath,
+                        IdentityImage1_Path = visitorDetailsVM.IdentityImage1_Path,
+                        IdentityImage2_Path = visitorDetailsVM.IdentityImage2_Path,
+                        IdentityImage3_Path = visitorDetailsVM.IdentityImage3_Path
                     });
                 _genericService.Commit();
             }
@@ -114,7 +120,10 @@ namespace Evis.VMS.UI.HelperClasses
                     visitor.Address = visitorDetailsVM.ContactAddress;
                     visitor.UpdatedBy = userId;
                     visitor.UpdatedDate = DateTime.Now;
-                    visitor.ImagePath = visitorDetailsVM.ImagePath;
+                    visitor.ProfilePicPath = visitorDetailsVM.ImagePath;
+                    visitor.IdentityImage1_Path = visitorDetailsVM.IdentityImage1_Path;
+                    visitor.IdentityImage2_Path = visitorDetailsVM.IdentityImage2_Path;
+                    visitor.IdentityImage3_Path = visitorDetailsVM.IdentityImage3_Path;
                     _genericService.VisitorMaster.Update(visitor);
                     _genericService.Commit();
                 }

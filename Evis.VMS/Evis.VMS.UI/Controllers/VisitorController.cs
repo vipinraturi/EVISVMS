@@ -67,26 +67,30 @@ namespace Evis.VMS.UI.Controllers
                 {
                     file = Request.Files[fileName];
                     fName = string.Format("{0}_{1}", fileName, file.FileName);
-                    if (file != null && file.ContentLength > 0)
+
+                    if (fileName != "file")//not needed files
                     {
-                        var directoryPath = string.Format("{0}images\\VisitorIdentityImages", Server.MapPath(@"\"));
-
-                        if (!Directory.Exists(directoryPath))
+                        if (file != null && file.ContentLength > 0)
                         {
-                            Directory.CreateDirectory(directoryPath);
-                        }
+                            var directoryPath = string.Format("{0}images\\VisitorIdentityImages", Server.MapPath(@"\"));
 
-                        var originalDirectory = new DirectoryInfo(directoryPath);
-                        fileWithPath = System.IO.Path.Combine(originalDirectory.ToString(), fName);
-                        var fileName1 = Path.GetFileName(fName);
-                        var isExists = System.IO.File.Exists(fileWithPath);
-                        
-                        if (isExists)
-                        { 
-                            System.IO.File.Delete(fileWithPath);
-                        }
+                            if (!Directory.Exists(directoryPath))
+                            {
+                                Directory.CreateDirectory(directoryPath);
+                            }
 
-                        file.SaveAs(fileWithPath);
+                            var originalDirectory = new DirectoryInfo(directoryPath);
+                            fileWithPath = System.IO.Path.Combine(originalDirectory.ToString(), fName);
+                            var fileName1 = Path.GetFileName(fName);
+                            var isExists = System.IO.File.Exists(fileWithPath);
+
+                            if (isExists)
+                            {
+                                System.IO.File.Delete(fileWithPath);
+                            }
+
+                            file.SaveAs(fileWithPath);
+                        }
                     }
                 }
             }
@@ -118,24 +122,27 @@ namespace Evis.VMS.UI.Controllers
                 {
                     file = Request.Files[fileName];
                     fName = string.Format("{0}_{1}", fileName, file.FileName);
-                    if (file != null && file.ContentLength > 0)
+                    if (fileName != "file")//not needed files
                     {
-                        var directoryPath = string.Format("{0}images\\VisitorImages", Server.MapPath(@"\"));
-                        if (!Directory.Exists(directoryPath))
+                        if (file != null && file.ContentLength > 0)
                         {
-                            Directory.CreateDirectory(directoryPath);
-                        }
-                        var originalDirectory = new DirectoryInfo(directoryPath);
-                        fileWithPath = System.IO.Path.Combine(originalDirectory.ToString(), fName);
-                        var fileName1 = Path.GetFileName(fName);
-                        var isExists = System.IO.File.Exists(fileWithPath);
+                            var directoryPath = string.Format("{0}images\\VisitorImages", Server.MapPath(@"\"));
+                            if (!Directory.Exists(directoryPath))
+                            {
+                                Directory.CreateDirectory(directoryPath);
+                            }
+                            var originalDirectory = new DirectoryInfo(directoryPath);
+                            fileWithPath = System.IO.Path.Combine(originalDirectory.ToString(), fName);
+                            var fileName1 = Path.GetFileName(fName);
+                            var isExists = System.IO.File.Exists(fileWithPath);
 
-                        if (isExists)
-                        {
-                            System.IO.File.Delete(fileWithPath);
-                        }
+                            if (isExists)
+                            {
+                                System.IO.File.Delete(fileWithPath);
+                            }
 
-                        file.SaveAs(fileWithPath);
+                            file.SaveAs(fileWithPath);
+                        }
                     }
                 }
             }
