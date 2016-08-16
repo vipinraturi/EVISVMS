@@ -23,7 +23,6 @@
     self.IsSecurityPerson = ko.observable(false);
     self.IsAnyGateExist = ko.observable(false);
     self.IsShiftAssignedToSecurity = ko.observable(false);
-    
 
     self.errors = ko.validation.group({
         ContactPerson: this.ContactPerson,
@@ -70,8 +69,13 @@
     }
 
     self.SaveVisitorCheckIn = function () {
+
         if (self.errors().length > 0) {
             self.errors.showAllMessages(true);
+
+            //debugger;
+            
+
             this.errors().forEach(function (data) {
             });
         }
@@ -146,7 +150,8 @@
         self.Floor('');
         $('.searchVisitor').val('');
         self.EnabledFields();
-        self.errors([]);
+        //self.errors([]);
+        self.errors.showAllMessages(false);
     }
 
     self.ResetCheckInData = function ()
@@ -169,7 +174,8 @@
         $('.searchVisitor').val('');
         $('.visitorImageUnique').attr('src', '');
         self.EnabledFields();
-
+        //self.errors([]);
+        self.errors.showAllMessages(false);
         ApplyCustomBinding('visitorcheckin');
     }
 }
