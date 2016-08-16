@@ -226,7 +226,8 @@
                 <div class="col-xs-12">
                     <h2>Visitor Details</h2>
                     <div class="pull-right">
-                        <button type="button" class="btn btn-success" >Excel <i class="fa fa-file-excel-o"></i></button>
+                        <button type="button" class="btn btn-success" data-bind="click:GenerateRDLCReportExcel.bind()">Excel <i class="fa fa-file-excel-o"></i></button>
+                        @*<button type="button" class="btn btn-success" >Excel <i class="fa fa-file-excel-o"></i></button>*@
                         <button type="button" class="btn btn-success" data-bind="click:GenerateRDLCReportPDF.bind()">Pdf <i class="fa fa-file-pdf-o"></i></button>
                     </div>
                 </div>

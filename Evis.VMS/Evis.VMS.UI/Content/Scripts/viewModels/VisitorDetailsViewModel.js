@@ -9,7 +9,7 @@
     self.CheckIn = ko.observable('');//.extend({ required: false });
     self.CheckOut = ko.observable('');//.extend({ required: false });
 
-    self.DataGrid = new RIT.eW.DataGridAjax('/Api/VisitorsDetails/GetVisitorsDetails', 7);
+    self.DataGrid = new RIT.eW.DataGridAjax('/Api/VisitorsDetails/GetVisitorsDetails', 1);
 
     self.SearchVisitorsDetails = function () {
         self.DataGrid.UpdateSearchParam('?search=' + JSON.stringify(new Object()));
@@ -53,7 +53,6 @@
     }
 
     self.VisitorsSearchDetails = function () {
-        debugger;
         var data = new Object();
         data.BuildingId = self.BuildingId();
         data.GateId = self.GateId();
@@ -90,11 +89,29 @@
         data.SecurityId = self.SecurityId();
         data.VisitorName = self.VisitorName();
         //data.CheckIn = self.CheckIn();
-        // data.CheckOut = self.CheckOut();
-        data.checkin = $("#datefromcheckin").val();
-        data.checkout =$("#datetocheckout").val();
-        window.open('../Report/GenerateRDLCReport?searchData=' + JSON.stringify(data), '_blankl');
-       // AjaxCall('/Api/VisitorsDetails/GenerateRDLCReport', "", 'POST', function() {
-       // });
+        //data.CheckOut = self.CheckOut();
+        data.checkin = $("#dateFromCheckIn").val();
+        data.checkout = $("#dateToCheckOut").val();
+        window.open('../Report/PrintVisitorsDetailsReport?searchData=' + JSON.stringify(data), '_blankl');
+
+        //window.open('../Report/PrintVisitorsDetailsReport?BuildingId=' + data.BuildingId + '&GateId=' + data.GateId + '&SecurityId=' + data.SecurityId + '&VisitorName=' + data.VisitorName
+        //    + '&CheckIn=' + data.checkin + '&CheckOut=' + data.checkout, '_blankl');
+
+    }
+
+    self.GenerateRDLCReportExcel = function () {
+        var data = new Object();
+        data.BuildingId = self.BuildingId();
+        data.GateId = self.GateId();
+        data.SecurityId = self.SecurityId();
+        data.VisitorName = self.VisitorName();
+        //data.CheckIn = self.CheckIn();
+        //data.CheckOut = self.CheckOut();
+        data.checkin = $("#dateFromCheckIn").val();
+        data.checkout = $("#dateToCheckOut").val();
+        window.open('../Report/PrintVisitorsDetailsReportExcel?searchData=' + JSON.stringify(data), '_blankl');
+
+    
+
     }
 }

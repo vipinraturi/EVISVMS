@@ -25,7 +25,7 @@ namespace Evis.VMS.UI.HelperClasses
             _genericService = new GenericService();
         }
 
-        public IList<VisitorsDetailsVM> GetVisitorData(string search, int pageIndex, int pageSize, string sortField, string sortOrder, out int totalCount)
+        public IList<VisitorsDetailsVM> VisitorData(string search, int pageIndex, int pageSize, string sortField, string sortOrder, out int totalCount)
         {
             var visitorsDetails = (from vm in _genericService.VisitorMaster.GetAll()
                                    join vd in _genericService.VisitDetails.GetAll()
@@ -81,7 +81,7 @@ namespace Evis.VMS.UI.HelperClasses
 
         }
 
-        public IList<VisitorsDetailsVM> PrintVisitorData(SearchVisitorVM searchDetails)
+        public IList<VisitorsDetailsVM> PrintVisitorData(string searchDetailss)
         {
             var visitorsDetails = (from vm in _genericService.VisitorMaster.GetAll()
                                    join vd in _genericService.VisitDetails.GetAll()
@@ -101,15 +101,20 @@ namespace Evis.VMS.UI.HelperClasses
                                        Gate = vd.GateMaster.GateNumber,
                                        Security = vd.CreatedUser.FullName
                                    }).ToList();
-
+            var searchDetails = JsonConvert.DeserializeObject<SearchVisitorVM>(searchDetailss);
             visitorsDetails = visitorsDetails.Where(
                x => (searchDetails == null ||
                     ((string.IsNullOrEmpty(searchDetails.SecurityId) || x.SecurityId == searchDetails.SecurityId) &&
                     (searchDetails.GateId == 0 || x.GateId == searchDetails.GateId) &&
                     (searchDetails.BuildingId == 0 || x.BuildingId == searchDetails.BuildingId) &&
                     (string.IsNullOrEmpty(searchDetails.VisitorName) || x.VisitorName.Contains(searchDetails.VisitorName)) &&
-                    (string.IsNullOrEmpty(searchDetails.CheckIn) || x.CheckIn.ToString().Contains(searchDetails.CheckIn.ToString())) &&
-                    (string.IsNullOrEmpty(searchDetails.CheckOut) || x.CheckOut.ToString().Contains(searchDetails.CheckOut.ToString())))
+                    ((string.IsNullOrEmpty(searchDetails.CheckIn) || (Convert.ToDateTime(x.CheckIn) >= Convert.ToDateTime(searchDetails.CheckIn)
+                   && Convert.ToDateTime(x.CheckIn) <= Convert.ToDateTime(searchDetails.CheckOut)))
+                    ) 
+                    //&&
+                   // (string.IsNullOrEmpty(searchDetails.CheckOut) || x.CheckOut.ToString().Contains(searchDetails.CheckOut.ToString()))
+                    
+                    )
                     )).ToList();
 
             return visitorsDetails;
