@@ -188,7 +188,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     _genericService.ShitfAssignment.Update(existingShift);
                 };
             }
-          //  _genericService.Commit();
+            _genericService.Commit();
             return new ReturnResult { Message = "Success", Success = true };
         }
         [Route("~/Api/ShiftAssignment/DeleteShift")]
