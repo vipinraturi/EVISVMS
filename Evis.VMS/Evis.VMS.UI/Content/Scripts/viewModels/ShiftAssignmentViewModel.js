@@ -87,16 +87,8 @@
 
     }
     self.DeleteShift = function (tableItem) {
-        //var message = confirm("Are you sure, you want to delete selected record!");
-        //if (message == true) {
-        //    AjaxCall('/Api/ShiftAssignment/DeleteShift', tableItem, 'POST', function () {
-        //        toastr.success('ShiftAssignment deleted successfully!!')
-        //        ApplyCustomBinding('shiftassignment');
-        //    });
-        //}
         recordToDelete = tableItem;
     }
-
     self.DeleteConfirmed = function () {
         $('#myModal').modal('hide');
         $('.modal-backdrop').modal('show');
@@ -104,19 +96,9 @@
         AjaxCall('/Api/ShiftAssignment/DeleteShift', recordToDelete, 'POST', function () {
             toastr.success('Shift deleted successfully!!')
             ApplyCustomBinding('shiftassignment');
-            });
-        //    if (data.Success == true) {
-        //        toastr.success(data.Message);
-        //        ApplyCustomBinding('shiftassignment');
-        //    }
-        //    else if (data.Success == false) {
-        //        toastr.warning(data.Message);
-        //    }
-        //});
+        });
     }
     self.EditShift = function (tableItem) {
-        debugger;
-
         var datetoFormat = new Date(tableItem.ToDate),
             month = '' + (datetoFormat.getMonth() + 1),
             day = '' + datetoFormat.getDate(),
@@ -132,10 +114,7 @@
         year = datefromDate.getFullYear();
         if (month.length < 2) month = '0' + month;
         if (day.length < 2) day = '0' + day;
-        var fromDate = [day, month, year].join('/')
-
-        // alert(tableItem.UserId);
-        ////debugger;
+        var fromDate = [day, month, year].join('/');
         if (tableItem != undefined) {
             self.Id(tableItem.Id);
             self.BuildingId(tableItem.BuildingId);
@@ -143,30 +122,16 @@
             self.ShitfId(tableItem.ShitfId);
             self.City(tableItem.City);
             userId = tableItem.UserId;
-            //self.FromDate(tableItem.FromDate);
-            //self.ToDate(tableItem.ToDate);
-            
             self.FromDate(fromDate);
             self.ToDate(toDate);
             $("#btnSaveshiftassignment").text("Update");
         }
     }
     SaveShiftAssignment = function () {
-        //debugger;
-        //if (self.FromDate() == "" && $('#dateFrom').val() != "") {
-        //    // self.FromDate($('#dateFrom').val());
-        //    self.FromDate($('#dateFrom').val().split('/')[1] + '/' + $('#dateFrom').val().split('/')[0] + '/' + $('#dateFrom').val().split('/')[2]);
-        //}
 
-        //if (self.ToDate() == "" && $('#dateTo').val() != "") {
-        //    //self.ToDate($('#dateTo').val());
-        //    self.ToDate($('#dateTo').val().split('/')[1] + '/' + $('#dateTo').val().split('/')[0] + '/' + $('#dateTo').val().split('/')[2]);
-        //}
-
- 
         var initial = $('#dateFrom').val().split(/\//);
         self.FromDate([initial[1], initial[0], initial[2]].join('/'));
- 
+
         var initial1 = $('#dateTo').val().split(/\//);
         self.ToDate([initial1[1], initial1[0], initial1[2]].join('/'));
 

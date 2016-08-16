@@ -73,32 +73,59 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
         [Route("~/Api/ShiftAssignment/GetAllShiftAssignment")]
         [HttpPost]
-        public string GetAllShiftAssignment(string globalSearch, int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC")
+        public async Task<string> GetAllShiftAssignment(string globalSearch, int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC")
         {
-            var Shift = _genericService.ShitfAssignment.GetAll().Where(x => x.IsActive == true)
-               .Select(x => new ShiftAssignmentVM
-               {
-                   BuildingId = x.BuildingId,
-                   BuildingName = x.Gates.BuildingMaster.BuildingName,
-                   GateId = x.GateId,
-                   GateName = x.Gates.GateNumber,
-                   ShitfId = x.ShitfId,
-                   ShiftName = x.Shitfs.ShitfName,
-                   UserId = x.UserId,
-                   UserName = x.ApplicationUser.FullName,
-                   FromDate = x.FromDate,
-                   ToDate = x.ToDate,
-                   strFromDate = x.ToDate.ToString(),
-                   strToDate = x.ToDate.ToString(),
-                   Id = x.Id,
-                   City = x.BuildingMaster.CityMaster.LookUpValue
-               }).AsQueryable();
-
-            if (Shift.Count() > 0)
+            var user = (await _userService.GetAllAsync()).Where(x => x.Id == HttpContext.Current.User.Identity.GetUserId() && x.IsActive == true).FirstOrDefault();
+            IQueryable<ShiftAssignmentVM> LSTShiftAssignmentVM;
+            if (user == null)
+            {
+                LSTShiftAssignmentVM = _genericService.ShitfAssignment.GetAll().Where(x => x.IsActive == true)
+                   .Select(x => new ShiftAssignmentVM
+                   {
+                       BuildingId = x.BuildingId,
+                       BuildingName = x.Gates.BuildingMaster.BuildingName,
+                       GateId = x.GateId,
+                       GateName = x.Gates.GateNumber,
+                       ShitfId = x.ShitfId,
+                       ShiftName = x.Shitfs.ShitfName,
+                       UserId = x.UserId,
+                       UserName = x.ApplicationUser.FullName,
+                       FromDate = x.FromDate,
+                       ToDate = x.ToDate,
+                       strFromDate = x.ToDate.ToString(),
+                       strToDate = x.ToDate.ToString(),
+                       Id = x.Id,
+                       City = x.BuildingMaster.CityMaster.LookUpValue
+                   }).AsQueryable();
+            }
+            else
+            {
+                int orgId = user.Organization.Id;
+                var data = _genericService.BuildingMaster.GetAll().Where(x => x.OrganizationId == orgId).FirstOrDefault();
+                LSTShiftAssignmentVM = _genericService.ShitfAssignment.GetAll().Where(x => x.IsActive == true && x.BuildingId == data.Id)
+                       .Select(x => new ShiftAssignmentVM
+                       {
+                           BuildingId = x.BuildingId,
+                           BuildingName = x.Gates.BuildingMaster.BuildingName,
+                           GateId = x.GateId,
+                           GateName = x.Gates.GateNumber,
+                           ShitfId = x.ShitfId,
+                           ShiftName = x.Shitfs.ShitfName,
+                           UserId = x.UserId,
+                           UserName = x.ApplicationUser.FullName,
+                           FromDate = x.FromDate,
+                           ToDate = x.ToDate,
+                           strFromDate = x.ToDate.ToString(),
+                           strToDate = x.ToDate.ToString(),
+                           Id = x.Id,
+                           City = x.BuildingMaster.CityMaster.LookUpValue
+                       }).AsQueryable();
+            }
+            if (LSTShiftAssignmentVM.Count() > 0)
             {
                 if (!string.IsNullOrEmpty(globalSearch))
                 {
-                    Shift = Shift.Where(item =>
+                    LSTShiftAssignmentVM = LSTShiftAssignmentVM.Where(item =>
                         item.UserName.ToLower().Contains(globalSearch.ToLower()) ||
                         item.BuildingName.ToLower().Contains(globalSearch.ToLower()) ||
                          item.GateName.ToLower().Contains(globalSearch.ToLower()) ||
@@ -115,7 +142,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
                 int totalCount = 0;
                 IList<ShiftAssignmentVM> result =
-                   GenericSorterPager.GetSortedPagedList<ShiftAssignmentVM>(Shift, paginationRequest, out totalCount);
+                   GenericSorterPager.GetSortedPagedList<ShiftAssignmentVM>(LSTShiftAssignmentVM, paginationRequest, out totalCount);
 
                 var jsonData = JsonConvert.SerializeObject(result.OrderByDescending(x => x.Id));
                 return JsonConvert.SerializeObject(new { totalRows = totalCount, result = jsonData });
@@ -130,7 +157,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
             if (ShitfAssignment.Id == 0)
             {
-                var data = _genericService.ShitfAssignment.GetAll().Where(x => x.UserId== ShitfAssignment.UserId && x.ShitfId == ShitfAssignment.ShitfId && x.IsActive == true).ToList();//&& x.ToDate<=ShitfAssignment.FromDate   
+                var data = _genericService.ShitfAssignment.GetAll().Where(x => x.UserId == ShitfAssignment.UserId && x.ShitfId == ShitfAssignment.ShitfId && x.IsActive == true && x.BuildingId == ShitfAssignment.BuildingId && x.GateId == ShitfAssignment.GateId && x.ToDate <= ShitfAssignment.ToDate).ToList();//&&   
                 if (data.Count() == 0)
                 {
                     ShitfAssignment.IsActive = true;
@@ -160,7 +187,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     _genericService.ShitfAssignment.Update(existingShift);
                 };
             }
-            // _genericService.Commit();
+            _genericService.Commit();
             return new ReturnResult { Message = "Success", Success = true };
         }
         [Route("~/Api/ShiftAssignment/DeleteShift")]

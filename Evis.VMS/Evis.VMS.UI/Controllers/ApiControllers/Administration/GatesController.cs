@@ -19,6 +19,7 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
+using System.Threading.Tasks;
 
 namespace Evis.VMS.UI.Controllers.ApiControllers
 {
@@ -64,20 +65,40 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         }
         [Route("~/Api/Gates/GetAllGate")]
         [HttpPost]
-        public string GetAllGate(string globalSearch, int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC")
+        public async Task<string> GetAllGate(string globalSearch, int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC")
         {
-            var lstgateVM = _genericService.GateMaster.GetAll().Where(x => x.IsActive == true)
-                .Select(x => new GatesVM
-                {
-                    Id = x.Id,
-                    BuildingId = x.BuildingId,
-                    GateNumber = x.GateNumber,
-                    BuildingName = x.BuildingMaster.BuildingName,
-                    Country = x.BuildingMaster.CityMaster.ParentValues.LookUpValue,
-                    State = x.BuildingMaster.CityMaster.ParentValues.ParentValues.LookUpValue,
-                    City = x.BuildingMaster.CityMaster.LookUpValue
-                });
-
+            var user = (await _userService.GetAllAsync()).Where(x => x.Id == HttpContext.Current.User.Identity.GetUserId() && x.IsActive == true).FirstOrDefault();
+            IQueryable<GatesVM> lstgateVM;
+            if (user == null)
+            {
+                lstgateVM = _genericService.GateMaster.GetAll().Where(x => x.IsActive == true)
+                   .Select(x => new GatesVM
+                   {
+                       Id = x.Id,
+                       BuildingId = x.BuildingId,
+                       GateNumber = x.GateNumber,
+                       BuildingName = x.BuildingMaster.BuildingName,
+                       Country = x.BuildingMaster.CityMaster.ParentValues.LookUpValue,
+                       State = x.BuildingMaster.CityMaster.ParentValues.ParentValues.LookUpValue,
+                       City = x.BuildingMaster.CityMaster.LookUpValue
+                   });
+            }
+            else
+            {
+                int orgId = user.Organization.Id;
+                var data = _genericService.BuildingMaster.GetAll().Where(x => x.OrganizationId == orgId).FirstOrDefault();
+                lstgateVM = _genericService.GateMaster.GetAll().Where(x => x.IsActive == true && x.BuildingId == data.Id)
+                        .Select(x => new GatesVM
+                        {
+                            Id = x.Id,
+                            BuildingId = x.BuildingId,
+                            GateNumber = x.GateNumber,
+                            BuildingName = x.BuildingMaster.BuildingName,
+                            Country = x.BuildingMaster.CityMaster.ParentValues.LookUpValue,
+                            State = x.BuildingMaster.CityMaster.ParentValues.ParentValues.LookUpValue,
+                            City = x.BuildingMaster.CityMaster.LookUpValue
+                        });
+            }
             if (lstgateVM.Count() > 0)
             {
                 if (!string.IsNullOrEmpty(globalSearch))
@@ -141,10 +162,21 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         }
         [Route("~/Api/Gates/GetAllBuilding")]
         [HttpGet]
-        public IEnumerable<GeneralDropDownVM> GetAllBuilding()
+        public async Task<IEnumerable<GeneralDropDownVM>> GetAllBuilding()
         {
-            var result = _genericService.BuildingMaster.GetAll().Where(x => x.IsActive == true)
-                .Select(y => new GeneralDropDownVM { Id = y.Id, Name = y.BuildingName });
+            IQueryable<GeneralDropDownVM> result;
+            var user = (await _userService.GetAllAsync()).Where(x => x.Id == HttpContext.Current.User.Identity.GetUserId() && x.IsActive == true).FirstOrDefault();
+            if (user == null)
+            {
+                result = _genericService.BuildingMaster.GetAll().Where(x => x.IsActive == true)
+                   .Select(y => new GeneralDropDownVM { Id = y.Id, Name = y.BuildingName });
+            }
+            else
+            {
+                int orgId = user.Organization.Id;
+                result = _genericService.BuildingMaster.GetAll().Where(x => x.IsActive == true && x.Id == orgId)
+                      .Select(y => new GeneralDropDownVM { Id = y.Id, Name = y.BuildingName });
+            }
             return result;
         }
 
