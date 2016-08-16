@@ -21,6 +21,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Globalization;
+using System.Data.Entity.SqlServer;
 
 
 namespace Evis.VMS.UI.Controllers.ApiControllers
@@ -79,7 +80,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             IQueryable<ShiftAssignmentVM> LSTShiftAssignmentVM;
             if (user == null)
             {
-                LSTShiftAssignmentVM = _genericService.ShitfAssignment.GetAll().Where(x => x.IsActive == true)
+                LSTShiftAssignmentVM = _genericService.ShitfAssignment.GetAll().Where(x => x.IsActive == true).ToList()
                    .Select(x => new ShiftAssignmentVM
                    {
                        BuildingId = x.BuildingId,
@@ -92,8 +93,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                        UserName = x.ApplicationUser.FullName,
                        FromDate = x.FromDate,
                        ToDate = x.ToDate,
-                       strFromDate = x.ToDate.ToString(),
-                       strToDate = x.ToDate.ToString(),
+                       strFromDate = x.FromDate.ToString("dd/MM/yyyy"),
+                       strToDate = x.ToDate.ToString("dd/MM/yyyy"),
                        Id = x.Id,
                        City = x.BuildingMaster.CityMaster.LookUpValue
                    }).AsQueryable();
@@ -157,7 +158,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
             if (ShitfAssignment.Id == 0)
             {
-                var data = _genericService.ShitfAssignment.GetAll().Where(x => x.UserId == ShitfAssignment.UserId && x.ShitfId == ShitfAssignment.ShitfId && x.IsActive == true && x.BuildingId == ShitfAssignment.BuildingId && x.GateId == ShitfAssignment.GateId && x.ToDate <= ShitfAssignment.ToDate).ToList();//&&   
+                var data = _genericService.ShitfAssignment.GetAll().Where(x => x.UserId == ShitfAssignment.UserId && x.ShitfId == ShitfAssignment.ShitfId && x.IsActive == true && x.BuildingId == ShitfAssignment.BuildingId && x.GateId == ShitfAssignment.GateId && x.ToDate >= ShitfAssignment.FromDate && x.ToDate <= ShitfAssignment.ToDate).ToList();//&&   
                 if (data.Count() == 0)
                 {
                     ShitfAssignment.IsActive = true;
@@ -187,7 +188,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     _genericService.ShitfAssignment.Update(existingShift);
                 };
             }
-            _genericService.Commit();
+          //  _genericService.Commit();
             return new ReturnResult { Message = "Success", Success = true };
         }
         [Route("~/Api/ShiftAssignment/DeleteShift")]
