@@ -131,11 +131,11 @@ BindingViewModel = function (controllerUrl, viewModel) {
             $("#dateFromCheckIn").keypress(function (event) { event.preventDefault(); })
             $("#dateFromCheckIn").datepicker({
                 dateFormat: 'dd/mm/yy',
-              //  minDate: 'now',
+                maxDate: 'now',
                 changeMonth: true,
                 changeYear: true,
                 onSelect: function (date) {
-                  //  $("#dateToCheckOut").datepicker('option', 'minDate', date)
+                    $("#dateToCheckOut").datepicker('option', 'minDate', date)
                 }
 
                 });
@@ -144,11 +144,11 @@ BindingViewModel = function (controllerUrl, viewModel) {
             $("#dateToCheckOut").keypress(function (event) { event.preventDefault(); })
             $("#dateToCheckOut").datepicker({
                 dateFormat: 'dd/mm/yy',
-             //   minDate: 'now',
+                maxDate: 'now',
                 changeMonth: true,
                 changeYear: true,
                 onSelect: function (date) {
-                   // $("#dateFromCheckIn").datepicker('option', 'maxDate', date)
+                    $("#dateFromCheckIn").datepicker('option', 'maxDate', date)
                 }
 
             });
