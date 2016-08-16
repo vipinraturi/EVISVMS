@@ -20,8 +20,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>0.2175in</Top>
-        <Left>0.91542in</Left>
+        <Top>0.66542in</Top>
+        <Left>0.04637in</Left>
         <Height>0.25in</Height>
         <Width>1.91667in</Width>
         <Style>
@@ -44,19 +44,19 @@
               <Width>0.91964in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.65923in</Width>
+              <Width>0.88076in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.65923in</Width>
+              <Width>1.12798in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.80506in</Width>
+              <Width>0.97173in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.94048in</Width>
+              <Width>1.0759in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.84673in</Width>
+              <Width>1.29465in</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -544,10 +544,9 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>VisitorsDetailsDataSet</DataSetName>
-        <Top>0.66542in</Top>
-        <Left>0.10119in</Left>
+        <Top>1.29042in</Top>
         <Height>0.58334in</Height>
-        <Width>6.87377in</Width>
+        <Width>7.31405in</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
@@ -555,11 +554,24 @@
           </Border>
         </Style>
       </Tablix>
+      <Subreport Name="Subreport1">
+        <ReportName>GlobalHeader</ReportName>
+        <Top>0.57891cm</Top>
+        <Left>0.11778cm</Left>
+        <Height>0.80021cm</Height>
+        <Width>20.4827cm</Width>
+        <ZIndex>2</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Subreport>
     </ReportItems>
-    <Height>5.08cm</Height>
+    <Height>8.49641cm</Height>
     <Style />
   </Body>
-  <Width>18cm</Width>
+  <Width>24.25611cm</Width>
   <Page>
     <PageHeight>29.7cm</PageHeight>
     <PageWidth>21cm</PageWidth>

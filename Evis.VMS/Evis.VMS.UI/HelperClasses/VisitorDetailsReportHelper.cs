@@ -59,7 +59,7 @@ namespace Evis.VMS.UI.HelperClasses
                     ((string.IsNullOrEmpty(searchDetails.SecurityId) || x.SecurityId == searchDetails.SecurityId) &&
                     (searchDetails.GateId == 0 || x.GateId == searchDetails.GateId) &&
                     (searchDetails.BuildingId == 0 || x.BuildingId == searchDetails.BuildingId) &&
-                    (string.IsNullOrEmpty(searchDetails.VisitorName) || x.VisitorName.Contains(searchDetails.VisitorName)) &&
+                    (string.IsNullOrEmpty(searchDetails.VisitorName) || x.VisitorName.ToLower().Contains(searchDetails.VisitorName.ToLower())) &&
                     (string.IsNullOrEmpty(searchDetails.CheckIn) || x.CheckIn.ToString().Contains(searchDetails.CheckIn.ToString())) &&
                     (string.IsNullOrEmpty(searchDetails.CheckOut) || x.CheckOut.ToString().Contains(searchDetails.CheckOut.ToString())))
                     )).ToList();

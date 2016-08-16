@@ -526,6 +526,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Reports\RDLC\GlobalHeader.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\ShiftDetailReport.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\VisitorsDetailsReport.rdlc" />
   </ItemGroup>

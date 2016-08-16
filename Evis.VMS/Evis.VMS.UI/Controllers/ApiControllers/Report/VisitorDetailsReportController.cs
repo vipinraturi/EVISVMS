@@ -39,10 +39,10 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         [HttpPost]
         public string GetVisitorData(string search, int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC", string globalSearch = "")
         {
-            if (string.IsNullOrEmpty(sortField))
-            {
-                sortField = "VisitorName";
-            }
+            //if (string.IsNullOrEmpty(sortField))
+            //{
+            //    sortField = "VisitorName";
+            //}
 
             int totalCount = 0;
             //pageIndex = (pageIndex - 1);
