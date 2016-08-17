@@ -526,6 +526,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Reports\RDLC\GlobalHeader.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\ShiftDetailReport.rdlc" />
     <EmbeddedResource Include="Reports\RDLC\VisitorsDetailsReport.rdlc" />
   </ItemGroup>
@@ -558,7 +559,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>63864</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:22777/</IISUrl>
+          <IISUrl>http://localhost:22754/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
