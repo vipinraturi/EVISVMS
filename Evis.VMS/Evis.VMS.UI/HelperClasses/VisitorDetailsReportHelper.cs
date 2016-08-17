@@ -52,7 +52,6 @@ namespace Evis.VMS.UI.HelperClasses
                 sortField = "VisitorName";
             }
 
-
             var searchDetails = JsonConvert.DeserializeObject<SearchVisitorVM>(search);
             visitorsDetails = visitorsDetails.Where(
                x => (searchDetails == null ||
@@ -60,8 +59,12 @@ namespace Evis.VMS.UI.HelperClasses
                     (searchDetails.GateId == 0 || x.GateId == searchDetails.GateId) &&
                     (searchDetails.BuildingId == 0 || x.BuildingId == searchDetails.BuildingId) &&
                     (string.IsNullOrEmpty(searchDetails.VisitorName) || x.VisitorName.ToLower().Contains(searchDetails.VisitorName.ToLower())) &&
-                    (string.IsNullOrEmpty(searchDetails.CheckIn) || x.CheckIn.ToString().Contains(searchDetails.CheckIn.ToString())) &&
-                    (string.IsNullOrEmpty(searchDetails.CheckOut) || x.CheckOut.ToString().Contains(searchDetails.CheckOut.ToString())))
+                     ((string.IsNullOrEmpty(searchDetails.CheckIn) || (Convert.ToDateTime(x.CheckIn) >= Convert.ToDateTime(searchDetails.CheckIn)
+                   && Convert.ToDateTime(x.CheckIn) <= Convert.ToDateTime(searchDetails.CheckOut)))
+                    ) 
+                    //&&
+                    //(string.IsNullOrEmpty(searchDetails.CheckOut) || x.CheckOut.ToString().Contains(searchDetails.CheckOut.ToString()))
+                    )
                     )).ToList();
             //}
 
@@ -99,7 +102,8 @@ namespace Evis.VMS.UI.HelperClasses
                                        SecurityId = vd.CreatedBy,
                                        Building = vd.GateMaster.BuildingMaster.BuildingName,
                                        Gate = vd.GateMaster.GateNumber,
-                                       Security = vd.CreatedUser.FullName
+                                       Security = vd.CreatedUser.FullName,
+                                       CompanyName=vd.GateMaster.BuildingMaster.Organization.CompanyName
                                    }).ToList();
             var searchDetails = JsonConvert.DeserializeObject<SearchVisitorVM>(searchDetailss);
             visitorsDetails = visitorsDetails.Where(

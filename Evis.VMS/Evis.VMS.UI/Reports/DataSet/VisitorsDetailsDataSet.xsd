@@ -27,6 +27,7 @@
               <xs:element name="BuildingName" msprop:Generator_ColumnVarNameInTable="columnBuildingName" msprop:Generator_ColumnPropNameInRow="BuildingName" msprop:Generator_ColumnPropNameInTable="BuildingNameColumn" msprop:Generator_UserColumnName="BuildingName" type="xs:string" minOccurs="0" />
               <xs:element name="GateName" msprop:Generator_ColumnVarNameInTable="columnGateName" msprop:Generator_ColumnPropNameInRow="GateName" msprop:Generator_ColumnPropNameInTable="GateNameColumn" msprop:Generator_UserColumnName="GateName" type="xs:string" minOccurs="0" />
               <xs:element name="SecurityPerson" msprop:Generator_ColumnVarNameInTable="columnSecurityPerson" msprop:Generator_ColumnPropNameInRow="SecurityPerson" msprop:Generator_ColumnPropNameInTable="SecurityPersonColumn" msprop:Generator_UserColumnName="SecurityPerson" type="xs:string" minOccurs="0" />
+              <xs:element name="CompanyName" msprop:Generator_ColumnVarNameInTable="columnCompanyName" msprop:Generator_ColumnPropNameInRow="CompanyName" msprop:Generator_ColumnPropNameInTable="CompanyNameColumn" msprop:Generator_UserColumnName="CompanyName" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

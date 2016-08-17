@@ -97,6 +97,7 @@ namespace Evis.VMS.UI.Controllers
                 //InvoiceRow.CheckOut = string.IsNullOrEmpty(item.CheckOut) ? null : Convert.ToDateTime(item.CheckOut);
                 InvoiceRow.CheckOut = item.CheckOut;
                 InvoiceRow.ContactNumber = item.ContactNumber;
+                InvoiceRow.CompanyName = item.CompanyName;
                 visitorsDetailsDataSet.DTVisitorsDetails.AddDTVisitorsDetailsRow(InvoiceRow);
             }
 

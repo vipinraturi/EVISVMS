@@ -23,10 +23,11 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>CEENEX</Value>
+                <Label>Company Name</Label>
+                <Value>=Parameters!CompanyName.Value</Value>
                 <Style>
-                  <FontSize>24pt</FontSize>
-                  <FontWeight>Normal</FontWeight>
+                  <FontSize>12pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -36,10 +37,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>0.32167in</Top>
-        <Left>1.5925in</Left>
-        <Height>0.51042in</Height>
-        <Width>3.40625in</Width>
+        <Top>0.10417in</Top>
+        <Left>1.60292in</Left>
+        <Height>0.29167in</Height>
+        <Width>4.61458in</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
@@ -52,18 +53,27 @@
         </Style>
       </Textbox>
     </ReportItems>
-    <Height>1.32292in</Height>
+    <Height>3.36022cm</Height>
     <Style />
   </Body>
-  <Width>6.5in</Width>
+  <Width>16.51cm</Width>
   <Page>
-    <LeftMargin>1in</LeftMargin>
-    <RightMargin>1in</RightMargin>
-    <TopMargin>1in</TopMargin>
-    <BottomMargin>1in</BottomMargin>
+    <PageHeight>29.7cm</PageHeight>
+    <PageWidth>21cm</PageWidth>
+    <LeftMargin>1cm</LeftMargin>
+    <RightMargin>1cm</RightMargin>
+    <TopMargin>1cm</TopMargin>
+    <BottomMargin>1cm</BottomMargin>
+    <ColumnSpacing>1.27cm</ColumnSpacing>
     <Style />
   </Page>
   <AutoRefresh>0</AutoRefresh>
+  <ReportParameters>
+    <ReportParameter Name="CompanyName">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+  </ReportParameters>
   <EmbeddedImages>
     <EmbeddedImage Name="main_logo">
       <MIMEType>image/png</MIMEType>
@@ -85,6 +95,6 @@ u3Xr9j/Wdf1vNU1rxAQ/JnRjKdu2oWma8/WvP3Y3Y+z/vf/+pru6u7v/o6Wl9VuNjU0vud3uX2ka38EY
 0ofjOOCcO4888tAfKSVZbytiLKGajJbClI1YveHSNM169NFH7r3mmmXPjFXkmqpQTRmwelsRjz76yL0rVix/OhqNjjpUXq/3zakI1ZQCq5fmsr/+9XVfvO66a38+WpGrl6a6YypCNeXASqdFgMgHHrj/geXLr/n1SMPVx1IITkWopiRYvTSX/eijj9w7knBNJZ8qC9bAmssZKbhSUL2RhWqKg9VLcznr1j167w03XP+fw4WrV6S6KwtVFqyetMgYcx544P6vLl9+zTNDHS32sRQCWaiyYP0BXEP1uaayT5UFaxiCfjA+Vwqq17JQZcEarOayH3ts3Rc/8Ykbf3ouuHpB9dksVFmwBh25CCHy/vv/9GvLl1/zdN+02Cf9xbJQZcEaKlx45JGHv7R8+TW/TkeurE81+INnL8GAmst59NFH7iWE2lu3bl2bn5//fllZ2RezUGU+/v8A1oz7IyMzuGwAAAAASUVORK5CYII=</ImageData>
     </EmbeddedImage>
   </EmbeddedImages>
-  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>76c57c2b-9e27-4e6c-bd52-7314435b544d</rd:ReportID>
 </Report>

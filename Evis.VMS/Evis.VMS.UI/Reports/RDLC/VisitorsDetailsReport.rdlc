@@ -20,8 +20,8 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>0.2175in</Top>
-        <Left>0.91542in</Left>
+        <Top>0.66889in</Top>
+        <Left>0.10119in</Left>
         <Height>0.25in</Height>
         <Width>1.91667in</Width>
         <Style>
@@ -544,7 +544,7 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>VisitorsDetailsDataSet</DataSetName>
-        <Top>0.66542in</Top>
+        <Top>0.98834in</Top>
         <Left>0.10119in</Left>
         <Height>0.58334in</Height>
         <Width>6.87377in</Width>
@@ -555,8 +555,26 @@
           </Border>
         </Style>
       </Tablix>
+      <Subreport Name="Header_Report">
+        <ReportName>GlobalHeader</ReportName>
+        <Parameters>
+          <Parameter Name="CompanyName">
+            <Value>=First(Fields!CompanyName.Value, "VisitorsDetailsDataSet")</Value>
+          </Parameter>
+        </Parameters>
+        <Top>0.3937cm</Top>
+        <Left>0.25702cm</Left>
+        <Height>0.9325cm</Height>
+        <Width>17.45938cm</Width>
+        <ZIndex>2</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Subreport>
     </ReportItems>
-    <Height>5.08cm</Height>
+    <Height>8.41703cm</Height>
     <Style />
   </Body>
   <Width>18cm</Width>
@@ -617,7 +635,7 @@
         </Field>
         <Field Name="CheckIn">
           <DataField>CheckIn</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="CheckOut">
           <DataField>CheckOut</DataField>
@@ -635,10 +653,14 @@
           <DataField>SecurityPerson</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="CompanyName">
+          <DataField>CompanyName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>VisitorsDetailsDataSet</rd:DataSetName>
-        <rd:SchemaPath>C:\Users\shj2\Source\Repos\EVISVMS\Evis.VMS\Evis.VMS.UI\Reports\DataSet\VisitorsDetailsDataSett.xsd</rd:SchemaPath>
+        <rd:SchemaPath>C:\Users\shj2\Source\Repos_1\EVISVMS\Evis.VMS\Evis.VMS.UI\Reports\DataSet\VisitorsDetailsDataSet.xsd</rd:SchemaPath>
         <rd:TableName>DTVisitorsDetails</rd:TableName>
         <rd:TableAdapterFillMethod />
         <rd:TableAdapterGetDataMethod />

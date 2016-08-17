@@ -97,6 +97,7 @@
        // AjaxCall('/Api/VisitorsDetails/GenerateRDLCReport', "", 'POST', function() {
        // });
     }
+
     self.GenerateRDLCReportExcel = function () {
         var data = new Object();
         data.BuildingId = self.BuildingId();
