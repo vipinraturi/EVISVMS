@@ -209,7 +209,9 @@
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="Controllers\Reports\ShiftReportController.cs" />
+    <Compile Include="Controllers\Reports\VisitorReportController.cs" />
+    <Compile Include="Controllers\Reports\ReportController.cs" />
     <Compile Include="Controllers\VisitorController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -232,10 +234,10 @@
     <Compile Include="ModelsOld\IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\TokenInspector.cs" />
-    <Compile Include="Reports\DataSet\ShiftDetailReportDataset1.Designer.cs">
+    <Compile Include="Reports\DataSet\ShiftDetailReportDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ShiftDetailReportDataset.xsd</DependentUpon>
+      <DependentUpon>ShiftDetailReportDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="Reports\DataSet\VisitorsDetailsDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -462,16 +464,16 @@
     <Content Include="Reports\DataSet\VisitorsDetailsDataSet.xsc">
       <DependentUpon>VisitorsDetailsDataSet.xsd</DependentUpon>
     </Content>
-    <Content Include="Reports\DataSet\ShiftDetailReportDataset.xsc">
-      <DependentUpon>ShiftDetailReportDataset.xsd</DependentUpon>
+    <Content Include="Reports\DataSet\ShiftDetailReportDataSet.xsc">
+      <DependentUpon>ShiftDetailReportDataSet.xsd</DependentUpon>
     </Content>
-    <None Include="Reports\DataSet\ShiftDetailReportDataset.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>ShiftDetailReportDataset1.Designer.cs</LastGenOutput>
+    <None Include="Reports\DataSet\ShiftDetailReportDataSet.xsd">
       <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ShiftDetailReportDataSet.Designer.cs</LastGenOutput>
     </None>
-    <Content Include="Reports\DataSet\ShiftDetailReportDataset.xss">
-      <DependentUpon>ShiftDetailReportDataset.xsd</DependentUpon>
+    <Content Include="Reports\DataSet\ShiftDetailReportDataSet.xss">
+      <DependentUpon>ShiftDetailReportDataSet.xsd</DependentUpon>
     </Content>
     <None Include="Reports\DataSet\VisitorsDetailsDataSet.xsd">
       <SubType>Designer</SubType>

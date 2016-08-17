@@ -28,15 +28,12 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
     public partial class ReportController 
     {
 
-      
          [Route("~/Api/Report/Getorganisation")]
          [HttpGet]
          public async Task<ApplicationUser> GetOrganisation()
          {
              string userId = HttpContext.Current.User.Identity.GetUserId();
              var organisation = await _userService.GetAsync(x => x.Id == userId);
-
-
              return organisation;
 
 

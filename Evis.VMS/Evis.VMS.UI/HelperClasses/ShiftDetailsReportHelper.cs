@@ -90,7 +90,7 @@ namespace Evis.VMS.UI.HelperClasses
                  ToDate = x.ToDate,
                  strFromDate = x.ToDate.ToString(),
                  strToDate = x.ToDate.ToString(),
-
+                 CompanyName = x.BuildingMaster.Organization.CompanyName
              }).ToList();
           
 
