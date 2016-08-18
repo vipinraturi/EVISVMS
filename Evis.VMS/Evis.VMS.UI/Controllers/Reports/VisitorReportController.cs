@@ -44,6 +44,7 @@ namespace Evis.VMS.UI.Controllers
                 InvoiceRow.CompanyName = item.CompanyName;
                 visitorsDetailsDataSet.DTVisitorsDetails.AddDTVisitorsDetailsRow(InvoiceRow);
             }
+            
 
             var reportData = new ReportDataSource("VisitorsDetailsDataSet", visitorsDetailsDataSet.Tables[0]);
             var viewer = new ReportViewer { ProcessingMode = ProcessingMode.Local };
@@ -59,11 +60,6 @@ namespace Evis.VMS.UI.Controllers
 
             byte[] bytes = viewer.LocalReport.Render("PDF", null, out mimeType, out encoding, out extension, out streamIds, out warnings);
 
-            #region "Save report in PDF format"
-
-            //SaveReportInPDFFormat(bytes, "E:/Shambhoo/PatientSummaryReport.pdf");
-
-            #endregion
 
             #region "Show RDLC Report in PDF Format"
 
