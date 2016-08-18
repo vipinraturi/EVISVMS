@@ -154,6 +154,35 @@ BindingViewModel = function (controllerUrl, viewModel) {
             });
 
         }
+        if (controllerUrl == "/Report/_ShiftDetailsReport") {
+            $("#txtToDate").keypress(function (event) { event.preventDefault(); })
+            $("#txtToDate").datepicker({
+                dateFormat: 'dd/mm/yy',
+                maxDate: 'now',
+                changeMonth: true,
+                changeYear: true,
+                onSelect: function (date) {
+                    $("#txtFromDate").datepicker('option', 'maxDate', date)
+                }
+
+            });
+
+        }
+
+        if (controllerUrl == "/Report/_ShiftDetailsReport") {
+            $("#txtFromDate").keypress(function (event) { event.preventDefault(); })
+            $("#txtFromDate").datepicker({
+                dateFormat: 'dd/mm/yy',
+                //minDate: 'now',
+                changeMonth: true,
+                changeYear: true,
+                onSelect: function (date) {
+                    $("#txtToDate").datepicker('option', 'minDate', date)
+                }
+
+            });
+
+        }
 
         if (controllerUrl == "/Administration/_Shifts") {
             $(".timepickerCtr").keypress(function (event) { event.preventDefault(); });

@@ -6,27 +6,27 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>1.68903in</Width>
+              <Width>1.03104in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.68903in</Width>
+              <Width>1.03104in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.68903in</Width>
+              <Width>1.03104in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.68903in</Width>
+              <Width>1.03104in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.68903in</Width>
+              <Width>1.03104in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.68903in</Width>
+              <Width>1.03104in</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
             <TablixRow>
-              <Height>0.29688in</Height>
+              <Height>0.20313in</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -235,7 +235,7 @@
               </TablixCells>
             </TablixRow>
             <TablixRow>
-              <Height>0.31771in</Height>
+              <Height>0.22396in</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -442,9 +442,10 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>ShiftDetailReportDataset</DataSetName>
-        <Top>0.87375in</Top>
-        <Height>0.61458in</Height>
-        <Width>10.13417in</Width>
+        <Top>1.16542in</Top>
+        <Left>0.21875in</Left>
+        <Height>0.42709in</Height>
+        <Width>6.18626in</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -466,14 +467,15 @@
               </TextRun>
             </TextRuns>
             <Style>
-              <TextAlign>Left</TextAlign>
+              <TextAlign>Center</TextAlign>
             </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox13</rd:DefaultName>
-        <Top>0.155in</Top>
-        <Height>0.25in</Height>
-        <Width>10.13417in</Width>
+        <Top>0.65153in</Top>
+        <Left>0.21875in</Left>
+        <Height>0.30208in</Height>
+        <Width>6.18626in</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
@@ -485,11 +487,29 @@
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
+      <Subreport Name="Header">
+        <ReportName>GlobalHeader</ReportName>
+        <Parameters>
+          <Parameter Name="CompanyName">
+            <Value>=First(Fields!CompanyName.Value, "ShiftDetailReportDataset")</Value>
+          </Parameter>
+        </Parameters>
+        <Top>0.18278in</Top>
+        <Left>0.21875in</Left>
+        <Height>0.39931in</Height>
+        <Width>6.18626in</Width>
+        <ZIndex>2</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Subreport>
     </ReportItems>
-    <Height>2.38542in</Height>
+    <Height>1.70708in</Height>
     <Style />
   </Body>
-  <Width>10.13417in</Width>
+  <Width>6.54042in</Width>
   <Page>
     <LeftMargin>1in</LeftMargin>
     <RightMargin>1in</RightMargin>
@@ -538,10 +558,14 @@
           <DataField>ToDate</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="CompanyName">
+          <DataField>CompanyName</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
-        <rd:DataSetName>ShiftDetailReportDataset</rd:DataSetName>
-        <rd:SchemaPath>C:\Users\shj9\Source\Repos\EVISVMS2\Evis.VMS\Evis.VMS.UI\Reports\DataSet\ShiftDetailReportDataset.xsd</rd:SchemaPath>
+        <rd:DataSetName>ShiftDetailReportDataSet</rd:DataSetName>
+        <rd:SchemaPath>C:\Users\shj9\Source\Repos\EVISVMS2\EVISVMS\Evis.VMS\Evis.VMS.UI\Reports\DataSet\ShiftDetailReportDataSet.xsd</rd:SchemaPath>
         <rd:TableName>ShiftDetailDatatable</rd:TableName>
         <rd:TableAdapterFillMethod />
         <rd:TableAdapterGetDataMethod />
