@@ -47,7 +47,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             int totalCount = 0;
             //pageIndex = (pageIndex - 1);
             var result = _visitorDetailsReportHelper.VisitorData(search, pageIndex, pageSize, sortField, sortOrder, out totalCount);
-            var jsonData = JsonConvert.SerializeObject(result.OrderBy(x => x.VisitorName));
+            var jsonData = JsonConvert.SerializeObject(result);
             return JsonConvert.SerializeObject(new { totalRows = totalCount, result = jsonData });
         }
 

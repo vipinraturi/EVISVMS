@@ -127,8 +127,8 @@ BindingViewModel = function (controllerUrl, viewModel) {
 
             });
         }
-        if (controllerUrl = "/Report/_VisitorDetailsReport") {
-            $("#dateFromCheckIn").keypress(function (event) { event.preventDefault(); })
+        if (controllerUrl == "/Report/_VisitorDetailsReport") {
+            $("#dateFromCheckIn").keypress(function (event) { event.preventDefault(); });
             $("#dateFromCheckIn").datepicker({
                 dateFormat: 'dd/mm/yy',
                 maxDate: 'now',
@@ -140,8 +140,8 @@ BindingViewModel = function (controllerUrl, viewModel) {
 
             });
         }
-        if (controllerUrl = "/Report/_VisitorDetailsReport") {
-            $("#dateToCheckOut").keypress(function (event) { event.preventDefault(); })
+        if (controllerUrl == "/Report/_VisitorDetailsReport") {
+            $("#dateToCheckOut").keypress(function (event) { event.preventDefault(); });
             $("#dateToCheckOut").datepicker({
                 dateFormat: 'dd/mm/yy',
                 maxDate: 'now',
