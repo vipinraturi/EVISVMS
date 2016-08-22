@@ -111,64 +111,122 @@
         </div>
     </div>
 </div>
-<div class="row">
+
+<div class="col-lg-12">
+    <div class="x_panel">
+        <div class="x_title">
+            <h2>Daily Shift Details</h2>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <table class="table jambo_table">
+        <thead>
+            <tr>
+                <th style="width: 1%">#</th>
+                <th style="width: 15%"> <a href="#" onclick="DataGrid.Sort('UserName')" class="sortCol">Security Name</a> </th>
+                <th style="width: 15%"> <a href="#" onclick="DataGrid.Sort('BuildingName')" class="sortCol">Building Name</a></th>
+                <th style="width: 15%"><a href="#" onclick="DataGrid.Sort('GateName')" class="sortCol">Gate Name</a></th>
+                <th style="width: 15%"><a href="#" onclick="DataGrid.Sort('ShiftName')" class="sortCol">Shift Name</a></th>
+
+                <th style="width: 15%"></th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach:DataGrid.DataRows">
+            <tr>
+                <th scope="row" data-bind="text:$index() +1"></th>
+                <td data-bind="text: UserName"></td>
+                <td data-bind="text:BuildingName"></td>
+                <td data-bind="text:GateName"></td>
+                <td data-bind="text:ShiftName"></td>
+            </tr>
+        </tbody>
+        <tr class="blank_row" data-bind="visible: (DataGrid.DataRows().length==0)"></tr>
+    </table>
+
+</div>
+@*<div class="row">
     <div class="col-md-6 col-sm-6 col-xs-12">
         <div class="x_panel">
             <div class="">
                 <h2>Shift Details</h2>
 
             </div>
-            <div class="x_content">
-                <ul class="list-unstyled timeline">
-                    <li>
-                        <div class="block">
-                            <div class="tags">
-                                <a href="" class="tag">
-                                    <span>Shift 1</span>
-                                </a>
-                            </div>
-                            <div class="block_content">
-                                <h2 class="title">
-                                    <a>Test</a>
-                                </h2>
-                                <div class="byline">
-                                    <span>13 hours ago</span> by <a>ABC</a>
-                                </div>
-                                <p class="excerpt">
-                                    test data <a>Read&nbsp;More</a>
-                                </p>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li>
-                        <div class="block">
-                            <div class="tags">
-                                <a href="" class="tag">
-                                    <span>Shift 2</span>
-                                </a>
-                            </div>
-                            <div class="block_content">
-                                <h2 class="title">
-                                    <a>Test2</a>
-                                </h2>
-                                <div class="byline">
-                                    <span>13 hours ago</span> by <a>ABC</a>
-                                </div>
-                                <p class="excerpt">
-                                    test data 2<a>Read&nbsp;More</a>
-                                </p>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-
-            </div>
         </div>
+        <table class="table jambo_table">
+            <thead>
+                <tr>
+                    <th style="width: 1%">#</th>
+                    <th style="width: 15%"> <a href="#" onclick="DataGrid.Sort('UserName')" class="sortCol">Security Name</a> </th>
+                    <th style="width: 15%"> <a href="#" onclick="DataGrid.Sort('BuildingName')" class="sortCol">Building Name</a></th>
+                    <th style="width: 15%"><a href="#" onclick="DataGrid.Sort('GateName')" class="sortCol">Gate Name</a></th>
+                    <th style="width: 15%"><a href="#" onclick="DataGrid.Sort('ShiftName')" class="sortCol">Shift Name</a></th>
+
+                    <th style="width: 15%"></th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach:DataGrid.DataRows">
+                <tr>
+                    <th scope="row" data-bind="text:$index() +1"></th>
+                    <td data-bind="text: UserName"></td>
+                    <td data-bind="text:BuildingName"></td>
+                    <td data-bind="text:GateName"></td>
+                    <td data-bind="text:ShiftName"></td>
+                </tr>
+            </tbody>
+            <tr class="blank_row" data-bind="visible: (DataGrid.DataRows().length==0)"></tr>
+        </table>
     </div>
+    <div class="x_content">
+            <ul class="list-unstyled timeline">
+                <li>
+                    <div class="block">
+                        <div class="tags">
+                            <a href="" class="tag">
+                                <span>Shift 1</span>
+                            </a>
+                        </div>
+                        <div class="block_content">
+                            <h2 class="title">
+                                <a>Test</a>
+                            </h2>
+                            <div class="byline">
+                                <span>13 hours ago</span> by <a>ABC</a>
+                            </div>
+                            <p class="excerpt">
+                                test data <a>Read&nbsp;More</a>
+                            </p>
+                        </div>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="block">
+                        <div class="tags">
+                            <a href="" class="tag">
+                                <span>Shift 2</span>
+                            </a>
+                        </div>
+                        <div class="block_content">
+                            <h2 class="title">
+                                <a>Test2</a>
+                            </h2>
+                            <div class="byline">
+                                <span>13 hours ago</span> by <a>ABC</a>
+                            </div>
+                            <p class="excerpt">
+                                test data 2<a>Read&nbsp;More</a>
+                            </p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+</div>*@
+    
 
 
-    <div class="col-md-6">
+    @*<div class="col-md-6">
         <div class="x_panel">
             <div class="">
                 <h2>Daily activities</h2>
@@ -205,9 +263,9 @@
                 </ul>
             </div>
         </div>
-    </div>
+    </div>*@
 
-</div>
+
 <script>
     $(document).ready(function () {
         //random data
