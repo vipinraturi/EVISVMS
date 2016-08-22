@@ -158,7 +158,7 @@ BindingViewModel = function (controllerUrl, viewModel) {
             $("#txtToDate").keypress(function (event) { event.preventDefault(); })
             $("#txtToDate").datepicker({
                 dateFormat: 'dd/mm/yy',
-                maxDate: 'now',
+                //minDate: 'now',
                 changeMonth: true,
                 changeYear: true,
                 onSelect: function (date) {
@@ -173,7 +173,7 @@ BindingViewModel = function (controllerUrl, viewModel) {
             $("#txtFromDate").keypress(function (event) { event.preventDefault(); })
             $("#txtFromDate").datepicker({
                 dateFormat: 'dd/mm/yy',
-                //minDate: 'now',
+                //maxDate: 'now',
                 changeMonth: true,
                 changeYear: true,
                 onSelect: function (date) {

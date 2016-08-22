@@ -39,11 +39,11 @@ namespace Evis.VMS.UI.HelperClasses
                   UserName = x.ApplicationUser.FullName,
                   FromDate = x.FromDate,
                   ToDate = x.ToDate,
-                  strFromDate = x.ToDate.ToString(),
+                  strFromDate = x.FromDate.ToString(),
                   strToDate = x.ToDate.ToString(),
-
-
+                  
               }).ToList();
+
             if (string.IsNullOrEmpty(sortField))
             {
                 sortField = "";
@@ -51,6 +51,16 @@ namespace Evis.VMS.UI.HelperClasses
 
 
             var searchDetails = JsonConvert.DeserializeObject<SearchShiftReport>(search);
+
+            //if(searchDetails.ToDate!=null)
+
+            string targetDate = "";
+            if (!string.IsNullOrEmpty(searchDetails.ToDate))
+            {
+                DateTime toDateFormat = Convert.ToDateTime(searchDetails.ToDate);
+                targetDate = toDateFormat.AddDays(1).ToString();
+            }
+
             Shift = Shift.Where(
                x => (searchDetails == null ||
                     ((string.IsNullOrEmpty(searchDetails.SecurityId) || x.UserId == searchDetails.SecurityId) &&
@@ -58,8 +68,10 @@ namespace Evis.VMS.UI.HelperClasses
                     (searchDetails.BuildingID == 0 || x.BuildingId == searchDetails.BuildingID) &&
                     (searchDetails.ShiftID == 0 || x.ShitfId == searchDetails.ShiftID) &&
               
-                    (string.IsNullOrEmpty(searchDetails.FromDate) || Convert.ToDateTime(x.FromDate) >= Convert.ToDateTime((searchDetails.FromDate))) &&
-                    (string.IsNullOrEmpty(searchDetails.ToDate) || Convert.ToDateTime(x.ToDate) <= Convert.ToDateTime((searchDetails.ToDate)))))).ToList();
+                    (string.IsNullOrEmpty(searchDetails.FromDate) || Convert.ToDateTime(x.FromDate) >= Convert.ToDateTime(searchDetails.FromDate))&&
+                    (string.IsNullOrEmpty(targetDate) || Convert.ToDateTime(x.ToDate) < Convert.ToDateTime(targetDate))
+                    )
+                    )).ToList();
             var paginationRequest = new PaginationRequest
             {
                 PageIndex = (pageIndex - 1),
@@ -90,7 +102,7 @@ namespace Evis.VMS.UI.HelperClasses
                   UserName = x.ApplicationUser.FullName,
                   FromDate = x.FromDate,
                   ToDate = x.ToDate,
-                  strFromDate = x.ToDate.ToString(),
+                  strFromDate = x.FromDate.ToString(),
                   strToDate = x.ToDate.ToString(),
                   CompanyName = x.BuildingMaster.Organization.CompanyName,
 
@@ -100,15 +112,24 @@ namespace Evis.VMS.UI.HelperClasses
 
 
             var searchDetails = JsonConvert.DeserializeObject<SearchShiftReport>(search);
+            string targetDate = "";
+            if (!string.IsNullOrEmpty(searchDetails.ToDate))
+            {
+                DateTime toDateFormat = Convert.ToDateTime(searchDetails.ToDate);
+                targetDate = toDateFormat.ToString();
+            }
+
             Shift = Shift.Where(
                x => (searchDetails == null ||
                     ((string.IsNullOrEmpty(searchDetails.SecurityId) || x.UserId == searchDetails.SecurityId) &&
                     (searchDetails.GateId == 0 || x.GateId == searchDetails.GateId) &&
                     (searchDetails.BuildingID == 0 || x.BuildingId == searchDetails.BuildingID) &&
                     (searchDetails.ShiftID == 0 || x.ShitfId == searchDetails.ShiftID) &&
-                    (string.IsNullOrEmpty(searchDetails.FromDate) || Convert.ToDateTime(x.FromDate) >= Convert.ToDateTime((searchDetails.FromDate))) &&
-                    (string.IsNullOrEmpty(searchDetails.ToDate) || Convert.ToDateTime(x.ToDate) <= Convert.ToDateTime((searchDetails.ToDate)))))).ToList();
 
+                    (string.IsNullOrEmpty(searchDetails.FromDate) || Convert.ToDateTime(x.FromDate) >= Convert.ToDateTime(searchDetails.FromDate)) &&
+                    (string.IsNullOrEmpty(targetDate) || Convert.ToDateTime(x.ToDate) < Convert.ToDateTime(targetDate))
+                    )
+                    )).ToList();
 
 
 

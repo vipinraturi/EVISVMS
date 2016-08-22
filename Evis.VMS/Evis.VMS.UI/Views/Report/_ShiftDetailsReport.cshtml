@@ -70,7 +70,7 @@
                         <div class="col-xs-12">
                             <input id="txtFromDate" type="text" data-bind="value: FromDate" class="form-control" placeholder="dd/mm/yyyy" />
 
-                            <span class="fa fa-calendar favwhite  form-control-feedback right" aria-hidden="true"></span>
+                            <span class="fa fa-calendar   form-control-feedback right" aria-hidden="true"></span>
                         </div>
 
                         @*<div class="col-xs-12">
@@ -87,7 +87,7 @@
                         </div>
                         <div class="col-xs-12">
                             <input id="txtToDate" type="text" class="form-control" placeholder="dd/mm/yyyy" data-bind="value:ToDate" />
-                            <span class="fa fa-calendar favwhite form-control-feedback right" aria-hidden="true"></span>
+                            <span class="fa fa-calendar  form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
 
@@ -131,8 +131,8 @@
                             <th style="width: 12%"> <a href="#" onclick="DataGrid.Sort('BuildingName')" class="sortCol">Building</a></th>
                             <th style="width: 12%"> <a href="#" onclick="DataGrid.Sort('GateName')" class="sortCol">Gate</a></th>
                             <th style="width: 12%"> <a href="#" onclick="DataGrid.Sort('ShiftName')" class="sortCol">Shift Name</a></th>
-                            <th style="width: 12%"><a href="#" onclick="DataGrid.Sort('FromDate')" class="sortCol">From Date</a></th>
-                            <th style="width: 12%"><a href="#" onclick="DataGrid.Sort('ToDate')" class="sortCol">To Date</a></th>
+                            <th style="width: 12%"><a href="#" onclick="DataGrid.Sort('strFromDate')" class="sortCol">From Date</a></th>
+                            <th style="width: 12%"><a href="#" onclick="DataGrid.Sort('strToDate')" class="sortCol">To Date</a></th>
 
                         </tr>
                     </thead>
@@ -143,8 +143,8 @@
                             <td data-bind="text: BuildingName"></td>
                             <td data-bind="text: GateName"></td>
                             <td data-bind="text: ShiftName"></td>
-                            <td data-bind="text: FromDate"></td>
-                            <td data-bind="text: ToDate"></td>
+                            <td data-bind="text: strFromDate"></td>
+                            <td data-bind="text: strToDate"></td>
 
                         </tr>
                     </tbody>

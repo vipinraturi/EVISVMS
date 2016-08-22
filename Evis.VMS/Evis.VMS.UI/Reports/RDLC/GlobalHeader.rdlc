@@ -7,9 +7,9 @@
         <Value>main_logo</Value>
         <Sizing>FitProportional</Sizing>
         <Top>0.10417in</Top>
-        <Left>0.17708in</Left>
-        <Height>1.09375in</Height>
-        <Width>1.16667in</Width>
+        <Left>0.11458in</Left>
+        <Height>0.62499in</Height>
+        <Width>0.80208in</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -37,10 +37,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>0.45834in</Top>
-        <Left>1.60292in</Left>
+        <Top>0.10417in</Top>
+        <Left>1.14236in</Left>
         <Height>0.29167in</Height>
-        <Width>4.61458in</Width>
+        <Width>3.19791in</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
@@ -53,10 +53,10 @@
         </Style>
       </Textbox>
     </ReportItems>
-    <Height>3.36022cm</Height>
+    <Height>1.98439cm</Height>
     <Style />
   </Body>
-  <Width>16.51cm</Width>
+  <Width>11.69458cm</Width>
   <Page>
     <PageHeight>29.7cm</PageHeight>
     <PageWidth>21cm</PageWidth>

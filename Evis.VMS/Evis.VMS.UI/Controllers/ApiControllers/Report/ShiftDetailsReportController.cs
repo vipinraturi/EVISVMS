@@ -65,9 +65,19 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         public IEnumerable<GeneralDropDownVM> GetAllGates(int? Id)
         {
             ////&& x.BuildingMaster.OrganizationId ==Id
-            var result = _genericService.GateMaster.GetAll().Where(x => x.IsActive == true)
-                .Select(y => new GeneralDropDownVM { Id = y.Id, Name = y.GateNumber });
-            return result;
+            if (Id != null)
+            {
+                var result = _genericService.GateMaster.GetAll().Where(x => x.IsActive == true && x.BuildingMaster.OrganizationId == Id)
+                    .Select(y => new GeneralDropDownVM { Id = y.Id, Name = y.GateNumber });
+                return result;
+            }
+            else
+            {
+                var result = _genericService.GateMaster.GetAll().Where(x => x.IsActive == true)
+                    .Select(y => new GeneralDropDownVM { Id = y.Id, Name = y.GateNumber });
+                return result;
+
+            }
         }
 
         [Route("~/Api/Report/GetUsers")]

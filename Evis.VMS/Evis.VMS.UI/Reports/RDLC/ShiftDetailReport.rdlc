@@ -26,7 +26,7 @@
           </TablixColumns>
           <TablixRows>
             <TablixRow>
-              <Height>0.20313in</Height>
+              <Height>0.19792in</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -235,7 +235,7 @@
               </TablixCells>
             </TablixRow>
             <TablixRow>
-              <Height>0.22396in</Height>
+              <Height>0.21875in</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -442,10 +442,10 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>ShiftDetailReportDataset</DataSetName>
-        <Top>1.16542in</Top>
-        <Left>0.21875in</Left>
-        <Height>0.42709in</Height>
-        <Width>6.18626in</Width>
+        <Top>0.78125in</Top>
+        <Left>0.14585in</Left>
+        <Height>0.41667in</Height>
+        <Width>6.18624in</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -472,9 +472,9 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox13</rd:DefaultName>
-        <Top>0.65153in</Top>
-        <Left>0.21875in</Left>
-        <Height>0.30208in</Height>
+        <Top>0.34375in</Top>
+        <Left>0.14583in</Left>
+        <Height>0.36805in</Height>
         <Width>6.18626in</Width>
         <ZIndex>1</ZIndex>
         <Style>
@@ -494,9 +494,8 @@
             <Value>=First(Fields!CompanyName.Value, "ShiftDetailReportDataset")</Value>
           </Parameter>
         </Parameters>
-        <Top>0.18278in</Top>
-        <Left>0.21875in</Left>
-        <Height>0.39931in</Height>
+        <Left>0.14583in</Left>
+        <Height>0.32987in</Height>
         <Width>6.18626in</Width>
         <ZIndex>2</ZIndex>
         <Style>
@@ -506,10 +505,10 @@
         </Style>
       </Subreport>
     </ReportItems>
-    <Height>1.70708in</Height>
+    <Height>1.28in</Height>
     <Style />
   </Body>
-  <Width>6.54042in</Width>
+  <Width>6.42586in</Width>
   <Page>
     <LeftMargin>1in</LeftMargin>
     <RightMargin>1in</RightMargin>
