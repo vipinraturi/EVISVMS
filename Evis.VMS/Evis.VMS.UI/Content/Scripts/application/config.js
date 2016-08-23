@@ -67,7 +67,7 @@ ApplyCustomBinding = function (elementName) {
 
             //Dashboard
         case 'dashboard':
-            BindingViewModel("/Dashboard/_Dashboard", DashboardViewModel());
+            BindingViewModel("../Dashboard/_Dashboard", DashboardViewModel());
             break;
 
         default:
