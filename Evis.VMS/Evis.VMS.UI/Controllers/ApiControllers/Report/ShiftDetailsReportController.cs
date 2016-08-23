@@ -117,17 +117,14 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         [HttpPost]
         public string GetShiftDataGrid(string search, int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC", string globalSearch = "")
         {
-            if (string.IsNullOrEmpty(sortField))
-            {
-                sortField = "";
-            }
+           
 
             int totalCount = 0;
-            pageIndex = (pageIndex - 1);
-
+          
             var result = _ShiftDetailsReportHelper.GetShiftData(search, pageIndex, pageSize, sortField, sortOrder, out totalCount);
 
-            var jsonData = JsonConvert.SerializeObject(result.OrderBy(x => x.UserName));
+            var jsonData = JsonConvert.SerializeObject(result);
+            //.OrderBy(x => x.FromDate)
             return JsonConvert.SerializeObject(new { totalRows = totalCount, result = jsonData });
         }
 

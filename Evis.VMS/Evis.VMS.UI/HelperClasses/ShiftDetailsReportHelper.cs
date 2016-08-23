@@ -46,10 +46,9 @@ namespace Evis.VMS.UI.HelperClasses
 
             if (string.IsNullOrEmpty(sortField))
             {
-                sortField = "";
+                sortField = "FromDate";
+                sortOrder = "ASC";
             }
-
-
             var searchDetails = JsonConvert.DeserializeObject<SearchShiftReport>(search);
 
             //if(searchDetails.ToDate!=null)
@@ -72,6 +71,10 @@ namespace Evis.VMS.UI.HelperClasses
                     (string.IsNullOrEmpty(targetDate) || Convert.ToDateTime(x.ToDate) < Convert.ToDateTime(targetDate))
                     )
                     )).ToList();
+
+          
+
+
             var paginationRequest = new PaginationRequest
             {
                 PageIndex = (pageIndex - 1),
