@@ -184,7 +184,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         {
             var result = _genericService.LookUpValues.GetAll().Where(x => x.ParentId == Id && x.IsActive == true && x.LookUpType.IsActive == true)
                 .Select(y => new GeneralDropDownVM { Id = y.Id, Name = y.LookUpValue });
-            return result;
+            return result.OrderByDescending(x => x.Id);
         }
 
     }

@@ -80,15 +80,15 @@
                     <table class="table jambo_table">
                         <thead>
                             <tr>
-                                <th style="width: 1%">#</th>
-                                <th style="width: 15%"> <a href="#" onclick="DataGrid.Sort('BuildingName')" class="sortCol">Building Name</a> </th>
-                                <th style="width: 15%"> <a href="#" onclick="DataGrid.Sort('City')" class="sortCol">City</a> </th>
-                                <th style="width: 15%"> <a href="#" onclick="DataGrid.Sort('GateName')" class="sortCol">Gate Name</a></th>
-                                <th style="width: 15%"><a href="#" onclick="DataGrid.Sort('ShiftName')" class="sortCol">Shift Name</a></th>
-                                <th style="width: 15%"><a href="#" onclick="DataGrid.Sort('UserName')" class="sortCol">Security Name</a></th>
-                                <th style="width: 15%"><a href="#" onclick="DataGrid.Sort('strFromDate')" class="sortCol">From Date</a></th>
-                                <th style="width: 15%"><a href="#" onclick="DataGrid.Sort('strToDate')" class="sortCol">To Date</a></th>
-                                <th style="width: 15%"></th>
+                                <th style="width: 2%">#</th>
+                                <th style="width: 20%"> <a href="#" onclick="DataGrid.Sort('BuildingName')" class="sortCol">Building Name</a> </th>
+                                <th style="width: 13%"> <a href="#" onclick="DataGrid.Sort('City')" class="sortCol">City</a> </th>
+                                <th style="width: 13%"> <a href="#" onclick="DataGrid.Sort('GateName')" class="sortCol">Gate Name</a></th>
+                                <th style="width: 13%"><a href="#" onclick="DataGrid.Sort('ShiftName')" class="sortCol">Shift Name</a></th>
+                                <th style="width: 11%"><a href="#" onclick="DataGrid.Sort('UserName')" class="sortCol">Security Name</a></th>
+                                <th style="width: 7%"><a href="#" onclick="DataGrid.Sort('strFromDate')" class="sortCol">From Date</a></th>
+                                <th style="width: 7%"><a href="#" onclick="DataGrid.Sort('strToDate')" class="sortCol">To Date</a></th>
+                                <th style="width: 14%"></th>
                             </tr>
                         </thead>
                         <tbody data-bind="foreach:DataGrid.DataRows">
@@ -101,9 +101,9 @@
                                 <td data-bind="text: UserName"></td>
                                 <td data-bind="text: strFromDate"></td>
                                 <td data-bind="text: strToDate"></td>
-                                <td>
-                                    <a href="#" class="btn  btn-s" data-bind="click: EditShift.bind($data)" title="click here to view or edit record."><i class="fa fa-pencil"></i></a>
-                                    <a href="#myModal" data-toggle="modal" class="btn  btn-s" data-bind="click: DeleteShift.bind($data)" title="click here to delete record."><i class="fa fa-trash-o"></i></a>
+                                <td style="padding:0px !important">
+                                    <a href="#" class="btn  btn-s" style="padding:2px !important" data-bind="click: EditShift.bind($data)" title="click here to view or edit record."><i class="fa fa-pencil"></i></a>
+                                    <a href="#myModal" data-toggle="modal" style="padding:2px !important" class="btn  btn-s" data-bind="click: DeleteShift.bind($data)" title="click here to delete record."><i class="fa fa-trash-o"></i></a>
                                 </td>
                             </tr>
                         </tbody>

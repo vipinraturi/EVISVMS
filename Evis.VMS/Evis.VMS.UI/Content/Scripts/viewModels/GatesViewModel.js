@@ -92,7 +92,7 @@
         //    });
         //       // toastr.success('Gate deleted successfully!!')
         //        //ApplyCustomBinding('gates');
-           
+
         //}
         recordToDelete = tableItem;
     }

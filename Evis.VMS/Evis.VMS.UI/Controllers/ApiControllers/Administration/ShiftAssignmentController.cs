@@ -36,7 +36,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         {
             var result = _genericService.GateMaster.GetAll().Where(x => x.IsActive == true & x.BuildingId == BuildingId)
                 .Select(y => new GeneralDropDownVM { Id = y.Id, Name = y.GateNumber });
-            return result;
+            return result.OrderByDescending(x => x.Id);
         }
 
         [Route("~/Api/ShiftAssignment/GetAllShift")]
@@ -46,7 +46,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             var result = _genericService.ShitfMaster.GetAll().Where(x => x.IsActive == true).AsEnumerable()
                 .Select(y => new GeneralDropDownVM { Id = y.Id, Name = y.ShitfName + " (" + y.FromTime.ToString("hh:mm tt") + " - " + y.ToTime.ToString("hh:mm tt") + ")" });////y.ShitfName + '(' + ' ' + y.FromTime + ' ' + y.ToTime + ')'
 
-            return result;
+            return result.OrderByDescending(x => x.Id);
         }
 
         [Route("~/Api/ShiftAssignment/GetAllUsers")]
@@ -104,23 +104,23 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 int orgId = user.Organization.Id;
                 var data = _genericService.BuildingMaster.GetAll().Where(x => x.OrganizationId == orgId).FirstOrDefault();
                 LSTShiftAssignmentVM = _genericService.ShitfAssignment.GetAll().Where(x => x.IsActive == true && x.BuildingId == data.Id)
-                       .Select(x => new ShiftAssignmentVM
-                       {
-                           BuildingId = x.BuildingId,
-                           BuildingName = x.Gates.BuildingMaster.BuildingName,
-                           GateId = x.GateId,
-                           GateName = x.Gates.GateNumber,
-                           ShitfId = x.ShitfId,
-                           ShiftName = x.Shitfs.ShitfName,
-                           UserId = x.UserId,
-                           UserName = x.ApplicationUser.FullName,
-                           FromDate = x.FromDate,
-                           ToDate = x.ToDate,
-                           strFromDate = x.ToDate.ToString(),
-                           strToDate = x.ToDate.ToString(),
-                           Id = x.Id,
-                           City = x.BuildingMaster.CityMaster.LookUpValue
-                       }).AsQueryable();
+                        .Select(x => new ShiftAssignmentVM
+                        {
+                            BuildingId = x.BuildingId,
+                            BuildingName = x.Gates.BuildingMaster.BuildingName,
+                            GateId = x.GateId,
+                            GateName = x.Gates.GateNumber,
+                            ShitfId = x.ShitfId,
+                            ShiftName = x.Shitfs.ShitfName,
+                            UserId = x.UserId,
+                            UserName = x.ApplicationUser.FullName,
+                            FromDate = x.FromDate,
+                            ToDate = x.ToDate,
+                            strFromDate = x.FromDate.ToString("dd/MM/yyyy"),
+                            strToDate = x.ToDate.ToString("dd/MM/yyyy"),
+                            Id = x.Id,
+                            City = x.BuildingMaster.CityMaster.LookUpValue
+                        }).AsQueryable();
             }
             if (LSTShiftAssignmentVM.Count() > 0)
             {
@@ -149,7 +149,10 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 return JsonConvert.SerializeObject(new { totalRows = totalCount, result = jsonData });
 
             }
+
+
             return null;
+
         }
         [Route("~/Api/ShiftAssignment/SaveShiftAssignment")]
         [HttpPost]

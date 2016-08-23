@@ -20,6 +20,7 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
+using System.Threading.Tasks;
 
 
 namespace Evis.VMS.UI.Controllers.ApiControllers
@@ -61,37 +62,57 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         }
         [Route("~/Api/Shift/GetAllShift")]
         [HttpPost]
-        public string GetAllshift(string globalSearch, int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC")
+        public async Task<string> GetAllshift(string globalSearch, int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC")
         {
-            var ShitfMaster = _genericService.ShitfMaster.GetAll().Where(x => x.IsActive == true).AsEnumerable()
-                            .Select(x => new ShiftDetailsVM
-                            {
-                                Id = x.Id,
-                                ShitfName = x.ShitfName,
-                                ToTime = (x.ToTime),
-                                FromTime = x.FromTime,
-                                strFromTime = x.FromTime.ToString("hh:mm tt"),
-                                strToTime = x.ToTime.ToString("hh:mm tt")
-                            }).AsQueryable();
-            if (ShitfMaster.Count() > 0)
+            var user = (await _userService.GetAllAsync()).Where(x => x.Id == HttpContext.Current.User.Identity.GetUserId() && x.IsActive == true).FirstOrDefault();
+            IQueryable<ShiftDetailsVM> LstShiftDetailsVM;
+            if (user == null)
+            {
+                LstShiftDetailsVM = _genericService.ShitfMaster.GetAll().Where(x => x.IsActive == true).AsEnumerable()
+                             .Select(x => new ShiftDetailsVM
+                             {
+                                 Id = x.Id,
+                                 ShitfName = x.ShitfName,
+                                 ToTime = (x.ToTime),
+                                 FromTime = x.FromTime,
+                                 strFromTime = x.FromTime.ToString("hh:mm tt"),
+                                 strToTime = x.ToTime.ToString("hh:mm tt")
+                             }).AsQueryable();
+            }
+            else
+            {
+                string userid = user.Id;
+                LstShiftDetailsVM = _genericService.ShitfMaster.GetAll().Where(x => x.IsActive == true && x.UpdatedBy == userid).AsEnumerable()
+                             .Select(x => new ShiftDetailsVM
+                             {
+                                 Id = x.Id,
+                                 ShitfName = x.ShitfName,
+                                 ToTime = (x.ToTime),
+                                 FromTime = x.FromTime,
+                                 strFromTime = x.FromTime.ToString("hh:mm tt"),
+                                 strToTime = x.ToTime.ToString("hh:mm tt")
+                             }).AsQueryable();
+
+            }
+            if (LstShiftDetailsVM.Count() > 0)
             {
                 if (!string.IsNullOrEmpty(globalSearch))
                 {
-                    ShitfMaster = ShitfMaster.Where(item =>
-                        item.ShitfName.ToLower().Contains(globalSearch.ToLower()) || item.strFromTime.ToLower().Contains(globalSearch.ToLower())||
+                    LstShiftDetailsVM = LstShiftDetailsVM.Where(item =>
+                        item.ShitfName.ToLower().Contains(globalSearch.ToLower()) || item.strFromTime.ToLower().Contains(globalSearch.ToLower()) ||
                         item.strToTime.ToLower().Contains(globalSearch.ToLower())).AsQueryable();
                 }
                 var paginationRequest = new PaginationRequest
-                             {
-                                 PageIndex = (pageIndex - 1),
-                                 PageSize = pageSize,
-                                 SearchText = globalSearch,
-                                 Sort = new Sort { SortDirection = (sortOrder == "ASC" ? SortDirection.Ascending : SortDirection.Descending), SortBy = sortField }
-                             };
+                {
+                    PageIndex = (pageIndex - 1),
+                    PageSize = pageSize,
+                    SearchText = globalSearch,
+                    Sort = new Sort { SortDirection = (sortOrder == "ASC" ? SortDirection.Ascending : SortDirection.Descending), SortBy = sortField }
+                };
                 int totalCount = 0;
                 IList<ShiftDetailsVM> result =
-                   GenericSorterPager.GetSortedPagedList<ShiftDetailsVM>(ShitfMaster, paginationRequest, out totalCount);
-                var jsonData = JsonConvert.SerializeObject(result.OrderByDescending(x=>x.Id));
+                   GenericSorterPager.GetSortedPagedList<ShiftDetailsVM>(LstShiftDetailsVM, paginationRequest, out totalCount);
+                var jsonData = JsonConvert.SerializeObject(result.OrderByDescending(x => x.Id));
                 return JsonConvert.SerializeObject(new { totalRows = totalCount, result = jsonData });
             }
             return null;
@@ -108,7 +129,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 {
                     if (_genericService.ShitfAssignment.SearchFor(x => x.ShitfId == ShitfMaster.Id && x.IsActive == true).Any())
                     {
-                        return new  ReturnResult { Message="Please first delete all the shifts under this shift assignment", Success=false};
+                        return new ReturnResult { Message = "Please first delete all the shifts under this shift assignment", Success = false };
                     }
                     ShitfDelete.IsActive = false;
                     _genericService.ShitfMaster.Update(ShitfDelete);
