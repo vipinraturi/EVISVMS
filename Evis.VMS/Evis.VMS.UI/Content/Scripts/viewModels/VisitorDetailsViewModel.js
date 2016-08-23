@@ -106,7 +106,7 @@
         data.VisitorName = self.VisitorName();
         //data.CheckIn = self.CheckIn();
         // data.CheckOut = self.CheckOut();
-        data.checkin = $("#datefromcheckin").val();
+        data.checkin = $("#dateFromCheckIn").val();
         data.checkout = $("#datetocheckout").val();
         window.open('../Report/PrintVisitorsDetailsReportExcel?search=' + JSON.stringify(data), '_blankl');
         // AjaxCall('/Api/VisitorsDetails/GenerateRDLCReport', "", 'POST', function() {

@@ -50,7 +50,8 @@ namespace Evis.VMS.UI.HelperClasses
 
             if (string.IsNullOrEmpty(sortField))
             {
-                sortField = "VisitorName";
+                sortField = "CheckIn";
+                sortOrder = "DES";
             }
 
             var searchDetails = JsonConvert.DeserializeObject<SearchVisitorVM>(search);
@@ -70,6 +71,7 @@ namespace Evis.VMS.UI.HelperClasses
                     && (string.IsNullOrEmpty(targetDate) || Convert.ToDateTime(x.CheckIn) <= Convert.ToDateTime(targetDate))
                     )
                     )).ToList();
+            //   visitorsDetails = visitorsDetails.OrderBy(x => x.CheckIn).ToList();
             //}
 
             //creating pager object to send for filtering and sorting
