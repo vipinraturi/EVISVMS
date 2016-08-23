@@ -127,28 +127,57 @@ BindingViewModel = function (controllerUrl, viewModel) {
 
             });
         }
-        if (controllerUrl = "/Report/_VisitorDetailsReport") {
-            $("#dateFromCheckIn").keypress(function (event) { event.preventDefault(); })
+        if (controllerUrl == "/Report/_VisitorDetailsReport") {
+            $("#dateFromCheckIn").keypress(function (event) { event.preventDefault(); });
             $("#dateFromCheckIn").datepicker({
                 dateFormat: 'dd/mm/yy',
-              //  minDate: 'now',
+                maxDate: 'now',
                 changeMonth: true,
                 changeYear: true,
                 onSelect: function (date) {
-                  //  $("#dateToCheckOut").datepicker('option', 'minDate', date)
+                    $("#dateToCheckOut").datepicker('option', 'minDate', date)
                 }
 
-                });
+            });
         }
-        if (controllerUrl = "/Report/_VisitorDetailsReport") {
-            $("#dateToCheckOut").keypress(function (event) { event.preventDefault(); })
+        if (controllerUrl == "/Report/_VisitorDetailsReport") {
+            $("#dateToCheckOut").keypress(function (event) { event.preventDefault(); });
             $("#dateToCheckOut").datepicker({
                 dateFormat: 'dd/mm/yy',
-             //   minDate: 'now',
+                maxDate: 'now',
                 changeMonth: true,
                 changeYear: true,
                 onSelect: function (date) {
-                   // $("#dateFromCheckIn").datepicker('option', 'maxDate', date)
+                    $("#dateFromCheckIn").datepicker('option', 'maxDate', date)
+                }
+
+            });
+
+        }
+        if (controllerUrl == "/Report/_ShiftDetailsReport") {
+            $("#txtToDate").keypress(function (event) { event.preventDefault(); })
+            $("#txtToDate").datepicker({
+                dateFormat: 'dd/mm/yy',
+                //minDate: 'now',
+                changeMonth: true,
+                changeYear: true,
+                onSelect: function (date) {
+                    $("#txtFromDate").datepicker('option', 'maxDate', date)
+                }
+
+            });
+
+        }
+
+        if (controllerUrl == "/Report/_ShiftDetailsReport") {
+            $("#txtFromDate").keypress(function (event) { event.preventDefault(); })
+            $("#txtFromDate").datepicker({
+                dateFormat: 'dd/mm/yy',
+                //maxDate: 'now',
+                changeMonth: true,
+                changeYear: true,
+                onSelect: function (date) {
+                    $("#txtToDate").datepicker('option', 'minDate', date)
                 }
 
             });

@@ -73,7 +73,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             var user = (await _userService.GetAllAsync()).Where(x => x.Id == HttpContext.Current.User.Identity.GetUserId() && x.IsActive == true).FirstOrDefault();
 
             var getUsers = (await _userService.GetAllAsync()).Where(x => x.Organization.IsActive == true &&
-                            (user == null || (user != null && x.OrganizationId == user.OrganizationId))).AsQueryable();
+                            (user == null || (user != null && x.OrganizationId == user.OrganizationId 
+                            && x.Id != HttpContext.Current.User.Identity.GetUserId()))).AsQueryable();
 
             if (string.IsNullOrEmpty(sortField))
             {

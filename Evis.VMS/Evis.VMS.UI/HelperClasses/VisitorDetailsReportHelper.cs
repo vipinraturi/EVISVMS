@@ -25,14 +25,14 @@ namespace Evis.VMS.UI.HelperClasses
             _genericService = new GenericService();
         }
 
-        public IList<VisitorsDetailsVM> GetVisitorData(string search, int pageIndex, int pageSize, string sortField, string sortOrder, out int totalCount)
+        public IList<VisitorsDetailsVM> VisitorData(string search, int pageIndex, int pageSize, string sortField, string sortOrder, out int totalCount)
         {
             var visitorsDetails = (from vm in _genericService.VisitorMaster.GetAll()
                                    join vd in _genericService.VisitDetails.GetAll()
                                    on vm.Id equals vd.VisitorId
                                    select new VisitorsDetailsVM
                                    {
-                                       VisitorId = vm.Id,
+                                       //VisitorId = vm.Id,
                                        VisitorName = vm.VisitorName,
                                        CheckIn = vd.CheckIn.ToString(),
                                        CheckOut = vd.CheckOut.ToString(),
@@ -43,26 +43,35 @@ namespace Evis.VMS.UI.HelperClasses
                                        SecurityId = vd.CreatedBy,
                                        Building = vd.GateMaster.BuildingMaster.BuildingName,
                                        Gate = vd.GateMaster.GateNumber,
-                                       Security = vd.CreatedUser.FullName
+                                       Security = vd.CreatedUser.FullName,
+                                       CompanyName = vd.GateMaster.BuildingMaster.Organization.CompanyName
                                    }).ToList();
 
 
             if (string.IsNullOrEmpty(sortField))
             {
-                sortField = "VisitorName";
+                sortField = "CheckIn";
+                sortOrder = "DES";
             }
 
-
             var searchDetails = JsonConvert.DeserializeObject<SearchVisitorVM>(search);
+            string targetDate = "";
+            if (!string.IsNullOrEmpty(searchDetails.CheckOut))
+            {
+                DateTime toDateFormat = Convert.ToDateTime(searchDetails.CheckOut);
+                targetDate = toDateFormat.AddDays(1).ToString();
+            }
             visitorsDetails = visitorsDetails.Where(
                x => (searchDetails == null ||
                     ((string.IsNullOrEmpty(searchDetails.SecurityId) || x.SecurityId == searchDetails.SecurityId) &&
                     (searchDetails.GateId == 0 || x.GateId == searchDetails.GateId) &&
                     (searchDetails.BuildingId == 0 || x.BuildingId == searchDetails.BuildingId) &&
-                    (string.IsNullOrEmpty(searchDetails.VisitorName) || x.VisitorName.Contains(searchDetails.VisitorName)) &&
-                    (string.IsNullOrEmpty(searchDetails.CheckIn) || x.CheckIn.ToString().Contains(searchDetails.CheckIn.ToString())) &&
-                    (string.IsNullOrEmpty(searchDetails.CheckOut) || x.CheckOut.ToString().Contains(searchDetails.CheckOut.ToString())))
+                    (string.IsNullOrEmpty(searchDetails.VisitorName) || x.VisitorName.ToLower().Contains(searchDetails.VisitorName.ToLower())) &&
+                    (string.IsNullOrEmpty(searchDetails.CheckIn) || Convert.ToDateTime(x.CheckIn) >= Convert.ToDateTime(searchDetails.CheckIn))
+                    && (string.IsNullOrEmpty(targetDate) || Convert.ToDateTime(x.CheckIn) <= Convert.ToDateTime(targetDate))
+                    )
                     )).ToList();
+            //   visitorsDetails = visitorsDetails.OrderBy(x => x.CheckIn).ToList();
             //}
 
             //creating pager object to send for filtering and sorting
@@ -81,7 +90,7 @@ namespace Evis.VMS.UI.HelperClasses
 
         }
 
-        public IList<VisitorsDetailsVM> PrintVisitorData(SearchVisitorVM searchDetails)
+        public IList<VisitorsDetailsVM> PrintVisitorData(string searchDetailss)
         {
             var visitorsDetails = (from vm in _genericService.VisitorMaster.GetAll()
                                    join vd in _genericService.VisitDetails.GetAll()
@@ -99,17 +108,25 @@ namespace Evis.VMS.UI.HelperClasses
                                        SecurityId = vd.CreatedBy,
                                        Building = vd.GateMaster.BuildingMaster.BuildingName,
                                        Gate = vd.GateMaster.GateNumber,
-                                       Security = vd.CreatedUser.FullName
+                                       Security = vd.CreatedUser.FullName,
+                                       CompanyName = vd.GateMaster.BuildingMaster.Organization.CompanyName
                                    }).ToList();
-
+            var searchDetails = JsonConvert.DeserializeObject<SearchVisitorVM>(searchDetailss);
+            string targetDate = "";
+            if (!string.IsNullOrEmpty(searchDetails.CheckOut))
+            {
+                DateTime toDateFormat = Convert.ToDateTime(searchDetails.CheckOut);
+                targetDate = toDateFormat.AddDays(1).ToString();
+            }
             visitorsDetails = visitorsDetails.Where(
                x => (searchDetails == null ||
                     ((string.IsNullOrEmpty(searchDetails.SecurityId) || x.SecurityId == searchDetails.SecurityId) &&
                     (searchDetails.GateId == 0 || x.GateId == searchDetails.GateId) &&
                     (searchDetails.BuildingId == 0 || x.BuildingId == searchDetails.BuildingId) &&
                     (string.IsNullOrEmpty(searchDetails.VisitorName) || x.VisitorName.Contains(searchDetails.VisitorName)) &&
-                    (string.IsNullOrEmpty(searchDetails.CheckIn) || x.CheckIn.ToString().Contains(searchDetails.CheckIn.ToString())) &&
-                    (string.IsNullOrEmpty(searchDetails.CheckOut) || x.CheckOut.ToString().Contains(searchDetails.CheckOut.ToString())))
+                    (string.IsNullOrEmpty(searchDetails.CheckIn) || Convert.ToDateTime(x.CheckIn) >= Convert.ToDateTime(searchDetails.CheckIn))
+                    && (string.IsNullOrEmpty(targetDate) || Convert.ToDateTime(x.CheckIn) <= Convert.ToDateTime(targetDate))
+                    )
                     )).ToList();
 
             return visitorsDetails;

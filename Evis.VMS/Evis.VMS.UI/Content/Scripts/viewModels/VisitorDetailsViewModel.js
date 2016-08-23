@@ -91,10 +91,25 @@
         data.VisitorName = self.VisitorName();
         //data.CheckIn = self.CheckIn();
         // data.CheckOut = self.CheckOut();
-        data.checkin = $("#datefromcheckin").val();
-        data.checkout =$("#datetocheckout").val();
-        window.open('../Report/GenerateRDLCReport?searchData=' + JSON.stringify(data), '_blankl');
-       // AjaxCall('/Api/VisitorsDetails/GenerateRDLCReport', "", 'POST', function() {
-       // });
+        data.checkin = $("#dateFromCheckIn").val();
+        data.checkout = $("#dateToCheckOut").val();
+        window.open('../Report/PrintVisitorsDetailsReport?search=' + JSON.stringify(data), '_blankl');
+       // window.open('../Report/PrintVisitorsDetailsReport?search=' + JSON.stringify(data), '_blankl');
+      
+    }
+
+    self.GenerateRDLCReportExcel = function () {
+        var data = new Object();
+        data.BuildingId = self.BuildingId();
+        data.GateId = self.GateId();
+        data.SecurityId = self.SecurityId();
+        data.VisitorName = self.VisitorName();
+        //data.CheckIn = self.CheckIn();
+        // data.CheckOut = self.CheckOut();
+        data.checkin = $("#dateFromCheckIn").val();
+        data.checkout = $("#datetocheckout").val();
+        window.open('../Report/PrintVisitorsDetailsReportExcel?search=' + JSON.stringify(data), '_blankl');
+        // AjaxCall('/Api/VisitorsDetails/GenerateRDLCReport', "", 'POST', function() {
+        // });
     }
 }

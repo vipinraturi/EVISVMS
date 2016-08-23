@@ -26,7 +26,6 @@
                 </div>
                 <div class="form-horizontal form-label-left input_mask">
                     <div class="form-group col-md-3 col-sm-3 col-xs-12 pull-right">
-
                         <form class="dropzone-avatar dz-clickable img-responsive_Visitor avatar-view" action="~/Visitor/SaveVisitorProfilePicture" method="post" style="height: 129px !important; padding: 2px !important; "
                               enctype="multipart/form-data" id="dropzoneImageForm" title="Change the avatar">
                         </form>
@@ -208,8 +207,8 @@
     var dropZoneVisitorImage;
     var dropZoneMultipleFiels;
 
-    $(function () {
-
+    $(function ()
+    {
         dropZoneVisitorImage = new Dropzone("#dropzoneImageForm");
         dropZoneVisitorImage.maxFiles = 2;
         dropZoneVisitorImage.on("maxfilesexceeded", function (file) {
@@ -218,8 +217,7 @@
             toastr.warning('Only two images allowed.');
         });
         dropZoneVisitorImage.on("addedfile", function (file) {
-
-            $('.dz-image-preview').empty();
+            $('#dropzoneImageForm .dz-image-preview').empty();
             if (this.files[1] != null) {
                 this.removeFile(this.files[0]);
                 return;
@@ -241,72 +239,67 @@
             $jQueryTest.attr('img-name-unique', (timeStamp + "_" + file.name));
             formData.append(timeStamp, file);
         });
-
         dropZoneVisitorImage.on('success', function (file) {
-            $('.dz-image').addClass('dz-message');
+            //$('.dz-image').addClass('dz-message');
         });
-
-        dropZoneVisitorImage.on("init", function () {
-
-        });
-
+       
         dropZoneMultipleFiels = new Dropzone("#dropzoneForm");
         dropZoneMultipleFiels.maxFiles = 2;
         dropZoneMultipleFiels.on("maxfilesexceeded", function (file) {
             var res = eval('(' + file.xhr.responseText + ')');
             toastr.warning('Only two images allowed.');
         });
-
         dropZoneMultipleFiels.on("sending", function (file, xhr, formData) {
             var timeStamp = new Date().getTime();
             var $jQueryTest = $(file.previewElement.children[0].firstChild);
             $jQueryTest.attr('img-name-unique', (timeStamp + "_" + file.name));
             formData.append(timeStamp, file);
         });
-
         dropZoneMultipleFiels.on("addedfile", function (file) {
-            if (file.type != "image/jpeg" && file.type != "image/png" && file.type != "image/jpg") {
-                toastr.warning('Only jpg or png images allowed.');
+            if (file.type != undefined) {
+                if (file.type != "image/jpeg" && file.type != "image/png" && file.type != "image/jpg") {
+                    toastr.warning('Only jpg or png images allowed.');
 
-                if (this.files[0] != null) {
-                    this.removeFile(this.files[0]);
+                    if (this.files[0] != null) {
+                        this.removeFile(this.files[0]);
+                    }
+
+                    if (this.files[1] != null) {
+                        this.removeFile(this.files[1]);
+                    }
+
+                    if (this.files[2] != null) {
+                        this.removeFile(this.files[2]);
+                    }
                 }
+                else {
+                    var maxLengthExceeded = false;
+                    if (this.files[4] != null) {
+                        maxLengthExceeded = true;
+                        this.removeFile(this.files[0]);
+                    }
 
-                if (this.files[1] != null) {
-                    this.removeFile(this.files[1]);
-                }
+                    if (this.files[3] != null) {
+                        maxLengthExceeded = true;
+                        this.removeFile(this.files[0]);
+                    }
 
-                if (this.files[2] != null) {
-                    this.removeFile(this.files[2]);
+                    if (maxLengthExceeded) {
+                        toastr.clear();
+                        toastr.warning('Only 3 images can be uploaded.');
+                    }
+
+                    var removeButton = Dropzone.createElement("<i class='fa fa-remove red' aria-hidden='true'></i>");
+                    var _this = this;
+                    removeButton.addEventListener("click", function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        _this.removeFile(file);
+                    });
+                    file.previewElement.appendChild(removeButton);
                 }
             }
-            else
-            {
-                var maxLengthExceeded = false;
-                if (this.files[4] != null) {
-                    maxLengthExceeded = true;
-                    this.removeFile(this.files[0]);
-                }
-
-                if (this.files[3] != null) {
-                    maxLengthExceeded = true;
-                    this.removeFile(this.files[0]);
-                }
-
-                if (maxLengthExceeded) {
-                    toastr.clear();
-                    toastr.warning('Only 3 images can be uploaded.');
-                }
-
-                var removeButton = Dropzone.createElement("<i class='fa fa-remove red' aria-hidden='true'></i>");
-                var _this = this;
-                removeButton.addEventListener("click", function (e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    _this.removeFile(file);
-                });
-                file.previewElement.appendChild(removeButton);
-            }
+        
         });
     });
 </script>

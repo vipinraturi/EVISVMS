@@ -106,7 +106,7 @@
                         <div class="col-xs-12">
                             <input id="dateFromCheckIn" type="text" data-bind="value: CheckIn" class="form-control" placeholder="[From Date]" />
                             @*<input id="txtFromDate" type="text" class="form-control" placeholder="dd/mm/yyyy" required="required" />*@
-                            <span class="fa fa-calendar favwhite  form-control-feedback right" aria-hidden="true"></span>
+                            <span class="fa fa-calendar form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
 
@@ -119,7 +119,7 @@
                         <div class="col-xs-12">
                             <input id="dateToCheckOut" type="text" data-bind="value: CheckOut" class="form-control" placeholder="[TO Date]" />
                             @*<input id="txtToDate" type="text" class="form-control" placeholder="dd/mm/yyyy" required="required" />*@
-                            <span class="fa fa-calendar favwhite form-control-feedback right" aria-hidden="true"></span>
+                            <span class="fa fa-calendar form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
 
@@ -226,7 +226,7 @@
                 <div class="col-xs-12">
                     <h2>Visitor Details</h2>
                     <div class="pull-right">
-                        <button type="button" class="btn btn-success" >Excel <i class="fa fa-file-excel-o"></i></button>
+                        <button type="button" class="btn btn-success" data-bind="click:GenerateRDLCReportExcel.bind()">Excel <i class="fa fa-file-excel-o"></i></button>
                         <button type="button" class="btn btn-success" data-bind="click:GenerateRDLCReportPDF.bind()">Pdf <i class="fa fa-file-pdf-o"></i></button>
                     </div>
                 </div>

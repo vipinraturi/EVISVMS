@@ -27,14 +27,14 @@
         required: true,
         pattern: {
             message: "invalid Zip Code.",
-            params:  /^([0-9\(\)\/\+ \-\.]*)$/
+            params: /^([0-9\(\)\/\+ \-\.]*)$/
         }
     });
 
     self.EmailId = ko.observable('').extend({ minLength: 2, maxLength: 40, email: { message: "Invalid email" } });
     self.ContactNumber = ko.observable('').extend({
         required: true,
-        pattern: { 
+        pattern: {
             message: 'Invalid Contact Number.',
             params: /^([0-9\(\)\/\+ \-\.]*)$/
         }
@@ -47,7 +47,7 @@
             params: /^([0-9\(\)\/\+ \-\.]*)$/
         }
     });
-    self.WebSite = ko.observable('').extend({required: true, url: true });
+    self.WebSite = ko.observable('').extend({ url: true });
 
 
     ko.validation.rules['url'] = {
@@ -85,7 +85,7 @@
             EmailId: this.EmailId,
             ContactNumber: this.ContactNumber,
             FaxNumber: this.FaxNumber,
-            WebSite: this.WebSite
+            //  WebSite: this.WebSite
         });
 
 
@@ -229,8 +229,7 @@
         //}
         recordToDelete = tableItem;
     }
-    self.DeleteConfirmed=function()
-    {
+    self.DeleteConfirmed = function () {
         $('#myModal').modal('hide');
         $('.modal-backdrop').modal('show');
         $('.modal-backdrop').modal('hide');

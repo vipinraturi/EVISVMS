@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
+using Evis.VMS.Utilities;
 
 namespace Evis.VMS.UI.Controllers.ApiControllers
 {
@@ -103,6 +105,60 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         {
             for (var day = from.Date; day.Date <= thru.Date; day = day.AddDays(1))
                 yield return day;
+        }
+
+
+        [Route("~/Api/DashBoard/DisplayAllShift")]
+        [HttpPost]
+        public string DisplayAllShift(string globalSearch, int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC")
+        {
+           // .Where(t => t.ExpirationDate == null || (t.ExpirationDate != null && DbFunctions.TruncateTime(t.ExpirationDate.Value) > DbFunctions.TruncateTime(DateTime.Now)))
+            //.Where(x => x.IsActive == true && x.FromDate <= DateTime.Now && x.ToDate >= DateTime.Now)
+            var a =_genericService.ShitfAssignment.GetAll().Where(x => x.IsActive == true && (EntityFunctions.TruncateTime(x.FromDate) >= EntityFunctions.TruncateTime(DateTime.Now))
+               && (EntityFunctions.TruncateTime(x.ToDate) <= EntityFunctions.TruncateTime(DateTime.Now) )).AsQueryable();
+
+            var ShiftDisplay = _genericService.ShitfAssignment.GetAll().Where(x => x.IsActive == true && (EntityFunctions.TruncateTime(x.FromDate) >= EntityFunctions.TruncateTime(DateTime.Now))
+               || (EntityFunctions.TruncateTime(x.ToDate) >= EntityFunctions.TruncateTime(DateTime.Now) ))
+                .Select(x => new ShiftAssignmentVM
+                {
+                    UserId = x.UserId,
+                    UserName = x.ApplicationUser.FullName,
+                    BuildingId = x.BuildingId,
+                    BuildingName = x.Gates.BuildingMaster.BuildingName,
+                    GateId = x.GateId,
+                    GateName = x.Gates.GateNumber,
+                    ShitfId = x.ShitfId,
+                    ShiftName = x.Shitfs.ShitfName,
+                    FromDate=x.FromDate,
+                    ToDate=x.ToDate
+
+
+                }).ToList().Where(x => x.FromDate.Date <= DateTime.Now.Date).ToList();
+            var searchDetails = JsonConvert.DeserializeObject<SearchShiftReport>(globalSearch);
+           
+            //ShiftDisplay = ShiftDisplay.Where(
+            // x => (searchDetails == null ||
+            //      ((string.IsNullOrEmpty(searchDetails.SecurityId) || x.UserId == searchDetails.SecurityId) &&
+            //      (searchDetails.GateId == 0 || x.GateId == searchDetails.GateId) &&
+            //      (searchDetails.BuildingID == 0 || x.BuildingId == searchDetails.BuildingID) &&
+            //      (searchDetails.ShiftID == 0 || x.ShitfId == searchDetails.ShiftID) &&
+            //      (string.IsNullOrEmpty(searchDetails.FromDate) || x.FromDate.ToString().Contains(searchDetails.FromDate.ToString())) &&
+            //      (string.IsNullOrEmpty(searchDetails.ToDate) || x.ToDate.ToString().Contains(searchDetails.ToDate.ToString()))))).ToList();
+            var paginationRequest = new PaginationRequest
+            {
+                PageIndex = (pageIndex - 1),
+                PageSize = pageSize,
+                SearchText = globalSearch,
+                Sort = new Sort { SortDirection = (sortOrder == "ASC" ? SortDirection.Ascending : SortDirection.Descending), SortBy = sortField }
+            };
+            int totalCount = 0;
+            IList<ShiftAssignmentVM> result =
+            GenericSorterPager.GetSortedPagedList<ShiftAssignmentVM>(ShiftDisplay.AsQueryable(), paginationRequest, out totalCount);
+
+            var jsonData = JsonConvert.SerializeObject(ShiftDisplay.OrderBy(x => x.UserName));
+            return JsonConvert.SerializeObject(new { totalRows = totalCount, result = jsonData });
+            //return Shift;
+
         }
 
     }
