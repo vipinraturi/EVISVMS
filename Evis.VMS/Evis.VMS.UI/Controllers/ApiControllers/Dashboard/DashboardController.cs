@@ -114,11 +114,11 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         {
            // .Where(t => t.ExpirationDate == null || (t.ExpirationDate != null && DbFunctions.TruncateTime(t.ExpirationDate.Value) > DbFunctions.TruncateTime(DateTime.Now)))
             //.Where(x => x.IsActive == true && x.FromDate <= DateTime.Now && x.ToDate >= DateTime.Now)
-            var a =_genericService.ShitfAssignment.GetAll().Where(x => x.IsActive == true && ((EntityFunctions.TruncateTime(x.FromDate) >= EntityFunctions.TruncateTime(DateTime.Now)
-                || EntityFunctions.TruncateTime(x.ToDate) <= EntityFunctions.TruncateTime(DateTime.Now))) && EntityFunctions.TruncateTime(x.ToDate) <= EntityFunctions.TruncateTime(DateTime.Now )).AsQueryable();
+            var a =_genericService.ShitfAssignment.GetAll().Where(x => x.IsActive == true && (EntityFunctions.TruncateTime(x.FromDate) >= EntityFunctions.TruncateTime(DateTime.Now))
+               && (EntityFunctions.TruncateTime(x.ToDate) <= EntityFunctions.TruncateTime(DateTime.Now) )).AsQueryable();
 
-            var ShiftDisplay = _genericService.ShitfAssignment.GetAll().Where(x => x.IsActive == true && ((EntityFunctions.TruncateTime(x.FromDate) >= EntityFunctions.TruncateTime(DateTime.Now)
-                || EntityFunctions.TruncateTime(x.ToDate) <= EntityFunctions.TruncateTime(DateTime.Now))) && EntityFunctions.TruncateTime(x.ToDate) <= EntityFunctions.TruncateTime(DateTime.Now ))
+            var ShiftDisplay = _genericService.ShitfAssignment.GetAll().Where(x => x.IsActive == true && (EntityFunctions.TruncateTime(x.FromDate) >= EntityFunctions.TruncateTime(DateTime.Now))
+               || (EntityFunctions.TruncateTime(x.ToDate) >= EntityFunctions.TruncateTime(DateTime.Now) ))
                 .Select(x => new ShiftAssignmentVM
                 {
                     UserId = x.UserId,
@@ -128,10 +128,12 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     GateId = x.GateId,
                     GateName = x.Gates.GateNumber,
                     ShitfId = x.ShitfId,
-                    ShiftName = x.Shitfs.ShitfName
+                    ShiftName = x.Shitfs.ShitfName,
+                    FromDate=x.FromDate,
+                    ToDate=x.ToDate
 
 
-                }).ToList();
+                }).ToList().Where(x => x.FromDate.Date <= DateTime.Now.Date).ToList();
             var searchDetails = JsonConvert.DeserializeObject<SearchShiftReport>(globalSearch);
            
             //ShiftDisplay = ShiftDisplay.Where(

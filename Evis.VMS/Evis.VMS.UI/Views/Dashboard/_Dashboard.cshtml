@@ -111,122 +111,193 @@
         </div>
     </div>
 </div>
-
-<div class="col-lg-12">
-    <div class="x_panel">
-        <div class="x_title">
-            <h2>Daily Shift Details</h2>
-            <div class="clearfix"></div>
-        </div>
-    </div>
-    <table class="table jambo_table">
-        <thead>
-            <tr>
-                <th style="width: 10%">#</th>
-                <th style="width: 25%"> <a href="#" onclick="DataGrid.Sort('UserName')" class="sortCol">Security Name</a> </th>
-                <th style="width: 25%"> <a href="#" onclick="DataGrid.Sort('BuildingName')" class="sortCol">Building Name</a></th>
-                <th style="width: 25%"><a href="#" onclick="DataGrid.Sort('GateName')" class="sortCol">Gate Name</a></th>
-                <th style="width: 25%"><a href="#" onclick="DataGrid.Sort('ShiftName')" class="sortCol">Shift Name</a></th>
-
-                <th style="width: 15%"></th>
-            </tr>
-        </thead>
-        <tbody data-bind="foreach:DataGrid.DataRows">
-            <tr>
-                <th scope="row" data-bind="text:$index() +1"></th>
-                <td data-bind="text: UserName"></td>
-                <td data-bind="text:BuildingName"></td>
-                <td data-bind="text:GateName"></td>
-                <td data-bind="text:ShiftName"></td>
-            </tr>
-        </tbody>
-        <tr class="blank_row" data-bind="visible: (DataGrid.DataRows().length==0)"></tr>
-    </table>
-
-</div>
-@*<div class="row">
-    <div class="col-md-6 col-sm-6 col-xs-12">
-        <div class="x_panel">
-            <div class="">
-                <h2>Shift Details</h2>
-
+<div class="row">
+    <div class="col-lg-12">
+        <div class="dashboard_graph x_panel">
+            <div class="x_title">
+                <h2>Daily Shift Details</h2>
+                <div class="clearfix"></div>
             </div>
-        </div>
-        <table class="table jambo_table">
-            <thead>
-                <tr>
-                    <th style="width: 1%">#</th>
-                    <th style="width: 15%"> <a href="#" onclick="DataGrid.Sort('UserName')" class="sortCol">Security Name</a> </th>
-                    <th style="width: 15%"> <a href="#" onclick="DataGrid.Sort('BuildingName')" class="sortCol">Building Name</a></th>
-                    <th style="width: 15%"><a href="#" onclick="DataGrid.Sort('GateName')" class="sortCol">Gate Name</a></th>
-                    <th style="width: 15%"><a href="#" onclick="DataGrid.Sort('ShiftName')" class="sortCol">Shift Name</a></th>
 
-                    <th style="width: 15%"></th>
+            <table class="table jambo_table">
+                <thead>
+                    <tr>
+                        <th style="width: 5%">#</th>
+                        <th style="width: 25%"> <a href="#" onclick="DataGrid.Sort('UserName')" class="sortCol">Security Name</a> </th>
+                        <th style="width: 20%"> <a href="#" onclick="DataGrid.Sort('BuildingName')" class="sortCol">Building Name</a></th>
+                        <th style="width: 25%"><a href="#" onclick="DataGrid.Sort('GateName')" class="sortCol">Gate Name</a></th>
+                        <th style="width: 25%"><a href="#" onclick="DataGrid.Sort('ShiftName')" class="sortCol">Shift Name</a></th>
+                        
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach:DataGrid.DataRows">
+                    <tr>
+                        <td  scope="row" data-bind="text:$index() +1"></td>
+                        <td  data-bind="text: UserName"></td>
+                        <td data-bind="text:BuildingName" ></td>
+                        <td data-bind="text:GateName" ></td>
+                        <td data-bind="text:ShiftName" ></td>
+                    </tr>
+                </tbody>
+                <tr class="blank_row" data-bind="visible: (DataGrid.DataRows().length==0)"></tr>
+            </table>
+        </div>
+
+
+    </div>
+</div>
+@*<section class="">
+    <div class="container">
+        <table>
+            <thead>
+                <tr class="header">
+                    <th>
+                        Table attribute name
+                        <div>Table attribute name</div>
+                    </th>
+                    <th>
+                        Value
+                        <div>Value</div>
+                    </th>
+                    <th>
+                        Description
+                        <div>Description</div>
+                    </th>
                 </tr>
             </thead>
-            <tbody data-bind="foreach:DataGrid.DataRows">
+            <tbody>
                 <tr>
-                    <th scope="row" data-bind="text:$index() +1"></th>
-                    <td data-bind="text: UserName"></td>
-                    <td data-bind="text:BuildingName"></td>
-                    <td data-bind="text:GateName"></td>
-                    <td data-bind="text:ShiftName"></td>
+                    <td>align</td>
+                    <td>left, center, right</td>
+                    <td>Not supported in HTML5. Deprecated in HTML 4.01. Specifies the alignment of a table according to surrounding text</td>
+                </tr>
+                <tr>
+                    <td>bgcolor</td>
+                    <td>rgb(x,x,x), #xxxxxx, colorname</td>
+                    <td>Not supported in HTML5. Deprecated in HTML 4.01. Specifies the background color for a table</td>
+                </tr>
+                <tr>
+                    <td>border</td>
+                    <td>1,""</td>
+                    <td>Specifies whether the table cells should have borders or not</td>
+                </tr>
+                <tr>
+                    <td>cellpadding</td>
+                    <td>pixels</td>
+                    <td>Not supported in HTML5. Specifies the space between the cell wall and the cell content</td>
+                </tr>
+                <tr>
+                    <td>cellspacing</td>
+                    <td>pixels</td>
+                    <td>Not supported in HTML5. Specifies the space between cells</td>
+                </tr>
+                <tr>
+                    <td>frame</td>
+                    <td>void, above, below, hsides, lhs, rhs, vsides, box, border</td>
+                    <td>Not supported in HTML5. Specifies which parts of the outside borders that should be visible</td>
+                </tr>
+                <tr>
+                    <td>rules</td>
+                    <td>none, groups, rows, cols, all</td>
+                    <td>Not supported in HTML5. Specifies which parts of the inside borders that should be visible</td>
+                </tr>
+                <tr>
+                    <td>summary</td>
+                    <td>text</td>
+                    <td>Not supported in HTML5. Specifies a summary of the content of a table</td>
+                </tr>
+                <tr>
+                    <td>width</td>
+                    <td>pixels, %</td>
+                    <td>Not supported in HTML5. Specifies the width of a table</td>
                 </tr>
             </tbody>
-            <tr class="blank_row" data-bind="visible: (DataGrid.DataRows().length==0)"></tr>
         </table>
     </div>
-    <div class="x_content">
-            <ul class="list-unstyled timeline">
-                <li>
-                    <div class="block">
-                        <div class="tags">
-                            <a href="" class="tag">
-                                <span>Shift 1</span>
-                            </a>
-                        </div>
-                        <div class="block_content">
-                            <h2 class="title">
-                                <a>Test</a>
-                            </h2>
-                            <div class="byline">
-                                <span>13 hours ago</span> by <a>ABC</a>
-                            </div>
-                            <p class="excerpt">
-                                test data <a>Read&nbsp;More</a>
-                            </p>
-                        </div>
-                    </div>
-                </li>
+</section>*@
+@*<div class="row">
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="x_panel">
+                <div class="">
+                    <h2>Shift Details</h2>
 
-                <li>
-                    <div class="block">
-                        <div class="tags">
-                            <a href="" class="tag">
-                                <span>Shift 2</span>
-                            </a>
-                        </div>
-                        <div class="block_content">
-                            <h2 class="title">
-                                <a>Test2</a>
-                            </h2>
-                            <div class="byline">
-                                <span>13 hours ago</span> by <a>ABC</a>
-                            </div>
-                            <p class="excerpt">
-                                test data 2<a>Read&nbsp;More</a>
-                            </p>
-                        </div>
-                    </div>
-                </li>
-            </ul>
+                </div>
+            </div>
+            <table class="table jambo_table">
+                <thead>
+                    <tr>
+                        <th style="width: 1%">#</th>
+                        <th style="width: 15%"> <a href="#" onclick="DataGrid.Sort('UserName')" class="sortCol">Security Name</a> </th>
+                        <th style="width: 15%"> <a href="#" onclick="DataGrid.Sort('BuildingName')" class="sortCol">Building Name</a></th>
+                        <th style="width: 15%"><a href="#" onclick="DataGrid.Sort('GateName')" class="sortCol">Gate Name</a></th>
+                        <th style="width: 15%"><a href="#" onclick="DataGrid.Sort('ShiftName')" class="sortCol">Shift Name</a></th>
 
+                        <th style="width: 15%"></th>
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach:DataGrid.DataRows">
+                    <tr>
+                        <th scope="row" data-bind="text:$index() +1"></th>
+                        <td data-bind="text: UserName"></td>
+                        <td data-bind="text:BuildingName"></td>
+                        <td data-bind="text:GateName"></td>
+                        <td data-bind="text:ShiftName"></td>
+                    </tr>
+                </tbody>
+                <tr class="blank_row" data-bind="visible: (DataGrid.DataRows().length==0)"></tr>
+            </table>
         </div>
-</div>*@
-    
+        <div class="x_content">
+                <ul class="list-unstyled timeline">
+                    <li>
+                        <div class="block">
+                            <div class="tags">
+                                <a href="" class="tag">
+                                    <span>Shift 1</span>
+                                </a>
+                            </div>
+                            <div class="block_content">
+                                <h2 class="title">
+                                    <a>Test</a>
+                                </h2>
+                                <div class="byline">
+                                    <span>13 hours ago</span> by <a>ABC</a>
+                                </div>
+                                <p class="excerpt">
+                                    test data <a>Read&nbsp;More</a>
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="block">
+                            <div class="tags">
+                                <a href="" class="tag">
+                                    <span>Shift 2</span>
+                                </a>
+                            </div>
+                            <div class="block_content">
+                                <h2 class="title">
+                                    <a>Test2</a>
+                                </h2>
+                                <div class="byline">
+                                    <span>13 hours ago</span> by <a>ABC</a>
+                                </div>
+                                <p class="excerpt">
+                                    test data 2<a>Read&nbsp;More</a>
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+            </div>
+    </div>*@
 
 
-    @*<div class="col-md-6">
+
+@*<div class="col-md-6">
         <div class="x_panel">
             <div class="">
                 <h2>Daily activities</h2>
@@ -367,15 +438,15 @@
 
 
         //flot options
-        
-      
+
+
 
 
         var dayOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thr", "Fri", "Sat"];
 
 
 
-      //  var plot = $.plot($("#placeholder3xx3"), dataset, options);
+        //  var plot = $.plot($("#placeholder3xx3"), dataset, options);
 
         function gd(date) {
             //alert(date);
