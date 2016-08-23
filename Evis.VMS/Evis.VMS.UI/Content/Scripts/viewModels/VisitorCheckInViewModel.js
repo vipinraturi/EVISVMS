@@ -54,6 +54,8 @@
             if (isResetFields) {
                 self.ResetCheckInFormData();
             }
+
+            AllowNumericOnly($("#txtNumberOfPerson"));
         });
     }
 

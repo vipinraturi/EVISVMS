@@ -62,11 +62,9 @@
         })
     }
     self.SaveVisitor = function () {
-
         if (self.errors().length > 0) {
             self.errors.showAllMessages(true);
             this.errors().forEach(function (data) {
-
             });
         }
         else {
@@ -81,16 +79,28 @@
             data.Nationality = self.Nationality()
             data.ContactNo = self.ContactNo();
 
-            if ($('.dz-image img').attr("img-name-unique") == undefined) {
-                data.ImagePath = "";
-            }
-            else {
-                data.ImagePath = $('.dz-image img').attr("img-name-unique");
+            //debugger;
+            data.ImagePath = $('#dropzoneImageForm .dz-image img').attr("img-name-unique");
+            if (data.ImagePath == undefined) {
+                data.ImagePath = $('#dropzoneImageForm .dz-image img').attr("alt");
             }
 
             data.IdentityImage1_Path = $('.dz-image-preview img').eq(0).attr("img-name-unique");
+            if (data.IdentityImage1_Path == undefined) {
+                data.IdentityImage1_Path = $('.dz-image-preview img').eq(0).attr("alt");
+            }
+
             data.IdentityImage2_Path = $('.dz-image-preview img').eq(1).attr("img-name-unique");
+            if (data.IdentityImage2_Path == undefined) {
+                data.IdentityImage2_Path = $('.dz-image-preview img').eq(1).attr("alt");
+            }
+
             data.IdentityImage3_Path = $('.dz-image-preview img').eq(2).attr("img-name-unique");
+            if (data.IdentityImage3_Path == undefined) {
+                data.IdentityImage3_Path = $('.dz-image-preview img').eq(2).attr("alt");
+            }
+
+            //debugger;
 
             data.ContactAddress = self.ContactAddress()
             data.IsInsert = self.IsInsert();
@@ -105,7 +115,7 @@
                     else {
                         toastr.success('Visitor saved successfully!!')
                     }
-
+                    
                     self.ResetData();
                     self.IsInsert(true);
                     self.GetAllVisitor();
@@ -157,8 +167,9 @@
     }
 
     self.EditVisitor = function (tableItem) {
+        
         if (tableItem != undefined) {
-
+            debugger;
             var d = new Date(tableItem.DOB),
             month = '' + (d.getMonth() + 1),
             day = '' + d.getDate(),
@@ -166,8 +177,6 @@
             if (month.length < 2) month = '0' + month;
             if (day.length < 2) day = '0' + day;
             var dateDob = [day, month, year].join('/');
-
-           
             $('#viewVisitorImageUnique').show();
             self.IsEdit(true);
             self.IsInsert(false);
@@ -181,21 +190,24 @@
             self.Nationality(tableItem.Nationality);
             self.ContactNo(tableItem.ContactNo);
             self.ContactAddress(tableItem.ContactAddress);
-
             $('.dz-image-preview').empty();
 
-        
             if (tableItem.ImagePath != undefined && tableItem.ImagePath != "") {
                 var imagePath = '/images/VisitorImages/' + tableItem.ImagePath;
                 var mockFile = { name: tableItem.ImagePath, size: 1024 };
                 dropZoneVisitorImage.emit("addedfile", mockFile);
                 dropZoneVisitorImage.emit("thumbnail", mockFile, imagePath);
                 dropZoneVisitorImage.createThumbnailFromUrl(mockFile, imagePath);
-                $('.dz-image').addClass('dz-message');
-                $('.dz-image img').addClass('dz-message');
+                $('#dropzoneImageForm .dz-image').addClass('dz-message');
+                $('#dropzoneImageForm .dz-image img').addClass('dz-message');
                 $('#btnSave').html('Update <i class="fa fa-save"></i>');
                 self.LoadIdentityImage(identityImages);
             }
+
+            //debugger;
+            //console.log('tableItem.IdentityImage1_Path ' + tableItem.IdentityImage1_Path);
+            //console.log('tableItem.IdentityImage2_Path ' + tableItem.IdentityImage2_Path);
+            //console.log('tableItem.IdentityImage3_Path ' + tableItem.IdentityImage3_Path);
 
            if (tableItem.IdentityImage1_Path != null && tableItem.IdentityImage1_Path != undefined && tableItem.IdentityImage1_Path != "") {
                 var imagePath = '/images/VisitorIdentityImages/' + tableItem.IdentityImage1_Path;
@@ -203,9 +215,10 @@
                 dropZoneMultipleFiels.emit("addedfile", mockFile);
                 dropZoneMultipleFiels.emit("thumbnail", mockFile, imagePath);
                 dropZoneMultipleFiels.createThumbnailFromUrl(mockFile, imagePath);
-                $('.dz-image').addClass('dz-message');
-                $('.dz-image img').addClass('dz-message');
+                $('#dropzoneForm .dz-image').addClass('dz-message');
+                $('#dropzoneForm .dz-image img').addClass('dz-message');
                 $('#btnSave').html('Update <i class="fa fa-save"></i>');
+                $('.dz-progress').remove();
                 self.LoadIdentityImage(identityImages);
             }
 
@@ -215,9 +228,10 @@
                 dropZoneMultipleFiels.emit("addedfile", mockFile);
                 dropZoneMultipleFiels.emit("thumbnail", mockFile, imagePath);
                 dropZoneMultipleFiels.createThumbnailFromUrl(mockFile, imagePath);
-                $('.dz-image').addClass('dz-message');
-                $('.dz-image img').addClass('dz-message');
+                $('#dropzoneForm .dz-image').addClass('dz-message');
+                $('#dropzoneForm .dz-image img').addClass('dz-message');
                 $('#btnSave').html('Update <i class="fa fa-save"></i>');
+                $('.dz-progress').remove();
                 self.LoadIdentityImage(identityImages);
             }
 
@@ -227,11 +241,13 @@
                 dropZoneMultipleFiels.emit("addedfile", mockFile);
                 dropZoneMultipleFiels.emit("thumbnail", mockFile, imagePath);
                 dropZoneMultipleFiels.createThumbnailFromUrl(mockFile, imagePath);
-                $('.dz-image').addClass('dz-message');
-                $('.dz-image img').addClass('dz-message');
+                $('#dropzoneForm .dz-image').addClass('dz-message');
+                $('#dropzoneForm .dz-image img').addClass('dz-message');
                 $('#btnSave').html('Update <i class="fa fa-save"></i>');
+                $('.dz-progress').remove();
                 self.LoadIdentityImage(identityImages);
             }
+           
         }
     }
 
@@ -280,8 +296,8 @@
 
     self.ViewVisitorImage = function () {
         var srcURL = '';
-        if ($('.dz-image img').attr("img-name-unique") != undefined) {
-            srcURL = ($('.dz-image img').attr("img-name-unique"));
+        if ($('#dropzoneImageForm .dz-image img').attr("img-name-unique") != undefined) {
+            srcURL = ($('#dropzoneImageForm .dz-image img').attr("img-name-unique"));
         }
 
         if (srcURL.indexOf('/images/VisitorImages') == -1) {
@@ -306,4 +322,5 @@
             self.LoadIdentityImage(identityImages);
         }, 1000);
     }
+   
 }
