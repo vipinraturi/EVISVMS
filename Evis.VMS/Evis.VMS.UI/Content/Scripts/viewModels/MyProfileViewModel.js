@@ -55,6 +55,7 @@
             var imagePath = data.ProfilePicturePath;
             self.ProfilePicturePath(data.ProfilePicturePath);
 
+            //debugger;
             var mockFile = { name: "User Image", size: 1024 };
             myDropzoneUnique.emit("addedfile", mockFile);
             myDropzoneUnique.emit("thumbnail", mockFile, imagePath);
@@ -65,6 +66,7 @@
             if (imagePath != "") {
                 $('#imgUserAvatar').attr('src', imagePath);
             }
+
 
             self.Roles().forEach(function (item) {
                 if (item.Id === self.RoleId()) {
@@ -87,7 +89,7 @@
             data.FullName = self.FullName();
             data.PhoneNumber = self.PhoneNumber();
             data.ContactAddress = self.ContactAddress();
-            data.ProfilePicturePath = $('.dz-image img').attr('alt');
+            data.ProfilePicturePath = $('.dz-image img').attr('img-name-unique');
             ////debugger;
             AjaxCall('/Api/MyProfile/SaveMyProfile', data, 'POST', function () {
                 toastr.success('My Profile updated successfully!!')
