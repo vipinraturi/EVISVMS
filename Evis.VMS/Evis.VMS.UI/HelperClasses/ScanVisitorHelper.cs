@@ -59,8 +59,11 @@ namespace Evis.VMS.UI.HelperClasses
                 //Back page of emirates id card 
                 if (resultSplitted.Length >= 1 && !string.IsNullOrEmpty(resultSplitted[0]))
                 {
-                    obj.Gender = resultSplitted[0].Split(':')[1];
-                    obj.DateOfBirth = resultSplitted[0].Split(':')[2].Replace("<br /", " ").Replace("Date of Birth", " ").Replace("j1", "").Replace(" ", "");
+                    if ( resultSplitted[0].Contains(":"))
+                    {
+                        obj.Gender = resultSplitted[0].Split(':')[1];
+                        obj.DateOfBirth = resultSplitted[0].Split(':')[2].Replace("<br /", " ").Replace("Date of Birth", " ").Replace("j1", "").Replace(" ", "");    
+                    }
                 }
             }
             else if (extractedText.Contains("License No"))
