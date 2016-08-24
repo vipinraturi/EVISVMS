@@ -39,8 +39,8 @@ namespace Evis.VMS.UI.HelperClasses
                   UserName = x.ApplicationUser.FullName,
                   FromDate = x.FromDate,
                   ToDate = x.ToDate,
-                  strFromDate = x.FromDate.ToString(),
-                  strToDate = x.ToDate.ToString(),
+                  strFromDate = x.FromDate.ToString("dd/MM/yyyy"),
+                  strToDate = x.ToDate.ToString("dd/MM/yyyy"),
                  
                   
                   
@@ -94,7 +94,7 @@ namespace Evis.VMS.UI.HelperClasses
         //*************************************
         public IList<ShiftAssignmentVM> GetShiftDataPrint(string search)
         {
-            var Shift = _genericService.ShitfAssignment.GetAll().Where(x => x.IsActive == true)
+            var Shift = _genericService.ShitfAssignment.GetAll().Where(x => x.IsActive == true).ToList()
               .Select(x => new ShiftAssignmentVM
               {
                   BuildingId = x.BuildingId,
@@ -102,13 +102,13 @@ namespace Evis.VMS.UI.HelperClasses
                   GateId = x.GateId,
                   GateName = x.Gates.GateNumber,
                   ShitfId = x.ShitfId,
-                  ShiftName = x.Shitfs.ShitfName,
+                  ShiftName = x.Shitfs.ShitfName+ " (" + x.Shitfs.FromTime.ToString("hh:mm tt") + " - " + x.Shitfs.ToTime.ToString("hh:mm tt") + ")",
                   UserId = x.UserId,
                   UserName = x.ApplicationUser.FullName,
                   FromDate = x.FromDate,
                   ToDate = x.ToDate,
-                  strFromDate = x.FromDate.ToString(),
-                  strToDate = x.ToDate.ToString(),
+                  strFromDate = x.FromDate.ToString("dd/MM/yyyy"),
+                  strToDate = x.ToDate.ToString("dd/MM/yyyy"),
                   CompanyName = x.BuildingMaster.Organization.CompanyName,
 
 
