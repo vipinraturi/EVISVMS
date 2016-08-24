@@ -30,7 +30,7 @@
 
     self.GetGates = function () {
         if (self.BuildingId() != undefined && self.BuildingId() != 0) {
-            AjaxCall('/Api/ShiftAssignment/GetAllGates?BuildingId=' + self.BuildingId(), null, 'GET', function (data) {
+            AjaxCall('/Api/VisitorsDetails/GetGates?BuildingId=' + self.BuildingId(), null, 'GET', function (data) {
                 self.Gates(new Object());
                 self.Gates(data);
                 self.GateId(gateId);
@@ -44,16 +44,28 @@
 
     self.GetUsers = function () {
         if (self.GateId() != undefined && self.GateId() != 0) {
-            AjaxCall('/Api/ShiftAssignment/GetAllUsers?GateId=' + self.GateId(), null, 'GET', function (data) {
+            AjaxCall('/Api/VisitorsDetails/GetUsers?GateId=' + self.GateId(), null, 'GET', function (data) {
                 self.Users(new Object());
                 self.Users(data);
                 self.SecurityId(securityId);
             })
         }
     }
-
+    ko.bindingHandlers.enterkey = {
+        init: function (element, valueAccessor, allBindings, viewModel) {
+            var callback = valueAccessor();
+            $(element).keypress(function (event) {
+                var keyCode = (event.which ? event.which : event.keyCode);
+                if (keyCode === 13) {
+                    callback.call(viewModel);
+                    return false;
+                }
+                return true;
+            });
+        }
+    };
+    
     self.VisitorsSearchDetails = function () {
-        debugger;
         var data = new Object();
         data.BuildingId = self.BuildingId();
         data.GateId = self.GateId();
