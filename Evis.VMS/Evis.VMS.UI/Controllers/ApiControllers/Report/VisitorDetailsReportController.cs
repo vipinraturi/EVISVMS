@@ -10,6 +10,7 @@ using Evis.VMS.Business;
 using Evis.VMS.UI.HelperClasses;
 using Evis.VMS.UI.ViewModel;
 using Evis.VMS.Utilities;
+using Microsoft.AspNet.Identity;
 using Microsoft.Reporting.WebForms;
 using Newtonsoft.Json;
 using System;
@@ -49,6 +50,37 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             var result = _visitorDetailsReportHelper.VisitorData(search, pageIndex, pageSize, sortField, sortOrder, out totalCount);
             var jsonData = JsonConvert.SerializeObject(result);
             return JsonConvert.SerializeObject(new { totalRows = totalCount, result = jsonData });
+        }
+        [Route("~/Api/VisitorsDetails/GetGates")]
+        [HttpGet]
+        public IEnumerable<GeneralDropDownVM> GetAllGates(int BuildingId)
+        {
+            var result = _genericService.GateMaster.GetAll().Where(x => x.IsActive == true & x.BuildingId == BuildingId)
+                .Select(y => new GeneralDropDownVM { Id = y.Id, Name = y.GateNumber });
+            return result.OrderByDescending(x => x.Id);
+        }
+
+        [Route("~/Api/VisitorsDetails/GetUsers")]
+        [HttpGet]
+        public async Task<IEnumerable<DropDownVM>> GetAllUsers(int GateId)
+        {
+
+     var user = (await _userService.GetAllAsync()).Where(x => x.Id == HttpContext.Current.User.Identity.GetUserId() && x.IsActive == true).FirstOrDefault();
+            var gates = _genericService.GateMaster.GetAll().FirstOrDefault(x => x.Id == GateId && x.IsActive == true);
+            var getUsers = (await _userService.GetAllAsync()).Where(x => x.Organization.IsActive == true &&
+                           (user == null || (user != null && x.OrganizationId == user.OrganizationId))).AsQueryable();
+
+            var getRoles = (await _applicationRoleService.GetAllAsync()).AsQueryable();
+            var result = (from users in getUsers
+                          join roles in getRoles on users.Roles.First().RoleId equals roles.Id
+                          where roles.Name == "Security"
+                          select new DropDownVM
+                          {
+                              Id = users.Id,
+                              Name = users.FullName
+                          }).AsQueryable();
+
+            return result;
         }
 
     }

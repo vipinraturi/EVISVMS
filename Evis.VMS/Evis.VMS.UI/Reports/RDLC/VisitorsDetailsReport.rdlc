@@ -38,7 +38,7 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>1.0434in</Width>
+              <Width>0.99703in</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>0.91964in</Width>
@@ -47,16 +47,16 @@
               <Width>0.65923in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.2634in</Width>
+              <Width>1.0759in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.01339in</Width>
+              <Width>1.12504in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.98215in</Width>
+              <Width>1.03423in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.99256in</Width>
+              <Width>1.22643in</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -74,6 +74,7 @@
                             <TextRun>
                               <Value>Visitor</Value>
                               <Style>
+                                <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -108,6 +109,7 @@
                             <TextRun>
                               <Value>Building</Value>
                               <Style>
+                                <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -142,6 +144,7 @@
                             <TextRun>
                               <Value>Gate</Value>
                               <Style>
+                                <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -176,6 +179,7 @@
                             <TextRun>
                               <Value>Security Person</Value>
                               <Style>
+                                <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -210,6 +214,7 @@
                             <TextRun>
                               <Value>Check In</Value>
                               <Style>
+                                <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -244,6 +249,7 @@
                             <TextRun>
                               <Value>Check Out</Value>
                               <Style>
+                                <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -278,6 +284,7 @@
                             <TextRun>
                               <Value>Contact No.</Value>
                               <Style>
+                                <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -316,7 +323,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!VisitorName.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -346,7 +355,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!BuildingName.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -376,7 +387,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!GateName.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -406,7 +419,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!SecurityPerson.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -437,7 +452,9 @@
                             <TextRun>
                               <Label>CheckIn</Label>
                               <Value>=IIF(Fields!CheckIn.Value= "","",Fields!CheckIn.Value)</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -468,7 +485,9 @@
                             <TextRun>
                               <Label>CheckOut</Label>
                               <Value>=iif(Fields!CheckOut.Value = "" ,"", Fields!CheckOut.Value)</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -498,7 +517,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!ContactNumber.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontSize>8pt</FontSize>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -547,7 +568,7 @@
         <Top>1.23834in</Top>
         <Left>0.10119in</Left>
         <Height>0.58334in</Height>
-        <Width>6.87377in</Width>
+        <Width>7.03751in</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
@@ -565,7 +586,7 @@
         <Top>0.3937cm</Top>
         <Left>0.25702cm</Left>
         <Height>0.9325cm</Height>
-        <Width>17.45938cm</Width>
+        <Width>17.87527cm</Width>
         <ZIndex>2</ZIndex>
         <Style>
           <Border>
@@ -577,7 +598,7 @@
     <Height>8.41703cm</Height>
     <Style />
   </Body>
-  <Width>18cm</Width>
+  <Width>18.87312cm</Width>
   <Page>
     <PageHeight>29.7cm</PageHeight>
     <PageWidth>21cm</PageWidth>
