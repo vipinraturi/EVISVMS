@@ -1,33 +1,27 @@
 ﻿<!DOCTYPE html>
-
 <html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>404 Error</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="Stylesheet" href="@Url.Content("~/Content/style")" id="styleCommon" />
 </head>
-<body>
-
+<body class="">
     <div>
         <div id="wrapper">
             <!-- Content Wrapper. Contains page content -->
             <!-- Content Header (Page header) -->
-            <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+            <div id="title-breadcrumb-option-demo">
                 <div class="page-header pull-left">
-                    <img src="/Content/images/logopng.png" width="100" alt="Evis VMS">
+                    <img src="/images/logo1.png" width="100" alt="Evis VMS">
                 </div>
-
-                <ol class="breadcrumb page-breadcrumb pull-right">
-                    @*<li><a href=""><i class=""></i>&nbsp;<span style="font-size: 14px !important; color: black !important; " "></span></a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
-                        <li><span style="font-size: 14px !important; color: black !important;"></span></li>*@
-                </ol>
-                <div class="clearfix">
-                </div>
+            </div>
+            <div class="clearfix" style="border-bottom: 1px solid #ef6028!important;">
             </div>
 
             <!-- Main content -->
-            <div class="page-content">
+            <div class="page-content container">
                 <div id="tab-general">
                     <div class="row mbl">
 
@@ -37,12 +31,12 @@
                                 <h3><i class="fa fa-warning text-orange"></i> Oops! Page not found.</h3>
                                 <p style="font-size : 18px">
                                     We could not find the page you were looking for.
-                                    Why not try going back to Home page<a href="javascript: history.go(-1)"> or perhaps try following!</a>.
+                                    Why not try going back to Home page<a href="@Url.Action("Index","Home")"> or perhaps try following!</a>.
                                 </p>
                                 <form class="search-form">
                                     <div class="input-group">
 
-                                        <a class="btn btn-success" style="background-color: #00984a; color:white;" href="javascript: history.go(-1)" title="Click here to Return to Home.">Return To Home</a>
+                                        <a class="btn btn-success" style="background-color: #00984a; color:white;" href="@Url.Action("Index","Home")" title="Click here to Return to Home.">Return To Home</a>
                                         @*<a class="btn btn-success" style="background-color: #00984a; color:white;" href=@Url.Action("DashBoard", "DashBoard") title="">Return To Home</a>*@
                                         @*<a class="btn btn-success" style="background-color: #00984a; color:white;" href=@Url.Action("Login", "Account", new { url = Session["ermsg"] }) title="">Return To Home</a>*@
                                     </div><!-- /.input-group -->

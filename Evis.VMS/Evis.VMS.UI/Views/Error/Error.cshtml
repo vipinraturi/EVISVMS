@@ -4,30 +4,20 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Error</title>
-
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-
+    <link rel="Stylesheet" href="@Url.Content("~/Content/style")" id="styleCommon" />
 </head>
-
-
-
-<body class="hold-transition skin-blue sidebar-mini">
-
+<body class="container">
     <div>
-        <div id="wrapper">
+        <div id="wrapper" class="container">
             <!-- Content Wrapper. Contains page content -->
             <!-- Content Header (Page header) -->
             <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
                 <div class="page-header pull-left">
-                    <img src="/Content/images/logopng.png" width="100" alt="Saudi German Hospital Dubai" />
+                    <img src="/images/logo1.png" width="100" alt="Saudi German Hospital Dubai" />
                 </div>
-
-                <ol class="breadcrumb page-breadcrumb pull-right">
-                    <li><a href="#/Dashboard"><i class="fa fa-home fahome"></i>&nbsp;<span style="font-size: 14px !important; color: black !important; " ">Home</span></a>&nbsp;&nbsp;<i class="fa fa-angle-right"></i>&nbsp;&nbsp;</li>
-                    <li><span style="font-size: 14px !important; color: black !important;"></span></li>
-                </ol>
-                <div class="clearfix">
-                </div>
+            </div>
+            <div class="clearfix" style="border-bottom: 1px solid #ef6028!important;">
             </div>
 
             <!-- Main content -->
@@ -47,12 +37,12 @@
                                             <h3><i class="fa fa-warning text-orange"></i> Oops! Something went Wrong.</h3>
                                             <p>
                                                 Sorry, an error has occured! We will work on fixing that right away.
-                                                Meanwhile, you may <a href="javascript: history.go(-1)">return to Home</a> or Please come back in a while.
+                                                Meanwhile, you may <a href="@Url.Action("Index","Home")">return to Home</a> or Please come back in a while.
                                             </p>
                                             <form class="search-form">
                                                 <div class="input-group">
 
-                                                    <a class="btn btn-success" style="background-color: #00984a; color:white;" href="javascript: history.go(-1)" title="Click here to Return to Home.">Return To Home</a>
+                                                    <a class="btn btn-success" style="background-color: #00984a; color:white;" href="@Url.Action("Index","Home")" title="Click here to Return to Home.">Return To Home</a>
 
                                                 </div><!-- /.input-group -->
                                             </form>
