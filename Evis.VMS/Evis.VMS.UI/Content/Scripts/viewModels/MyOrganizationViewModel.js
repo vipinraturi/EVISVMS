@@ -19,30 +19,27 @@
         deferValidation: true
     });
     self.Id = ko.observable(0);
-    self.Theme = ko.observable(undefined).extend({ required: true });
+   // self.Theme = ko.observable(undefined).extend({ required: true });
     self.CountryId = ko.observable(undefined).extend({ required: true });
-    //self.StateId = ko.observable(undefined).extend({ required: true });
-    //self.CityId = ko.observable(undefined).extend({ required: true });
    
-    //self.Email = ko.observable('').extend({ required: true, minLength: 2, maxLength: 40, email: { message: "Invalid email" } });
-    //self.ContactNumber = ko.observable('').extend({
-    //    required: true,
-    //    pattern: {
-    //        message: 'Invalid phone number.',
-    //        params: /^([0-9\(\)\/\+ \-\.]*)$/
-    //    }
-    //});
-    //self.ContactAddress = ko.observable('').extend({ required: true });
-    //self.FaxNumber = ko.observable('').extend({ required: true });
-    //self.POBox = ko.observable('').extend({ required: true });
-    self.WebSite = ko.observable('').extend({ required: true });
+    self.WebSite = ko.observable('');
     self.IsInsert = ko.observable(false);
 
-    self.Themes = ko.observableArray();
-    AjaxCall('/Api/Administration/GetTheme', null, 'GET', function (data) {
-        //debugger;
-        self.Themes(data);
-    });
+    //self.Themes = ko.observableArray();
+
+    ko.validation.rules['url'] = {
+        validator: function (val, required) {
+            if (!val) {
+                return !required
+            }
+            val = val.replace(/^\s+|\s+$/, ''); //Strip whitespace
+            //Regex by Diego Perini from: http://mathiasbynens.be/demo/url-regex
+            return val.match(/^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.‌​\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[‌​6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1‌​,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00‌​a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u‌​00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?$/i);
+        },
+        message: 'This field has to be a valid URL'
+    };
+    ko.validation.registerExtenders();
+    
 
 
     self.Countries = ko.observableArray();
@@ -50,46 +47,25 @@
         self.Countries(data);
     });
 
-    //self.States = ko.observableArray();
-    //self.LoadStates = function () {
-    //    AjaxCall('/Api/Administration/GetStatesOrCities?id=' + self.CountryId(), null, 'GET', function (data) {
-    //        self.States(new Object());
-    //        self.States(data);
-    //        self.StateId(stateId);
-    //    });
-    //}
-
-    //self.Cities = ko.observableArray();
-    //self.LoadCities = function () {
-    //    AjaxCall('/Api/Administration/GetStatesOrCities?id=' + self.StateId(), null, 'GET', function (data) {
-    //        self.Cities(new Object());
-    //        self.Cities(data);
-    //        self.CityId(cityId);
-    //    });
-    //}
-
+  
     self.SaveOrganization = function () {
         $('.loader-div').show();
         setTimeout(function () {
             if (self.errors().length > 0) {
                 self.errors.showAllMessages(true);
                 this.errors().forEach(function (data) {
+                    toastr.clear();
                     toastr.warning(data);
                 });
             }
             else {
-
+                debugger;
 
                 var data = new Object();
-                ////debugger;
+              
                 data.Id = self.Id(),
                 data.CompanyName = self.CompanyName(),
-                //data.CityId = self.CityId(),
-                //data.EmailId = self.Email(),
-                //data.ContactNumber = self.ContactNumber(),
-                //data.ContactAddress = self.ContactAddress(),
-                //data.FaxNumber = self.FaxNumber(),
-                //data.ZipCode = self.POBox(),
+                data.CountryId = self.CountryId(),
                 data.WebSite = self.WebSite()
                 data.IsInsert = self.IsInsert();
 
@@ -109,17 +85,11 @@
         self.IsInsert(true);
         self.GlobalSearch('');
         self.CompanyName('');
-        //self.Email('');
-        //self.ContactAddress('');
-        //self.FaxNumber('');
-        //self.ContactNumber('');
-        //self.POBox('');
+     
         self.WebSite('');
-        ApplyCustomBinding('organization');
+        ApplyCustomBinding('myorganization');
     }
-    //var User = {
-    //    OrginizationId: self.OrginizationId
-    //};
+
     var Orginization = {
         CompanyName: self.CompanyName,
         
@@ -131,21 +101,9 @@
     AjaxCall('/Api/MyOrginization/GetMyOrginization', null, 'GET', function (data) {
         $('.loader-div').show();
         setTimeout(function () {
-            debugger;
+            
             self.IsInsert(false);
-            self.CountryId(data.CountryId);
-            self.CompanyName(data.CompanyName);
-            //self.stateId = data.CityMaster.ParentId;
-            //self.cityId = data.CityId;
-            //self.Theme(data.ThemeName);
-           // self.CompanyName(data.CompanyName);
-            //self.ContactNumber(data.ContactNo);
-            //self.Id(data.CompanyId);
-            //self.Email(data.EmailAddress);
-            //self.ContactAddress(data.Address);
-            //self.FaxNumber(data.FaxNo);
-            //self.POBox(data.ZipCode);
-            self.WebSite(data.WebSite);
+            
             $("#myLogo").removeAttr('src');
             $("#myImg").attr('src', '');
             var d = new Date();
@@ -160,7 +118,12 @@
             }
             $('.loader-div').hide();
         }, 2000);
+        debugger;
+        self.Id(data.CompanyId);
+        self.CountryId(data.CountryId);
+        self.CompanyName(data.CompanyName);
 
+        self.WebSite(data.WebSite);
 
     })
 
