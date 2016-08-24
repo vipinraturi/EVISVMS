@@ -128,6 +128,7 @@ namespace Evis.VMS.UI.HelperClasses
                     && (string.IsNullOrEmpty(targetDate) || Convert.ToDateTime(x.CheckIn) <= Convert.ToDateTime(targetDate))
                     )
                     )).ToList();
+            visitorsDetails = visitorsDetails.OrderByDescending(x => x.CheckIn).ToList();
 
             return visitorsDetails;
         }
