@@ -61,7 +61,7 @@ namespace Evis.VMS.UI.Controllers
             if (!ModelState.IsValid)
                 return View(loginVM);
 
-            var user = await _userService.FindAsync(loginVM.UserName, loginVM.Password);
+            var user = await _userService.FindAsync(loginVM.UserName.Trim(), loginVM.Password);
             if (user == null)
             {
                 ModelState.AddModelError("authstatusmessage", "Invalid credentials");
