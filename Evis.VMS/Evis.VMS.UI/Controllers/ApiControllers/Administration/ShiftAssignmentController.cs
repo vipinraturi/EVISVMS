@@ -161,7 +161,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
             if (ShitfAssignment.Id == 0)
             {
-                var data = _genericService.ShitfAssignment.GetAll().Where(x => x.UserId == ShitfAssignment.UserId && x.ShitfId == ShitfAssignment.ShitfId && x.IsActive == true && x.BuildingId == ShitfAssignment.BuildingId && x.GateId == ShitfAssignment.GateId && x.ToDate >= ShitfAssignment.FromDate && x.ToDate <= ShitfAssignment.ToDate).ToList();//&&   
+                var data = _genericService.ShitfAssignment.GetAll().Where(x => x.UserId == ShitfAssignment.UserId && x.IsActive == true && x.FromDate <= ShitfAssignment.FromDate && x.ToDate >= ShitfAssignment.ToDate).ToList();//&&   
                 if (data.Count() == 0)
                 {
                     ShitfAssignment.IsActive = true;
@@ -204,7 +204,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 if (Delete != null)
                 {
                     Delete.IsActive = false;
-                    _genericService.ShitfAssignment.Update(Delete);
+                    _genericService.ShitfAssignment.Delete(Delete);
                     _genericService.Commit();
                     return new ReturnResult { Message = "Success", Success = true };
                 }
