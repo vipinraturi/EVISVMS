@@ -11,6 +11,7 @@
     }
 
     self.GetAllGateData();
+    
 
     //AjaxCall('/Api/DashBoard/DisplayAllShift', data, 'GET', function (data) {
 

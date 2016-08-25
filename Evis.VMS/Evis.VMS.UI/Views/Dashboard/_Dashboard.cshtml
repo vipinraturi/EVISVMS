@@ -2,7 +2,9 @@
 <script src="~/Content/Scripts/plugins/Chart.min.js"></script>
 <script src="~/Content/Scripts/plugins/curvedLines.js"></script>
 <script src="~/Content/Scripts/plugins/jquery.flot.js"></script>
+<script src="~/Content/Scripts/plugins/daterangepicker.js"></script>
 <script src="~/Content/Scripts/plugins/jquery.flot.time.js"></script>
+<script src="~/Content/Scripts/plugins/moment.min.js"></script>
 <div class="row top_tiles">
     @if (@Session["DashboardData"] != null)
     {
@@ -60,7 +62,6 @@
                 <div class="col-md-6">
                     <h3>Visitor Count <small>Graph </small></h3>
                 </div>
-
             </div>
             <div class="x_content">
                 <div class="demo-container" style="height:250px">
@@ -125,9 +126,11 @@
 
 
 
-<script>
+<script type="text/javascript">
+   
     $(document).ready(function () {
         //random data
+        
         var graphData;
         var fromDate = new Date();
         var toDate = new Date();
@@ -239,3 +242,5 @@
 
     });
 </script>
+
+

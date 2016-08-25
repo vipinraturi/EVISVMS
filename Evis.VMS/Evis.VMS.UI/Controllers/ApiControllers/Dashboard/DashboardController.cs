@@ -47,7 +47,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
             //q = "[";
             var currentDate = DateTime.Now;
-            var lastDate = DateTime.Now.AddDays(-15);
+            var lastDate = DateTime.Now.AddDays(-30).Date;
             List<string> dates = new List<string>();
             
 
