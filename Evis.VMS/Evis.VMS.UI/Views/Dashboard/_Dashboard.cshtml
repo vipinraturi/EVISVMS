@@ -114,8 +114,9 @@
                         <td data-bind="text:ShiftName"></td>
                     </tr>
                 </tbody>
-                <tr class="blank_row" data-bind="visible: (DataGrid.DataRows().length==0)"></tr>
+                <tr class="blank_row" data-bind="visible: (DataGrid.DataRows().length == 0)"><td colspan="10">No data, Add new records.</td></tr>
             </table>
+            @Html.Partial("_Pager")
         </div>
 
 

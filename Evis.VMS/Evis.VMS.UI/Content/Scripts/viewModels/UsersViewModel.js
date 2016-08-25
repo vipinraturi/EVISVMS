@@ -13,7 +13,7 @@
         required: true,
         pattern: {
             message: 'Invalid phone number.',
-            params: /^([0-9\(\)\/\+ \-\.]*)$/
+            params: /^\+?([0-9\(\)\/\-\.]*)$/
         }
     });
 

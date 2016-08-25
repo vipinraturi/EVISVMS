@@ -30,7 +30,7 @@
                         @*<h2>Welcome to Visitor Managemet System </h2>*@
                         <div style="margin-top:8%;">
                             @*<input type="text" class="form-control" placeholder="Username" required="" />*@
-                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "Email Id" })
+                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "Username" })
                             @Html.ValidationMessageFor(model => model.UserName, null, new { @class = "error" })
                         </div>
                         <div>

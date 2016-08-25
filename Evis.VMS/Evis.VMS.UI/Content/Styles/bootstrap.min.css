@@ -7231,3 +7231,13 @@ button.close {
     }
 }
 /*# sourceMappingURL=bootstrap.min.css.map */
+
+
+#footer {
+    position: fixed;
+    width: 100%;
+    bottom: 0px;
+    padding: 8px 8px;
+    background: #e5e5e5;
+
+}

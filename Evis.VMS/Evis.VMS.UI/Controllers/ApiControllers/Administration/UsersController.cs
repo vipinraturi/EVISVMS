@@ -30,7 +30,22 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         [HttpGet]
         public async Task<IEnumerable<ApplicationRole>> GetRoles()
         {
-            return await _applicationRoleService.GetManyAsync(x => x.Name != "SuperAdmin");
+            var user = (await _userService.GetAllAsync()).Where(x => x.Id == HttpContext.Current.User.Identity.GetUserId() && x.IsActive == true).FirstOrDefault();
+
+            ApplicationRole role = null;
+            if (user != null)
+            {
+                role = await _applicationRoleService.FindByIdAsync(user.Roles.FirstOrDefault().RoleId);
+            }
+
+            if (role != null && role.Name == "Supervisor")
+            {
+                return (await _applicationRoleService.GetAllAsync()).Where(x => x.Name == "Security").AsQueryable();
+            }
+            else
+            {
+                return (await _applicationRoleService.GetAllAsync()).AsQueryable();
+            }
         }
 
 
@@ -73,7 +88,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             var user = (await _userService.GetAllAsync()).Where(x => x.Id == HttpContext.Current.User.Identity.GetUserId() && x.IsActive == true).FirstOrDefault();
 
             var getUsers = (await _userService.GetAllAsync()).Where(x => x.Organization.IsActive == true &&
-                            (user == null || (user != null && x.OrganizationId == user.OrganizationId 
+                            (user == null || (user != null && x.OrganizationId == user.OrganizationId
                             && x.Id != HttpContext.Current.User.Identity.GetUserId()))).AsQueryable();
 
             if (string.IsNullOrEmpty(sortField))
@@ -160,7 +175,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             bool success = false;
             var currentUserId = HttpContext.Current.User.Identity.GetUserId();
 
-            
+
             if (usersVM != null && string.IsNullOrEmpty(usersVM.UserId))
             {
                 var existingUser = await _userService.GetAsync(x => x.Email.ToString().Equals(usersVM.Email.ToString()));
@@ -237,7 +252,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 var existingUser = await _userService.GetAsync(x => x.Id == usersVM.UserId);
                 if (existingUser != null)
                 {
-                    if (_genericService.ShitfAssignment.SearchFor(x => x.UserId ==usersVM.UserId && x.IsActive==true).Any())
+                    if (_genericService.ShitfAssignment.SearchFor(x => x.UserId == usersVM.UserId && x.IsActive == true).Any())
                     {
                         return new ReturnResult { Message = "Please first delete all the shift assigment under this user", Success = false };
                     }
