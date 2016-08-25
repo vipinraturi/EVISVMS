@@ -6,27 +6,27 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>1.01715in</Width>
+              <Width>0.99805in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.94425in</Width>
+              <Width>0.92515in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.90256in</Width>
+              <Width>0.88346in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.39215in</Width>
+              <Width>1.37305in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.90256in</Width>
+              <Width>0.88346in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.90256in</Width>
+              <Width>0.88346in</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
             <TablixRow>
-              <Height>0.19792in</Height>
+              <Height>0.25in</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -62,7 +62,6 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
-                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell>
@@ -99,7 +98,6 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
-                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell>
@@ -136,7 +134,6 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
-                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell>
@@ -173,7 +170,6 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
-                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell>
@@ -210,7 +206,6 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
-                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell>
@@ -247,7 +242,6 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
-                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
               </TablixCells>
@@ -486,8 +480,8 @@
         <DataSetName>ShiftDetailReportDataset</DataSetName>
         <Top>0.67708in</Top>
         <Left>0.08335in</Left>
-        <Height>0.41667in</Height>
-        <Width>6.06124in</Width>
+        <Height>0.46875in</Height>
+        <Width>5.94665in</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -548,10 +542,10 @@
         </Style>
       </Subreport>
     </ReportItems>
-    <Height>2.93371cm</Height>
+    <Height>3.48934cm</Height>
     <Style />
   </Body>
-  <Width>15.60725cm</Width>
+  <Width>15.60726cm</Width>
   <Page>
     <PageHeight>29.7cm</PageHeight>
     <PageWidth>21cm</PageWidth>

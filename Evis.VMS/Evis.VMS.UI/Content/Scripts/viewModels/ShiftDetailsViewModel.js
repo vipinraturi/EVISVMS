@@ -82,7 +82,7 @@
         data.BuildingId = self.BuildingId();
         data.GateId = self.GateId();
         data.SecurityId = self.SecurityId();
-        data.ShiftName = self.ShiftId();
+        data.ShiftID = self.ShiftId();
         data.FromDate = $('#txtFromDate').val();
         data.ToDate = $('#txtToDate').val();
 

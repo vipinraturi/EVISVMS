@@ -107,9 +107,9 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         public IEnumerable<GeneralDropDownVM> GetShifts()
         {
 
-            ////var result = _genericService.ShitfMaster.GetAll().Where(x => x.IsActive == true)
-            //// .Select(y => new GeneralDropDownVM { Id = y.Id, Name = y.ShitfName });
-            ////return result;
+            //var result = _genericService.ShitfMaster.GetAll().Where(x => x.IsActive == true)
+            // .Select(y => new GeneralDropDownVM { Id = y.Id, Name = y.ShitfName });
+            //return result;
             var result = _genericService.ShitfMaster.GetAll().Where(x => x.IsActive == true).AsEnumerable()
                .Select(y => new GeneralDropDownVM { Id = y.Id, Name = y.ShitfName + " (" + y.FromTime.ToString("hh:mm tt") + " - " + y.ToTime.ToString("hh:mm tt") + ")" });
             return result;
