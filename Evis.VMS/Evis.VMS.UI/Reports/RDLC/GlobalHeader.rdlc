@@ -8,7 +8,7 @@
         <Sizing>FitProportional</Sizing>
         <Top>0.10417in</Top>
         <Left>0.11458in</Left>
-        <Height>0.96874in</Height>
+        <Height>0.79166in</Height>
         <Width>0.96875in</Width>
         <Style>
           <Border>
@@ -38,7 +38,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
         <Top>0.32292in</Top>
-        <Left>2.05555in</Left>
+        <Left>1.2118in</Left>
         <Height>0.29167in</Height>
         <Width>3.19791in</Width>
         <ZIndex>1</ZIndex>
@@ -53,10 +53,10 @@
         </Style>
       </Textbox>
     </ReportItems>
-    <Height>3.14856cm</Height>
+    <Height>2.48707cm</Height>
     <Style />
   </Body>
-  <Width>18.54728cm</Width>
+  <Width>11.98561cm</Width>
   <Page>
     <PageHeight>29.7cm</PageHeight>
     <PageWidth>21cm</PageWidth>
