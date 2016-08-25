@@ -1,5 +1,5 @@
 ﻿function DashboardViewModel() {
-    debugger;
+  
     var self = this;
     self.GlobalSearch = ko.observable('');
 

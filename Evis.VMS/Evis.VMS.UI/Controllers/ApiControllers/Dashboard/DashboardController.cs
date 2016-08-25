@@ -85,9 +85,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         {
            // .Where(t => t.ExpirationDate == null || (t.ExpirationDate != null && DbFunctions.TruncateTime(t.ExpirationDate.Value) > DbFunctions.TruncateTime(DateTime.Now)))
             //.Where(x => x.IsActive == true && x.FromDate <= DateTime.Now && x.ToDate >= DateTime.Now)
-            var a =_genericService.ShitfAssignment.GetAll().Where(x => x.IsActive == true && (EntityFunctions.TruncateTime(x.FromDate) >= EntityFunctions.TruncateTime(DateTime.Now))
-               && (EntityFunctions.TruncateTime(x.ToDate) <= EntityFunctions.TruncateTime(DateTime.Now) )).AsQueryable();
-
+        
             var ShiftDisplay = _genericService.ShitfAssignment.GetAll().Where(x => x.IsActive == true && (EntityFunctions.TruncateTime(x.FromDate) >= EntityFunctions.TruncateTime(DateTime.Now))
                || (EntityFunctions.TruncateTime(x.ToDate) >= EntityFunctions.TruncateTime(DateTime.Now) ))
                 .Select(x => new ShiftAssignmentVM
