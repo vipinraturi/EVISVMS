@@ -309,9 +309,9 @@
     }
 
     self.GlobalSearchEnter = function (data, event) {
-        if (event.which == 13 || event.keycode == 13) {
+        //if (event.which == 13 || event.keycode == 13) {
             self.GetAllVisitor();
-        }
+        //}
     }
 
     self.GetAllVisitor();

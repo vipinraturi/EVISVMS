@@ -55,9 +55,6 @@ namespace Evis.VMS.UI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginVM loginVM, string returnUrl)
         {
-            if (ModelState.ContainsKey("Email"))
-                ModelState["Email"].Errors.Clear();
-
             if (!ModelState.IsValid)
                 return View(loginVM);
 
@@ -126,28 +123,25 @@ namespace Evis.VMS.UI.Controllers
             return null;
         }
 
-        public async Task<ActionResult> ForgotPassword(LoginVM loginVM, string returnUrl)
+        public async Task<JsonResult> ForgotPassword(string email)
         {
-            if (ModelState.ContainsKey("Password"))
-                ModelState["Password"].Errors.Clear();
-            if (ModelState.ContainsKey("UserName"))
-                ModelState["UserName"].Errors.Clear();
-
-            if (!ModelState.IsValid)
-                return View("~/Views/Account/Login.cshtml", loginVM);
-
-            var user = await _userService.GetAsync(x => x.Email == loginVM.Email && x.IsActive == true);
+            var user = await _userService.GetAsync(x => x.Email == email && x.IsActive == true);
+            string Message = string.Empty;
             if (user == null)
             {
-                ModelState.AddModelError("errormessage", "Invalid email address/user is inactive");
+                Message = "Invalid email address/user is inactive";
             }
             else
             {
-                string password = System.Web.Security.Membership.GeneratePassword(8, 0);
+                // Uncomment it later - Junaid
+                //string password = System.Web.Security.Membership.GeneratePassword(8, 0);
+
+                // Just for testing the application - remove this later
+                string password = "Admin@123";
+
                 var passwordHash = new Microsoft.AspNet.Identity.PasswordHasher();
                 var hashedPassword = passwordHash.HashPassword(password);
                 user.PasswordHash = hashedPassword;
-                user.IsActive = false;
                 await _userService.UpdateAsync(user, string.Empty);
 
                 var proto = Request.Url.Scheme;
@@ -162,9 +156,9 @@ namespace Evis.VMS.UI.Controllers
                 // Send email on Forgot Password.
                 //EmailHelper.SendMail(user.Email, "Reset Password", body);
 
-                ModelState.AddModelError("errormessage", "Log in using the password which is to your email address");
+                Message = "Log in using the password which is to your email address";
             }
-            return View("Login");
+            return Json(new { Message = Message }, JsonRequestBehavior.AllowGet);
         }
 
 
@@ -273,7 +267,7 @@ namespace Evis.VMS.UI.Controllers
                 foreach (string fileName in Request.Files)
                 {
                     file = Request.Files[fileName];
-                    fName = string.Format("{0}_{1}", fileName,  file.FileName);
+                    fName = string.Format("{0}_{1}", fileName, file.FileName);
                     if (file != null && file.ContentLength > 0)
                     {
                         var directoryPath = string.Format("{0}images\\UserImages", Server.MapPath(@"\"));

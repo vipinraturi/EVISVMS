@@ -1,5 +1,5 @@
 ﻿function DashboardViewModel() {
-    debugger;
+  
     var self = this;
     self.GlobalSearch = ko.observable('');
 
@@ -11,6 +11,7 @@
     }
 
     self.GetAllGateData();
+    
 
     //AjaxCall('/Api/DashBoard/DisplayAllShift', data, 'GET', function (data) {
 

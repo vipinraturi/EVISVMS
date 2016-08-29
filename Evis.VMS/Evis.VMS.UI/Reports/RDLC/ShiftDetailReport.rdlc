@@ -6,27 +6,27 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>1.00673in</Width>
+              <Width>0.99805in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.00673in</Width>
+              <Width>0.92515in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.00673in</Width>
+              <Width>0.88346in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.00673in</Width>
+              <Width>1.37305in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.00673in</Width>
+              <Width>0.88346in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.00673in</Width>
+              <Width>0.88346in</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
             <TablixRow>
-              <Height>0.19792in</Height>
+              <Height>0.25in</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -39,6 +39,8 @@
                             <TextRun>
                               <Value>Security Name</Value>
                               <Style>
+                                <FontStyle>Normal</FontStyle>
+                                <FontSize>9pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -73,6 +75,8 @@
                             <TextRun>
                               <Value>Building Name</Value>
                               <Style>
+                                <FontStyle>Normal</FontStyle>
+                                <FontSize>9pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -107,6 +111,8 @@
                             <TextRun>
                               <Value>Gate Number</Value>
                               <Style>
+                                <FontStyle>Normal</FontStyle>
+                                <FontSize>9pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -141,6 +147,8 @@
                             <TextRun>
                               <Value>Shift Name</Value>
                               <Style>
+                                <FontStyle>Normal</FontStyle>
+                                <FontSize>9pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -175,6 +183,8 @@
                             <TextRun>
                               <Value>From Date</Value>
                               <Style>
+                                <FontStyle>Normal</FontStyle>
+                                <FontSize>9pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -209,6 +219,8 @@
                             <TextRun>
                               <Value>To Date</Value>
                               <Style>
+                                <FontStyle>Normal</FontStyle>
+                                <FontSize>9pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -247,7 +259,11 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!FullName.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontStyle>Normal</FontStyle>
+                                <FontSize>9pt</FontSize>
+                                <FontWeight>Normal</FontWeight>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -277,7 +293,11 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!BuildingName.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontStyle>Normal</FontStyle>
+                                <FontSize>9pt</FontSize>
+                                <FontWeight>Normal</FontWeight>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -307,7 +327,11 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!GateNumber.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontStyle>Normal</FontStyle>
+                                <FontSize>9pt</FontSize>
+                                <FontWeight>Normal</FontWeight>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -337,7 +361,11 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!ShiftName.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontStyle>Normal</FontStyle>
+                                <FontSize>9pt</FontSize>
+                                <FontWeight>Normal</FontWeight>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -367,7 +395,11 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!FromDate.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontStyle>Normal</FontStyle>
+                                <FontSize>9pt</FontSize>
+                                <FontWeight>Normal</FontWeight>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -397,7 +429,11 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!ToDate.Value</Value>
-                              <Style />
+                              <Style>
+                                <FontStyle>Normal</FontStyle>
+                                <FontSize>9pt</FontSize>
+                                <FontWeight>Normal</FontWeight>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -443,9 +479,9 @@
         </TablixRowHierarchy>
         <DataSetName>ShiftDetailReportDataset</DataSetName>
         <Top>0.67708in</Top>
-        <Left>0.14585in</Left>
-        <Height>0.41667in</Height>
-        <Width>6.04038in</Width>
+        <Left>0.08335in</Left>
+        <Height>0.46875in</Height>
+        <Width>5.94665in</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -461,8 +497,9 @@
               <TextRun>
                 <Value>Shift  Details  Report</Value>
                 <Style>
-                  <FontSize>14pt</FontSize>
-                  <FontWeight>Bold</FontWeight>
+                  <FontStyle>Normal</FontStyle>
+                  <FontSize>12pt</FontSize>
+                  <FontWeight>Medium</FontWeight>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -475,7 +512,7 @@
         <Top>0.34375in</Top>
         <Left>0.14583in</Left>
         <Height>0.26388in</Height>
-        <Width>6.04043in</Width>
+        <Width>5.67584in</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
@@ -495,8 +532,8 @@
           </Parameter>
         </Parameters>
         <Left>0.14583in</Left>
-        <Height>0.32987in</Height>
-        <Width>6.04043in</Width>
+        <Height>0.27431in</Height>
+        <Width>5.67584in</Width>
         <ZIndex>2</ZIndex>
         <Style>
           <Border>
@@ -505,10 +542,10 @@
         </Style>
       </Subreport>
     </ReportItems>
-    <Height>2.98663cm</Height>
+    <Height>3.48934cm</Height>
     <Style />
   </Body>
-  <Width>15.81892cm</Width>
+  <Width>15.60726cm</Width>
   <Page>
     <PageHeight>29.7cm</PageHeight>
     <PageWidth>21cm</PageWidth>

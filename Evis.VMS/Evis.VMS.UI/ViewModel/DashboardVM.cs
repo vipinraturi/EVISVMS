@@ -14,5 +14,10 @@ namespace Evis.VMS.UI.ViewModel
 {
     public class DashboardVM
     {
+        public int CheckInCount { get; set; }
+        public int VisitorsCount { get; set; }
+        public int BuldingCount { get; set; }
+        public int GatesCount { get; set; }
+       
     }
 }

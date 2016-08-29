@@ -113,10 +113,11 @@
         <div class="x_title">
             <h2>Searched Result</h2>
             <div class="pull-right">
-                <button type="button" class="btn btn-success" data-bind="click:GenerateRDLCReportExcel.bind()">Excel <i class=" fa fa-file-excel-o"></i></button>
+                <button type="button" class="btn btn-success" data-bind="enable:(DataGrid.DataRows().length != 0),click:GenerateRDLCReportExcel.bind()">Excel <i class=" fa fa-file-excel-o"></i></button>
 
-                <button type="button" class="btn btn-success" data-bind="click:GenerateRDLCReportPDF.bind()">Pdf <i class="fa fa-file-pdf-o"></i></button>
+                <button type="button" class="btn btn-success" data-bind="enable:(DataGrid.DataRows().length != 0),click:GenerateRDLCReportPDF.bind()">Pdf <i class="fa fa-file-pdf-o"></i></button>
                 @*data-bind="click:GenerateRDLCReportPDF.bind()"GenerateRDLCReportPDF*@
+               @* data-bind="enable:(DataGrid.DataRows().length != 0),click:GenerateRDLCReportExcel.bind()"*@
             </div>
             <div class="clearfix"></div>
         </div>
@@ -148,7 +149,7 @@
 
                         </tr>
                     </tbody>
-                    <tr class="blank_row" data-bind="visible: (DataGrid.DataRows().length == 0)"><td colspan="10">No data, Add new records.</td></tr>
+                    <tr class="blank_row" data-bind="visible: (DataGrid.DataRows().length == 0)"><td colspan="10">No data found.</td></tr>
                 </table>
                 @Html.Partial("_Pager")
             </form>

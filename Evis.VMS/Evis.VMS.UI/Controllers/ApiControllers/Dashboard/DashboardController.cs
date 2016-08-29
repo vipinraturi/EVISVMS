@@ -47,7 +47,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
             //q = "[";
             var currentDate = DateTime.Now;
-            var lastDate = DateTime.Now.AddDays(-15);
+            var lastDate = DateTime.Now.AddDays(-30).Date;
             List<string> dates = new List<string>();
             
 
@@ -85,11 +85,9 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         {
            // .Where(t => t.ExpirationDate == null || (t.ExpirationDate != null && DbFunctions.TruncateTime(t.ExpirationDate.Value) > DbFunctions.TruncateTime(DateTime.Now)))
             //.Where(x => x.IsActive == true && x.FromDate <= DateTime.Now && x.ToDate >= DateTime.Now)
-            var a =_genericService.ShitfAssignment.GetAll().Where(x => x.IsActive == true && (EntityFunctions.TruncateTime(x.FromDate) >= EntityFunctions.TruncateTime(DateTime.Now))
-               && (EntityFunctions.TruncateTime(x.ToDate) <= EntityFunctions.TruncateTime(DateTime.Now) )).AsQueryable();
-
+        
             var ShiftDisplay = _genericService.ShitfAssignment.GetAll().Where(x => x.IsActive == true && (EntityFunctions.TruncateTime(x.FromDate) >= EntityFunctions.TruncateTime(DateTime.Now))
-               || (EntityFunctions.TruncateTime(x.ToDate) >= EntityFunctions.TruncateTime(DateTime.Now) ))
+               || (EntityFunctions.TruncateTime(x.ToDate) >= EntityFunctions.TruncateTime(DateTime.Now) )).ToList()
                 .Select(x => new ShiftAssignmentVM
                 {
                     UserId = x.UserId,
@@ -99,7 +97,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     GateId = x.GateId,
                     GateName = x.Gates.GateNumber,
                     ShitfId = x.ShitfId,
-                    ShiftName = x.Shitfs.ShitfName,
+                    ShiftName = x.Shitfs.ShitfName + " (" + x.Shitfs.FromTime.ToString("hh:mm tt") + " - " + x.Shitfs.ToTime.ToString("hh:mm tt") + ")",
                     FromDate=x.FromDate,
                     ToDate=x.ToDate
 
@@ -115,6 +113,14 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             //      (searchDetails.ShiftID == 0 || x.ShitfId == searchDetails.ShiftID) &&
             //      (string.IsNullOrEmpty(searchDetails.FromDate) || x.FromDate.ToString().Contains(searchDetails.FromDate.ToString())) &&
             //      (string.IsNullOrEmpty(searchDetails.ToDate) || x.ToDate.ToString().Contains(searchDetails.ToDate.ToString()))))).ToList();
+
+
+            if (string.IsNullOrEmpty(sortField))
+            {
+                sortField = "FromDate";
+                sortOrder = "ASC";
+            }
+            
             var paginationRequest = new PaginationRequest
             {
                 PageIndex = (pageIndex - 1),

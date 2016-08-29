@@ -137,6 +137,7 @@ namespace Evis.VMS.UI.HelperClasses
                     )).ToList();
 
 
+            Shift = Shift.OrderBy(x =>x.FromDate).ToList();
 
             return Shift;
 

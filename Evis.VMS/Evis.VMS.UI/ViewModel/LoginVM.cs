@@ -21,8 +21,8 @@ namespace Evis.VMS.UI.ViewModel
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        [Required(ErrorMessage = "Email Address is required")]
-        public string Email { get; set; }
+        //[Required(ErrorMessage = "Email Address is required")]
+        //public string Email { get; set; }
     }
 
     public class ChangePasswordVM
