@@ -22,6 +22,7 @@ using System.Web;
 using System.Web.Http;
 using System.Globalization;
 using System.Data.Entity.SqlServer;
+using System.Data.Entity;
 
 
 namespace Evis.VMS.UI.Controllers.ApiControllers
@@ -29,7 +30,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
     public partial class AdministrationController
     {
 
-
+        IQueryable<ShiftAssignmentVM> LSTShiftAssignmentVM;
         [Route("~/Api/ShiftAssignment/GetAllGates")]
         [HttpGet]
         public IEnumerable<GeneralDropDownVM> GetAllGates(int BuildingId)
@@ -53,23 +54,45 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         [HttpGet]
         public async Task<IEnumerable<DropDownVM>> GetAllUsers(int GateId)
         {
-
             var user = (await _userService.GetAllAsync()).Where(x => x.Id == HttpContext.Current.User.Identity.GetUserId() && x.IsActive == true).FirstOrDefault();
-            var gates = _genericService.GateMaster.GetAll().FirstOrDefault(x => x.Id == GateId && x.IsActive == true);
-            var getUsers = (await _userService.GetAllAsync()).Where(x => x.Organization.IsActive == true &&
-                           (user == null || (user != null && x.OrganizationId == user.OrganizationId))).AsQueryable();
+            if (user == null)
+            {
+                var gates = _genericService.GateMaster.GetAll().FirstOrDefault(x => x.Id == GateId && x.IsActive == true);
+                var getUsers = (await _userService.GetAllAsync()).Where(x => x.Organization.IsActive == true &&
+                               (user == null || (user != null && x.OrganizationId == user.OrganizationId))).AsQueryable();
 
-            var getRoles = (await _applicationRoleService.GetAllAsync()).AsQueryable();
-            var result = (from users in getUsers
-                          join roles in getRoles on users.Roles.First().RoleId equals roles.Id
-                          where roles.Name == "Security"
-                          select new DropDownVM
-                          {
-                              Id = users.Id,
-                              Name = users.FullName
-                          }).AsQueryable();
+                var getRoles = (await _applicationRoleService.GetAllAsync()).AsQueryable();
+                var result = (from users in getUsers
+                              join roles in getRoles on users.Roles.First().RoleId equals roles.Id
+                              // where roles.Name == "Security"
+                              select new DropDownVM
+                              {
+                                  Id = users.Id,
+                                  Name = users.FullName
+                              }).AsQueryable();
+                return result;
+            }
+            else
+            {
+                int orgId = user.Organization.Id;
+                var gates = _genericService.GateMaster.GetAll().FirstOrDefault(x => x.Id == GateId && x.IsActive == true);
+                var building = _genericService.BuildingMaster.GetAll().Where(x => x.Id == gates.BuildingId).FirstOrDefault();
+                var getUsers = (await _userService.GetAllAsync()).Where(x => x.Organization.IsActive == true &&
+                               (user == null || (user != null && x.OrganizationId == user.OrganizationId))).AsQueryable();
 
-            return result;
+                var getRoles = (await _applicationRoleService.GetAllAsync()).AsQueryable();
+                var result = (from users in getUsers
+                              join roles in getRoles 
+                              on users.Roles.First().RoleId equals roles.Id
+                              where user.OrganizationId == building.OrganizationId && roles.Name == "Security"
+                              select new DropDownVM
+                              {
+                                  Id = users.Id,
+                                  Name = users.FullName
+                              }).AsQueryable();
+
+                return result;
+            }
         }
 
         [Route("~/Api/ShiftAssignment/GetAllShiftAssignment")]
@@ -77,7 +100,6 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         public async Task<string> GetAllShiftAssignment(string globalSearch, int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC")
         {
             var user = (await _userService.GetAllAsync()).Where(x => x.Id == HttpContext.Current.User.Identity.GetUserId() && x.IsActive == true).FirstOrDefault();
-            IQueryable<ShiftAssignmentVM> LSTShiftAssignmentVM;
             if (user == null)
             {
                 LSTShiftAssignmentVM = _genericService.ShitfAssignment.GetAll().Where(x => x.IsActive == true).ToList()
@@ -102,25 +124,28 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             else
             {
                 int orgId = user.Organization.Id;
-                var data = _genericService.BuildingMaster.GetAll().Where(x => x.OrganizationId == orgId).FirstOrDefault();
-                LSTShiftAssignmentVM = _genericService.ShitfAssignment.GetAll().Where(x => x.IsActive == true && x.BuildingId == data.Id)
-                        .Select(x => new ShiftAssignmentVM
-                        {
-                            BuildingId = x.BuildingId,
-                            BuildingName = x.Gates.BuildingMaster.BuildingName,
-                            GateId = x.GateId,
-                            GateName = x.Gates.GateNumber,
-                            ShitfId = x.ShitfId,
-                            ShiftName = x.Shitfs.ShitfName,
-                            UserId = x.UserId,
-                            UserName = x.ApplicationUser.FullName,
-                            FromDate = x.FromDate,
-                            ToDate = x.ToDate,
-                            strFromDate = x.FromDate.ToString("dd/MM/yyyy"),
-                            strToDate = x.ToDate.ToString("dd/MM/yyyy"),
-                            Id = x.Id,
-                            City = x.BuildingMaster.CityMaster.LookUpValue
-                        }).AsQueryable();
+                if (orgId != null)
+                {
+                    var data = _genericService.BuildingMaster.GetAll().Where(x => x.OrganizationId == orgId).FirstOrDefault();
+                    LSTShiftAssignmentVM = _genericService.ShitfAssignment.GetAll().Where(x => x.IsActive == true && x.BuildingId == data.Id).ToList()
+                            .Select(x => new ShiftAssignmentVM
+                            {
+                                BuildingId = x.BuildingId,
+                                BuildingName = x.Gates.BuildingMaster.BuildingName,
+                                GateId = x.GateId,
+                                GateName = x.Gates.GateNumber,
+                                ShitfId = x.ShitfId,
+                                ShiftName = x.Shitfs.ShitfName,
+                                UserId = x.UserId,
+                                UserName = x.ApplicationUser.FullName,
+                                FromDate = x.FromDate,
+                                ToDate = x.ToDate,
+                                strFromDate = x.FromDate.ToString("dd/MM/yyyy"),
+                                strToDate = x.ToDate.ToString("dd/MM/yyyy"),
+                                Id = x.Id,
+                                City = x.BuildingMaster.CityMaster.LookUpValue
+                            }).AsQueryable();
+                }
             }
             if (LSTShiftAssignmentVM.Count() > 0)
             {
@@ -147,12 +172,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
                 var jsonData = JsonConvert.SerializeObject(result.OrderByDescending(x => x.Id));
                 return JsonConvert.SerializeObject(new { totalRows = totalCount, result = jsonData });
-
             }
-
-
             return null;
-
         }
         [Route("~/Api/ShiftAssignment/SaveShiftAssignment")]
         [HttpPost]
@@ -161,7 +182,27 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
             if (ShitfAssignment.Id == 0)
             {
-                var data = _genericService.ShitfAssignment.GetAll().Where(x => x.UserId == ShitfAssignment.UserId && x.IsActive == true && x.FromDate <= ShitfAssignment.FromDate && x.ToDate >= ShitfAssignment.ToDate).ToList();//&&   
+
+                //var data = _genericService.ShitfAssignment.GetAll().Where(x => x.UserId == ShitfAssignment.UserId && x.IsActive == true && x.FromDate <= ShitfAssignment.FromDate || x.ToDate >= ShitfAssignment.ToDate).ToList();//&&   
+                //var data = _genericService.ShitfAssignment.GetAll().Where(x => x.FromDate >= ShitfAssignment.FromDate && x.ToDate <= ShitfAssignment.FromDate
+                //    || (x.FromDate >= ShitfAssignment.ToDate && x.ToDate <= ShitfAssignment.ToDate)
+                //     || (ShitfAssignment.FromDate >= x.FromDate && ShitfAssignment.ToDate <= x.ToDate)).ToList();
+
+                //             .FindAllBy(x => x.StartDate <= checkout && x.EndDate >= checkin,  
+                //           y => y.RoomTypeNav)
+                //.ToList();
+
+                var data = _genericService.ShitfAssignment.GetAll().Where(x => x.FromDate >= ShitfAssignment.FromDate
+                    && x.ToDate <= ShitfAssignment.ToDate
+                    || x.FromDate >= ShitfAssignment.FromDate
+                    && x.FromDate <= ShitfAssignment.ToDate
+                    || x.ToDate >= ShitfAssignment.FromDate
+                    && x.ToDate <= ShitfAssignment.ToDate
+                    || x.FromDate <= ShitfAssignment.ToDate
+                    && x.ToDate >= ShitfAssignment.FromDate).ToList();
+                // ('2016-08-25 00:00:00.000' BETWEEN b.FromDate
+                //AND b.ToDate OR '2016-09-01 00:00:00.000' BETWEEN b.FromDate
+                //AND b.ToDate OR ('2016-08-25 00:00:00.000'<= b.FromDate AND '2016-09-01 00:00:00.000' >= b.ToDate))
                 if (data.Count() == 0)
                 {
                     ShitfAssignment.IsActive = true;

@@ -53,22 +53,22 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         [HttpGet]
         public async Task<IEnumerable<GeneralDropDownVM>> GetAllOrganizations()
         {
-            var user = (await _userService.GetAllAsync()).Where(x => x.Id == HttpContext.Current.User.Identity.GetUserId() && x.IsActive == true).FirstOrDefault();
+           // var user = (await _userService.GetAllAsync()).Where(x => x.Id == HttpContext.Current.User.Identity.GetUserId() && x.IsActive == true).FirstOrDefault();
             IQueryable<GeneralDropDownVM> organizations;
 
-            if (user == null)
-            {
+           // if (user == null)
+            //{
                 organizations = _genericService.Organization.GetAll()
                                     .Where(x => x.IsActive == true)
                                     .Select(x => new GeneralDropDownVM { Id = x.Id, Name = x.CompanyName });
-            }
-            else
-            {
-                int orgId = user.Organization.Id;
-                organizations = _genericService.Organization.GetAll()
-                                    .Where(x => x.IsActive == true && x.Id == orgId)
-                                    .Select(x => new GeneralDropDownVM { Id = x.Id, Name = x.CompanyName });
-            }
+            //}
+            //else
+            //{
+            //    int orgId = user.Organization.Id;
+            //    organizations = _genericService.Organization.GetAll()
+            //                        .Where(x => x.IsActive == true && x.Id == orgId)
+            //                        .Select(x => new GeneralDropDownVM { Id = x.Id, Name = x.CompanyName });
+            //}
             return organizations;
         }
 

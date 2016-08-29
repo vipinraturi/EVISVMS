@@ -59,10 +59,19 @@
             //data.ToTime = self.ToTime();
             data.FromTime = self.strFromTime();
             data.ToTime = self.strToTime();
-            AjaxCall('/Api/Shift/SaveShift', data, 'POST', function () {
-                //debugger;
-                toastr.success('Shift saved successfully!!');
-                ApplyCustomBinding('newshiftcreate');
+            AjaxCall('/Api/Shift/SaveShift', data, 'POST', function (data) {
+                if (data.Success == true) {
+                    toastr.success('Shift saved successfully!!');
+                    ApplyCustomBinding('newshiftcreate');
+                }
+                else if (data.Success == false) {
+                    self.ShitfName('');
+                    self.FromTime('');
+                    self.ToTime('');
+                    self.strFromTime('');
+                    self.strToTime('');
+                    toastr.error(data.Message)
+                }
             })
         }
     }

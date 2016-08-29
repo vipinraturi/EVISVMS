@@ -25,23 +25,45 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 {
     public partial class AdministrationController
     {
+        IQueryable<BuildingVM> lstBuildingVM;
+        LookUpValues city;
+
         [Route("~/Api/Administration/SaveBuilding")]
         [HttpPost]
-        public ReturnResult SaveBuilding([FromBody] BuildingMaster buildingMaster)
+        public ReturnResult SaveBuilding([FromBody] BuildingVM buildingMaster)
         {
             string currentUserId = HttpContext.Current.User.Identity.GetUserId();
-
             if (buildingMaster.Id == 0)
             {
                 var data = _genericService.BuildingMaster.GetAll().Where(x => x.BuildingName == buildingMaster.BuildingName.Trim() && x.OrganizationId == buildingMaster.OrganizationId).ToList();
                 if (data.Count() == 0)
                 {
-                    buildingMaster.IsActive = true;
-                    buildingMaster.CreatedBy = currentUserId;
-                    buildingMaster.CreatedOn = DateTime.UtcNow;
-                    buildingMaster.UpdatedBy = currentUserId;
-                    buildingMaster.UpdatedOn = DateTime.UtcNow;
-                    _genericService.BuildingMaster.Insert(buildingMaster);
+                    if (buildingMaster.CityId == null)
+                    {
+                        var country = _genericService.LookUpValues.Insert(new LookUpValues { LookUpTypeId = 2, ParentId = null, LookUpValue = buildingMaster.txtcountry, Description = buildingMaster.txtcountry, IsActive = true });
+                        _genericService.Commit();
+                        var state = _genericService.LookUpValues.Insert(new LookUpValues { LookUpTypeId = 3, ParentId = country.Id, LookUpValue = buildingMaster.txtstate, Description = buildingMaster.txtstate, IsActive = true });
+                        _genericService.Commit();
+                        city = _genericService.LookUpValues.Insert(new LookUpValues { LookUpTypeId = 4, ParentId = state.Id, LookUpValue = buildingMaster.txtcity, Description = buildingMaster.txtcity, IsActive = true });
+                        _genericService.Commit();
+                    }
+                    else
+                    {
+                        BuildingMaster obj = new BuildingMaster();
+                        obj.Address = buildingMaster.Address;
+                        obj.BuildingName = buildingMaster.BuildingName;
+                        obj.CityId = (city == null) ? buildingMaster.CityId : city.Id;
+                        obj.ZipCode = buildingMaster.ZipCode;
+                        obj.OrganizationId = buildingMaster.OrganizationId;
+                        obj.IsActive = true;
+                        obj.EmailId = buildingMaster.EmailId;
+                        obj.ContactNumber = buildingMaster.ContactNumber;
+                        obj.FaxNumber = buildingMaster.FaxNumber;
+                        obj.WebSite = buildingMaster.WebSite;
+                        obj.UpdatedBy = currentUserId;
+                        obj.UpdatedOn = DateTime.UtcNow;
+                        _genericService.BuildingMaster.Insert(obj);
+                    }
                 }
                 else
                 {
@@ -76,7 +98,6 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         public async Task<string> GetBuildingData(string globalSearch, int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC")
         {
             var user = (await _userService.GetAllAsync()).Where(x => x.Id == HttpContext.Current.User.Identity.GetUserId() && x.IsActive == true).FirstOrDefault();
-            IQueryable<BuildingVM> lstBuildingVM;
             if (user == null)
             {
                 lstBuildingVM = _genericService.BuildingMaster.GetAll().Where(x => x.IsActive == true)
@@ -95,32 +116,32 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                  ContactNumber = x.ContactNumber,
                  FaxNumber = x.FaxNumber,
                  WebSite = x.WebSite
-
              });
-
-
             }
             else
             {
                 int orgId = user.Organization.Id;
-                lstBuildingVM = _genericService.BuildingMaster.GetAll().Where(x => x.IsActive == true && x.OrganizationId == orgId)
-             .Select(x => new BuildingVM
-             {
-                 Id = x.Id,
-                 BuildingName = x.BuildingName,
-                 OrganizationId = x.OrganizationId,
-                 CityId = x.CityId,
-                 Address = x.Address,
-                 ZipCode = x.ZipCode,
-                 NationalityId = x.CityMaster.ParentValues.ParentId,
-                 StateId = x.CityMaster.ParentId,
-                 OrganizationName = x.Organization.CompanyName,
-                 EmailId = x.EmailId,
-                 ContactNumber = x.ContactNumber,
-                 FaxNumber = x.FaxNumber,
-                 WebSite = x.WebSite
+                if (orgId != 0)
+                {
+                    lstBuildingVM = _genericService.BuildingMaster.GetAll().Where(x => x.IsActive == true && x.OrganizationId == orgId)
+                 .Select(x => new BuildingVM
+                 {
+                     Id = x.Id,
+                     BuildingName = x.BuildingName,
+                     OrganizationId = x.OrganizationId,
+                     CityId = x.CityId,
+                     Address = x.Address,
+                     ZipCode = x.ZipCode,
+                     NationalityId = x.CityMaster.ParentValues.ParentId,
+                     StateId = x.CityMaster.ParentId,
+                     OrganizationName = x.Organization.CompanyName,
+                     EmailId = x.EmailId,
+                     ContactNumber = x.ContactNumber,
+                     FaxNumber = x.FaxNumber,
+                     WebSite = x.WebSite
 
-             });
+                 });
+                }
                 //int orgId = user.Organization.Id;
                 //organizations = _genericService.Organization.GetAll()
                 //                    .Where(x => x.IsActive == true && x.Id == orgId)
@@ -170,9 +191,9 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                         return new ReturnResult { Message = "Please first delete all the gates under this building", Success = false };
                     }
                     BuildingMasterDelete.IsActive = false;
-                    _genericService.BuildingMaster.Update(BuildingMasterDelete);
+                    _genericService.BuildingMaster.Delete(BuildingMasterDelete);
                     _genericService.Commit();
-                    return new ReturnResult { Message = "Success", Success = true };
+                    return new ReturnResult { Message = "Building deleted successfully!!", Success = true };
                 }
             }
             return new ReturnResult { Message = "Failure", Success = false };
@@ -182,8 +203,19 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         [HttpGet]
         public IEnumerable<GeneralDropDownVM> GetAllStateOrCity(int Id)
         {
-            var result = _genericService.LookUpValues.GetAll().Where(x => x.ParentId == Id && x.IsActive == true && x.LookUpType.IsActive == true)
-                .Select(y => new GeneralDropDownVM { Id = y.Id, Name = y.LookUpValue });
+            IEnumerable<GeneralDropDownVM> result;
+            if (Id == 0)
+            {
+
+                result = _genericService.LookUpValues.GetAll().Where(x=>x.IsActive == true && x.LookUpType.IsActive == true)
+                     .Select(y => new GeneralDropDownVM { Id = y.Id, Name = y.LookUpValue });
+            }
+            else
+            {
+
+                result = _genericService.LookUpValues.GetAll().Where(x => x.ParentId == Id && x.IsActive == true && x.LookUpType.IsActive == true)
+                                 .Select(y => new GeneralDropDownVM { Id = y.Id, Name = y.LookUpValue });
+            }
             return result.OrderByDescending(x => x.Id);
         }
 

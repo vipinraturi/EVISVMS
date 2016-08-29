@@ -25,6 +25,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 {
     public partial class AdministrationController
     {
+        IQueryable<GatesVM> lstgateVM;
         [Route("~/Api/Gates/SaveGate")]
         [HttpPost]
         public ReturnResult SaveGate([FromBody]  GateMaster gateMaster)
@@ -68,7 +69,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         public async Task<string> GetAllGate(string globalSearch, int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC")
         {
             var user = (await _userService.GetAllAsync()).Where(x => x.Id == HttpContext.Current.User.Identity.GetUserId() && x.IsActive == true).FirstOrDefault();
-            IQueryable<GatesVM> lstgateVM;
+
             if (user == null)
             {
                 lstgateVM = _genericService.GateMaster.GetAll().Where(x => x.IsActive == true)
@@ -86,18 +87,21 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             else
             {
                 int orgId = user.Organization.Id;
-                var data = _genericService.BuildingMaster.GetAll().Where(x => x.OrganizationId == orgId).FirstOrDefault();
-                lstgateVM = _genericService.GateMaster.GetAll().Where(x => x.IsActive == true && x.BuildingId == data.Id)
-                        .Select(x => new GatesVM
-                        {
-                            Id = x.Id,
-                            BuildingId = x.BuildingId,
-                            GateNumber = x.GateNumber,
-                            BuildingName = x.BuildingMaster.BuildingName,
-                            Country = x.BuildingMaster.CityMaster.ParentValues.LookUpValue,
-                            State = x.BuildingMaster.CityMaster.ParentValues.ParentValues.LookUpValue,
-                            City = x.BuildingMaster.CityMaster.LookUpValue
-                        });
+                if (orgId != null)
+                {
+                    var data = _genericService.BuildingMaster.GetAll().Where(x => x.OrganizationId == orgId).FirstOrDefault();
+                    lstgateVM = _genericService.GateMaster.GetAll().Where(x => x.IsActive == true && x.BuildingId == data.Id)
+                            .Select(x => new GatesVM
+                            {
+                                Id = x.Id,
+                                BuildingId = x.BuildingId,
+                                GateNumber = x.GateNumber,
+                                BuildingName = x.BuildingMaster.BuildingName,
+                                Country = x.BuildingMaster.CityMaster.ParentValues.LookUpValue,
+                                State = x.BuildingMaster.CityMaster.ParentValues.ParentValues.LookUpValue,
+                                City = x.BuildingMaster.CityMaster.LookUpValue
+                            });
+                }
             }
             if (lstgateVM.Count() > 0)
             {
@@ -153,9 +157,9 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                         return new ReturnResult { Message = "Please first delete all the shift assigment under this gate", Success = false };
                     }
                     GaterDelete.IsActive = false;
-                    _genericService.GateMaster.Update(GaterDelete);
+                    _genericService.GateMaster.Delete(GaterDelete);
                     _genericService.Commit();
-                    return new ReturnResult { Message = "gate deleted successfully", Success = true };
+                    return new ReturnResult { Message = "Gate deleted successfully!!", Success = true };
                 }
             }
             return new ReturnResult { Message = "Failure", Success = false };

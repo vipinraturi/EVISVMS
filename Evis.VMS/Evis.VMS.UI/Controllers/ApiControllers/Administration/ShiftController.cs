@@ -27,6 +27,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 {
     public partial class AdministrationController
     {
+        IQueryable<ShiftDetailsVM> LstShiftDetailsVM;
         [Route("~/Api/Shift/SaveShift")]
         [HttpPost]
         public ReturnResult Saveshift([FromBody]  ShitfMaster ShiftDetail)
@@ -36,18 +37,35 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
             if (ShiftDetail.Id == 0)
             {
-                ShiftDetail.IsActive = true;
-                ShiftDetail.CreatedBy = currentUserId;
-                ShiftDetail.CreatedOn = DateTime.UtcNow;
-                ShiftDetail.UpdatedBy = currentUserId;
-                ShiftDetail.UpdatedOn = DateTime.UtcNow;
-                _genericService.ShitfMaster.Insert(ShiftDetail);
+                var data = _genericService.ShitfMaster.GetAll().Where(x => x.ShitfName == ShiftDetail.ShitfName.Trim()).ToList();
+                if (data.Count() == 0)
+                {
+                    var result = _genericService.ShitfMaster.GetAll().Where(y => y.ToTime == ShiftDetail.ToTime && y.FromTime == ShiftDetail.FromTime).ToList();
+                    if (result.Count() == 0)
+                    {
+                        ShiftDetail.IsActive = true;
+                        ShiftDetail.CreatedBy = currentUserId;
+                        ShiftDetail.CreatedOn = DateTime.UtcNow;
+                        ShiftDetail.UpdatedBy = currentUserId;
+                        ShiftDetail.UpdatedOn = DateTime.UtcNow;
+                        _genericService.ShitfMaster.Insert(ShiftDetail);
+                    }
+                    else
+                    {
+                        return new ReturnResult { Message = "Shift time already exists!!", Success = false };
+                    }
+                }
+                else
+                {
+                    return new ReturnResult { Message = "shift name already exists", Success = false };
+                }
             }
             else
             {
                 var shiftFromDb = _genericService.ShitfMaster.GetById(ShiftDetail.Id);
                 if (shiftFromDb != null)
                 {
+
                     shiftFromDb.ShitfName = ShiftDetail.ShitfName;
                     shiftFromDb.FromTime = ShiftDetail.FromTime;
                     shiftFromDb.ToTime = ShiftDetail.ToTime;
@@ -55,6 +73,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     shiftFromDb.UpdatedOn = DateTime.UtcNow;
                     ShiftDetail.IsActive = true;
                     _genericService.ShitfMaster.Update(ShiftDetail);
+
                 };
             }
             _genericService.Commit();
@@ -65,7 +84,6 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         public async Task<string> GetAllshift(string globalSearch, int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC")
         {
             var user = (await _userService.GetAllAsync()).Where(x => x.Id == HttpContext.Current.User.Identity.GetUserId() && x.IsActive == true).FirstOrDefault();
-            IQueryable<ShiftDetailsVM> LstShiftDetailsVM;
             if (user == null)
             {
                 LstShiftDetailsVM = _genericService.ShitfMaster.GetAll().Where(x => x.IsActive == true).AsEnumerable()
@@ -82,17 +100,20 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             else
             {
                 string userid = user.Id;
-                LstShiftDetailsVM = _genericService.ShitfMaster.GetAll().Where(x => x.IsActive == true && x.UpdatedBy == userid).AsEnumerable()
-                             .Select(x => new ShiftDetailsVM
-                             {
-                                 Id = x.Id,
-                                 ShitfName = x.ShitfName,
-                                 ToTime = (x.ToTime),
-                                 FromTime = x.FromTime,
-                                 strFromTime = x.FromTime.ToString("hh:mm tt"),
-                                 strToTime = x.ToTime.ToString("hh:mm tt")
-                             }).AsQueryable();
+                if (userid != null)
+                {
+                    LstShiftDetailsVM = _genericService.ShitfMaster.GetAll().Where(x => x.IsActive == true && x.UpdatedBy == userid).AsEnumerable()
+                                 .Select(x => new ShiftDetailsVM
+                                 {
+                                     Id = x.Id,
+                                     ShitfName = x.ShitfName,
+                                     ToTime = (x.ToTime),
+                                     FromTime = x.FromTime,
+                                     strFromTime = x.FromTime.ToString("hh:mm tt"),
+                                     strToTime = x.ToTime.ToString("hh:mm tt")
+                                 }).AsQueryable();
 
+                }
             }
             if (LstShiftDetailsVM.Count() > 0)
             {
@@ -132,9 +153,9 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                         return new ReturnResult { Message = "Please first delete all the shifts under this shift assignment", Success = false };
                     }
                     ShitfDelete.IsActive = false;
-                    _genericService.ShitfMaster.Update(ShitfDelete);
+                    _genericService.ShitfMaster.Delete(ShitfDelete);
                     _genericService.Commit();
-                    return new ReturnResult { Message = "Success", Success = true };
+                    return new ReturnResult { Message = "Shift delete successful!!", Success = true };
                 }
             }
             return new ReturnResult { Message = "Failure", Success = false };
