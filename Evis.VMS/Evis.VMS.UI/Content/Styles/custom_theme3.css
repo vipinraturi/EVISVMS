@@ -5183,7 +5183,7 @@ select option {
 }
 
 .favwhite {
-    color: #fff !important;
+    color: #f18e7b !important;
 }
 
 .leftcontent {
@@ -5319,4 +5319,7 @@ select option {
     border: 1px solid #f18e7b;
     background-color: #ffb8aa;
     color: #7c1a06 !important;
+}
+.validationMessage {
+    color: red;
 }
