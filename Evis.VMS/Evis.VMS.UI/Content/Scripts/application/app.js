@@ -3,7 +3,10 @@
     ApplyCustomBinding('dashboard');
 
     $('.side-menu li').click(function () {
-       // $('.side-menu li').removeClass('active');
+       
+        $(this).parents('.child_menu').find('li').removeClass('active');//removing old active class
+        $(this).addClass('active');//adding new active class on current element
+
         AttachClickEvent($(this).attr('id'));
     });
 
