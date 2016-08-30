@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Evis.VMS.Data.Model.Entities;
 using System.Web;
+using Evis.VMS.Utilities;
 
 namespace Evis.VMS.UI.HelperClasses
 {
@@ -67,7 +68,7 @@ namespace Evis.VMS.UI.HelperClasses
                                                             CheckInDate = item.CheckIn.Date.ToShortDateString(),
                                                             CheckInTime = item.CheckIn.ToString("hh:mm tt"),
                                                             CheckOutTime = (item.CheckOut == null ? string.Empty : item.CheckOut.Value.ToString("hh:mm tt")),
-                                                            TotalDuration = (item.CheckOut == null ? "N/A" : (string.Format("{0} Minutes", (item.CheckOut.Value.Subtract(item.CheckIn)).Minutes))),
+                                                            TotalDuration = (item.CheckOut == null ? "N/A" : Utility.TimeSince(item.CheckOut.Value.Subtract(item.CheckIn))),
                                                             CompanyName = item.CompanyName,
                                                             ContactPerson = item.ContactPerson,
                                                             NoOfPerson = item.NoOfPerson.ToString(),
@@ -163,7 +164,7 @@ namespace Evis.VMS.UI.HelperClasses
             return false;
         }
 
-        public List<VisitorJsonModel> GetVisitorData(string searchterm, int? organizationId)
+        public List<VisitorJsonModel> GetVisitorData(string searchterm, int? organizationId, bool isCheckIn, string userId)
         {
             var result = new List<VisitorJsonModel>();
             var qryVisitors = _genericService.VisitorMaster.GetAll()
@@ -173,6 +174,15 @@ namespace Evis.VMS.UI.HelperClasses
                     item.ContactNo.ToLower().Contains(searchterm.ToLower()) ||
                     item.IdNo.ToLower().Contains(searchterm.ToLower()))
                     );
+
+            if (!isCheckIn)
+            {
+               var objVisitorDataVM =  GetVisitorCheckInHistory(qryVisitors.FirstOrDefault().Id, userId);
+               if (!objVisitorDataVM.IsAlreadyCheckIn)//In case no check-in done, no need to check-out
+               {
+                   return result;
+               }
+            }
 
             if (qryVisitors.Count() > 0)
             {

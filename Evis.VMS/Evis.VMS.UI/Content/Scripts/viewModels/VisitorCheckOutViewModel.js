@@ -106,16 +106,16 @@
     }
 }
 
-BindAutoCompleteEvent = function () {
+BindAutoCompleteEventCheckout = function () {
     function log(message) {
         $("<div>").text(message).prependTo("#log");
         $("#log").scrollTop(0);
     }
 
-    $('.searchVisitor').autocomplete({
+    $('.searchVisitorCheckout').autocomplete({
         source: function (request, response) {
             $.ajax({
-                url: '/Visitor/GetVisitorsData',
+                url: '/Visitor/GetVisitorsCheckOutData',
                 data: { searchterm: request.term },
                 success: function (data) {
                     response($.map(data, function (item) {

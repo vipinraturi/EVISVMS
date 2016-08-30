@@ -84,7 +84,9 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         [HttpPost]
         public async Task<string> GetVisitorData(int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC", string globalSearch = "")
         {
-            var user = (await _userService.GetAllAsync()).Where(x => x.Id == HttpContext.Current.User.Identity.GetUserId() && x.IsActive == true).FirstOrDefault();
+            var user = 
+                (await _userService.GetAllAsync()).Where(x => x.Id == HttpContext.Current.User.Identity.GetUserId() && x.IsActive == true)
+                .FirstOrDefault();
 
             if (string.IsNullOrEmpty(sortField))
             {
