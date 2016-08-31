@@ -379,6 +379,12 @@
     <Content Include="images\back_disabled.png" />
     <Content Include="images\back_enabled.png" />
     <Content Include="images\back_enabled_hover.png" />
+    <Content Include="images\blur-bg-black.jpg" />
+    <Content Include="images\blur-bg-blue.jpg" />
+    <Content Include="images\blur-bg-bluecombo.jpg" />
+    <Content Include="images\blur-bg-blurred.jpg" />
+    <Content Include="images\blur-bg-fullblack.jpg" />
+    <Content Include="images\blur-bg-login1.jpg" />
     <Content Include="images\blur-bg-login2.jpg" />
     <Content Include="images\bootstrap-colorpicker\alpha-horizontal.png" />
     <Content Include="images\bootstrap-colorpicker\alpha.png" />
@@ -432,7 +438,6 @@
     <Content Include="Views\Administration\_Organization.cshtml" />
     <Content Include="Views\Administration\_Users.cshtml" />
     <Content Include="Views\Visitor\_ScanVisitor.cshtml" />
-    <Content Include="Views\Dashboard\_Dashboard.cshtml" />
     <Content Include="Views\Administration\_Shifts.cshtml" />
     <Content Include="Views\Administration\_ShiftAssignment.cshtml" />
     <Content Include="Views\Visitor\_ManageVisitorManually.cshtml" />
@@ -477,6 +482,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Dashboard\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
