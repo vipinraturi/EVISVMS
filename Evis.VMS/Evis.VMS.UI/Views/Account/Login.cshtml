@@ -15,6 +15,9 @@
     <script src="~/Content/Scripts/plugins/jquery-1.10.2.js"></script>
 </head>
 <body class="login">
+    <div class="loader-div" data-loader style="display:none">
+        <img src="~/images/Loader.gif" class="ajax-loader" />
+    </div>
     <div>
         <a class="hiddenanchor" id="signup"></a>
         <a class="hiddenanchor" id="signin"></a>
@@ -68,7 +71,7 @@
                         You can Reset your Password here.
                     </p>
                     <div>
-                        <input type="email" id="Email" class="form-control" placeholder="Email Address" required />
+                        <input type="email" id="Email" class="form-control" placeholder="Email Address" required style="color:black;" />
                         <br />
                         <span id="spnEmail" class="error" style="margin:0px !important; display:none;"></span>
                     </div>
@@ -103,18 +106,18 @@
 
     $(document).ready(function () {
         $("#btnSend").bind("click", function () {
-            debugger;
             if ($.trim($("#Email").val()) == "") {
                 $("#spnEmail").text("Please enter the registered email id!").show();
                 return false;
             }
 
+            $('.loader-div').show();
             $.ajax({
                 url: '@Url.Action("ForgotPassword", "Account")',
                 data: { email: $.trim($("#Email").val()) },
                 success: function (data) {
-                    debugger;
                     $("#spnEmail").text(data.Message).show();
+                    $('.loader-div').hide();
                 }
             });
         });
