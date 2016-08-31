@@ -7,7 +7,7 @@
 
 <div class="row">
 
-    <div class="col-md-6 col-xs-12">
+    <div class="col-md-5 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
                 <h2>Create / Update Gate</h2>
@@ -48,14 +48,6 @@
                         </div>
                     </div>
 
-                    @*<div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Location </label>
-                            <div class="col-md-9 col-sm-9 col-xs-12">
-                                <input id="txtLocation" type="text" class="form-control inputdisable" placeholder="Al Barsha" data-bind="value:GateNumber" />
-                                <span class="fa fa-map-marker favwhite form-control-feedback right" aria-hidden="true"></span>
-                            </div>
-                        </div>*@
-
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Gate Number <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
@@ -77,7 +69,7 @@
         </div>
     </div>
 
-    <div class="col-md-6 col-xs-12">
+    <div class="col-md-7 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
                 <h2>Manage Gates</h2>
@@ -97,14 +89,14 @@
                     <table class="table jambo_table">
                         <thead>
                             <tr>
-                                <th style="">#</th>
-                                <th style=""> <a href="#" onclick="DataGrid.Sort('GateNumber')" class="sortCol">Gate No</a> </th>
-                                <th style=""> <a href="#" onclick="DataGrid.Sort('BuildingName')" class="sortCol">Building Name</a></th>
-                                <th style=""> <a href="#" onclick="DataGrid.Sort('Country')" class="sortCol">Country</a></th>
-                                <th style=""> <a href="#" onclick="DataGrid.Sort('State')" class="sortCol">State</a></th>
-                                <th style=""> <a href="#" onclick="DataGrid.Sort('City')" class="sortCol">City</a></th>
+                                <th style="width: 1px;">#</th>
+                                <th style="width:12px;"> <a href="#" onclick="DataGrid.Sort('GateNumber')" class="sortCol">Gate No</a> </th>
+                                <th style="width:23px;"> <a href="#" onclick="DataGrid.Sort('BuildingName')" class="sortCol">Building Name</a></th>
+                                <th style="width:17px;"> <a href="#" onclick="DataGrid.Sort('Country')" class="sortCol">Country</a></th>
+                                <th style="width:17px;"> <a href="#" onclick="DataGrid.Sort('State')" class="sortCol">State</a></th>
+                                <th style="width:17px;"> <a href="#" onclick="DataGrid.Sort('City')" class="sortCol">City</a></th>
 
-                                <th style=""></th>
+                                <th style="width:13px;"></th>
                             </tr>
                         </thead>
                         <tbody data-bind="foreach:DataGrid.DataRows">
@@ -115,9 +107,9 @@
                                 <td data-bind="text: Country"></td>
                                 <td data-bind="text: State"></td>
                                 <td data-bind="text: City"></td>
-                                <td>
-                                    <a href="#" class="btn  btn-s" data-bind="click: EditGate.bind($data)" title="click here to view or edit record."><i class="fa fa-pencil"></i></a>
-                                    <a href="#myModal" data-toggle="modal" class="btn  btn-s" data-bind="click: DeleteGate.bind($data)" title="click here to delete record."><i class="fa fa-trash-o"></i></a>
+                                <td style="padding:0px !important">
+                                    <a href="#"  data-bind="click: EditGate.bind($data)" title="click here to view or edit record."><i class="fa fa-pencil"></i></a>
+                                    <a href="#myModal" data-toggle="modal" data-bind="click: DeleteGate.bind($data)" title="click here to delete record."><i class="fa fa-trash-o"></i></a>
                                 </td>
                             </tr>
                         </tbody>

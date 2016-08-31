@@ -79,9 +79,12 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                        BuildingId = x.BuildingId,
                        GateNumber = x.GateNumber,
                        BuildingName = x.BuildingMaster.BuildingName,
-                       Country = x.BuildingMaster.CityMaster.ParentValues.LookUpValue,
-                       State = x.BuildingMaster.CityMaster.ParentValues.ParentValues.LookUpValue,
-                       City = x.BuildingMaster.CityMaster.LookUpValue
+                       Country = x.BuildingMaster.CityMaster.ParentValues.LookUpValue == null ? x.BuildingMaster.OtherCountry : x.BuildingMaster.CityMaster.ParentValues.LookUpValue,
+                       State = x.BuildingMaster.CityMaster.ParentValues.ParentValues.LookUpValue == null ? x.BuildingMaster.OtherState : x.BuildingMaster.CityMaster.ParentValues.ParentValues.LookUpValue,
+                       City = x.BuildingMaster.CityMaster.LookUpValue == null ? x.BuildingMaster.OtherCity : x.BuildingMaster.CityMaster.LookUpValue,
+                       otherCountry = x.BuildingMaster.OtherCountry,
+                       OtherState = x.BuildingMaster.OtherState,
+                       OtherCity = x.BuildingMaster.OtherCity
                    });
             }
             else
@@ -97,9 +100,12 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                                 BuildingId = x.BuildingId,
                                 GateNumber = x.GateNumber,
                                 BuildingName = x.BuildingMaster.BuildingName,
-                                Country = x.BuildingMaster.CityMaster.ParentValues.LookUpValue,
-                                State = x.BuildingMaster.CityMaster.ParentValues.ParentValues.LookUpValue,
-                                City = x.BuildingMaster.CityMaster.LookUpValue
+                                Country = x.BuildingMaster.CityMaster.ParentValues.LookUpValue == null ? x.BuildingMaster.OtherCountry : x.BuildingMaster.CityMaster.ParentValues.LookUpValue,
+                                State = x.BuildingMaster.CityMaster.ParentValues.ParentValues.LookUpValue == null ? x.BuildingMaster.OtherState : x.BuildingMaster.CityMaster.ParentValues.ParentValues.LookUpValue,
+                                City = x.BuildingMaster.CityMaster.LookUpValue == null ? x.BuildingMaster.OtherCity : x.BuildingMaster.CityMaster.LookUpValue,
+                                otherCountry = x.BuildingMaster.OtherCountry,
+                                OtherState = x.BuildingMaster.OtherState,
+                                OtherCity = x.BuildingMaster.OtherCity
                             });
                 }
             }
@@ -113,7 +119,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                          item.Country.ToLower().Contains(globalSearch.ToLower()) ||
                          item.State.ToLower().Contains(globalSearch.ToLower()) || item.City.ToLower().Contains(globalSearch.ToLower())).AsQueryable();
                 }
-                if(string.IsNullOrEmpty(sortField))
+                if (string.IsNullOrEmpty(sortField))
                 {
                     sortField = "GateNumber";
                 }

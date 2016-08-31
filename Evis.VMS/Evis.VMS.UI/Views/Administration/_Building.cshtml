@@ -56,14 +56,15 @@
                             <span class="fa fa-globe favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" id="Country">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Country <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
                             <select class="form-control" id="selectCountries" data-bind="options: Countries, optionsText: 'Name', optionsValue: 'Id', value: NationalityId, optionsCaption: '-- Select Country --', event:{ change: LoadStates()}"></select>
+                            <span class="ErrorCountryd" style="display: none; color: red">This field is required.</span>
                         </div>
                     </div>
                     <div class="form-group" id="dropcountry" style="display: none;">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Country <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
                             <input id="txtcountry" type="text" class="form-control" maxlength="50" placeholder="[Country]" data-bind="value:Countrydlltxt" />@**@
                             <span class="fa fa-globe favwhite form-control-feedback right" aria-hidden="true"></span>
@@ -80,7 +81,7 @@
                         </div>
                     </div>
                     <div class="form-group" id="dropstate" style="display: none;">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">State <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
                             <input id="txtstatedl" type="text" class="form-control" maxlength="50" placeholder="[State]" data-bind="value: statedlltxt" />@**@
                             <span class="fa fa-globe favwhite form-control-feedback right" aria-hidden="true"></span>
@@ -96,7 +97,7 @@
                         </div>
                     </div>
                     <div class="form-group" id="dropcity" style="display: none;">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12"></label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">City<span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
                             <input id="txtcitydl" type="text" class="form-control" maxlength="50" placeholder="[City]" data-bind="value: citydlltxt" /> @*data-bind="value: WebSite.extend({ url: false })"*@
                             <span class="fa fa-globe favwhite form-control-feedback right" aria-hidden="true"></span>
@@ -151,10 +152,10 @@
                         <thead>
                             <tr>
                                 <th style="width: 1%">#</th>
-                                <th style="width: 25%"> <a href="#" onclick="DataGrid.Sort('BuildingName')" class="sortCol">BuildingName</a> </th>
-                                <th style="width: 25%"> <a href="#" onclick="DataGrid.Sort('OrganizationName')" class="sortCol">OrganizationName</a></th>
-                                <th style="width: 24%"><a href="#" onclick="DataGrid.Sort('Address')" class="sortCol">Address</a></th>
-                                <th style="width: 25%"></th>
+                                <th style="width: 26%"> <a href="#" onclick="DataGrid.Sort('BuildingName')" class="sortCol">BuildingName</a> </th>
+                                <th style="width: 27%"> <a href="#" onclick="DataGrid.Sort('OrganizationName')" class="sortCol">OrganizationName</a></th>
+                                <th style="width: 34%"><a href="#" onclick="DataGrid.Sort('Address')" class="sortCol">Address</a></th>
+                                <th style="width: 12%"></th>
                             </tr>
                         </thead>
                         <tbody data-bind="foreach:DataGrid.DataRows">
@@ -163,9 +164,9 @@
                                 <td data-bind="text: BuildingName"></td>
                                 <td data-bind="text: OrganizationName"></td>
                                 <td data-bind="text: Address"></td>
-                                <td>
-                                    <a href="#" class="btn  btn-s" data-bind="click: EditBuilding.bind($data)" title="click here to view or edit record."><i class="fa fa-pencil"></i></a>
-                                    <a href="#myModal" data-toggle="modal" class="btn  btn-s" data-bind="click: DeleteBuilding.bind($data)" title="click here to delete record."><i class="fa fa-trash-o"></i></a>
+                                <td style="padding:0px !important">
+                                    <a href="#" class="" data-bind="click: EditBuilding.bind($data)" title="click here to view or edit record."><i class="fa fa-pencil"></i></a>
+                                    <a href="#myModal" data-toggle="modal" data-bind="click: DeleteBuilding.bind($data)" title="click here to delete record."><i class="fa fa-trash-o"></i></a>
                                 </td>
                             </tr>
                         </tbody>
