@@ -187,14 +187,23 @@ namespace Evis.VMS.UI.Controllers
         }
 
 
-        public async Task<JsonResult> GetVisitorsData(string searchterm)
+        public async Task<JsonResult> GetVisitorsCheckinData(string searchterm)
         {
-            var user = (await _userService.GetAllAsync()).Where(x => x.Id == System.Web.HttpContext.Current.User.Identity.GetUserId() && x.IsActive == true).FirstOrDefault();
-            var visitorDeata = new List<VisitorJsonModel>();
-            visitorDeata = _visitorCheckInCheckOutHelper.GetVisitorData(searchterm, (user == null) ? null : user.OrganizationId);
-            return Json(visitorDeata, JsonRequestBehavior.AllowGet);
+            var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            var user = (await _userService.GetAllAsync()).Where(x => x.Id == userId && x.IsActive == true).FirstOrDefault();
+            var visitorData = new List<VisitorJsonModel>();
+            visitorData = _visitorCheckInCheckOutHelper.GetVisitorData(searchterm, (user == null) ? null : user.OrganizationId, true, userId);
+            return Json(visitorData, JsonRequestBehavior.AllowGet);
         }
 
+        public async Task<JsonResult> GetVisitorsCheckOutData(string searchterm)
+        {
+            var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            var user = (await _userService.GetAllAsync()).Where(x => x.Id == userId && x.IsActive == true).FirstOrDefault();
+            var visitorData = new List<VisitorJsonModel>();
+            visitorData = _visitorCheckInCheckOutHelper.GetVisitorData(searchterm, (user == null) ? null : user.OrganizationId, false, userId);
+            return Json(visitorData, JsonRequestBehavior.AllowGet);
+        }
 
         private string ExtractTextFromImage(string filePath)
         {
@@ -206,5 +215,9 @@ namespace Evis.VMS.UI.Controllers
             modiDocument.Close();
             return extractedText;
         }
-	}
+
+        public object visitorData { get; set; }
+
+        public object visitorDeta { get; set; }
+    }
 }

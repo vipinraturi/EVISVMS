@@ -93,10 +93,10 @@ BindingViewModel = function (controllerUrl, viewModel) {
             });
         }
         if (controllerUrl == "/Visitor/_VisitorCheckIn") {
-            BindAutoCompleteEvent();
+            BindAutoCompleteEventCheckin();
         }
         if (controllerUrl == "/Visitor/_VisitorCheckout") {
-            BindAutoCompleteEvent();
+            BindAutoCompleteEventCheckout();
         }
         if (controllerUrl == "/Administration/_ShiftAssignment") {
             $("#dateFrom").keypress(function (event) { event.preventDefault(); });

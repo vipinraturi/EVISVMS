@@ -182,16 +182,16 @@
     }
 }
 
-BindAutoCompleteEvent = function () {
+BindAutoCompleteEventCheckin = function () {
     function log(message) {
         $("<div>").text(message).prependTo("#log");
         $("#log").scrollTop(0);
     }
 
-    $('.searchVisitor').autocomplete({
+    $('.searchVisitorCheckIn').autocomplete({
         source: function (request, response) {
             $.ajax({
-                url: '/Visitor/GetVisitorsData',
+                url: '/Visitor/GetVisitorsCheckinData',
                 data: { searchterm: request.term },
                 success: function (data) {
                     response($.map(data, function (item) {

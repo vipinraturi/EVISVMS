@@ -254,6 +254,8 @@
 
     self.LoadIdentityImage = function (identityImages) {
         
+        debugger;
+
         $('#dropzoneForm .dz-image-preview').remove();
         var MultipleImagePath = [];
 
@@ -276,7 +278,7 @@
 
             if (identityImages.split(',').length > 2) {
                 var obj3 = new Object();
-                obj3.fileName = identityImages[2];
+                obj3.fileName = identityImages.split(',')[2];
                 obj3.ImgURL = '/images/VisitorIdentityImages/' + identityImages.split(',')[2];
                 obj3.size = 1024;
                 MultipleImagePath.push(obj3);

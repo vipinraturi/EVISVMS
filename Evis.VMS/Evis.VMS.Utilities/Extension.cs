@@ -15,6 +15,9 @@ namespace Evis.VMS.Utilities
                                            .GetProperty(name)
                                            .GetValue(obj, null);
         }
+
+
+       
     }
 
 }

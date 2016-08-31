@@ -35,7 +35,12 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             currentUser.FullName = myProfileVM.FullName;
             currentUser.PhoneNumber = myProfileVM.PhoneNumber;
             currentUser.ContactAddress = myProfileVM.ContactAddress;
-            currentUser.ProfilePicturePath = ( string.IsNullOrEmpty(myProfileVM.ProfilePicturePath)? string.Empty: string.Format("/images/UserImages/{0}", myProfileVM.ProfilePicturePath));
+
+            if (!string.IsNullOrEmpty(myProfileVM.ProfilePicturePath))
+            {
+                currentUser.ProfilePicturePath = (string.IsNullOrEmpty(myProfileVM.ProfilePicturePath) ? string.Empty : string.Format("/images/UserImages/{0}", myProfileVM.ProfilePicturePath));
+            }
+
             await _userService.UpdateAsync(currentUser, string.Empty);
             _genericService.Commit();
 

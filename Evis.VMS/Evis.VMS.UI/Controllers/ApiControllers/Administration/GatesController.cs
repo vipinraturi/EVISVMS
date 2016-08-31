@@ -113,7 +113,10 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                          item.Country.ToLower().Contains(globalSearch.ToLower()) ||
                          item.State.ToLower().Contains(globalSearch.ToLower()) || item.City.ToLower().Contains(globalSearch.ToLower())).AsQueryable();
                 }
-
+                if(string.IsNullOrEmpty(sortField))
+                {
+                    sortField = "GateNumber";
+                }
                 var paginationRequest = new PaginationRequest
                 {
                     PageIndex = (pageIndex - 1),
@@ -126,7 +129,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 IList<GatesVM> result =
                     GenericSorterPager.GetSortedPagedList<GatesVM>(lstgateVM, paginationRequest, out totalCount);
 
-                var jsonData = JsonConvert.SerializeObject(result.OrderByDescending(x => x.Id));
+                var jsonData = JsonConvert.SerializeObject(result);
                 return JsonConvert.SerializeObject(new { totalRows = totalCount, result = jsonData });
 
             }
