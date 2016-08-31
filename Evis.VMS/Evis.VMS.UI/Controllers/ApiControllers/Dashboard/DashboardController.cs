@@ -46,7 +46,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             // add an item
 
             //q = "[";
-            var currentDate = DateTime.Now;
+            var currentDate = DateTime.Now.AddDays(1).Date;
             var lastDate = DateTime.Now.AddDays(-30).Date;
             List<string> dates = new List<string>();
             
@@ -69,7 +69,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     mydict.Add(new Tuple<int, string, DateTime>(0, (Convert.ToDateTime(day.Date)).ToString("dd/MM/yyyy"), day));
                 }
             }
-            return mydict.OrderByDescending(x => x.Item3).ToList();
+            mydict= mydict.OrderBy(x => x.Item3).ToList();
+            return mydict;
         }
 
         public IEnumerable<DateTime> EachDay(DateTime from, DateTime thru)
