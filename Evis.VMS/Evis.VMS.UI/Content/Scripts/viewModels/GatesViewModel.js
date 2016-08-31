@@ -48,15 +48,21 @@
         //  debugger;
         if (self.BuildingId() != undefined && self.BuildingId() != 0) {
             AjaxCall('/Api/Gates/GetAllBuildingDetails?id=' + self.BuildingId(), null, 'GET', function (data) {
-                //debugger;
-                self.CityName(data[0].CityMaster.LookUpValue);
-                self.CityId(data[0].CityMaster.Id);
+                debugger;
+                if (data[0].CityId != null) {
+                    self.CityName(data[0].CityMaster.LookUpValue);
+                    self.CityId(data[0].CityMaster.Id);
+                    self.StateName(data[0].CityMaster.ParentValues.LookUpValue);
+                    self.StateId(data[0].CityMaster.ParentId);
+                    self.CountryName(data[0].CityMaster.ParentValues.ParentValues.LookUpValue);
+                    self.CountryId(data[0].CityMaster.ParentValues.ParentId);
+                }
+                else {
+                    self.CityName(data[0].OtherCity);
+                    self.StateName(data[0].OtherState);
+                    self.CountryName(data[0].OtherCountry);
 
-                self.StateName(data[0].CityMaster.ParentValues.LookUpValue);
-                self.StateId(data[0].CityMaster.ParentId);
-
-                self.CountryName(data[0].CityMaster.ParentValues.ParentValues.LookUpValue);
-                self.CountryId(data[0].CityMaster.ParentValues.ParentId);
+                }
             })
         }
     }

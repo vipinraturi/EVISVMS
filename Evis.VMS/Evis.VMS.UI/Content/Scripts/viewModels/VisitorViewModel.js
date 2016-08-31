@@ -3,9 +3,9 @@
     nationality = (nationalityVal != "" ? nationalityVal : undefined);
     typeOfCard = (typeOfCard != "" ? typeOfCard : undefined);
     gender = (gender != "" ? gender : undefined);
-    var patterns = {
-        ContactNo: /^\d[\d -]*\d$/,
-    };
+    //var patterns = {
+    //    ContactNo: /^\d[\d -]*\d$/,
+    //};
     var self = this;
     Id = ko.observable(0);
     VisitorName = ko.observable(visitorName).extend({ required: true });
@@ -15,12 +15,19 @@
     TypeOfCardValue = ko.observable(typeOfCard).extend({ required: true });
     IdNo = ko.observable(idNumber).extend({ required: true });
     Nationality = ko.observable(nationality).extend({ required: true });
-    //ContactNo = ko.observable(contactNumber).extend({ required: true });
-    self.ContactNo = ko.observable().extend({
+    ContactNo = ko.observable(contactNumber).extend({ required: true });
+    //self.ContactNo = ko.observable().extend({
+    //    required: true,
+    //    pattern: {
+    //        message: 'Invalid Mobile No',
+    //        params: patterns.ContactNo
+    //    }
+    //});
+    self.ContactNo = ko.observable('').extend({
         required: true,
         pattern: {
-            message: 'Invalid Mobile No',
-            params: patterns.ContactNo
+            message: 'Invalid Contact Number.',
+            params: /^([0-9\(\)\/\+ \-\.]*)$/
         }
     });
     ContactAddress = ko.observable('');
@@ -42,6 +49,7 @@
         Nationality: this.Nationality,
         ContactNo: this.ContactNo
     });
+
 
     self.DataGrid = new RIT.eW.DataGridAjax('/Api/Visitor/GetVisitorData', 7);
     self.VisitorList = ko.observableArray([]);

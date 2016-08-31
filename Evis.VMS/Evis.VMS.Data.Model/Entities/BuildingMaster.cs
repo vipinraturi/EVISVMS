@@ -17,13 +17,13 @@ namespace Evis.VMS.Data.Model.Entities
         public BuildingMaster() { }
 
         public int OrganizationId { get; set; }
-       
+
         [Required]
         [MaxLength(100)]
         public string BuildingName { get; set; }
 
-        [Required]
-        public int CityId { get; set; }
+        //[Required]
+        public int? CityId { get; set; }
 
 
         //[Required]
@@ -60,5 +60,9 @@ namespace Evis.VMS.Data.Model.Entities
         public DateTime? UpdatedOn { get; set; }
 
         public string UpdatedBy { get; set; }
+
+        public string OtherCountry { get; set; }
+        public string OtherState { get; set; }
+        public string OtherCity { get; set; }
     }
 }

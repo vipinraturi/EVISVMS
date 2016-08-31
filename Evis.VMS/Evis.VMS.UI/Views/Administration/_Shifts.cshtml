@@ -26,10 +26,6 @@
                             <span class="fa fa-clock-o favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
-                    @*<div class=" form-group input-group bootstrap-timepicker timepicker">http://jdewit.github.io/bootstrap-timepicker/index.html
-                            <input id="timepicker1" type="text" class="form-control input-small">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
-                        </div>*@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Shift To Time <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
@@ -68,11 +64,11 @@
                     <table class="table jambo_table">
                         <thead>
                             <tr>
-                                <th style="">#</th>
-                                <th style=""> <a href="#" onclick="DataGrid.Sort('ShitfName')" class="sortCol">Shift Name</a> </th>
-                                <th style=""> <a href="#" onclick="DataGrid.Sort('strFromTime')" class="sortCol">From Time</a></th>
-                                <th style=""><a href="#" onclick="DataGrid.Sort('strToTime')" class="sortCol">To Time</a></th>
-                                <th style=""></th>
+                                <th style="width: 1%">#</th>
+                                <th style="width: 26%"> <a href="#" onclick="DataGrid.Sort('ShitfName')" class="sortCol">Shift Name</a> </th>
+                                <th style="width: 30%"> <a href="#" onclick="DataGrid.Sort('strFromTime')" class="sortCol">From Time</a></th>
+                                <th style="width: 30%"><a href="#" onclick="DataGrid.Sort('strToTime')" class="sortCol">To Time</a></th>
+                                <th style="width: 13%"></th>
                             </tr>
                         </thead>
                         <tbody data-bind="foreach:DataGrid.DataRows">
@@ -82,8 +78,8 @@
                                 <td data-bind="text: strFromTime"></td>
                                 <td data-bind="text: strToTime"></td>
                                 <td>
-                                    <a href="#" class="btn  btn-s" data-bind="click: Editshift.bind($data)" title="click here to view or edit record."><i class="fa fa-pencil"></i></a>
-                                    <a href="#myModal" data-toggle="modal" class="btn  btn-s" data-bind="click: DeleteSwift.bind($data)" title="click here to delete record."><i class="fa fa-trash-o"></i></a>
+                                    <a href="#"  data-bind="click: Editshift.bind($data)" title="click here to view or edit record."><i class="fa fa-pencil"></i></a>
+                                    <a href="#myModal" data-toggle="modal"  data-bind="click: DeleteSwift.bind($data)" title="click here to delete record."><i class="fa fa-trash-o"></i></a>
                                 </td>
                             </tr>
                         </tbody>
