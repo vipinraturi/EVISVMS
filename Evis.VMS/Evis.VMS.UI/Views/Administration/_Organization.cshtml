@@ -120,10 +120,10 @@
                         <thead>
                             <tr>
                                 <th style="width: 1%">#</th>
-                                <th style="width: 25%"> <a href="#" onclick="DataGrid.Sort('CompanyName')" class="sortCol">Name</a> </th>
-                                <th style="width: 25%"> <a href="#" onclick="DataGrid.Sort('Country')" class="sortCol">Country</a></th>
-                                <th style="width: 24%"><a href="#" onclick="DataGrid.Sort('WebSite')" class="sortCol">WebSite</a></th>
-                                <th style="width: 25%"></th>
+                                <th style="width: 30%"> <a href="#" onclick="DataGrid.Sort('CompanyName')" class="sortCol">Name</a> </th>
+                                <th style="width: 29%"> <a href="#" onclick="DataGrid.Sort('Country')" class="sortCol">Country</a></th>
+                                <th style="width: 27%"><a href="#" onclick="DataGrid.Sort('WebSite')" class="sortCol">WebSite</a></th>
+                                <th style="width: 13%"></th>
                             </tr>
                         </thead>
                         <tbody data-bind="foreach: DataGrid.DataRows">
@@ -132,7 +132,7 @@
                                 <td data-bind="text: CompanyName"></td>
                                 <td data-bind="text: Country"></td>
                                 <td data-bind="text: WebSite"></td>
-                                <td>
+                                <td style="padding:0px !important">
                                     <a href="#" data-bind="click: EditOrganization.bind($data)" title="click here to view or edit record."><i class="fa fa-pencil"></i></a>
                                     <a href="#myModal" data-toggle="modal" data-bind="click: DeleteOrganization.bind($data)" title="click here to delete record."><i class="fa fa-trash-o"></i></a>
                                 </td>

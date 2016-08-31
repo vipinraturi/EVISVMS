@@ -43,7 +43,7 @@
                     <div class="form-group col-md-9 col-sm-9 col-xs-12">
                         <label class="control-label col-md-4 col-sm-4 col-xs-12">Organization <span class="mandatoryField">*</span></label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                            <select class="form-control" data-bind="options: Organizations, optionsText: 'Name', optionsValue: 'Id', value: OrganizationId, optionsCaption: '-- Select --'"></select>
+                            <select class="form-control" data-bind="options: Organizations, optionsText: 'Name', optionsValue: 'Id', value: OrganizationId, optionsCaption: '-- Select Organization --'"></select>
                         </div>
                     </div>
                     <div class="form-group col-md-9 col-sm-9 col-xs-12">
@@ -56,7 +56,7 @@
                     <div class="form-group col-md-9 col-sm-9 col-xs-12">
                         <label class="control-label col-md-4 col-sm-4 col-xs-12">Gender: <span class="mandatoryField">*</span></label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                            <select class="form-control" data-bind="options: Genders, optionsText: 'Name', optionsValue: 'Id', value: GenderId, optionsCaption: '-- Select --'"></select>
+                            <select class="form-control" data-bind="options: Genders, optionsText: 'Name', optionsValue: 'Id', value: GenderId, optionsCaption: '-- Select Gender --'"></select>
                         </div>
                     </div>
                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
@@ -116,10 +116,10 @@
                         <thead>
                             <tr>
                                 <th style="width: 1%">#</th>
-                                <th style="width: 12%"><a href="#" onclick="DataGrid.Sort('FullName')" class="sortCol">Full Name</a> </th>
-                                <th style="width: 12%"><a href="#" onclick="DataGrid.Sort('EmailAddress')" class="sortCol">Email Address</a> </th>
-                                <th style="width: 12%"><a href="#" onclick="DataGrid.Sort('ContactNumber')" class="sortCol">Contact No</a></th>
-                                <th style="width: 12%"><a href="#" onclick="DataGrid.Sort('RoleName')" class="sortCol">Role Name</a></th>
+                                <th style="width: 20%"><a href="#" onclick="DataGrid.Sort('FullName')" class="sortCol">Full Name</a> </th>
+                                <th style="width: 20%"><a href="#" onclick="DataGrid.Sort('EmailAddress')" class="sortCol">Email Address</a> </th>
+                                <th style="width: 20%"><a href="#" onclick="DataGrid.Sort('ContactNumber')" class="sortCol">Contact No</a></th>
+                                <th style="width: 25%"><a href="#" onclick="DataGrid.Sort('RoleName')" class="sortCol">Role Name</a></th>
                                 <th style="width: 14%"></th>
                             </tr>
                         </thead>

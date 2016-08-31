@@ -64,10 +64,11 @@
     self.citydlltxt = ko.observable();
     self.StateId = ko.observable();
     self.CityId = ko.observable();
-    self.NationalityId = ko.observable(undefined).extend({ required: true });
+    self.NationalityId = ko.observable(undefined);
     self.OrganizationId = ko.observable(undefined).extend({ required: true });
     self.GlobalSearch = ko.observable('');
     self.IsInsert = ko.observable(true);
+    self.State = ko.observableArray();
     self.errors = ko.validation.group(
         {
             BuildingName: this.BuildingName,
@@ -104,46 +105,51 @@
     })
     self.City = ko.observableArray();
     self.LoadCities = function () {
+        debugger;
         if (self.StateId() != undefined && self.StateId() != 0) {
             AjaxCall('/Api/Administration/GetAllStateOrCity?id=' + self.StateId(), null, 'GET', function (data) {
                 if (data.length > 0) {
                     debugger;
                     self.City(data);
                     self.CityId(cityId);
+                  
                 }
                 else {
 
                     document.getElementById('dropcity').style.visibility = 'visible';
-
+                    
                 }
 
             })
         }
     }
-    self.State = ko.observableArray();
+  
     self.LoadStates = function () {
-        //debugger;
+
         if (self.NationalityId() != undefined && self.NationalityId() != 0) {
             AjaxCall('/Api/Administration/GetAllStateOrCity?id=' + self.NationalityId(), null, 'GET', function (data) {
                 if (data.length > 0) {
+                    debugger;
                     self.State(data);
                     self.StateId(stateId);
                     $('#dropcountry').hide();
                     $('#dropcity').hide();
-                    $('#city').show();
                     $('#dropstate').hide();
                     $('#state').show();
-                    document.getElementById('dropcity').style.visibility = 'none';
-                    document.getElementById('dropcountry').style.visibility = 'none';
+                    $('#city').show();
+                    $(".ErrorCountryd").hide();
                 }
                 else {
                     $('#dropcountry').show();
                     $('#dropcity').show();
-                    $('#city').hide();
                     $('#dropstate').show();
                     $('#state').hide();
-                    document.getElementById('dropcity').style.visibility = 'visible';
-                    document.getElementById('dropcountry').style.visibility = 'visible';
+                    $('#city').hide();
+                    self.Countrydlltxt('');
+                    self.statedlltxt('');
+                    self.citydlltxt('');
+                    self.StateId(undefined);
+                    self.CityId(undefined);
                 }
             })
         }
@@ -168,10 +174,17 @@
         //});
         debugger;
         var a = $("#selectCountries option:selected").text();
+        //if (a == "-- Select Country --") {
+        //    $('.ErrorCountryd').show();
+        //    document.getElementById('ErrorCountryd').style.visibility = 'visible';
+        //}
+        //else {
+        //    $('loginErrorCountryd').hide();
+        //}
         if (a == "Others") {
             var txtcountry = $("#txtcountry").val();
             if (txtcountry == "") {
-                alert('Fill this field');
+              //  alert('Fill this field');
                 $(".loginErrorCountrydlltxt").show();
                 return false;
             }
@@ -180,7 +193,7 @@
             }
             var txtstatedl = $("#txtstatedl").val();
             if (txtstatedl == "") {
-                alert('Fill this field');
+                //alert('Fill this field');
                 $(".loginErrorstatedlltxt").show();
                 return false;
             }
@@ -189,7 +202,7 @@
             }
             var txtcitydl = $("#txtcitydl").val();
             if (txtcitydl == "") {
-                alert('Fill this field');
+              //  alert('Fill this field');
                 $(".loginErrorcitydlltxt").show();
                 return false;
             }
@@ -197,8 +210,10 @@
                 $(".loginErrorcitydlltxt").hide();
             }
         }
+        debugger;
         var a = $("#selectCountries option:selected").text();
         if (a != "Others") {
+            debugger;
             if (document.getElementById("selectCountries").selectedIndex != 0) {
                 var selectState = document.getElementById("selectState").selectedIndex;
                 if (selectState == 0) {
@@ -210,7 +225,7 @@
                 }
                 var txtcity = $("#selectcity").val();
                 if (txtcity == "") {
-                    alert('Fill this field');
+                    //alert('Fill this field');
                     $(".City").show();
                     return false;
                 }
@@ -218,11 +233,6 @@
                     $(".City").hide();
                 }
             }
-        }
-        if (self.errors().length > 0) {
-            self.errors.showAllMessages(true);
-            this.errors().forEach(function (data) {
-            });
         }
         if (document.getElementById("selectState").selectedIndex != 0) {
             var selectState = document.getElementById("selectcity").selectedIndex;
@@ -234,8 +244,18 @@
                 $('.city').hide();
             }
         }
+        var a = $("#selectCountries option:selected").text();
+
         if (self.errors().length > 0) {
             self.errors.showAllMessages(true);
+            if (a == "-- Select Country --") {
+                $('.ErrorCountryd').show();
+             //   document.getElementById('ErrorCountryd').style.visibility = 'visible';
+            }
+            else {
+                $('ErrorCountryd').hide();
+               // document.getElementById('ErrorCountryd').style.visibility = 'none';
+            }
             this.errors().forEach(function (data) {
             });
         }
@@ -259,9 +279,13 @@
                 if (data.Message == "Success") {
                     toastr.success('Building saved successfully!!')
                     ApplyCustomBinding('buildings');
+                    self.Countrydlltxt('')
                 }
                 else {
-                    self.BuildingName('');
+                    self.Countrydlltxt('');
+                    self.statedlltxt('');
+                    self.citydlltxt('');
+                    self.CityId('');
                     toastr.error('Building name alreday exists!!')
                 }
                 self.IsInsert(true);
@@ -284,7 +308,9 @@
     }
     self.EditBuilding = function (tableItem) {
         debugger;
+      
         if (tableItem != undefined) {
+            $('.ErrorCountryd').hide();
             self.Id(tableItem.Id);
             self.EmailId(tableItem.EmailId);
             self.ContactNumber(tableItem.ContactNumber);
@@ -294,9 +320,39 @@
             self.Address(tableItem.Address);
             self.ZipCode(tableItem.ZipCode);
             self.OrganizationId(tableItem.OrganizationId);
-            self.NationalityId(tableItem.NationalityId);
+            self.NationalityId((tableItem.NationalityId == undefined) ? 11 : tableItem.NationalityId);
             stateId = (tableItem.StateId);
             cityId = (tableItem.CityId);
+            if (tableItem.txtcountry != null) {
+                self.Countrydlltxt(tableItem.txtcountry);
+                $("#Country").show();
+                $("#dropcountry").show();
+                //  document.getElementById('dropcountry').style.visibility = 'visible';
+            }
+            else {
+                $("#Country").show();
+                $("#dropcountry").hide();
+            }
+            if (tableItem.txtstate != null) {
+                self.statedlltxt(tableItem.txtstate);
+                $("#state").hide();
+                $("#dropstate").show();
+                //  document.getElementById('dropstate').style.visibility = 'visible';
+            }
+            else {
+                $("#state").show();
+                $("#dropstate").hide();
+            }
+            if (tableItem.txtcity != null) {
+                self.citydlltxt(tableItem.txtcity);
+                $("#city").hide();
+                $("#dropcity").show();
+                // document.getElementById('dropcity').style.visibility = 'visible';
+            }
+            else {
+                $("#city").show();
+                $("#dropcity").hide();
+            }
             self.IsInsert(false);
             $("#btnSaveBuilding").text("Update");
             $('#Org').attr('disabled', true);

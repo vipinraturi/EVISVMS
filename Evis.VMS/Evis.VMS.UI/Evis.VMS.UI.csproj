@@ -386,10 +386,6 @@
     <Content Include="images\blur-bg-fullblack.jpg" />
     <Content Include="images\blur-bg-login1.jpg" />
     <Content Include="images\blur-bg-login2.jpg" />
-    <Content Include="images\blur-bg-redblue.jpg" />
-    <Content Include="images\blur-bg-violet.jpg" />
-    <Content Include="images\blur-bg-white.jpg" />
-    <Content Include="images\blur-bg.jpg" />
     <Content Include="images\bootstrap-colorpicker\alpha-horizontal.png" />
     <Content Include="images\bootstrap-colorpicker\alpha.png" />
     <Content Include="images\bootstrap-colorpicker\hue-horizontal.png" />
@@ -404,7 +400,6 @@
     <Content Include="images\icons.png" />
     <Content Include="images\last-item-icon.png" />
     <Content Include="images\Loader.gif" />
-    <Content Include="images\logo.png" />
     <Content Include="images\logo1.png" />
     <Content Include="images\logo2.png" />
     <Content Include="images\logo3.png" />
@@ -443,7 +438,6 @@
     <Content Include="Views\Administration\_Organization.cshtml" />
     <Content Include="Views\Administration\_Users.cshtml" />
     <Content Include="Views\Visitor\_ScanVisitor.cshtml" />
-    <Content Include="Views\Dashboard\_Dashboard.cshtml" />
     <Content Include="Views\Administration\_Shifts.cshtml" />
     <Content Include="Views\Administration\_ShiftAssignment.cshtml" />
     <Content Include="Views\Visitor\_ManageVisitorManually.cshtml" />
@@ -488,6 +482,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Dashboard\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -562,7 +557,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>63864</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:25454/</IISUrl>
+          <IISUrl>http://localhost:64454/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
