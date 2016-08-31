@@ -31,7 +31,7 @@
                                 @if (@Session["UserSession"] != null)
                                 {
                                     var userSessionData = (Evis.VMS.UI.ViewModel.UserSessionDataVM)Session["UserSession"];
-                                    <img class="logoimg img-responsive" id="mainLogo" src="@Url.Content(userSessionData.ImageLogoPath)" /><br />
+                                    <img class="logoimg img-responsive" style="width:auto; height:auto;" id="mainLogo" src="@Url.Content(userSessionData.ImageLogoPath)" /><br />
                                 }
                                 <span class="companyName-Span">CEENEX VMS</span>
                             </a>

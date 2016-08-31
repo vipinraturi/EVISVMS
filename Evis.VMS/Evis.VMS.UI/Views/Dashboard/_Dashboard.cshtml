@@ -14,7 +14,7 @@
                 <a href="javascript:void(0)" id="lnkVisitorCheckIn">
                     <div class="icon" style="color: #22A7F0"><i class="fa fa-user-plus fa-1"></i></div>
 
-                    
+
                     <div class="count">@DashboardData.CheckInCount</div>
 
 
@@ -63,23 +63,28 @@
                     <h3>Visitor Count <small>Graph </small></h3>
                 </div>
             </div>
+
             <div class="x_content">
-                <div class="demo-container" style="height:250px">
-                    <div id="placeholder3xx3" class="demo-placeholder" style="width: 100%; height: 250px; padding: 0px; position: relative;">
-                        <div class="legend">
-                            <div style="position: absolute; width: 76px; height: 15px; top: 13px; right: 13px; opacity: 0.85; background-color: rgb(255, 255, 255);"> </div>
-                            <table style="position:absolute;top:13px;right:13px;font-size:smaller;color:#545454">
-                                <tbody>
-                                    <tr>
-                                        <td class="legendColorBox">
-                                            <div style="border:1px solid #ccc;padding:1px">
-                                                <div style="width:4px;height:0;border:5px solid rgb(38,185,154);overflow:hidden"></div>
-                                            </div>
-                                        </td>
-                                        @*<td class="legendLabel">Registrations</td>*@
-                                    </tr>
-                                </tbody>
-                            </table>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="demo-container" style="height:250px">
+                        <div id="placeholder3xx3" class="demo-placeholder" style="width: 100%; height: 250px; padding: 0px; position: relative;">
+                            @*<div class="legend">
+                                        <div style="position: absolute; width: 76px; height: 15px; top: 13px; right: 13px; opacity: 0.85; background-color: rgb(255, 255, 255);"> </div>
+                                        <table style="position:absolute;top:13px;right:13px;font-size:smaller;color:#545454">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="legendColorBox">
+                                                        <div style="border:1px solid #ccc;padding:1px">
+                                                            <div style="width:4px;height:0;border:5px solid rgb(38,185,154);overflow:hidden"></div>
+                                                        </div>
+                                                    </td>
+
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>*@
                         </div>
                     </div>
                 </div>
@@ -88,7 +93,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="dashboard_graph x_panel">
             <div class="x_title">
                 <h2>Daily Shift Details</h2>
@@ -127,102 +132,110 @@
 
 
 <script type="text/javascript">
-   
-    $(document).ready(function () {
-        //random data
-        
-        var graphData;
-        var fromDate = new Date();
-        var toDate = new Date();
-        var arr = [];
-        // evt.preventDeafult();
-        AjaxCall('../Api/DashBoard/LoadGraph', null, 'GET', function (data) {
-            //   debugger;
-            //$.each(data, function (inx, val) {
-            //    var obj = [];
-            //    obj[0] = val.Date;
-            //    obj[1] = val.Count;
-            //    // obj.label = val.label;
-            //    arr.push(obj);
-            //});
-            graphData = data;
-            var dataArray = new Array(graphData.length);
-            for (var i = 0; i < graphData.length; i++) {
-                var dataValue = new Array(2);
-                dataValue[0] = gd(graphData[i].m_Item2);
-                dataValue[1] = graphData[i].m_Item1;
-                dataArray[i] = dataValue;
-            }
+    var myBtn = document.getElementById('menu_toggle');
 
-            arr = dataArray;
-            var dataset = [
-           {
-               label: "Visitors",
-               data: arr,
-               color: "#FF0000",
-               points: { fillColor: "#FF0000", show: true },
-               lines: { show: true }
-           }
-
-            ];
-            var options = {
-                series: {
-                    curvedLines: {
-                        apply: true,
-                        active: true,
-                        monotonicFit: true
-                    }
-                },
-                xaxes: [
-               {
-                   mode: "time",
-                   timeformat: "%m/%d",
-                   tickSize: [1, "day"],
-                   tickLength: 1,
-                   color: "black",
-                   axisLabel: "Date",
-                   //  axisLabelUseCanvas: true,
-                   axisLabelFontSizePixels: 12,
-                   axisLabelFontFamily: 'Verdana, Arial',
-                   axisLabelPadding: 0
-               }],
-                yaxis: {
-
-                    tickDecimals: 0,
-                    axisLabel: "",
-
-                },
-                colors: ["#26B99A"],
-                legend: {
-                    noColumns: 0,
-                    labelBoxBorderColor: "#000000",
-                    position: "nw"
-                },
-                grid: {
-                    borderWidth: {
-                        top: 0,
-                        right: 1,
-                        bottom: 1,
-                        left: 1
-                    },
-                    borderColor: {
-                        bottom: "#7F8790",
-                        left: "#7F8790"
-                    },
-                    hoverable: true,
-                    //  borderWidth: 3,
-                    mouseActiveRadius: 50,
-                    // backgroundColor: { colors: ["#ffffff", "#EDF5FF"] },
-                    //  axisMargin: 20
+    //add event listener
+    myBtn.addEventListener('click', function (event) {
+        loadGraph();
+       
+    });
+    window.onresize = loadGraph;
+    function loadGraph() {
+        {
+            var graphData;
+            var fromDate = new Date();
+            var toDate = new Date();
+            var arr = [];
+            // evt.preventDeafult();
+            AjaxCall('../Api/DashBoard/LoadGraph', null, 'GET', function (data) {
+                //   debugger;
+                //$.each(data, function (inx, val) {
+                //    var obj = [];
+                //    obj[0] = val.Date;
+                //    obj[1] = val.Count;
+                //    // obj.label = val.label;
+                //    arr.push(obj);
+                //});
+                graphData = data;
+                var dataArray = new Array(graphData.length);
+                for (var i = 0; i < graphData.length; i++) {
+                    var dataValue = new Array(2);
+                    dataValue[0] = gd(graphData[i].m_Item2);
+                    dataValue[1] = graphData[i].m_Item1;
+                    dataArray[i] = dataValue;
                 }
-            };
-            var plot = $.plot($("#placeholder3xx3"), dataset, options);
-        });
+
+                arr = dataArray;
+                var dataset = [
+               {
+                   label: "Visitors",
+                   data: arr,
+                   color: "#FF0000",
+                   points: { fillColor: "#FF0000", show: true },
+                   lines: { show: true }
+               }
+
+                ];
+                var options = {
+                    series: {
+                        curvedLines: {
+                            apply: true,
+                            active: true,
+                            monotonicFit: true
+                        }
+                    },
+                    responsive: true,
+                    xaxes: [
+                   {
+                       mode: "time",
+                       timeformat: "%d/%m",
+                       tickSize: [3, "day"],
+                       tickLength: 1,
+
+                       color: "black",
+                       axisLabel: "Date",
+                       //  axisLabelUseCanvas: true,
+                       axisLabelFontSizePixels: 12,
+                       axisLabelFontFamily: 'Verdana, Arial',
+                       axisLabelPadding: 0
+                   }],
+                    yaxis: {
+
+                        tickDecimals: 0,
+                        axisLabel: "",
+
+                    },
+                    colors: ["#26B99A"],
+                    legend: {
+                        noColumns: 0,
+                        labelBoxBorderColor: "#000000",
+                        position: "nw"
+                    },
+                    grid: {
+                        borderWidth: {
+                            top: 0,
+                            right: 1,
+                            bottom: 1,
+                            left: 1
+                        },
+                        borderColor: {
+                            bottom: "#7F8790",
+                            left: "#7F8790"
+                        },
+                        hoverable: true,
+                        //  borderWidth: 3,
+                        mouseActiveRadius: 50,
+                        // backgroundColor: { colors: ["#ffffff", "#EDF5FF"] },
+                        //  axisMargin: 20
+                    }
+                };
+                var plot = $.plot($("#placeholder3xx3"), dataset, options);
+            });
 
 
 
 
-
+        }
 
 
 
@@ -238,6 +251,120 @@
             // userData.DOB = ([initial[1], initial[0], initial[2]].join('/'));
             return new Date(arrDate[2], arrDate[1] - 1, arrDate[0]).getTime();
         }
+    }
+    $(document).ready(function () {
+        //random data
+        loadGraph();
+        //{
+        //    var graphData;
+        //    var fromDate = new Date();
+        //    var toDate = new Date();
+        //    var arr = [];
+        //    // evt.preventDeafult();
+        //    AjaxCall('../Api/DashBoard/LoadGraph', null, 'GET', function (data) {
+        //        //   debugger;
+        //        //$.each(data, function (inx, val) {
+        //        //    var obj = [];
+        //        //    obj[0] = val.Date;
+        //        //    obj[1] = val.Count;
+        //        //    // obj.label = val.label;
+        //        //    arr.push(obj);
+        //        //});
+        //        graphData = data;
+        //        var dataArray = new Array(graphData.length);
+        //        for (var i = 0; i < graphData.length; i++) {
+        //            var dataValue = new Array(2);
+        //            dataValue[0] = gd(graphData[i].m_Item2);
+        //            dataValue[1] = graphData[i].m_Item1;
+        //            dataArray[i] = dataValue;
+        //        }
+
+        //        arr = dataArray;
+        //        var dataset = [
+        //       {
+        //           label: "Visitors",
+        //           data: arr,
+        //           color: "#FF0000",
+        //           points: { fillColor: "#FF0000", show: true },
+        //           lines: { show: true }
+        //       }
+
+        //        ];
+        //        var options = {
+        //            series: {
+        //                curvedLines: {
+        //                    apply: true,
+        //                    active: true,
+        //                    monotonicFit: true
+        //                }
+        //            },
+        //            responsive: true,
+        //            xaxes: [
+        //           {
+        //               mode: "time",
+        //               timeformat: "%m/%d",
+        //               tickSize: [1, "day"],
+        //               tickLength: 1,
+
+        //               color: "black",
+        //               axisLabel: "Date",
+        //               //  axisLabelUseCanvas: true,
+        //               axisLabelFontSizePixels: 12,
+        //               axisLabelFontFamily: 'Verdana, Arial',
+        //               axisLabelPadding: 0
+        //           }],
+        //            yaxis: {
+
+        //                tickDecimals: 0,
+        //                axisLabel: "",
+
+        //            },
+        //            colors: ["#26B99A"],
+        //            legend: {
+        //                noColumns: 0,
+        //                labelBoxBorderColor: "#000000",
+        //                position: "nw"
+        //            },
+        //            grid: {
+        //                borderWidth: {
+        //                    top: 0,
+        //                    right: 1,
+        //                    bottom: 1,
+        //                    left: 1
+        //                },
+        //                borderColor: {
+        //                    bottom: "#7F8790",
+        //                    left: "#7F8790"
+        //                },
+        //                hoverable: true,
+        //                //  borderWidth: 3,
+        //                mouseActiveRadius: 50,
+        //                // backgroundColor: { colors: ["#ffffff", "#EDF5FF"] },
+        //                //  axisMargin: 20
+        //            }
+        //        };
+        //        var plot = $.plot($("#placeholder3xx3"), dataset, options);
+        //    });
+
+
+
+
+        //}
+
+
+
+        //var dayOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thr", "Fri", "Sat"];
+
+
+
+        ////  var plot = $.plot($("#placeholder3xx3"), dataset, options);
+
+        //function gd(date) {
+        //    //alert(date);
+        //    var arrDate = date.split('/');
+        //    // userData.DOB = ([initial[1], initial[0], initial[2]].join('/'));
+        //    return new Date(arrDate[2], arrDate[1] - 1, arrDate[0]).getTime();
+        //}
 
 
     });
