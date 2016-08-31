@@ -34,7 +34,7 @@ namespace Evis.VMS.Data.Model.Entities
         [MaxLength(15)]
         public string ContactNumber { get; set; }
 
-        [MaxLength(15)]
+        [MaxLength(20)]
         public string FaxNumber { get; set; }
 
         [MaxLength(50)]
