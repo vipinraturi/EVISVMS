@@ -90,10 +90,12 @@
         recordToDelete = tableItem;
     }
     self.DeleteConfirmed = function () {
+        debugger;
         $('#myModal').modal('hide');
         $('.modal-backdrop').modal('show');
         $('.modal-backdrop').modal('hide');
         AjaxCall('/Api/ShiftAssignment/DeleteShift', recordToDelete, 'POST', function () {
+            $(".modal-backdrop").hide();
             toastr.success('Shift deleted successfully!!')
             ApplyCustomBinding('shiftassignment');
         });

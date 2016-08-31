@@ -29,6 +29,7 @@ namespace Evis.VMS.UI.ViewModel
         public string strToDate { get; set; }
         public DateTime ToDate { get; set; }
         public string CompanyName { get; set; }
+        public string OtherCity { get; set; }
 
     }
 }
