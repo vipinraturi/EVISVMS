@@ -379,17 +379,7 @@
     <Content Include="images\back_disabled.png" />
     <Content Include="images\back_enabled.png" />
     <Content Include="images\back_enabled_hover.png" />
-    <Content Include="images\blur-bg-black.jpg" />
-    <Content Include="images\blur-bg-blue.jpg" />
-    <Content Include="images\blur-bg-bluecombo.jpg" />
-    <Content Include="images\blur-bg-blurred.jpg" />
-    <Content Include="images\blur-bg-fullblack.jpg" />
-    <Content Include="images\blur-bg-login1.jpg" />
     <Content Include="images\blur-bg-login2.jpg" />
-    <Content Include="images\blur-bg-redblue.jpg" />
-    <Content Include="images\blur-bg-violet.jpg" />
-    <Content Include="images\blur-bg-white.jpg" />
-    <Content Include="images\blur-bg.jpg" />
     <Content Include="images\bootstrap-colorpicker\alpha-horizontal.png" />
     <Content Include="images\bootstrap-colorpicker\alpha.png" />
     <Content Include="images\bootstrap-colorpicker\hue-horizontal.png" />
@@ -404,7 +394,6 @@
     <Content Include="images\icons.png" />
     <Content Include="images\last-item-icon.png" />
     <Content Include="images\Loader.gif" />
-    <Content Include="images\logo.png" />
     <Content Include="images\logo1.png" />
     <Content Include="images\logo2.png" />
     <Content Include="images\logo3.png" />
@@ -562,7 +551,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>63864</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:25454/</IISUrl>
+          <IISUrl>http://localhost:64454/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
