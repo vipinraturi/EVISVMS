@@ -40,11 +40,11 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
             if (role != null && role.Name == "Supervisor")
             {
-                return (await _applicationRoleService.GetAllAsync()).Where(x => x.Name == "Security").AsQueryable();
+                return (await _applicationRoleService.GetAllAsync()).Where(x => x.Name.ToLower().Equals("security")).AsQueryable();
             }
             else
             {
-                return (await _applicationRoleService.GetAllAsync()).AsQueryable();
+                return (await _applicationRoleService.GetAllAsync()).Where(x => x.Name.ToLower() != "superadmin").AsQueryable();
             }
         }
 
@@ -53,14 +53,14 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         [HttpGet]
         public async Task<IEnumerable<GeneralDropDownVM>> GetAllOrganizations()
         {
-           // var user = (await _userService.GetAllAsync()).Where(x => x.Id == HttpContext.Current.User.Identity.GetUserId() && x.IsActive == true).FirstOrDefault();
+            // var user = (await _userService.GetAllAsync()).Where(x => x.Id == HttpContext.Current.User.Identity.GetUserId() && x.IsActive == true).FirstOrDefault();
             IQueryable<GeneralDropDownVM> organizations;
 
-           // if (user == null)
+            // if (user == null)
             //{
-                organizations = _genericService.Organization.GetAll()
-                                    .Where(x => x.IsActive == true)
-                                    .Select(x => new GeneralDropDownVM { Id = x.Id, Name = x.CompanyName });
+            organizations = _genericService.Organization.GetAll()
+                                .Where(x => x.IsActive == true)
+                                .Select(x => new GeneralDropDownVM { Id = x.Id, Name = x.CompanyName });
             //}
             //else
             //{
