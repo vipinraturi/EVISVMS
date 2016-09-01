@@ -14,13 +14,13 @@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Organization <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <select class="form-control" id="Org" data-bind="options: Organizations, optionsText: 'Name', optionsValue: 'Id', value: OrganizationId, optionsCaption: '-- Select Organization --'"></select>
+                            <select class="form-control Fieldfocus" id="Org" data-bind="options: Organizations, optionsText: 'Name', optionsValue: 'Id', value: OrganizationId, optionsCaption: '-- Select Organization --'"></select>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Building Name <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtBuildingName" type="text" class="form-control" placeholder="[Building Name]" data-bind="value: BuildingName" maxlength="50" required="required" />
+                            <input id="txtBuildingName" type="text" class="form-control Fieldfocus" placeholder="[Building Name]" data-bind="value: BuildingName" maxlength="50" required="required" />
                             <span class="fa fa-building favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
@@ -30,14 +30,14 @@
                             @*<span class="mandatoryField">*</span>*@
                         </label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtEmail" type="text" class="form-control" maxlength="50" placeholder="[email@domain.com]" data-bind="value: EmailId" />
+                            <input id="txtEmail" type="text" class="form-control Fieldfocus" maxlength="50" placeholder="[email@domain.com]" data-bind="value: EmailId" />
                             <span class="fa fa-envelope favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact No: <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtContactNo" type="text" maxlength="15" class="form-control" placeholder="[Contact Number]" data-bind="value: ContactNumber" />
+                            <input id="txtContactNo" type="text" maxlength="15" class="form-control Fieldfocus" placeholder="[Contact Number]" data-bind="value: ContactNumber" />
                             <span class="fa fa-phone favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
@@ -45,28 +45,28 @@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Fax: <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtFax" type="text" maxlength="20" class="form-control" placeholder="[Fax]" data-bind="value: FaxNumber" />
+                            <input id="txtFax" type="text" maxlength="20" class="form-control Fieldfocus" placeholder="[Fax]" data-bind="value: FaxNumber" />
                             <span class="fa fa-phone favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Website</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtWebsite" type="text" class="form-control" maxlength="50" placeholder="[Website URL]" data-bind="value: WebSite.extend({ url: false })" />
+                            <input id="txtWebsite" type="text" class="form-control Fieldfocus" maxlength="50" placeholder="[Website URL]" data-bind="value: WebSite.extend({ url: false })" />
                             <span class="fa fa-globe favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
                     <div class="form-group" id="Country">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Country <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <select class="form-control" id="selectCountries" data-bind="options: Countries, optionsText: 'Name', optionsValue: 'Id', value: NationalityId, optionsCaption: '-- Select Country --', event:{ change: LoadStates()}"></select>
+                           <select class="form-control Fieldfocus" id="selectCountries" data-bind="options: Countries, optionsText: 'Name', optionsValue: 'Id', value: NationalityId, optionsCaption: '-- Select Country --', event:{ change: LoadStates()}"></select>
                             <span class="ErrorCountryd" style="display: none; color: red">This field is required.</span>
                         </div>
                     </div>
                     <div class="form-group" id="dropcountry" style="display: none;">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Country <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtcountry" type="text" class="form-control" maxlength="50" placeholder="[Country]" data-bind="value:Countrydlltxt" />@**@
+                            <input id="txtcountry" type="text" class="form-control Fieldfocus" maxlength="50" placeholder="[Country]" data-bind="value:Countrydlltxt" />@**@
                             <span class="fa fa-globe favwhite form-control-feedback right" aria-hidden="true"></span>
                             <span class="loginErrorCountrydlltxt" style="display: none; color: red">This field is required.</span>
                         </div>
@@ -74,7 +74,7 @@
                     <div class="form-group" id="state">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">State <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12" id="state">
-                            <select class="form-control" id="selectState" data-bind="options: State, optionsText: 'Name', optionsValue: 'Id', value: StateId, optionsCaption: '-- Select State --', event:{ change: LoadCities()}">
+                           <select class="form-control Fieldfocus" id="selectState" data-bind="options: State, optionsText: 'Name', optionsValue: 'Id', value: StateId, optionsCaption: '-- Select State --', event:{ change: LoadCities()}">
                             </select>
                             <span class="fa fa-phone favwhite form-control-feedback right" aria-hidden="true"></span>
                             <span class="State" style="display: none; color: red">This field is required.</span>
@@ -83,7 +83,7 @@
                     <div class="form-group" id="dropstate" style="display: none;">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">State <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtstatedl" type="text" class="form-control" maxlength="50" placeholder="[State]" data-bind="value: statedlltxt" />@**@
+                            <input id="txtstatedl" type="text" class="form-control Fieldfocus" maxlength="50" placeholder="[State]" data-bind="value: statedlltxt" />@**@
                             <span class="fa fa-globe favwhite form-control-feedback right" aria-hidden="true"></span>
                             <span class="loginErrorstatedlltxt" style="display:none;color:red">This field is required.</span>
                         </div>
@@ -91,15 +91,14 @@
                     <div class="form-group" id="city">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">City <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <select class="form-control" id="selectcity" data-bind="options: City, optionsText: 'Name', optionsValue: 'Id', value: CityId, optionsCaption: '-- Select City --'">
-                            </select>
+                            <select class="form-control Fieldfocus" id="selectcity" data-bind="options: City, optionsText: 'Name', optionsValue: 'Id', value: CityId, optionsCaption: '-- Select City --'"></select>
                             <span class="City" style="display: none; color: red">This field is required.</span>
                         </div>
                     </div>
                     <div class="form-group" id="dropcity" style="display: none;">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">City<span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtcitydl" type="text" class="form-control" maxlength="50" placeholder="[City]" data-bind="value: citydlltxt" /> @*data-bind="value: WebSite.extend({ url: false })"*@
+                            <input id="txtcitydl" type="text" class="form-control Fieldfocus" maxlength="50" placeholder="[City]" data-bind="value: citydlltxt" /> @*data-bind="value: WebSite.extend({ url: false })"*@
                             <span class="fa fa-globe favwhite form-control-feedback right" aria-hidden="true"></span>
                             <span class="loginErrorcitydlltxt" style="display: none; color: red">This field is required.</span>
                         </div>
@@ -108,7 +107,7 @@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Address <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <textarea id="txtAddress" class="form-control" rows="3" placeholder="[Contact Address]" style="resize: none;" maxlength="90" data-bind="value: Address"></textarea>
+                            <textarea id="txtAddress"  class="form-control Fieldfocus" rows="3" placeholder="[Contact Address]" style="resize: none;" maxlength="90" data-bind="value: Address"></textarea>
                             <span class="fa fa-home favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
 
@@ -116,7 +115,7 @@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Zip Code<span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtPOBox" type="text" class="form-control" placeholder="[Zip Code]" required="required" maxlength="10" data-bind="value:ZipCode" />
+                            <input id="txtPOBox" type="text" class="form-control Fieldfocus" placeholder="[Zip Code]" required="required" maxlength="10" data-bind="value:ZipCode" />
                             <span class="fa fa-envelope-o favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
@@ -140,7 +139,7 @@
             <div class="x_content">
                 <div class="col-md-5 col-sm-5 col-xs-12  pull-right top_search">
                     <div class="input-group">
-                        <input id="txtGlobalSearch" type="text" class="form-control" placeholder="[Global Search]"
+                        <input id="txtGlobalSearch" type="text" class="form-control " placeholder="[Global Search]"
                                data-bind="value: GlobalSearch, valueUpdate: 'afterkeydown', enterkey: GlobalSearchEnter.bind()" />
                         <span class="input-group-btn">
                             <button class="btn btn-default" type="button" data-bind="click: GetAllBuildingData.bind()"><i class="fa fa-search"></i></button>

@@ -57,7 +57,7 @@
                         Visitor's Name <span class="mandatoryField">*</span>
                     </label>
                     <div class="col-md-8 col-sm-8 col-xs-12">
-                        <input maxlength="50" id="txtFirstName" type="text" data-bind="value: VisitorName" class="form-control" placeholder="[Visitor Name]" />
+                        <input maxlength="50" id="txtFirstName" type="text" data-bind="value: VisitorName" class="form-control Fieldfocus" placeholder="[Visitor Name]" />
                         <span class="fa fa-user favwhite form-control-feedback right" aria-hidden="true"></span>
                     </div>
                 </div>
@@ -66,14 +66,14 @@
                         Email Address 
                     </label>
                     <div class="col-md-8 col-sm-8 col-xs-12">
-                        <input maxlength="50" id="txtEmailAddress" type="text" data-bind="value: EmailAddress" class="form-control" placeholder="[email@domain.com]" />
+                        <input maxlength="50" id="txtEmailAddress" type="text" data-bind="value: EmailAddress" class="form-control Fieldfocus" placeholder="[email@domain.com]" />
                         <span class="fa fa-user favwhite form-control-feedback right" aria-hidden="true"></span>
                     </div>
                 </div>
                 <div class="form-group col-md-9 col-sm-9 col-xs-12">
                     <label class="control-label col-md-4 col-sm-4 col-xs-12">Gender <span class="mandatoryField">*</span></label>
                     <div class="col-md-8 col-sm-8 col-xs-12">
-                        <select class="form-control" data-bind="options: Genders,
+                       <select class="form-control Fieldfocus" data-bind="options: Genders,
                                optionsText: function(item) {
                                    return item.LookUpValue
                                },
@@ -85,14 +85,14 @@
                 <div class="form-group col-md-9 col-sm-9 col-xs-12">
                     <label class="control-label col-md-4 col-sm-4 col-xs-12">Date Of Birth <span class="mandatoryField">*</span></label>
                     <div class="col-md-8 col-sm-8 col-xs-12">
-                        <input maxlength="10" id="dateDOB" type="text" class="form-control" placeholder="[Date Of Birth]" data-bind="value: DOB" />
+                        <input maxlength="10" id="dateDOB" type="text" class="form-control Fieldfocus" placeholder="[Date Of Birth]" data-bind="value: DOB" />
                         <span class="fa fa-calendar favwhite form-control-feedback right" aria-hidden="true"></span>
                     </div>
                 </div>
                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Type Of Cards <span class="mandatoryField">*</span></label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
-                        <select class="form-control" data-bind="options: TypeOfCards,
+                       <select class="form-control Fieldfocus" data-bind="options: TypeOfCards,
                                optionsText: function(item) {
                                    return item.LookUpValue
                                },
@@ -104,14 +104,14 @@
                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">ID Number <span class="mandatoryField">*</span></label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
-                        <input maxlength="20" id="" type="text" data-bind="value: IdNo" class="form-control" placeholder="[Emirates Id]" />
+                        <input maxlength="20" id="" type="text" data-bind="value: IdNo" class="form-control Fieldfocus" placeholder="[Emirates Id]" />
                         <span class="fa fa-simplybuilt favwhite form-control-feedback right" aria-hidden="true"></span>
                     </div>
                 </div>
                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Nationality <span class="mandatoryField">*</span></label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
-                        <select class="form-control" data-bind="options: Nationalities,
+                       <select class="form-control Fieldfocus" data-bind="options: Nationalities,
                                optionsText: function(item) {
                                    return item.LookUpValue
                                },
@@ -123,14 +123,14 @@
                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Number <span class="mandatoryField">*</span></label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
-                        <input maxlength="15" id="txtContactNo" type="text" data-bind="value: ContactNo" class="form-control" placeholder="[Contact Number]" />
+                        <input maxlength="15" id="txtContactNo" type="text" data-bind="value: ContactNo" class="form-control Fieldfocus" placeholder="[Contact Number]" />
                         <span class="fa fa-phone favwhite form-control-feedback right" aria-hidden="true"></span>
                     </div>
                 </div>
                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Address</label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
-                        <textarea maxlength="500" id="txtAddress" class="form-control" data-bind="value: ContactAddress" rows="3" placeholder="[Contact Address]" style="resize: none;"></textarea>
+                        <textarea maxlength="500" id="txtAddress" class="form-control Fieldfocus" data-bind="value: ContactAddress" rows="3" placeholder="[Contact Address]" style="resize: none;"></textarea>
                         <span class="fa fa-home favwhite form-control-feedback right" aria-hidden="true"></span>
                     </div>
                 </div>

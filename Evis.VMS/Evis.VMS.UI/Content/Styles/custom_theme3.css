@@ -762,11 +762,12 @@ a {
         box-shadow: inset 0 1px 0px rgba(0,0,0,0.075);
         border-radius: 25px 0px 0px 25px;
         padding-left: 20px;
-        border: 1px solid rgba(221,226,232,0.49);
+        /*border: 1px solid rgba(221,226,232,0.49);*/
     }
 
         .top_search .form-control:focus {
-            border: 1px solid rgba(221,226,232,0.49);
+            /*border: 1px solid rgba(221,226,232,0.49);*/
+             border: 1px solid rgb(251, 108, 80) ;
             border-right: 0;
         }
 
@@ -2380,7 +2381,7 @@ span.section {
 .form-control {
     border-radius: 0;
     width: 100%;
-    border: 1px solid #b1afaf !important;
+    border: 1px solid #b1afaf;
 }
 
 .form-horizontal .control-label {
@@ -5324,3 +5325,25 @@ select option {
 .validationMessage {
     color: red;
 }
+
+
+.Fieldfocus{
+   -webkit-transition: all 0.30s ease-in-out;
+  -moz-transition: all 0.30s ease-in-out;
+  -ms-transition: all 0.30s ease-in-out;
+  -o-transition: all 0.30s ease-in-out;
+  outline: none;
+  padding: 3px 0px 3px 3px;
+  margin: 5px 1px 3px 0px;
+  border: 1px solid #b1afaf;
+}
+
+.Fieldfocus:focus {
+ box-shadow: 1px 1px 1px rgb(251, 108, 80) !important;
+  padding: 3px 0px 3px 3px;
+  margin: 5px 1px 3px 0px;
+ border: 1px solid rgb(251, 108, 80) ;
+}
+.input-group-btn:last-child > .btn, .input-group-btn:last-child > .btn-group {
+    border: 1px solid rgb(251, 108, 80) !important;
+    }
