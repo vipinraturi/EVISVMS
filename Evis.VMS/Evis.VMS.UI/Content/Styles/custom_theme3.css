@@ -2579,12 +2579,12 @@ a.btn-success, a.btn-primary, a.btn-warning, a.btn-danger {
 }
 
 .btn-success {
-    background: #E74C3C;
-    border: 1px solid #fb927d !important;
+    background: #fb6c50;
+    border: 1px solid #E74C3C !important;
 }
 
     .btn-success:hover, .btn-success:focus, .btn-success:active, .btn-success.active, .open .dropdown-toggle.btn-success {
-        background: #fb927d;
+        background: #E74C3C;
     }
 
 .btn-dark {
