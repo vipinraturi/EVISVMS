@@ -176,6 +176,14 @@
     $(function () {
         myDropzone = new Dropzone("#dropzoneUserImageForm");
         myDropzone.maxFiles = 2;
+        var imagePath = '/images/avatar.jpg';
+        var mockFile = { name: 'VisitorImage', size: 1024 };
+        myDropzone.emit("addedfile", mockFile);
+        myDropzone.emit("thumbnail", mockFile, imagePath);
+        myDropzone.createThumbnailFromUrl(mockFile, imagePath);
+        $('#dropzoneUserImageForm .dz-image').addClass('dz-message');
+        $('#dropzoneUserImageForm .dz-image img').addClass('dz-message');
+
         myDropzone.on("maxfilesexceeded", function (file) {
             var res = eval('(' + file.xhr.responseText + ')');
             toastr.warning('Only two images allowed.');

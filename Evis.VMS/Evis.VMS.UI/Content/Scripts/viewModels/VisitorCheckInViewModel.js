@@ -49,7 +49,7 @@
             self.IsShiftAssignedToSecurity(data.IsShiftAssignedToSecurity);
             
             $('.searchVisitor').val('');
-            //toastr.success('Visitor data loaded!!');
+            //toastr.clear();toastr.success('Visitor data loaded!!');
 
             if (isResetFields) {
                 self.ResetCheckInFormData();
@@ -83,27 +83,27 @@
         }
         else {
             if (self.VisitorId() == '') {
-                toastr.warning('No visitor available to check-in.');
+                toastr.clear();toastr.warning('No visitor available to check-in.');
                 return;
             }
 
             if (self.IsSecurityPerson() == false) {
-                toastr.warning('Only security role can check-in visitor.');
+                toastr.clear();toastr.warning('Only security role can check-in visitor.');
                 return;
             }
 
             if (self.IsAnyGateExist() == false) {
-                toastr.warning('No gate exist.');
+                toastr.clear();toastr.warning('No gate exist.');
                 return;
             }
 
             if (self.IsAlreadyCheckIn() == true) {
-                toastr.warning('Visitor already checked-in.');
+                toastr.clear();toastr.warning('Visitor already checked-in.');
                 return;
             }
 
             if (self.IsShiftAssignedToSecurity() == false) {
-                toastr.warning('No shift assigned to security person.');
+                toastr.clear();toastr.warning('No shift assigned to security person.');
                 return;
             }
 
@@ -117,7 +117,7 @@
             data.Floor = self.Floor();
             
             AjaxCall('/Api/VisitorManagement/SaveVisitorCheckIn', data, 'POST', function () {
-                toastr.success('Visitor CheckIn Successfully.!!');
+                toastr.clear();toastr.success('Visitor CheckIn Successfully.!!');
                 self.GetVisitorCheckInHistoryData(self.VisitorId(), self.logoURL(), true)
             })
         }
