@@ -51,22 +51,31 @@
             $('#viewImageUnique').show();
 
             $('.dz-image-preview').empty();
-            ////debugger;
-            var imagePath = data.ProfilePicturePath;
-            self.ProfilePicturePath(data.ProfilePicturePath);
-
             //debugger;
-            var mockFile = { name: "User Image", size: 1024 };
-            myDropzoneUnique.emit("addedfile", mockFile);
-            myDropzoneUnique.emit("thumbnail", mockFile, imagePath);
-            myDropzoneUnique.createThumbnailFromUrl(mockFile, imagePath);
-            $('.dz-image').addClass('dz-message');
-            $('.dz-image img').addClass('dz-message');
 
-            if (imagePath != "") {
-                $('#imgUserAvatar').attr('src', imagePath);
+            if (data.ProfilePicturePath != null) {
+                var imagePath = data.ProfilePicturePath;
+                self.ProfilePicturePath(data.ProfilePicturePath);
+                var mockFile = { name: "User Image", size: 1024 };
+                myDropzoneUnique.emit("addedfile", mockFile);
+                myDropzoneUnique.emit("thumbnail", mockFile, imagePath);
+                myDropzoneUnique.createThumbnailFromUrl(mockFile, imagePath);
+                $('.dz-image').addClass('dz-message');
+                $('.dz-image img').addClass('dz-message');
+
+                if (imagePath != "") {
+                    $('#imgUserAvatar').attr('src', imagePath);
+                }
             }
-
+            else {
+                var imagePath = '/images/avatar.jpg';
+                var mockFile = { name: 'UserImage', size: 1024 };
+                myDropzoneUnique.emit("addedfile", mockFile);
+                myDropzoneUnique.emit("thumbnail", mockFile, imagePath);
+                myDropzoneUnique.createThumbnailFromUrl(mockFile, imagePath);
+                $('#dropzoneMyProfileImageForm .dz-image').addClass('dz-message');
+                $('#dropzoneMyProfileImageForm .dz-image img').addClass('dz-message');
+            }
 
             self.Roles().forEach(function (item) {
                 if (item.Id === self.RoleId()) {
