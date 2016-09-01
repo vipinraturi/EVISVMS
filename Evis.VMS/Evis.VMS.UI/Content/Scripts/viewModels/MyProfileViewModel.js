@@ -96,14 +96,24 @@
         else {
             var data = new Object();
             data.FullName = self.FullName();
+            data.GenderId = self.GenderId();
             data.PhoneNumber = self.PhoneNumber();
             data.ContactAddress = self.ContactAddress();
             data.ProfilePicturePath = $('.dz-image img').attr('img-name-unique');
-            ////debugger;
+
+            // To clear 
+            self.UserId('');
+            self.FullName('');
+            self.Email('');
+            self.GenderId(0);
+            self.RoleId('');
+
+            $('.loader-div').show();
             AjaxCall('/Api/MyProfile/SaveMyProfile', data, 'POST', function () {
-                toastr.success('My Profile updated successfully!!')
+                toastr.clear();
+                toastr.success('My Profile updated successfully!!');
                 ApplyCustomBinding('myprofile');
-                //self.IsInsert(true);
+                $('.loader-div').hide();
             })
         }
     }

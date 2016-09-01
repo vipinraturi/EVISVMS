@@ -12,13 +12,11 @@
             <div class="x_content">
                 <div class="col-md-2 col-sm-3 col-xs-12 profile_left">
                     <div class="">
-                     
-                            <form id="dropzoneMyProfileImageForm" class="dropzone-avatar dz-clickable img-responsive_Visitor avatar-view" action="~/Account/SaveMyProfilePicture"
-                                  method="post" style="height: 129px !important; width: 125px !important; padding: 2px !important; "
-                                  enctype="multipart/form-data" title="Change the avatar">
-                            </form>
-                        <a id="viewImageUnique" style="text-align:center;display:none" href="#" data-bind="click: ViewImage"><u>View Image</u></a>
 
+                        <form id="dropzoneMyProfileImageForm" class="dropzone-avatar dz-clickable img-responsive_Visitor avatar-view" action="~/Account/SaveMyProfilePicture"
+                              method="post" style="height: 129px !important; width: 125px !important; padding: 2px !important; "
+                              enctype="multipart/form-data" title="Change the avatar"></form>
+                        <a id="viewImageUnique" style="text-align:center;display:none" href="#" data-bind="click: ViewImage"><u>View Image</u></a>
                         <div id="imageModal" class="modal fade" aria-hidden="true" aria-labelledby="avatar-modal-label" role="dialog" tabindex="-1">
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content">
@@ -39,7 +37,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                     <h4 data-bind="text: DisplayName, visible: true"></h4>
                     <ul class="list-unstyled user_data">
@@ -53,16 +50,14 @@
                 </div>
                 <div class="col-md-6 col-sm-9 col-xs-12">
                     <form class="form-horizontal form-label-left input_mask">
-
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12"> Full Name<span class="mandatoryField">*</span></label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
-                                <input id="txtFirstName" type="text" maxlength="100" class="form-control Fieldfocus" placeholder="Full Name" required="required" 
+                                <input id="txtFirstName" type="text" maxlength="100" class="form-control Fieldfocus" placeholder="Full Name" required="required"
                                        data-bind="value: FullName" />
                                 <span class="fa fa-user favwhite form-control-feedback right" aria-hidden="true"></span>
                             </div>
                         </div>
-
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Email Address <span class="mandatoryField">*</span></label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
@@ -71,33 +66,28 @@
                                 <span class="fa fa-envelope favwhite form-control-feedback right" aria-hidden="true"></span>
                             </div>
                         </div>
-
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Number <span class="mandatoryField">*</span></label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
-                                <input id="txtContactNo" type="text" maxlength="15" class="form-control Fieldfocus" placeholder="Contact Number" required="required" 
+                                <input id="txtContactNo" type="text" maxlength="15" class="form-control Fieldfocus" placeholder="Contact Number" required="required"
                                        data-bind="value: PhoneNumber" />
                                 <span class="fa fa-phone favwhite form-control-feedback right" aria-hidden="true"></span>
                             </div>
-
                         </div>
-
 
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Gender <span class="mandatoryField">*</span></label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
-                                <select class="form-control inputdisable" data-bind="options: Genders, optionsText: 'Name', optionsValue: 'Id', value: GenderId"
-                                        disabled></select>
+                                <select class="form-control inputdisable" data-bind="options: Genders, optionsText: 'Name', optionsValue: 'Id', value: GenderId"></select>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Role<span class="mandatoryField">*</span></label>
                             <div class="col-md-9 col-sm-9 col-xs-12">
-                                <select class="form-control inputdisable" data-bind="options: Roles, optionsText: 'Name', optionsValue: 'Id', value: RoleId"
+                                <select class="form-control inputdisable" style="background-color: #ebebe4" data-bind="options: Roles, optionsText: 'Name', optionsValue: 'Id', value: RoleId"
                                         disabled></select>
                             </div>
                         </div>
-
                         <div class="form-group">
                             <div class="pull-right">
                                 <button type="button" class="btn btn-primary" data-bind="click: ResetMyProfile.bind()">Reset <i class="fa fa-refresh"></i></button>
@@ -105,16 +95,14 @@
                             </div>
                         </div>
                     </form>
-
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-
 <script type="text/javascript">
-    
+
     Dropzone.autoDiscover = false;
     var myDropzoneUnique;
 

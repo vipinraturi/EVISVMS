@@ -14,6 +14,10 @@
         pattern: {
             message: 'Invalid phone number.',
             params: /^\+?([0-9\(\)\/\-\.]*)$/
+        },
+        minLength: {
+            params: 6,
+            message: 'Enter minimum of 6-length number'
         }
     });
 
@@ -117,12 +121,16 @@
             $('.loader-div').show();
             AjaxCall('/Api/Users/SaveUser', data, 'POST', function (data) {
                 if (data.Success == true) {
+                    toastr.clear();
                     toastr.success(data.Message);
                     self.ResetUserDetails();
                     self.GetAllUsers();
+                    $('.loader-div').hide();
                 }
                 else {
+                    toastr.clear();
                     toastr.warning(data.Message);
+                    $('.loader-div').hide();
                 }
             })
         }
@@ -145,8 +153,7 @@
 
             $('.dz-image-preview').empty();
 
-            if (tableItem.ProfilePicturePath != undefined && tableItem.ProfilePicturePath != "")
-            {
+            if (tableItem.ProfilePicturePath != undefined && tableItem.ProfilePicturePath != "") {
                 var imagePath = tableItem.ProfilePicturePath;
                 self.ProfilePicturePath(tableItem.ProfilePicturePath);
                 var mockFile = { name: tableItem.ImagePath, size: 1024 };
@@ -179,12 +186,12 @@
                 toastr.warning(data.Message);
             }
         });
-       
+
     }
 
     self.ResetUser = function () {
         //if (self.UserId() == undefined || self.UserId() == "" || self.UserId() == 0) {
-            self.ResetUserDetails();
+        self.ResetUserDetails();
         //}
         //else {
         //    self.EditUser(editUser);

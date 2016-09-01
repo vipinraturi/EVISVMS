@@ -33,6 +33,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             string userId = HttpContext.Current.User.Identity.GetUserId();
             var currentUser = await _userService.GetAsync(x => x.Id == userId);
             currentUser.FullName = myProfileVM.FullName;
+            currentUser.GenderId = myProfileVM.GenderId;
             currentUser.PhoneNumber = myProfileVM.PhoneNumber;
             currentUser.ContactAddress = myProfileVM.ContactAddress;
 
