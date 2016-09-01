@@ -82,7 +82,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
                 var getRoles = (await _applicationRoleService.GetAllAsync()).AsQueryable();
                 var result = (from users in getUsers
-                              join roles in getRoles 
+                              join roles in getRoles
                               on users.Roles.First().RoleId equals roles.Id
                               where user.OrganizationId == building.OrganizationId && roles.Name == "Security"
                               select new DropDownVM
@@ -103,23 +103,25 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             if (user == null)
             {
                 LSTShiftAssignmentVM = _genericService.ShitfAssignment.GetAll().Where(x => x.IsActive == true).ToList()
-                   .Select(x => new ShiftAssignmentVM
-                   {
-                       BuildingId = x.BuildingId,
-                       BuildingName = x.Gates.BuildingMaster.BuildingName,
-                       GateId = x.GateId,
-                       GateName = x.Gates.GateNumber,
-                       ShitfId = x.ShitfId,
-                       ShiftName = x.Shitfs.ShitfName,
-                       UserId = x.UserId,
-                       UserName = x.ApplicationUser.FullName,
-                       FromDate = x.FromDate,
-                       ToDate = x.ToDate,
-                       strFromDate = x.FromDate.ToString("dd/MM/yyyy"),
-                       strToDate = x.ToDate.ToString("dd/MM/yyyy"),
-                       Id = x.Id,
-                       City = x.BuildingMaster.CityMaster.LookUpValue
-                   }).AsQueryable();
+                        .Select(x => new ShiftAssignmentVM
+                        {
+                            BuildingId = x.BuildingId,
+                            BuildingName = x.Gates.BuildingMaster.BuildingName,
+                            GateId = x.GateId,
+                            GateName = x.Gates.GateNumber,
+                            ShitfId = x.ShitfId,
+                            ShiftName = x.Shitfs.ShitfName,
+                            UserId = x.UserId,
+                            UserName = x.ApplicationUser.FullName,
+                            FromDate = x.FromDate,
+                            ToDate = x.ToDate,
+                            strFromDate = x.FromDate.ToString("dd/MM/yyyy"),
+                            strToDate = x.ToDate.ToString("dd/MM/yyyy"),
+                            Id = x.Id,
+                            City = (x.BuildingMaster.CityId ==null) ? x.BuildingMaster.OtherCity : x.BuildingMaster.CityMaster.LookUpValue,
+                            OtherCity = x.BuildingMaster.OtherCity
+                        }).AsQueryable();
+
             }
             else
             {
@@ -158,7 +160,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                         item.ShiftName.ToLower().Contains(globalSearch.ToLower())
                         ).AsQueryable();
                 }
-                if(string.IsNullOrEmpty(sortField))
+                if (string.IsNullOrEmpty(sortField))
                 {
                     sortField = " ShiftName";
                 }

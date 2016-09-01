@@ -379,12 +379,6 @@
     <Content Include="images\back_disabled.png" />
     <Content Include="images\back_enabled.png" />
     <Content Include="images\back_enabled_hover.png" />
-    <Content Include="images\blur-bg-black.jpg" />
-    <Content Include="images\blur-bg-blue.jpg" />
-    <Content Include="images\blur-bg-bluecombo.jpg" />
-    <Content Include="images\blur-bg-blurred.jpg" />
-    <Content Include="images\blur-bg-fullblack.jpg" />
-    <Content Include="images\blur-bg-login1.jpg" />
     <Content Include="images\blur-bg-login2.jpg" />
     <Content Include="images\bootstrap-colorpicker\alpha-horizontal.png" />
     <Content Include="images\bootstrap-colorpicker\alpha.png" />
@@ -479,10 +473,12 @@
       <DependentUpon>VisitorsDetailsDataSet.xsd</DependentUpon>
     </Content>
     <Content Include="Views\Report\_ShiftDetailsReport.cshtml" />
+    <Content Include="Views\Dashboard\_Dashboard.cshtml">
+      <SubType>Code</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Dashboard\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

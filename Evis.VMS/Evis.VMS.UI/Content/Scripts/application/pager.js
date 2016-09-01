@@ -130,14 +130,20 @@ RIT.eW.DataGridAjax = (function () {
 
     DataGridAjax.prototype.Sort = function (col) {
         var self = this;
+        //console.log(col);
+        $('.icons').remove();
         if (self.GridParams.sortField() === col) {
             if (self.GridParams.sortOrder() === 'ASC') {
                 self.GridParams.sortOrder('DESC');
+                
+                $('.' + col).after('<i class="fa fa-chevron-down icons"></i>');
             } else {
                 self.GridParams.sortOrder('ASC');
+                $('.' + col).after('<i class="fa fa-chevron-up icons"></i>');
             }
         } else {
             self.GridParams.sortOrder('ASC');
+            $('.' + col).after('<i class="fa fa-chevron-up icons"></i>');
             self.GridParams.sortField(col);
         }
         self.GetData();

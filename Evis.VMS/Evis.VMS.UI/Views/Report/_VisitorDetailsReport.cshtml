@@ -23,7 +23,7 @@
 
                         <div class="col-xs-12">
                             <select class="form-control" data-bind="options: Buildings, optionsText: 'Name' ,optionsValue: 'Id', value: BuildingId, optionsCaption: '-- Select --',event:{ change: GetGates()}"></select>
-                                     </div>
+                        </div>
                     </div>
 
                     <div class="form-group col-md-4 col-sm-4 col-xs-12">
@@ -49,7 +49,7 @@
                         </div>
                     </div>
 
-                   
+
 
                     <div class="form-group col-md-4 col-sm-4 col-xs-12">
                         <div class="col-xs-12">
@@ -68,7 +68,7 @@
                             </label>
                         </div>
                         <div class="col-xs-12">
-                            <input id="dateFromCheckIn" type="text" data-bind="value: CheckIn" class="form-control" placeholder="[From Date]"/>
+                            <input id="dateFromCheckIn" type="text" data-bind="value: CheckIn" class="form-control" placeholder="[From Date]" />
                             @*<input id="txtFromDate" type="text" class="form-control" placeholder="dd/mm/yyyy" required="required" />*@
                             <span class="fa fa-calendar form-control-feedback right" aria-hidden="true"></span>
                         </div>
@@ -86,27 +86,27 @@
                         </div>
                     </div>
 
-                    
-                   
-                        <div class="pull-right ">
-                             <button type="button" class="btn btn-success" data-bind="click: VisitorsSearchDetails.bind()" id="btnSaveshiftassignment">Search <i class="fa fa-search"></i></button>
-                            <button type="button" class="btn btn-primary" data-bind="click: ResetVisitorsDetails.bind()">Reset <i class="fa fa-refresh"></i></button>
-                        </div>
-                   
-                    
+
+
+                    <div class="pull-right ">
+                        <button type="button" class="btn btn-success" data-bind="click: VisitorsSearchDetails.bind()" id="btnSaveshiftassignment">Search <i class="fa fa-search"></i></button>
+                        <button type="button" class="btn btn-primary" data-bind="click: ResetVisitorsDetails.bind()">Reset <i class="fa fa-refresh"></i></button>
+                    </div>
+
+
 
                 </form>
             </div>
         </div>
     </div>
-  <div class="col-lg-12">
+    <div class="col-lg-12">
         <div class="x_panel">
             <div class="x_title">
                 <div class="col-xs-12">
                     <h2>Visitor Details</h2>
                     <div class="pull-right">
                         @*<button type="button" class="btn btn-success" data-bind="click:GenerateRDLCReportExcel.bind()">Excel <i class="fa fa-file-excel-o"></i></button>
-                        <button type="button" class="btn btn-success" data-bind="click:GenerateRDLCReportPDF.bind()">Pdf <i class="fa fa-file-pdf-o"></i></button>*@
+                            <button type="button" class="btn btn-success" data-bind="click:GenerateRDLCReportPDF.bind()">Pdf <i class="fa fa-file-pdf-o"></i></button>*@
 
                         <button type="button" class="btn btn-success" data-bind="enable:(DataGrid.DataRows().length != 0),click:GenerateRDLCReportExcel.bind()">Excel <i class="fa fa-file-excel-o"></i></button>
                         <button type="button" class="btn btn-success" data-bind="enable:(DataGrid.DataRows().length != 0),click:GenerateRDLCReportPDF.bind()">Pdf <i class="fa fa-file-pdf-o"></i></button>
@@ -114,38 +114,38 @@
                 </div>
                 <div class="clearfix"></div>
             </div>
-                <form class="form-horizontal form-label-left">
-                    <table class="table jambo_table">
-                        <thead>
-                            <tr>
-                                <th style="width: 1%">#</th>
-                                <th style="width: 12%"> <a href="#" onclick="DataGrid.Sort('VisitorName')" class="sortCol">Visitor Name</a> </th>
-                                <th style="width: 12%"> <a href="#" onclick="DataGrid.Sort('Building')" class="sortCol">Building</a></th>
-                                <th style="width: 12%"> <a href="#" onclick="DataGrid.Sort('Gate')" class="sortCol">Gate</a></th>
-                                <th style="width: 12%"> <a href="#" onclick="DataGrid.Sort('Security')" class="sortCol">Security</a></th>
-                                <th style="width: 12%"><a href="#" onclick="DataGrid.Sort('CheckIn')" class="sortCol">Check In</a></th>
-                                <th style="width: 12%"><a href="#" onclick="DataGrid.Sort('CheckOut')" class="sortCol">Check Out</a></th>
-                                <th style="width: 12%"><a href="#" onclick="DataGrid.Sort('ContactNumber')" class="sortCol">Contact Number</a></th>
-                                <th style="width: 20%"><a href="#" onclick="DataGrid.Sort('VisitDetails')" class="sortCol">Visit Details</a></th>
-                            </tr>
-                        </thead>
-                        <tbody data-bind="foreach:DataGrid.DataRows">
-                            <tr>
-                                <td scope="row" data-bind="text: $index() +1"></td>
-                                <td data-bind="text: VisitorName"></td>
-                                <td data-bind="text: Building"></td>
-                                <td data-bind="text: Gate"></td>
-                                <td data-bind="text: Security"></td>
-                                <td data-bind="text: CheckIn"></td>
-                                <td data-bind="text: CheckOut"></td>
-                                <td data-bind="text: ContactNumber"></td>
-                                <td data-bind="text: VisitDetails"></td>
-                            </tr>
-                        </tbody>
-                        <tr class="blank_row" data-bind="visible: (DataGrid.DataRows().length == 0)"><td align="center" colspan="10">No data found.</td></tr>
-                    </table>
-                    @Html.Partial("_Pager")
-                </form>
+            <form class="form-horizontal form-label-left">
+                <table class="table jambo_table">
+                    <thead>
+                        <tr>
+                            <th style="width: 1%">#</th>
+                            <th style="width: 12%"><a href="#" onclick="DataGrid.Sort('VisitorName')" class="VisitorName">Visitor Name</a></th>
+                            <th style="width: 12%"><a href="#" onclick="DataGrid.Sort('Building')" class="Building">Building</a></th>
+                            <th style="width: 12%"> <a href="#" onclick="DataGrid.Sort('Gate')" class="Gate">Gate</a></th>
+                            <th style="width: 12%"> <a href="#" onclick="DataGrid.Sort('Security')" class="Security">Security</a></th>
+                            <th style="width: 12%"><a href="#" onclick="DataGrid.Sort('CheckIn')" class="CheckIn">Check In<i class="fa fa-chevron-down icons"></i></a></th>
+                            <th style="width: 12%"><a href="#" onclick="DataGrid.Sort('CheckOut')" class="CheckOut">Check Out</a></th>
+                            <th style="width: 12%"><a href="#" onclick="DataGrid.Sort('ContactNumber')" class="ContactNumber">Contact Number</a></th>
+                            <th style="width: 20%"><a href="#" onclick="DataGrid.Sort('VisitDetails')" class="VisitDetails">Visit Details</a></th>
+                        </tr>
+                    </thead>
+                    <tbody data-bind="foreach:DataGrid.DataRows">
+                        <tr>
+                            <td scope="row" data-bind="text: $index() +1"></td>
+                            <td data-bind="text: VisitorName"></td>
+                            <td data-bind="text: Building"></td>
+                            <td data-bind="text: Gate"></td>
+                            <td data-bind="text: Security"></td>
+                            <td data-bind="text: CheckIn"></td>
+                            <td data-bind="text: CheckOut"></td>
+                            <td data-bind="text: ContactNumber"></td>
+                            <td data-bind="text: VisitDetails"></td>
+                        </tr>
+                    </tbody>
+                    <tr class="blank_row" data-bind="visible: (DataGrid.DataRows().length == 0)"><td align="center" colspan="10">No data found.</td></tr>
+                </table>
+                @Html.Partial("_Pager")
+            </form>
         </div>
     </div>
 
