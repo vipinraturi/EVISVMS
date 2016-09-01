@@ -175,13 +175,16 @@ namespace Evis.VMS.UI.HelperClasses
                     item.IdNo.ToLower().Contains(searchterm.ToLower()))
                     );
 
-            if (!isCheckIn)
+            if (!isCheckIn)//for checkout only
             {
-               var objVisitorDataVM =  GetVisitorCheckInHistory(qryVisitors.FirstOrDefault().Id, userId);
-               if (!objVisitorDataVM.IsAlreadyCheckIn)//In case no check-in done, no need to check-out
-               {
-                   return result;
-               }
+                if (qryVisitors.FirstOrDefault() != null)
+                {
+                    var objVisitorDataVM = GetVisitorCheckInHistory(qryVisitors.FirstOrDefault().Id, userId);
+                    if (!objVisitorDataVM.IsAlreadyCheckIn)//In case no check-in done, no need to check-out
+                    {
+                        return result;
+                    }
+                }
             }
 
             if (qryVisitors.Count() > 0)

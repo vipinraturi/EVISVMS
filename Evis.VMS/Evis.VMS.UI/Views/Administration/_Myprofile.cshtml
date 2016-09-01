@@ -97,13 +97,6 @@
                                         disabled></select>
                             </div>
                         </div>
-                        @*<div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Address <span class="mandatoryField">*</span></label>
-                            <div class="col-md-9 col-sm-9 col-xs-12">
-                                <textarea id="txtAddress" class="form-control" rows="3" maxlength="100" placeholder="Contact Address" style="resize: none;" data-bind="value: ContactAddress"></textarea>
-                                <span class="fa fa-home favwhite form-control-feedback right" aria-hidden="true"></span>
-                            </div>
-                        </div>*@
 
                         <div class="form-group">
                             <div class="pull-right">
@@ -124,9 +117,19 @@
     
     Dropzone.autoDiscover = false;
     var myDropzoneUnique;
+
     $(function () {
         myDropzoneUnique = new Dropzone("#dropzoneMyProfileImageForm");
         myDropzoneUnique.maxFiles = 2;
+        var imagePath = '/images/avatar.jpg';
+        var mockFile = { name: 'UserImage', size: 1024 };
+        myDropzoneUnique.emit("addedfile", mockFile);
+        myDropzoneUnique.emit("thumbnail", mockFile, imagePath);
+        myDropzoneUnique.createThumbnailFromUrl(mockFile, imagePath);
+        $('#dropzoneMyProfileImageForm .dz-image').addClass('dz-message');
+        $('#dropzoneMyProfileImageForm .dz-image img').addClass('dz-message');
+
+
         myDropzoneUnique.on("maxfilesexceeded", function (file) {
             var res = eval('(' + file.xhr.responseText + ')');
             toastr.warning('Only two images allowed.');

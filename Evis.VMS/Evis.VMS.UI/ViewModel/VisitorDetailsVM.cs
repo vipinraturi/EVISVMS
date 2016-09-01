@@ -29,6 +29,8 @@ namespace Evis.VMS.UI.ViewModel
         public string IdNo { get; set; }
 
         public int Nationality { get; set; }
+        
+        public string NationalityVal { get; set; }
 
         public string ContactNo { get; set; }
 

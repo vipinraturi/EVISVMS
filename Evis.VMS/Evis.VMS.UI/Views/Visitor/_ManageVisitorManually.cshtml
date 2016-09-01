@@ -180,7 +180,7 @@
                             <tr>
                                 <td scope="row" data-bind="text: $index() +1"></td>
                                 <td data-bind="text: VisitorName"></td>
-                                <td data-bind="text: EmailAddress"></td>
+                                <td data-bind="text: NationalityVal"></td>
                                 <td data-bind="text: ContactNo"></td>
                                 <td>
                                     <a href="#" class="btn  btn-s" data-bind="click: EditVisitor.bind($data)" title="click here to view or edit record."><i class="fa fa-pencil"></i></a>
@@ -211,6 +211,13 @@
     {
         dropZoneVisitorImage = new Dropzone("#dropzoneImageForm");
         dropZoneVisitorImage.maxFiles = 2;
+        var imagePath = '/images/avatar.jpg';
+        var mockFile = { name: 'VisitorImage', size: 1024 };
+        dropZoneVisitorImage.emit("addedfile", mockFile);
+        dropZoneVisitorImage.emit("thumbnail", mockFile, imagePath);
+        dropZoneVisitorImage.createThumbnailFromUrl(mockFile, imagePath);
+        $('#dropzoneImageForm .dz-image').addClass('dz-message');
+        $('#dropzoneImageForm .dz-image img').addClass('dz-message');
         dropZoneVisitorImage.on("maxfilesexceeded", function (file) {
             //debugger;
             var res = eval('(' + file.xhr.responseText + ')');

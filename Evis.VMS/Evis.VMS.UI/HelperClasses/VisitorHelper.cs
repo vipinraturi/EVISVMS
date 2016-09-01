@@ -47,6 +47,7 @@ namespace Evis.VMS.UI.HelperClasses
                                                             Gender = item.GenderId,
                                                             IdNo = item.IdNo,
                                                             Nationality = item.Nationality ?? 0,
+                                                            NationalityVal = item.CountryMaster.LookUpValue,
                                                             TypeOfCard = item.TypeOfCardId,
                                                             ImagePath = item.ProfilePicPath,
                                                             IdentityImage1_Path = item.IdentityImage1_Path,
