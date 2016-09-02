@@ -82,7 +82,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
         [Route("~/Api/Administration/GetOrganizationsData")]
         [HttpPost]
-        public string GetOrganizationsData(string globalSearch, int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC")
+        public string GetOrganizationsData(string globalSearch, int pageIndex, int pageSize, string sortField = "Id", string sortOrder = "DESC")
         {
             var organizationsList = _genericService.Organization.GetAll().Where(x => x.IsActive == true)
             .Select(x => new OrganisationVM
@@ -111,14 +111,14 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     PageIndex = (pageIndex - 1),
                     PageSize = pageSize,
                     SearchText = globalSearch,
-                    Sort = new Sort { SortDirection = (sortOrder == "ASC" ? SortDirection.Ascending : SortDirection.Descending), SortBy = sortField }
+                    Sort = new Sort { SortDirection = (sortOrder == "DESC" ? SortDirection.Descending : SortDirection.Ascending), SortBy = sortField }
                 };
 
                 int totalCount = 0;
                 IList<OrganisationVM> result =
                     GenericSorterPager.GetSortedPagedList<OrganisationVM>(organizationsList, paginationRequest, out totalCount);
 
-                var jsonData = JsonConvert.SerializeObject(result.OrderByDescending(x => x.Id));
+                var jsonData = JsonConvert.SerializeObject(result);
                 return JsonConvert.SerializeObject(new { totalRows = totalCount, result = jsonData });
             }
 
