@@ -43,46 +43,46 @@
                     <div class="form-group col-md-9 col-sm-9 col-xs-12">
                         <label class="control-label col-md-4 col-sm-4 col-xs-12">Organization <span class="mandatoryField">*</span></label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                            <select class="form-control" data-bind="options: Organizations, optionsText: 'Name', optionsValue: 'Id', value: OrganizationId, optionsCaption: '-- Select Organization --'"></select>
+                           <select class="form-control Fieldfocus" data-bind="options: Organizations, optionsText: 'Name', optionsValue: 'Id', value: OrganizationId, optionsCaption: '-- Select Organization --'"></select>
                         </div>
                     </div>
                     <div class="form-group col-md-9 col-sm-9 col-xs-12">
                         <label class="control-label col-md-4 col-sm-4 col-xs-12">Full Name: <span class="mandatoryField">*</span></label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                            <input id="txtFirstName" type="text" maxlength="50" class="form-control" placeholder="[Full Name]" data-bind="value: FullName" />
+                            <input id="txtFirstName" type="text" maxlength="50" class="form-control Fieldfocus" placeholder="[Full Name]" data-bind="value: FullName" />
                             <span class="fa fa-user favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
                     <div class="form-group col-md-9 col-sm-9 col-xs-12">
                         <label class="control-label col-md-4 col-sm-4 col-xs-12">Gender: <span class="mandatoryField">*</span></label>
                         <div class="col-md-8 col-sm-8 col-xs-12">
-                            <select class="form-control" data-bind="options: Genders, optionsText: 'Name', optionsValue: 'Id', value: GenderId, optionsCaption: '-- Select Gender --'"></select>
+                           <select class="form-control Fieldfocus" data-bind="options: Genders, optionsText: 'Name', optionsValue: 'Id', value: GenderId, optionsCaption: '-- Select Gender --'"></select>
                         </div>
                     </div>
                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Email Id: <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtEmailId" type="text" maxlength="50" class="form-control" placeholder="[email@domain.com]" data-bind="value: Email" />
+                            <input id="txtEmailId" type="text" maxlength="50" class="form-control Fieldfocus" placeholder="[email@domain.com]" data-bind="value: Email" />
                             <span class="fa fa-envelope-o favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact No: <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtContactNo" type="text" maxlength="20" class="form-control" placeholder="[Contact Number]" data-bind="value: ContactNumber" />
+                            <input id="txtContactNo" type="text" maxlength="30" class="form-control Fieldfocus" placeholder="[Contact Number]" data-bind="value: ContactNumber" />
                             <span class="fa fa-phone favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Role: <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <select class="form-control" data-bind="options: Roles, optionsText: 'Name', optionsValue: 'Id', value: RoleId, optionsCaption: '-- Select Role --'"></select>
+                           <select class="form-control Fieldfocus" data-bind="options: Roles, optionsText: 'Name', optionsValue: 'Id', value: RoleId, optionsCaption: '-- Select Role --'"></select>
                         </div>
                     </div>
                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Nationality: <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <select class="form-control" data-bind="options: Countries, optionsText: 'Name', optionsValue: 'Id', value: Nationality, optionsCaption: '-- Select Nationality--'"></select>
+                           <select class="form-control Fieldfocus" data-bind="options: Countries, optionsText: 'Name', optionsValue: 'Id', value: Nationality, optionsCaption: '-- Select Nationality--'"></select>
                         </div>
                     </div>
                     <div class="form-group col-md-12 col-sm-12 col-xs-12">
@@ -138,7 +138,7 @@
                         </tbody>
                         <tbody data-bind="if: DataGrid.DataRows().length == 0">
                             <tr>
-                                <td colspan="5" style="text-align:center;">
+                                <td colspan="6" style="text-align:center;">
                                     No data found.
                                 </td>
                             </tr>
@@ -176,6 +176,14 @@
     $(function () {
         myDropzone = new Dropzone("#dropzoneUserImageForm");
         myDropzone.maxFiles = 2;
+        var imagePath = '/images/avatar.jpg';
+        var mockFile = { name: 'VisitorImage', size: 1024 };
+        myDropzone.emit("addedfile", mockFile);
+        myDropzone.emit("thumbnail", mockFile, imagePath);
+        myDropzone.createThumbnailFromUrl(mockFile, imagePath);
+        $('#dropzoneUserImageForm .dz-image').addClass('dz-message');
+        $('#dropzoneUserImageForm .dz-image img').addClass('dz-message');
+
         myDropzone.on("maxfilesexceeded", function (file) {
             var res = eval('(' + file.xhr.responseText + ')');
             toastr.warning('Only two images allowed.');

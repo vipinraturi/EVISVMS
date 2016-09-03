@@ -53,22 +53,16 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         [HttpGet]
         public async Task<IEnumerable<GeneralDropDownVM>> GetAllOrganizations()
         {
-            // var user = (await _userService.GetAllAsync()).Where(x => x.Id == HttpContext.Current.User.Identity.GetUserId() && x.IsActive == true).FirstOrDefault();
+            var user = (await _userService.GetAllAsync()).Where(x => x.Id == HttpContext.Current.User.Identity.GetUserId() && x.IsActive == true).FirstOrDefault();
+            int orgId = (user == null) ? 0 : (int)user.OrganizationId;
+
             IQueryable<GeneralDropDownVM> organizations;
 
-            // if (user == null)
-            //{
+
             organizations = _genericService.Organization.GetAll()
-                                .Where(x => x.IsActive == true)
+                                .Where(x => x.IsActive == true && (orgId == 0 || x.Id == orgId))
                                 .Select(x => new GeneralDropDownVM { Id = x.Id, Name = x.CompanyName });
-            //}
-            //else
-            //{
-            //    int orgId = user.Organization.Id;
-            //    organizations = _genericService.Organization.GetAll()
-            //                        .Where(x => x.IsActive == true && x.Id == orgId)
-            //                        .Select(x => new GeneralDropDownVM { Id = x.Id, Name = x.CompanyName });
-            //}
+
             return organizations;
         }
 
@@ -221,8 +215,16 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             }
             else
             {
+                var emailExist = await _userService.GetAsync(x => x.Email.ToLower() == usersVM.Email.ToLower());
                 var existingUser = await _userService.GetAsync(x => x.Id == usersVM.UserId);
-                if (existingUser != null)
+
+                if (emailExist != null && existingUser != null && emailExist.Id != existingUser.Id)
+                {
+                    message = "User with email id is already exist! Please use some other email id.";
+                    return new ReturnResult { Message = message, Success = success };
+                }
+
+                else if ((emailExist != null && existingUser != null && emailExist.Id == existingUser.Id) || existingUser != null)
                 {
                     existingUser.OrganizationId = usersVM.OrganizationId;
                     existingUser.FullName = usersVM.FullName;
@@ -259,10 +261,10 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     //existingUser.IsActive = false;
                     await _userService.DeleteAsync(existingUser);
                     _genericService.Commit();
-                    return new ReturnResult { Message = "Success", Success = true };
+                    return new ReturnResult { Message = "User is deleted successfully!", Success = true };
                 }
             }
-            return new ReturnResult { Message = "Failure", Success = false };
+            return new ReturnResult { Message = "User is not deleted, please try again!", Success = false };
         }
 
         [Route("~/Api/User/ChangePassword")]
@@ -273,18 +275,23 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             {
                 string userName = HttpContext.Current.User.Identity.GetUserName();
                 var user = await _userService.FindAsync(userName, changePasswordVM.Password);
+                var passwordExist = await _userService.FindAsync(userName, changePasswordVM.NewPassword);
 
-                if (user != null)
+                if (user != null && passwordExist == null)
                 {
                     var passwordHash = new Microsoft.AspNet.Identity.PasswordHasher();
                     var hashedPassword = passwordHash.HashPassword(changePasswordVM.NewPassword);
                     user.PasswordHash = hashedPassword;
                     await _userService.UpdateAsync(user, string.Empty);
-                    return new ReturnResult { Message = "Password changed successfully!!", Success = true };
+                    return new ReturnResult { Message = "Password changed successfully!", Success = true };
                 }
-                return new ReturnResult { Message = "Current entered password is incorrect, please enter the correct password!!", Success = false };
+                else if (passwordExist != null)
+                {
+                    return new ReturnResult { Message = "New entered password should not be same as the current password!", Success = false };
+                }
+                return new ReturnResult { Message = "Current entered password is incorrect, please enter the correct password!", Success = false };
             }
-            return new ReturnResult { Message = "Current entered password cannot be empty", Success = false };
+            return new ReturnResult { Message = "Current entered password cannot be empty!", Success = false };
         }
 
 

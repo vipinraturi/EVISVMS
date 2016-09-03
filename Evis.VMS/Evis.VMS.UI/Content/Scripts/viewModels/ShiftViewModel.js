@@ -101,12 +101,15 @@
         $('.modal-backdrop').modal('hide');
         AjaxCall('/Api/Shift/DeleteShift', recordToDelete, 'POST', function (data) {
             if (data.Success == true) {
+                toastr.clear();
                 toastr.success(data.Message);
                 ApplyCustomBinding('newshiftcreate');
             }
             else if (data.Success == false) {
+                toastr.clear();
                 toastr.warning(data.Message);
             }
+           
         });
     }
 

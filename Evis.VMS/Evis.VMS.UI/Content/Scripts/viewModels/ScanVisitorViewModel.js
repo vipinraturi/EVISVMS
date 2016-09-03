@@ -18,7 +18,7 @@ function ScanVisitorViewModel() {
 
     self.ReadImageData = function () {
         if ($('.dz-filename').length == 0) {
-            toastr.warning('No image available to read text.');
+            toastr.clear();toastr.warning('No image available to read text.');
             return;
         }
         var firstimg = $('.dz-image-preview img').eq(0).attr("img-name-unique");
@@ -152,7 +152,7 @@ function ScanVisitorViewModel() {
             && self.TypeOfCard() == ''
             && self.IdNumber() == ''
             && self.Nationality() == '') {
-            toastr.warning('No scanned image data available to proceed.');
+            toastr.clear();toastr.warning('No scanned image data available to proceed.');
             return;
         }
         ApplyCustomBinding('managevisitor');

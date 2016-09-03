@@ -111,11 +111,13 @@ function OrganizationViewModel() {
             AjaxCall('/Api/Administration/SaveOrganization', data, 'POST', function (data) {
                 //$('.loader-div').hide();
                 if (data.Success == true) {
+                    toastr.clear();
                     toastr.success(data.Message);
                     self.ResetOrganizationDetails();
                     self.GetAllOrganizations();
                 }
                 else {
+                    toastr.clear();
                     toastr.warning(data.Message);
                 }
             })

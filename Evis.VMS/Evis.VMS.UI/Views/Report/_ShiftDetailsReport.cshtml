@@ -19,7 +19,7 @@
                             </label>
                         </div>
                         <div class="col-xs-12">
-                            <select class="form-control" data-bind="options: Security, optionsText: 'Name' ,optionsValue: 'Id', value: SecurityId, optionsCaption: '-- Select --'"></select>
+                            <select class="form-control Fieldfocus" data-bind="options: Security, optionsText: 'Name' ,optionsValue: 'Id', value: SecurityId, optionsCaption: '-- Select --'"></select>
                         </div>
                     </div>
 
@@ -31,7 +31,7 @@
                         </div>
 
                         <div class="col-xs-12">
-                            <select class="form-control" data-bind="options: Buildings, optionsText: 'Name' ,optionsValue: 'Id', value: BuildingId, optionsCaption: '-- Select --',event:{ change: GetGates()}"></select>
+                            <select class="form-control Fieldfocus" data-bind="options: Buildings, optionsText: 'Name' ,optionsValue: 'Id', value: BuildingId, optionsCaption: '-- Select --',event:{ change: GetGates()}"></select>
                         </div>
                     </div>
                     <div class="form-group col-md-4 col-sm-4 col-xs-12">
@@ -42,7 +42,7 @@
                         </div>
 
                         <div class=" col-xs-12">
-                            <select class="form-control" data-bind="options: Gates, optionsText: 'Name' ,optionsValue: 'Id', value: GateId, optionsCaption: '-- Select --'"></select>
+                            <select class="form-control Fieldfocus" data-bind="options: Gates, optionsText: 'Name' ,optionsValue: 'Id', value: GateId, optionsCaption: '-- Select --'"></select>
                         </div>
                     </div>
 
@@ -54,7 +54,7 @@
                             </label>
                         </div>
                         <div class="col-xs-12">
-                            <select class="form-control" data-bind="options: shift, optionsText: 'Name' ,optionsValue: 'Id', value: ShiftId, optionsCaption: '-- Select --'"></select>
+                            <select class="form-control Fieldfocus" data-bind="options: shift, optionsText: 'Name' ,optionsValue: 'Id', value: ShiftId, optionsCaption: '-- Select --'"></select>
 
                         </div>
                     </div>
@@ -68,13 +68,13 @@
                             </label>
                         </div>
                         <div class="col-xs-12">
-                            <input id="txtFromDate" type="text" data-bind="value: FromDate" class="form-control" placeholder="dd/mm/yyyy" />
+                            <input id="txtFromDate" type="text" data-bind="value: FromDate" class="form-control Fieldfocus" placeholder="dd/mm/yyyy" />
 
                             <span class="fa fa-calendar   form-control-feedback right" aria-hidden="true"></span>
                         </div>
 
                         @*<div class="col-xs-12">
-                                <input id="txtFromDate" type="text" class="form-control" placeholder="dd/mm/yyyy" data-bind="value:FromDate" />
+                                <input id="txtFromDate" type="text" class="form-control Fieldfocus" placeholder="dd/mm/yyyy" data-bind="value:FromDate" />
                                 <span class="fa fa-calendar favwhite  form-control-feedback right" aria-hidden="true"></span>
                             </div>*@
                     </div>
@@ -86,7 +86,7 @@
                             </label>
                         </div>
                         <div class="col-xs-12">
-                            <input id="txtToDate" type="text" class="form-control" placeholder="dd/mm/yyyy" data-bind="value:ToDate" />
+                            <input id="txtToDate" type="text" class="form-control Fieldfocus" placeholder="dd/mm/yyyy" data-bind="value:ToDate" />
                             <span class="fa fa-calendar  form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
@@ -117,7 +117,7 @@
 
                 <button type="button" class="btn btn-success" data-bind="enable:(DataGrid.DataRows().length != 0),click:GenerateRDLCReportPDF.bind()">Pdf <i class="fa fa-file-pdf-o"></i></button>
                 @*data-bind="click:GenerateRDLCReportPDF.bind()"GenerateRDLCReportPDF*@
-               @* data-bind="enable:(DataGrid.DataRows().length != 0),click:GenerateRDLCReportExcel.bind()"*@
+                @* data-bind="enable:(DataGrid.DataRows().length != 0),click:GenerateRDLCReportExcel.bind()"*@
             </div>
             <div class="clearfix"></div>
         </div>
@@ -149,7 +149,11 @@
 
                         </tr>
                     </tbody>
-                    <tr class="blank_row" data-bind="visible: (DataGrid.DataRows().length == 0)"><td colspan="10">No data found.</td></tr>
+                    <tr class="blank_row" data-bind="visible: (DataGrid.DataRows().length == 0)">
+                        <td colspan="10" style="text-align:center;">
+                            No data found.
+                        </td>
+                    </tr>
                 </table>
                 @Html.Partial("_Pager")
             </form>

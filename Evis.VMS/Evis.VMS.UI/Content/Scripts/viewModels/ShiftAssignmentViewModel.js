@@ -96,6 +96,7 @@
         $('.modal-backdrop').modal('hide');
         AjaxCall('/Api/ShiftAssignment/DeleteShift', recordToDelete, 'POST', function () {
             $(".modal-backdrop").hide();
+            toastr.clear();
             toastr.success('Shift deleted successfully!!')
             ApplyCustomBinding('shiftassignment');
         });
@@ -158,10 +159,12 @@
             AjaxCall('/Api/ShiftAssignment/SaveShiftAssignment', data, 'POST', function (data) {
                 debugger;
                 if (data.Message == "Success") {
+                    toastr.clear();
                     toastr.success('ShiftAssignment saved successfully!!')
                     ApplyCustomBinding('shiftassignment');
                 }
                 else {
+                    toastr.clear();
                     toastr.error('shift already assigned!')
                 }
             })

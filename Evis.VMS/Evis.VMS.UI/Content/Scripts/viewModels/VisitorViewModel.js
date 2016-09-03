@@ -3,9 +3,6 @@
     nationality = (nationalityVal != "" ? nationalityVal : undefined);
     typeOfCard = (typeOfCard != "" ? typeOfCard : undefined);
     gender = (gender != "" ? gender : undefined);
-    //var patterns = {
-    //    ContactNo: /^\d[\d -]*\d$/,
-    //};
     var self = this;
     Id = ko.observable(0);
     VisitorName = ko.observable(visitorName).extend({ required: true });
@@ -16,13 +13,6 @@
     IdNo = ko.observable(idNumber).extend({ required: true });
     Nationality = ko.observable(nationality).extend({ required: true });
     ContactNo = ko.observable(contactNumber).extend({ required: true });
-    //self.ContactNo = ko.observable().extend({
-    //    required: true,
-    //    pattern: {
-    //        message: 'Invalid Mobile No',
-    //        params: patterns.ContactNo
-    //    }
-    //});
     self.ContactNo = ko.observable('').extend({
         required: true,
         pattern: {
@@ -128,9 +118,11 @@
             AjaxCall('/Api/Visitor/SaveVisitor', data, 'POST', function (result) {
                 if (result.Success) {
                     if (self.IsEdit()) {
+                        toastr.clear();
                         toastr.success('Visitor updated successfully!!')
                     }
                     else {
+                        toastr.clear();
                         toastr.success('Visitor saved successfully!!')
                     }
                     
@@ -139,6 +131,7 @@
                     self.GetAllVisitor();
                 }
                 else {
+                    toastr.clear();
                     toastr.warning(result.Message)
                 }
             })
@@ -175,9 +168,11 @@
         if (message == true) {
             AjaxCall('/Api/Visitor/DeleteVisitor', tableItem, 'POST', function (result) {
                 if (result.Success) {
+                    toastr.clear();
                     toastr.success('Visitor deleted successfully!!')
                     ApplyCustomBinding('managevisitor');
                 } else if (result.Success) {
+                    toastr.clear();
                     toastr.warning("Visitor has dependency on other data. Please delete selected visitor's corresponding records first!!")
                 }
             });
@@ -221,11 +216,6 @@
                 $('#btnSave').html('Update <i class="fa fa-save"></i>');
                 self.LoadIdentityImage(identityImages);
             }
-
-            //debugger;
-            //console.log('tableItem.IdentityImage1_Path ' + tableItem.IdentityImage1_Path);
-            //console.log('tableItem.IdentityImage2_Path ' + tableItem.IdentityImage2_Path);
-            //console.log('tableItem.IdentityImage3_Path ' + tableItem.IdentityImage3_Path);
 
            if (tableItem.IdentityImage1_Path != null && tableItem.IdentityImage1_Path != undefined && tableItem.IdentityImage1_Path != "") {
                 var imagePath = '/images/VisitorIdentityImages/' + tableItem.IdentityImage1_Path;

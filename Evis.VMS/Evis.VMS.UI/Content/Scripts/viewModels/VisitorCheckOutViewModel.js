@@ -1,13 +1,14 @@
 ﻿function VisitorCheckOutViewModel() {
     var self = this;
     self.VisitorId = ko.observable('');
-    self.VisitorName = ko.observable('');
-    self.Gender = ko.observable('');
-    self.DOB = ko.observable('');
-    self.MobileNo = ko.observable('');
-    self.EmailId = ko.observable('');
-    self.IdentificationNo = ko.observable('');
-    self.Nationality = ko.observable('');
+
+    self.VisitorName = ko.observable('[Visitor Name]');
+    self.Gender = ko.observable('[Gender]');
+    self.DOB = ko.observable('[DOB]');
+    self.MobileNo = ko.observable('[Mobile No]');
+    self.EmailId = ko.observable('[EmailId]');
+    self.IdentificationNo = ko.observable('[Identification No.]');
+    self.Nationality = ko.observable('[Nationality]');
     self.Purpose_Remark = ko.observable('');
     self.logoURL = ko.observable('');
     self.IsAlreadyCheckIn = ko.observable(false);
@@ -50,19 +51,19 @@
 
 
             $('.searchVisitor').val('');
-            //toastr.success('Visitor data loaded!!');
+            //toastr.clear();toastr.success('Visitor data loaded!!');
         });
     }
 
     self.SaveVisitorCheckOut = function () {
 
         if (self.VisitorId() == '') {
-            toastr.warning('No visitor available to check-in.');
+            toastr.clear();toastr.warning('No visitor available to check-in.');
             return;
         }
 
         if (self.IsAlreadyCheckIn() == false) {
-            toastr.warning('Visitor not checked-in yet.');
+            toastr.clear();toastr.warning('Visitor not checked-in yet.');
             return;
         }
 
@@ -71,7 +72,7 @@
         data.VisitorId = self.VisitorId();
 
         AjaxCall('/Api/VisitorManagement/SaveVisitorCheckOut', data, 'POST', function () {
-            toastr.success('Visitor CheckOut Successfully.!!');
+            toastr.clear();toastr.success('Visitor CheckOut Successfully.!!');
             //alert(self.VisitorId() + '  ' + self.logoURL());
             self.GetVisitorCheckInHistoryData(self.VisitorId(), self.logoURL());
             //self.ResetCheckInData();
@@ -114,20 +115,27 @@ BindAutoCompleteEventCheckout = function () {
 
     $('.searchVisitorCheckout').autocomplete({
         source: function (request, response) {
+
             $.ajax({
                 url: '/Visitor/GetVisitorsCheckOutData',
                 data: { searchterm: request.term },
                 success: function (data) {
-                    response($.map(data, function (item) {
-                        return {
-                            VisitorId: item.VisitorId,
-                            VisitorName: item.VisitorName,
-                            Email: item.Email,
-                            MobileNumber: item.MobileNumber,
-                            IndentityNumber: item.IndentityNumber,
-                            logoUrl: item.LogoUrl
-                        };
-                    }));
+                    if (data.length >0) {
+                        response($.map(data, function (item) {
+                            return {
+                                VisitorId: item.VisitorId,
+                                VisitorName: item.VisitorName,
+                                Email: item.Email,
+                                MobileNumber: item.MobileNumber,
+                                IndentityNumber: item.IndentityNumber,
+                                logoUrl: item.LogoUrl
+                            };
+                        }));
+                    }
+                    else {
+                        toastr.clear();
+                        toastr.warning('Visitor not available or still not checked-in.');
+                    }
                 }
             });
         },

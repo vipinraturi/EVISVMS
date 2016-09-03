@@ -51,22 +51,31 @@
             $('#viewImageUnique').show();
 
             $('.dz-image-preview').empty();
-            ////debugger;
-            var imagePath = data.ProfilePicturePath;
-            self.ProfilePicturePath(data.ProfilePicturePath);
-
             //debugger;
-            var mockFile = { name: "User Image", size: 1024 };
-            myDropzoneUnique.emit("addedfile", mockFile);
-            myDropzoneUnique.emit("thumbnail", mockFile, imagePath);
-            myDropzoneUnique.createThumbnailFromUrl(mockFile, imagePath);
-            $('.dz-image').addClass('dz-message');
-            $('.dz-image img').addClass('dz-message');
 
-            if (imagePath != "") {
-                $('#imgUserAvatar').attr('src', imagePath);
+            if (data.ProfilePicturePath != null) {
+                var imagePath = data.ProfilePicturePath;
+                self.ProfilePicturePath(data.ProfilePicturePath);
+                var mockFile = { name: "User Image", size: 1024 };
+                myDropzoneUnique.emit("addedfile", mockFile);
+                myDropzoneUnique.emit("thumbnail", mockFile, imagePath);
+                myDropzoneUnique.createThumbnailFromUrl(mockFile, imagePath);
+                $('.dz-image').addClass('dz-message');
+                $('.dz-image img').addClass('dz-message');
+
+                if (imagePath != "") {
+                    $('#imgUserAvatar').attr('src', imagePath);
+                }
             }
-
+            else {
+                var imagePath = '/images/avatar.jpg';
+                var mockFile = { name: 'UserImage', size: 1024 };
+                myDropzoneUnique.emit("addedfile", mockFile);
+                myDropzoneUnique.emit("thumbnail", mockFile, imagePath);
+                myDropzoneUnique.createThumbnailFromUrl(mockFile, imagePath);
+                $('#dropzoneMyProfileImageForm .dz-image').addClass('dz-message');
+                $('#dropzoneMyProfileImageForm .dz-image img').addClass('dz-message');
+            }
 
             self.Roles().forEach(function (item) {
                 if (item.Id === self.RoleId()) {
@@ -87,14 +96,24 @@
         else {
             var data = new Object();
             data.FullName = self.FullName();
+            data.GenderId = self.GenderId();
             data.PhoneNumber = self.PhoneNumber();
             data.ContactAddress = self.ContactAddress();
             data.ProfilePicturePath = $('.dz-image img').attr('img-name-unique');
-            ////debugger;
+
+            // To clear 
+            self.UserId('');
+            self.FullName('');
+            self.Email('');
+            self.GenderId(0);
+            self.RoleId('');
+
+            $('.loader-div').show();
             AjaxCall('/Api/MyProfile/SaveMyProfile', data, 'POST', function () {
-                toastr.success('My Profile updated successfully!!')
+                toastr.clear();
+                toastr.success('My Profile updated successfully!!');
                 ApplyCustomBinding('myprofile');
-                //self.IsInsert(true);
+                $('.loader-div').hide();
             })
         }
     }

@@ -375,10 +375,12 @@
         $('.modal-backdrop').modal('hide');
         AjaxCall('/Api/Administration/DeleteBuilding', recordToDelete, 'POST', function (data) {
             if (data.Success == true) {
+                toastr.clear();
                 toastr.success(data.Message);
                 ApplyCustomBinding('buildings');
             }
             else if (data.Success == false) {
+                toastr.clear();
                 toastr.warning(data.Message);
             }
         });
