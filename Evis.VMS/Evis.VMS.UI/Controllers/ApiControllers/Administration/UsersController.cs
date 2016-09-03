@@ -214,7 +214,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
                 string subject = "User in company " + orgName + " created successfully!";
                 // Send email on account creation.
-                //EmailHelper.SendMail(user.Email, subject, body);
+                EmailHelper.SendMail(user.Email, subject, body);
                 message = "User saved sucessfully!";
                 success = true;
             }

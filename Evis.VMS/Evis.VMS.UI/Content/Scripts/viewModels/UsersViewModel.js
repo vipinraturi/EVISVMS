@@ -8,12 +8,20 @@
         deferValidation: true
     });
 
-    self.Email = ko.observable('').extend({ required: true, maxLength: 50, email: { message: "Invalid email" } });
+    self.Email = ko.observable('').extend({
+        required: true,
+        maxLength: 50,
+        pattern: {
+            message: 'Invalid email.',
+            params: /\s*\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*\s*/
+        }
+    });
+
     self.ContactNumber = ko.observable('').extend({
         required: true,
         pattern: {
             message: 'Invalid phone number.',
-            params: /^\+?([0-9\(\)\/\-\.]*)$/
+            params: /^\s*\+?([0-9\(\)\/\-\.\s*]*)$/
         },
         minLength: {
             params: 6,
@@ -106,9 +114,9 @@
             var data = new Object();
             data.UserId = self.UserId(),
             data.OrganizationId = self.OrganizationId(),
-            data.FullName = self.FullName(),
-            data.Email = self.Email(),
-            data.ContactNumber = self.ContactNumber(),
+            data.FullName = $.trim(self.FullName()),
+            data.Email = $.trim(self.Email()),
+            data.ContactNumber = $.trim(self.ContactNumber()),
             data.GenderId = self.GenderId(),
             data.Nationality = self.Nationality(),
             data.RoleId = self.RoleId();
