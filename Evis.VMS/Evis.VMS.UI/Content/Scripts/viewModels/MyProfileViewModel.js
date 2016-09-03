@@ -9,7 +9,11 @@
         required: true,
         pattern: {
             message: 'Invalid phone number.',
-            params: /^([0-9\(\)\/\+ \-\.]*)$/
+            params: /^\s*\+?([0-9\(\)\/\-\.\s*]*)$/
+        },
+        minLength: {
+            params: 6,
+            message: 'Enter minimum of 6-length number'
         }
     });
     self.Email = ko.observable('');
