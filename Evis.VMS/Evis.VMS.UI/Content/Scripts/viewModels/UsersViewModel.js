@@ -112,7 +112,7 @@
             data.GenderId = self.GenderId(),
             data.Nationality = self.Nationality(),
             data.RoleId = self.RoleId();
-            if ($('.dz-image img').attr('alt') == undefined) {
+            if ($('.dz-image img').attr('alt') == undefined || $('.dz-image img').attr('alt') == "undefined") {
                 data.ProfilePicturePath = "";
             }
             else {
@@ -121,6 +121,8 @@
                     data.ProfilePicturePath = imagePath;
                 }
             }
+
+            
             $('.loader-div').show();
             AjaxCall('/Api/Users/SaveUser', data, 'POST', function (data) {
                 if (data.Success == true) {
@@ -214,7 +216,17 @@
     }
 
     self.ViewImage = function () {
-        $('#originalSize').attr('src', self.ProfilePicturePath());
+        var srcURL = '';
+       // debugger;
+        if ($('.dz-image img').attr('alt') != "" && $('.dz-image img').attr('alt') != "undefined") {
+            srcURL = '/images/UserImages/' + $('.dz-image img').attr('alt');
+        }
+        else {
+            srcURL = self.ProfilePicturePath();
+        }
+
+
+        $('#originalSize').attr('src', srcURL);
         $('#imageModal').modal('show');
     }
 

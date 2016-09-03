@@ -123,7 +123,18 @@
     }
 
     self.ViewImage = function () {
-        $('#originalSize').attr('src', self.ProfilePicturePath());
+
+        //debugger;
+        var srcURL = '';
+        if ($('.dz-image img').attr('alt') != "" && $('.dz-image img').attr('alt') != "User Image" && $('.dz-image img').attr('alt') !=  "undefined") {
+            srcURL = '/images/UserImages/' + $('.dz-image img').attr('alt');
+        }
+        else {
+            srcURL =  self.ProfilePicturePath();
+        }
+
+
+        $('#originalSize').attr('src', srcURL);
         $('#imageModal').modal('show');
     }
 }

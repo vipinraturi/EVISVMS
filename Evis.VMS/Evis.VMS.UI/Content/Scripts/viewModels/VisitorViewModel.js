@@ -29,6 +29,8 @@
     self.Genders = ko.observableArray();
     self.TypeOfCards = ko.observableArray();
     self.Nationalities = ko.observableArray();
+    self.ImagePath = ko.observable();
+
     
     self.errors = ko.validation.group({
         VisitorName: this.VisitorName,
@@ -203,6 +205,8 @@
             self.Nationality(tableItem.Nationality);
             self.ContactNo(tableItem.ContactNo);
             self.ContactAddress(tableItem.ContactAddress);
+            self.ImagePath(tableItem.ImagePath);
+
             $('.dz-image-preview').empty();
 
             if (tableItem.ImagePath != undefined && tableItem.ImagePath != "") {
@@ -306,12 +310,11 @@
 
     self.ViewVisitorImage = function () {
         var srcURL = '';
-        if ($('#dropzoneImageForm .dz-image img').attr("img-name-unique") != undefined) {
-            srcURL = ($('#dropzoneImageForm .dz-image img').attr("img-name-unique"));
+        if ($('#dropzoneImageForm .dz-image img').attr("img-name-unique") != undefined && srcURL.indexOf('/images/VisitorImages') == -1) {
+            srcURL = '/images/VisitorImages/' + ($('#dropzoneImageForm .dz-image img').attr("img-name-unique"));
         }
-
-        if (srcURL.indexOf('/images/VisitorImages') == -1) {
-            srcURL = '/images/VisitorImages/' + srcURL;
+        else {
+            srcURL = '/images/VisitorImages/' + self.ImagePath();
         }
 
         $('#visitorOriginalSize').attr('src', srcURL);
