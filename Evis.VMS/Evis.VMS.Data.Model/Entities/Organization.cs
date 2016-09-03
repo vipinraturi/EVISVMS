@@ -31,7 +31,7 @@ namespace Evis.VMS.Data.Model.Entities
 
         public string ThemeName { get; set; }
 
-        public DateTime? CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; }
 
         public string CreatedBy { get; set; }
 

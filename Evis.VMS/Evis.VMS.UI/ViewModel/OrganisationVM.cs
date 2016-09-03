@@ -16,19 +16,7 @@ namespace Evis.VMS.UI.ViewModel
 
         public string Country { get; set; }
 
-        public int? StateId { get; set; }
-
-        public int? CityId { get; set; }
-
-        public string EmailId { get; set; }
-
-        public string ContactNumber { get; set; }
-
-        public string ContactAddress { get; set; }
-
-        public string ZipCode { get; set; }
-
-        public string FaxNumber { get; set; }
+        public string CreatedOn { get; set; }
 
         public string WebSite { get; set; }
                 

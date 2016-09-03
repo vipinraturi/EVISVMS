@@ -135,6 +135,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     temp = temp.Where(item =>
                         item.ContactNumber.ToLower().Contains(globalSearch.ToLower()) ||
                         item.FullName.ToLower().Contains(globalSearch.ToLower()) ||
+                        item.Email.ToLower().Contains(globalSearch.ToLower()) ||
                         item.RoleName.ToLower().Contains(globalSearch.ToLower()))
                         .AsQueryable();
                 }
@@ -214,7 +215,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
                 string subject = "User in company " + orgName + " created successfully!";
                 // Send email on account creation.
-                //EmailHelper.SendMail(user.Email, subject, body);
+                EmailHelper.SendMail(user.Email, subject, body);
                 message = "User saved sucessfully!";
                 success = true;
             }
