@@ -1,6 +1,6 @@
 ﻿function MyProfileViewModel() {
     var self = this;
-
+    var temp = new Object();
     self.UserId = ko.observable('');
     self.FullName = ko.observable('').extend({
         required: true
@@ -43,6 +43,7 @@
     setTimeout(function () {
 
         AjaxCall('/Api/MyProfile/GetMyProfile', null, 'GET', function (data) {
+            temp = data;
             self.UserId(data.Id);
             self.FullName(data.FullName);
             self.DisplayName(data.FullName);
@@ -123,7 +124,11 @@
     }
 
     self.ResetMyProfile = function () {
-        ApplyCustomBinding('myprofile');
+        self.FullName(temp.FullName);
+        self.PhoneNumber(temp.PhoneNumber);
+        self.GenderId(temp.GenderId);
+
+        //ApplyCustomBinding('myprofile');
     }
 
     self.ViewImage = function () {
