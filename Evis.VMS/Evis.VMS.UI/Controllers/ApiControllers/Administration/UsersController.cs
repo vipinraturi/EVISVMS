@@ -135,6 +135,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     temp = temp.Where(item =>
                         item.ContactNumber.ToLower().Contains(globalSearch.ToLower()) ||
                         item.FullName.ToLower().Contains(globalSearch.ToLower()) ||
+                        item.Email.ToLower().Contains(globalSearch.ToLower()) ||
                         item.RoleName.ToLower().Contains(globalSearch.ToLower()))
                         .AsQueryable();
                 }
