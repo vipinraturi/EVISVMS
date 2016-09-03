@@ -36,7 +36,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             bool success = false;
             if (organization.Id == 0)
             {
-                var existOrganization = _genericService.Organization.GetAll().Where(x => x.CompanyName.ToLower().Equals(organization.CompanyName.ToLower()));
+                var existOrganization = _genericService.Organization.GetAll().Where(x => x.CompanyName.Trim().ToLower().Equals(organization.CompanyName.Trim().ToLower()));
                 if (existOrganization != null && existOrganization.Count() > 0)
                 {
                     message = "Organization with this name is already exist! Please some other use other name.";
