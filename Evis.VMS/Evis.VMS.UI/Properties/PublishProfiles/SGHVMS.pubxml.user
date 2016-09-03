@@ -22,19 +22,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/01/2016 09:50:53</publishTime>
     </File>
     <File Include="bin/Evis.VMS.Business.dll">
-      <publishTime>09/03/2016 07:59:37</publishTime>
+      <publishTime>03/09/2016 16:50:03</publishTime>
     </File>
     <File Include="bin/Evis.VMS.Data.dll">
-      <publishTime>09/03/2016 07:59:36</publishTime>
+      <publishTime>03/09/2016 16:50:03</publishTime>
     </File>
     <File Include="bin/Evis.VMS.Data.Model.dll">
-      <publishTime>09/03/2016 07:59:35</publishTime>
+      <publishTime>03/09/2016 16:50:02</publishTime>
     </File>
     <File Include="bin/Evis.VMS.UI.dll">
-      <publishTime>09/03/2016 09:28:57</publishTime>
+      <publishTime>09/03/2016 16:54:15</publishTime>
     </File>
     <File Include="bin/Evis.VMS.Utilities.dll">
-      <publishTime>09/03/2016 07:59:35</publishTime>
+      <publishTime>03/09/2016 16:50:02</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNet.Identity.Core.dll">
       <publishTime>09/01/2016 09:50:53</publishTime>
@@ -83,6 +83,15 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="bin/Owin.dll">
       <publishTime>09/01/2016 09:50:54</publishTime>
+    </File>
+    <File Include="bin/Reports/RDLC/GlobalHeader.rdlc">
+      <publishTime>01/09/2016 09:50:52</publishTime>
+    </File>
+    <File Include="bin/Reports/RDLC/ShiftDetailReport.rdlc">
+      <publishTime>09/03/2016 16:53:44</publishTime>
+    </File>
+    <File Include="bin/Reports/RDLC/VisitorsDetailsReport.rdlc">
+      <publishTime>01/09/2016 09:50:52</publishTime>
     </File>
     <File Include="bin/System.Net.Http.Formatting.dll">
       <publishTime>09/01/2016 09:50:53</publishTime>
@@ -151,7 +160,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/01/2016 09:50:51</publishTime>
     </File>
     <File Include="Content/Scripts/application/app.js">
-      <publishTime>09/01/2016 09:50:51</publishTime>
+      <publishTime>09/03/2016 10:48:35</publishTime>
     </File>
     <File Include="Content/Scripts/application/common.js">
       <publishTime>09/01/2016 09:50:51</publishTime>
@@ -316,13 +325,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/01/2016 09:50:52</publishTime>
     </File>
     <File Include="Content/Scripts/viewModels/MyOrganizationViewModel.js">
-      <publishTime>09/01/2016 09:50:52</publishTime>
+      <publishTime>09/03/2016 12:39:31</publishTime>
     </File>
     <File Include="Content/Scripts/viewModels/MyProfileViewModel.js">
-      <publishTime>09/03/2016 09:23:18</publishTime>
+      <publishTime>09/03/2016 12:32:47</publishTime>
     </File>
     <File Include="Content/Scripts/viewModels/OrganizationViewModel.js">
-      <publishTime>09/03/2016 07:58:49</publishTime>
+      <publishTime>09/03/2016 12:39:31</publishTime>
     </File>
     <File Include="Content/Scripts/viewModels/ScanVisitorViewModel.js">
       <publishTime>09/01/2016 09:56:18</publishTime>
@@ -340,7 +349,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/01/2016 09:50:52</publishTime>
     </File>
     <File Include="Content/Scripts/viewModels/UsersViewModel.js">
-      <publishTime>09/03/2016 08:13:50</publishTime>
+      <publishTime>09/03/2016 12:30:21</publishTime>
     </File>
     <File Include="Content/Scripts/viewModels/VisitorCheckInCheckOutViewModel.js">
       <publishTime>07/10/2016 12:55:46</publishTime>
@@ -355,7 +364,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/01/2016 09:50:52</publishTime>
     </File>
     <File Include="Content/Scripts/viewModels/VisitorViewModel.js">
-      <publishTime>09/01/2016 10:13:05</publishTime>
+      <publishTime>09/03/2016 12:38:08</publishTime>
     </File>
     <File Include="Content/Styles/animate.min.css">
       <publishTime>09/01/2016 09:50:52</publishTime>
@@ -373,16 +382,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/14/2016 12:31:22</publishTime>
     </File>
     <File Include="Content/Styles/custom_theme1.css">
-      <publishTime>09/01/2016 14:41:18</publishTime>
+      <publishTime>09/03/2016 16:37:24</publishTime>
     </File>
     <File Include="Content/Styles/custom_theme2.css">
-      <publishTime>09/01/2016 14:41:18</publishTime>
+      <publishTime>09/03/2016 16:37:24</publishTime>
     </File>
     <File Include="Content/Styles/custom_theme3.css">
-      <publishTime>09/01/2016 14:41:18</publishTime>
+      <publishTime>09/03/2016 16:37:24</publishTime>
     </File>
     <File Include="Content/Styles/custom_theme4.css">
-      <publishTime>09/01/2016 14:41:18</publishTime>
+      <publishTime>09/03/2016 16:37:24</publishTime>
     </File>
     <File Include="Content/Styles/custom_theme5.css">
       <publishTime>09/01/2016 09:50:52</publishTime>
@@ -705,6 +714,15 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Reports/DataSet/VisitorsDetailsDataSet.xss">
       <publishTime>09/01/2016 09:50:52</publishTime>
     </File>
+    <File Include="Reports/RDLC/GlobalHeader.rdlc">
+      <publishTime>09/01/2016 09:50:52</publishTime>
+    </File>
+    <File Include="Reports/RDLC/ShiftDetailReport.rdlc">
+      <publishTime>09/03/2016 16:53:44</publishTime>
+    </File>
+    <File Include="Reports/RDLC/VisitorsDetailsReport.rdlc">
+      <publishTime>09/01/2016 09:50:52</publishTime>
+    </File>
     <File Include="Views/Account/ConfirmEmail.cshtml">
       <publishTime>09/01/2016 09:50:52</publishTime>
     </File>
@@ -715,37 +733,37 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/01/2016 09:50:52</publishTime>
     </File>
     <File Include="Views/Administration/_Building.cshtml">
-      <publishTime>09/03/2016 09:24:49</publishTime>
+      <publishTime>09/03/2016 12:39:31</publishTime>
     </File>
     <File Include="Views/Administration/_ChangePassword.cshtml">
       <publishTime>09/03/2016 07:58:49</publishTime>
     </File>
     <File Include="Views/Administration/_Gates.cshtml">
-      <publishTime>09/03/2016 09:24:49</publishTime>
+      <publishTime>09/03/2016 12:39:31</publishTime>
     </File>
     <File Include="Views/Administration/_MyOrganization.cshtml">
-      <publishTime>09/01/2016 14:41:18</publishTime>
+      <publishTime>09/03/2016 12:39:31</publishTime>
     </File>
     <File Include="Views/Administration/_Myprofile.cshtml">
       <publishTime>09/03/2016 07:58:49</publishTime>
     </File>
     <File Include="Views/Administration/_Organization.cshtml">
-      <publishTime>09/01/2016 14:41:18</publishTime>
+      <publishTime>09/03/2016 12:39:31</publishTime>
     </File>
     <File Include="Views/Administration/_ShiftAssignment.cshtml">
-      <publishTime>09/03/2016 09:24:49</publishTime>
+      <publishTime>09/03/2016 12:39:31</publishTime>
     </File>
     <File Include="Views/Administration/_Shifts.cshtml">
-      <publishTime>09/03/2016 09:24:49</publishTime>
+      <publishTime>09/03/2016 12:39:31</publishTime>
     </File>
     <File Include="Views/Administration/_ThemeSelection.cshtml">
       <publishTime>09/01/2016 09:50:52</publishTime>
     </File>
     <File Include="Views/Administration/_Users.cshtml">
-      <publishTime>09/03/2016 07:58:49</publishTime>
+      <publishTime>09/03/2016 12:39:31</publishTime>
     </File>
     <File Include="Views/Dashboard/_Dashboard.cshtml">
-      <publishTime>09/01/2016 10:26:56</publishTime>
+      <publishTime>09/03/2016 12:39:31</publishTime>
     </File>
     <File Include="Views/Error/Error.cshtml">
       <publishTime>09/01/2016 09:50:52</publishTime>
@@ -772,19 +790,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/01/2016 09:50:52</publishTime>
     </File>
     <File Include="Views/Visitor/_ManageVisitorManually.cshtml">
-      <publishTime>09/01/2016 14:41:18</publishTime>
+      <publishTime>09/03/2016 11:58:19</publishTime>
     </File>
     <File Include="Views/Visitor/_ScanVisitor.cshtml">
-      <publishTime>09/01/2016 09:50:52</publishTime>
+      <publishTime>09/03/2016 11:54:26</publishTime>
     </File>
     <File Include="Views/Visitor/_VisitorCheckIn.cshtml">
-      <publishTime>09/03/2016 09:24:49</publishTime>
+      <publishTime>09/03/2016 12:04:26</publishTime>
     </File>
     <File Include="Views/Visitor/_VisitorCheckInCheckout.cshtml">
       <publishTime>07/10/2016 12:45:24</publishTime>
     </File>
     <File Include="Views/Visitor/_VisitorCheckout.cshtml">
-      <publishTime>09/03/2016 09:24:49</publishTime>
+      <publishTime>09/03/2016 12:07:14</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>09/01/2016 09:50:52</publishTime>
