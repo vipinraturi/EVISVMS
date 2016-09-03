@@ -52,12 +52,12 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     }
                     else
                     {
-                        return new ReturnResult { Message = "Shift time already exists!!", Success = false };
+                        return new ReturnResult { Message = "Shift time already assigned to other shift", Success = false };
                     }
                 }
                 else
                 {
-                    return new ReturnResult { Message = "shift name already exists", Success = false };
+                    return new ReturnResult { Message = "Shift name already assigned to other shift", Success = false };
                 }
             }
             else
@@ -123,7 +123,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                         item.ShitfName.ToLower().Contains(globalSearch.ToLower()) || item.strFromTime.ToLower().Contains(globalSearch.ToLower()) ||
                         item.strToTime.ToLower().Contains(globalSearch.ToLower())).AsQueryable();
                 }
-                if(string.IsNullOrEmpty(sortField))
+                if (string.IsNullOrEmpty(sortField))
                 {
                     sortField = "ShitfName";
                 }

@@ -84,6 +84,13 @@
                             </tr>
                         </tbody>
                     </table>
+                    <tbody data-bind="if: DataGrid.DataRows().length == 0">
+                        <tr>
+                            <td colspan="5" style="text-align:center;">
+                                No data found.
+                            </td>
+                        </tr>
+                    </tbody>
                     @Html.Partial("_Pager")
 
 

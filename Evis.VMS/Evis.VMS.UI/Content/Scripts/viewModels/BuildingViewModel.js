@@ -23,7 +23,7 @@
     self.ZipCode = ko.observable('').extend({
         required: true,
         pattern: {
-            message: "invalid Zip Code.",
+            message: "Invalid zip code.",
             params: /^([0-9\(\)\/\+ \-\.]*)$/
         }
     });
