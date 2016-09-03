@@ -191,7 +191,10 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 user.UpdatedOn = DateTime.UtcNow;
                 user.UpdatedBy = currentUserId;
                 user.IsActive = true;
-                user.ProfilePicturePath = (string.IsNullOrEmpty(usersVM.ProfilePicturePath) ? string.Empty : string.Format("/images/UserImages/{0}", usersVM.ProfilePicturePath));
+
+                user.ProfilePicturePath = ((string.IsNullOrEmpty(usersVM.ProfilePicturePath) || usersVM.ProfilePicturePath == "VisitorImage") ? string.Empty : string.Format("/images/UserImages/{0}", usersVM.ProfilePicturePath));    
+                
+                
                 await _userService.InsertAsync(user, password, usersVM.RoleId);
                 var proto = Request.GetRequestContext().Url.Request.RequestUri.Scheme;
                 var baseUrl = Request.GetRequestContext().Url.Request.RequestUri.Authority;

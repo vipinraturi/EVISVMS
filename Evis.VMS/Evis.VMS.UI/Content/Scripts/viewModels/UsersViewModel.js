@@ -116,7 +116,10 @@
                 data.ProfilePicturePath = "";
             }
             else {
-                data.ProfilePicturePath = $('.dz-image img').attr('alt');
+                var imagePath = $('.dz-image img').attr('alt');
+                if (imagePath != "/images/UserImages/VisitorImage") {
+                    data.ProfilePicturePath = imagePath;
+                }
             }
             $('.loader-div').show();
             AjaxCall('/Api/Users/SaveUser', data, 'POST', function (data) {

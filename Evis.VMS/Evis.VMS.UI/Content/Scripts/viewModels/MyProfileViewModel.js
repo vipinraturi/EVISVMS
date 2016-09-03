@@ -53,7 +53,7 @@
             $('.dz-image-preview').empty();
             //debugger;
 
-            if (data.ProfilePicturePath != null) {
+            if (data.ProfilePicturePath != null && data.ProfilePicturePath != "" && data.ProfilePicturePath != "/images/UserImages/VisitorImage") {
                 var imagePath = data.ProfilePicturePath;
                 self.ProfilePicturePath(data.ProfilePicturePath);
                 var mockFile = { name: "User Image", size: 1024 };
