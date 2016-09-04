@@ -12,7 +12,7 @@
         errorElementClass: 'err'
     });
 
-
+    var WebSite = ko.observable().extend({ url: true });
     self.errors = ko.validation.group(self);
     self.CompanyName = ko.observable().extend({
         required: true,
@@ -34,14 +34,16 @@
             }
             val = val.replace(/^\s+|\s+$/, ''); //Strip whitespace
             //Regex by Diego Perini from: http://mathiasbynens.be/demo/url-regex
-            return val.match(/((ftp|http|https):\/\/)?(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/);
-            message: 'This field has to be a valid URL'
+            return val.match(/[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi);
         },
         message: 'This field has to be a valid URL'
     };
     ko.validation.registerExtenders();
     
-
+    self.organizationErrors = ko.validation.group({
+        CompanyName: this.CompanyName,
+        CountryId: this.CountryId
+    });
 
     self.Countries = ko.observableArray();
     AjaxCall('/Api/Administration/GetCountries', null, 'GET', function (data) {
@@ -52,12 +54,9 @@
     self.SaveOrganization = function () {
         $('.loader-div').show();
         setTimeout(function () {
-            if (self.errors().length > 0) {
-                self.errors.showAllMessages(true);
-                this.errors().forEach(function (data) {
-                    toastr.clear();
-                    toastr.warning(data);
-                });
+            if (self.organizationErrors().length > 0 || ($("#txtWebsite").val() != '' && $("span.validationMessage").text() != '')) {
+                self.organizationErrors.showAllMessages(true);
+                return false;
             }
             else {
                 //debugger;
@@ -78,8 +77,9 @@
                     self.IsInsert(true);
                 })
             }
-            $('.loader-div').hide();
-        }, 1000);
+           
+        }, 500);
+        $('.loader-div').hide();
     }
 
 

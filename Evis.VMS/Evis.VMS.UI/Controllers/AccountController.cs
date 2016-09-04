@@ -134,10 +134,10 @@ namespace Evis.VMS.UI.Controllers
             else
             {
                 // Uncomment it later - Junaid
-                //string password = System.Web.Security.Membership.GeneratePassword(8, 0);
+                string password = System.Web.Security.Membership.GeneratePassword(8, 0);
 
                 // Just for testing the application - remove this later
-                string password = "Admin@123";
+                //string password = "Admin@123";
 
                 var passwordHash = new Microsoft.AspNet.Identity.PasswordHasher();
                 var hashedPassword = passwordHash.HashPassword(password);
@@ -153,8 +153,9 @@ namespace Evis.VMS.UI.Controllers
 
                 //string body = "Dear " + user.FullName + ", <br/>Your password has been reset, click <a href=\"" + user.FullName + "\">here</a> to reset the password.<br/>" +
                 //    "<br/><br/>Regards,<br/>Administrator";
+
                 // Send email on Forgot Password.
-                //EmailHelper.SendMail(user.Email, "Reset Password", body);
+                EmailHelper.SendMail(user.Email, "Reset Password", body);
 
                 Message = "Log in using the password which is to your email address";
             }

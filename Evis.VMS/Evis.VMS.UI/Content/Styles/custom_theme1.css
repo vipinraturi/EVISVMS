@@ -5369,3 +5369,8 @@ input[type=text]:focus, textarea:focus {
     .input-group-btn:last-child > .btn, .input-group-btn:last-child > .btn-group {
       border: 1px solid rgb(26, 187, 156)!important;
     }
+
+    select option {
+      background: #99e9d9!important;
+    color: #314457 !important;
+}
