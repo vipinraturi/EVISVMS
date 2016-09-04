@@ -30,10 +30,12 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         [HttpPost]
         public ReturnResult SaveGate([FromBody]  GateMaster gateMaster)
         {
+            bool success = false;
+            string message = "";
             var currentUserId = HttpContext.Current.User.Identity.GetUserId();
             if (gateMaster.Id == 0)
             {
-                var data = _genericService.GateMaster.GetAll().Where(x => x.GateNumber == gateMaster.GateNumber.Trim() && x.BuildingId == gateMaster.BuildingId && x.IsActive == true).ToList();
+                var data = _genericService.GateMaster.GetAll().Where(x => x.GateNumber.Trim() == gateMaster.GateNumber.Trim() && x.BuildingId == gateMaster.BuildingId && x.IsActive == true).ToList();
                 if (data.Count() == 0)
                 {
                     gateMaster.IsActive = true;
@@ -42,6 +44,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     gateMaster.UpdatedBy = currentUserId;
                     gateMaster.UpdatedOn = DateTime.UtcNow;
                     _genericService.GateMaster.Insert(gateMaster);
+                    message = "Gate saved successfully!!";
+                    success = true;
                 }
                 else
                 {
@@ -53,16 +57,26 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 var existinggate = _genericService.GateMaster.GetById(gateMaster.Id);
                 if (existinggate != null)
                 {
-                    existinggate.BuildingId = gateMaster.BuildingId;
-                    existinggate.GateNumber = gateMaster.GateNumber;
-                    existinggate.UpdatedBy = currentUserId;
-                    existinggate.UpdatedOn = DateTime.UtcNow;
-                    gateMaster.IsActive = true;
-                    _genericService.GateMaster.Update(existinggate);
+                    var data = _genericService.GateMaster.GetAll().Where(x => x.GateNumber.Trim() == gateMaster.GateNumber.Trim() && x.BuildingId == gateMaster.BuildingId && x.IsActive == true).ToList();
+                    if (data.Count() == 0)
+                    {
+                        existinggate.BuildingId = gateMaster.BuildingId;
+                        existinggate.GateNumber = gateMaster.GateNumber;
+                        existinggate.UpdatedBy = currentUserId;
+                        existinggate.UpdatedOn = DateTime.UtcNow;
+                        gateMaster.IsActive = true;
+                        _genericService.GateMaster.Update(existinggate);
+                        message = "Gate update successfully!!";
+                        success = true;
+                    }
+                    else
+                    {
+                        return new ReturnResult { Message = "UnSuccess", Success = false };
+                    }
                 };
             }
             _genericService.Commit();
-            return new ReturnResult { Message = "Success", Success = true };
+            return new ReturnResult { Message = message, Success = true };
         }
         [Route("~/Api/Gates/GetAllGate")]
         [HttpPost]

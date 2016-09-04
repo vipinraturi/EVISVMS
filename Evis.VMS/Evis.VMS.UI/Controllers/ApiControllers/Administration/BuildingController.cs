@@ -34,6 +34,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         [HttpPost]
         public ReturnResult SaveBuilding([FromBody] BuildingVM buildingMaster)
         {
+            bool success = false;
+            string message = "";
             string currentUserId = HttpContext.Current.User.Identity.GetUserId();
             if (buildingMaster.Id == 0)
             {
@@ -68,7 +70,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     obj.OtherState = (buildingMaster.CityId == null) ? buildingMaster.txtstate : null;
                     obj.OtherCity = (buildingMaster.CityId == null) ? buildingMaster.txtcity : null;
                     _genericService.BuildingMaster.Insert(obj);
-                    //}
+                    message = "Building saved successfully!!";
+                    success = true;
                 }
                 else
                 {
@@ -96,10 +99,12 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     existingOrg.OtherState = (buildingMaster.CityId == null) ? buildingMaster.txtstate : null;
                     existingOrg.OtherCity = (buildingMaster.CityId == null) ? buildingMaster.txtcity : null;
                     _genericService.BuildingMaster.Update(existingOrg);
+                    message = "Building update successfully!!";
+                    success = true;
                 };
             }
             _genericService.Commit();
-            return new ReturnResult { Message = "Success", Success = true };
+            return new ReturnResult { Message = message, Success = true };
         }
 
         [Route("~/Api/Administration/GetBuildingData")]
@@ -178,7 +183,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 //if (string.IsNullOrEmpty(sortField))
                 //{
                 //    sortField = "BuildingName";
-                    
+
                 //}
 
                 var paginationRequest = new PaginationRequest
@@ -193,7 +198,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 IList<BuildingVM> result =
                    GenericSorterPager.GetSortedPagedList<BuildingVM>(lstBuildingVM, paginationRequest, out totalCount);
 
-                var jsonData = JsonConvert.SerializeObject(result.OrderByDescending(x=>x.Id));
+                var jsonData = JsonConvert.SerializeObject(result.OrderByDescending(x => x.UpdatedOn));
                 return JsonConvert.SerializeObject(new { totalRows = totalCount, result = jsonData });
             }
             return null;

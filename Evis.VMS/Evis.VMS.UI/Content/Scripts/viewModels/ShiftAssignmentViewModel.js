@@ -152,8 +152,8 @@
             data.UserId = self.UserId();
             data.BuildingId = self.BuildingId();
             data.GateId = self.GateId();
-            data.FromDate = self.FromDate();
-            data.ToDate = self.ToDate();
+            data.FromDate = $('#dateFrom').val();
+            data.ToDate = $('#dateTo').val();
 
 
             AjaxCall('/Api/ShiftAssignment/SaveShiftAssignment', data, 'POST', function (data) {

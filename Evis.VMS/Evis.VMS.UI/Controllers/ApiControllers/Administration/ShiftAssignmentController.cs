@@ -54,45 +54,44 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         [HttpGet]
         public async Task<IEnumerable<DropDownVM>> GetAllUsers(int GateId)
         {
+            IEnumerable<DropDownVM> result;
             var user = (await _userService.GetAllAsync()).Where(x => x.Id == HttpContext.Current.User.Identity.GetUserId() && x.IsActive == true).FirstOrDefault();
             if (user == null)
             {
                 var gates = _genericService.GateMaster.GetAll().FirstOrDefault(x => x.Id == GateId && x.IsActive == true);
+                var building = _genericService.BuildingMaster.GetAll().Where(x => x.Id == gates.BuildingId).FirstOrDefault();
                 var getUsers = (await _userService.GetAllAsync()).Where(x => x.Organization.IsActive == true &&
                                (user == null || (user != null && x.OrganizationId == user.OrganizationId))).AsQueryable();
-
                 var getRoles = (await _applicationRoleService.GetAllAsync()).AsQueryable();
-                var result = (from users in getUsers
-                              join roles in getRoles on users.Roles.First().RoleId equals roles.Id
-                              // where roles.Name == "Security"
-                              select new DropDownVM
-                              {
-                                  Id = users.Id,
-                                  Name = users.FullName
-                              }).AsQueryable();
-                return result;
+                result = (from users in getUsers
+                          join roles in getRoles
+                          on users.Roles.First().RoleId equals roles.Id
+                          where (user == null || (user != null && user.OrganizationId == building.OrganizationId)) && roles.Name == "Security"
+                          select new DropDownVM
+                          {
+                              Id = users.Id,
+                              Name = users.FullName
+                          }).AsQueryable();
             }
             else
             {
-                int orgId = user.Organization.Id;
                 var gates = _genericService.GateMaster.GetAll().FirstOrDefault(x => x.Id == GateId && x.IsActive == true);
                 var building = _genericService.BuildingMaster.GetAll().Where(x => x.Id == gates.BuildingId).FirstOrDefault();
                 var getUsers = (await _userService.GetAllAsync()).Where(x => x.Organization.IsActive == true &&
                                (user == null || (user != null && x.OrganizationId == user.OrganizationId))).AsQueryable();
 
                 var getRoles = (await _applicationRoleService.GetAllAsync()).AsQueryable();
-                var result = (from users in getUsers
-                              join roles in getRoles
-                              on users.Roles.First().RoleId equals roles.Id
-                              where user.OrganizationId == building.OrganizationId && roles.Name == "Security"
-                              select new DropDownVM
-                              {
-                                  Id = users.Id,
-                                  Name = users.FullName
-                              }).AsQueryable();
-
-                return result;
+                result = (from users in getUsers
+                          join roles in getRoles
+                          on users.Roles.First().RoleId equals roles.Id
+                          where (user == null || (user != null && user.OrganizationId == building.OrganizationId)) && roles.Name == "Security"
+                          select new DropDownVM
+                          {
+                              Id = users.Id,
+                              Name = users.FullName
+                          }).AsQueryable();
             }
+            return result;
         }
 
         [Route("~/Api/ShiftAssignment/GetAllShiftAssignment")]
@@ -118,7 +117,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                             strFromDate = x.FromDate.ToString("dd/MM/yyyy"),
                             strToDate = x.ToDate.ToString("dd/MM/yyyy"),
                             Id = x.Id,
-                            City = (x.BuildingMaster.CityId ==null) ? x.BuildingMaster.OtherCity : x.BuildingMaster.CityMaster.LookUpValue,
+                            City = (x.BuildingMaster.CityId == null) ? x.BuildingMaster.OtherCity : x.BuildingMaster.CityMaster.LookUpValue,
                             OtherCity = x.BuildingMaster.OtherCity
                         }).AsQueryable();
 
@@ -188,27 +187,14 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
             if (ShitfAssignment.Id == 0)
             {
-
-                //var data = _genericService.ShitfAssignment.GetAll().Where(x => x.UserId == ShitfAssignment.UserId && x.IsActive == true && x.FromDate <= ShitfAssignment.FromDate || x.ToDate >= ShitfAssignment.ToDate).ToList();//&&   
-                //var data = _genericService.ShitfAssignment.GetAll().Where(x => x.FromDate >= ShitfAssignment.FromDate && x.ToDate <= ShitfAssignment.FromDate
-                //    || (x.FromDate >= ShitfAssignment.ToDate && x.ToDate <= ShitfAssignment.ToDate)
-                //     || (ShitfAssignment.FromDate >= x.FromDate && ShitfAssignment.ToDate <= x.ToDate)).ToList();
-
-                //             .FindAllBy(x => x.StartDate <= checkout && x.EndDate >= checkin,  
-                //           y => y.RoomTypeNav)
-                //.ToList();
-
-                var data = _genericService.ShitfAssignment.GetAll().Where(x => x.FromDate >= ShitfAssignment.FromDate
+                var data = _genericService.ShitfAssignment.GetAll().Where(x => (x.FromDate >= ShitfAssignment.FromDate
                     && x.ToDate <= ShitfAssignment.ToDate
                     || x.FromDate >= ShitfAssignment.FromDate
                     && x.FromDate <= ShitfAssignment.ToDate
                     || x.ToDate >= ShitfAssignment.FromDate
                     && x.ToDate <= ShitfAssignment.ToDate
                     || x.FromDate <= ShitfAssignment.ToDate
-                    && x.ToDate >= ShitfAssignment.FromDate).ToList();
-                // ('2016-08-25 00:00:00.000' BETWEEN b.FromDate
-                //AND b.ToDate OR '2016-09-01 00:00:00.000' BETWEEN b.FromDate
-                //AND b.ToDate OR ('2016-08-25 00:00:00.000'<= b.FromDate AND '2016-09-01 00:00:00.000' >= b.ToDate))
+                    && x.ToDate >= ShitfAssignment.FromDate) && (x.UserId == ShitfAssignment.UserId)).ToList();
                 if (data.Count() == 0)
                 {
                     ShitfAssignment.IsActive = true;
@@ -228,6 +214,16 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 var existingShift = _genericService.ShitfAssignment.GetById(ShitfAssignment.Id);
                 if (existingShift != null)
                 {
+                    //var data = _genericService.ShitfAssignment.GetAll().Where(x => x.FromDate >= existingShift.FromDate
+                    //&& x.ToDate <= existingShift.ToDate
+                    //|| x.FromDate >= existingShift.FromDate
+                    //&& x.FromDate <= existingShift.ToDate
+                    //|| x.ToDate >= existingShift.FromDate
+                    //&& x.ToDate <= existingShift.ToDate
+                    //|| x.FromDate <= existingShift.ToDate
+                    //&& x.ToDate >= existingShift.FromDate).ToList();
+                    //if (data.Count() == 0)
+                    //{
                     existingShift.BuildingId = ShitfAssignment.BuildingId;
                     existingShift.GateId = ShitfAssignment.GateId;
                     existingShift.UserId = ShitfAssignment.UserId;
@@ -236,6 +232,11 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     existingShift.ToDate = ShitfAssignment.ToDate;
                     ShitfAssignment.IsActive = true;
                     _genericService.ShitfAssignment.Update(existingShift);
+                    //}
+                    //else
+                    //{
+                    //    return new ReturnResult { Message = "UnSuccess", Success = false };
+                    //}
                 };
             }
             _genericService.Commit();

@@ -25,22 +25,34 @@
         pattern: {
             message: "Invalid zip code.",
             params: /^([0-9\(\)\/\+ \-\.]*)$/
+        },
+        minLength: {
+            params: 8,
+            message: 'Enter minimum of 8-length number'
         }
     });
     self.EmailId = ko.observable('').extend({ minLength: 2, maxLength: 40, email: { message: "Invalid email" } });
     self.ContactNumber = ko.observable('').extend({
         required: true,
         pattern: {
-            message: 'Invalid Contact Number.',
-            params: /^([0-9\(\)\/\+ \-\.]*)$/
+            message: 'Invalid phone number.',
+            params: /^\+?([0-9\(\)\/\-\.]*)$/
+        },
+        minLength: {
+            params: 6,
+            message: 'Enter minimum of 6-length number'
         }
     });
-
+    
     self.FaxNumber = ko.observable('').extend({
         required: true,
         pattern: {
             message: 'Invalid Fax Number.',
             params: /^([0-9\(\)\/\+ \-\.]*)$/
+        },
+        minLength: {
+            params: 8,
+            message: 'Enter minimum of 8-length number'
         }
     });
     self.WebSite = ko.observable('').extend({ url: true });
@@ -50,8 +62,6 @@
                 return !required
             }
             val = val.replace(/^\s+|\s+$/, ''); //Strip whitespace
-            //Regex by Diego Perini from: http://mathiasbynens.be/demo/url-regex
-            //return val.match(/^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.‌​\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[‌​6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1‌​,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00‌​a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u‌​00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?$/i);
             return val.match(/[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi);
         },
         message: 'This field has to be a valid URL'
@@ -112,20 +122,20 @@
                     debugger;
                     self.City(data);
                     self.CityId(cityId);
-                  
                 }
                 else {
-
                     document.getElementById('dropcity').style.visibility = 'visible';
-                    
+                    $('#dropcountry').hide();
+                    $('#dropcity').hide();
+                    $('#dropstate').hide();
                 }
 
             })
         }
     }
-  
-    self.LoadStates = function () {
 
+    self.LoadStates = function () {
+        debugger;
         if (self.NationalityId() != undefined && self.NationalityId() != 0) {
             AjaxCall('/Api/Administration/GetAllStateOrCity?id=' + self.NationalityId(), null, 'GET', function (data) {
                 if (data.length > 0) {
@@ -140,9 +150,7 @@
                     $(".ErrorCountryd").hide();
                 }
                 else {
-                    $('#dropcountry').show();
-                    $('#dropcity').show();
-                    $('#dropstate').show();
+
                     $('#state').hide();
                     $('#city').hide();
                     self.Countrydlltxt('');
@@ -184,7 +192,7 @@
         if (a == "Others") {
             var txtcountry = $("#txtcountry").val();
             if (txtcountry == "") {
-              //  alert('Fill this field');
+                //  alert('Fill this field');
                 $(".loginErrorCountrydlltxt").show();
                 return false;
             }
@@ -202,7 +210,7 @@
             }
             var txtcitydl = $("#txtcitydl").val();
             if (txtcitydl == "") {
-              //  alert('Fill this field');
+                //  alert('Fill this field');
                 $(".loginErrorcitydlltxt").show();
                 return false;
             }
@@ -250,11 +258,11 @@
             self.errors.showAllMessages(true);
             if (a == "-- Select Country --") {
                 $('.ErrorCountryd').show();
-             //   document.getElementById('ErrorCountryd').style.visibility = 'visible';
+                //   document.getElementById('ErrorCountryd').style.visibility = 'visible';
             }
             else {
                 $('ErrorCountryd').hide();
-               // document.getElementById('ErrorCountryd').style.visibility = 'none';
+                // document.getElementById('ErrorCountryd').style.visibility = 'none';
             }
             this.errors().forEach(function (data) {
             });
@@ -276,8 +284,10 @@
             data.txtcity = self.citydlltxt();
             //// display any error messages if we have them
             AjaxCall('/Api/Administration/SaveBuilding', data, 'POST', function (data) {
-                if (data.Message == "Success") {
-                    toastr.success('Building saved successfully!!')
+                debugger;
+                if (data.Success == true) {
+                    toastr.clear();
+                    toastr.success(data.Message)
                     ApplyCustomBinding('buildings');
                     self.Countrydlltxt('')
                 }
@@ -308,7 +318,7 @@
     }
     self.EditBuilding = function (tableItem) {
         debugger;
-      
+
         if (tableItem != undefined) {
             $('.ErrorCountryd').hide();
             self.Id(tableItem.Id);
