@@ -43,9 +43,8 @@
             message: 'Enter minimum of 6-length number'
         }
     });
-    
+
     self.FaxNumber = ko.observable('').extend({
-        required: true,
         pattern: {
             message: 'Invalid Fax Number.',
             params: /^([0-9\(\)\/\+ \-\.]*)$/
@@ -99,7 +98,18 @@
         });
     self.Organizations = ko.observableArray();
     AjaxCall('/Api/User/GetAllOrganizations', null, 'GET', function (data) {
+        console.log(data);
+        debugger;
+        // alert(data.length);
         self.Organizations(data);
+        if (data.length == 1) {
+            // alert(data[0].Name);
+            self.OrganizationId(data[0].Id);
+            $("#Org").attr('disabled', false);
+        }
+
+
+
     });
     self.DataGrid = new RIT.eW.DataGridAjax('/Api/Administration/GetBuildingData', 7);
 
@@ -158,13 +168,16 @@
                     self.citydlltxt('');
                     self.StateId(undefined);
                     self.CityId(undefined);
+                    $('#dropcountry').show();
+                    $('#dropcity').show();
+                    $('#dropstate').show();
                 }
             })
         }
     }
     self.SaveBuilding = function () {
         var abc = self.BuildingName();
-        //abc = self.StateName();
+        abc = self.WebSite();
         abc = self.Address();
         abc = self.ZipCode();
         //abc = self.Nationality();
@@ -317,8 +330,6 @@
 
     }
     self.EditBuilding = function (tableItem) {
-        debugger;
-
         if (tableItem != undefined) {
             $('.ErrorCountryd').hide();
             self.Id(tableItem.Id);
@@ -333,11 +344,12 @@
             self.NationalityId((tableItem.NationalityId == undefined) ? 11 : tableItem.NationalityId);
             stateId = (tableItem.StateId);
             cityId = (tableItem.CityId);
+            // alert(tableItem.txtcountry);
+            debugger;
             if (tableItem.txtcountry != null) {
                 self.Countrydlltxt(tableItem.txtcountry);
                 $("#Country").show();
                 $("#dropcountry").show();
-                //  document.getElementById('dropcountry').style.visibility = 'visible';
             }
             else {
                 $("#Country").show();
@@ -347,7 +359,7 @@
                 self.statedlltxt(tableItem.txtstate);
                 $("#state").hide();
                 $("#dropstate").show();
-                //  document.getElementById('dropstate').style.visibility = 'visible';
+
             }
             else {
                 $("#state").show();
@@ -357,7 +369,7 @@
                 self.citydlltxt(tableItem.txtcity);
                 $("#city").hide();
                 $("#dropcity").show();
-                // document.getElementById('dropcity').style.visibility = 'visible';
+
             }
             else {
                 $("#city").show();

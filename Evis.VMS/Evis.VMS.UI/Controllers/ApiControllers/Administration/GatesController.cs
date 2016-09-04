@@ -106,21 +106,22 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 int orgId = user.Organization.Id;
                 if (orgId != null)
                 {
-                    var data = _genericService.BuildingMaster.GetAll().Where(x => x.OrganizationId == orgId).FirstOrDefault();
-                    lstgateVM = _genericService.GateMaster.GetAll().Where(x => x.IsActive == true && x.BuildingId == data.Id)
-                            .Select(x => new GatesVM
-                            {
-                                Id = x.Id,
-                                BuildingId = x.BuildingId,
-                                GateNumber = x.GateNumber,
-                                BuildingName = x.BuildingMaster.BuildingName,
-                                Country = x.BuildingMaster.CityMaster.ParentValues.LookUpValue == null ? x.BuildingMaster.OtherCountry : x.BuildingMaster.CityMaster.ParentValues.LookUpValue,
-                                State = x.BuildingMaster.CityMaster.ParentValues.ParentValues.LookUpValue == null ? x.BuildingMaster.OtherState : x.BuildingMaster.CityMaster.ParentValues.ParentValues.LookUpValue,
-                                City = x.BuildingMaster.CityMaster.LookUpValue == null ? x.BuildingMaster.OtherCity : x.BuildingMaster.CityMaster.LookUpValue,
-                                otherCountry = x.BuildingMaster.OtherCountry,
-                                OtherState = x.BuildingMaster.OtherState,
-                                OtherCity = x.BuildingMaster.OtherCity
-                            });
+
+                    lstgateVM = _genericService.GateMaster.GetAll().Where(x => x.IsActive == true && x.BuildingMaster.OrganizationId == orgId)
+                                  .Select(x => new GatesVM
+                                  {
+                                      Id = x.Id,
+                                      BuildingId = x.BuildingId,
+                                      GateNumber = x.GateNumber,
+                                      BuildingName = x.BuildingMaster.BuildingName,
+                                      Country = x.BuildingMaster.CityMaster.ParentValues.LookUpValue == null ? x.BuildingMaster.OtherCountry : x.BuildingMaster.CityMaster.ParentValues.LookUpValue,
+                                      State = x.BuildingMaster.CityMaster.ParentValues.ParentValues.LookUpValue == null ? x.BuildingMaster.OtherState : x.BuildingMaster.CityMaster.ParentValues.ParentValues.LookUpValue,
+                                      City = x.BuildingMaster.CityMaster.LookUpValue == null ? x.BuildingMaster.OtherCity : x.BuildingMaster.CityMaster.LookUpValue,
+                                      otherCountry = x.BuildingMaster.OtherCountry,
+                                      OtherState = x.BuildingMaster.OtherState,
+                                      OtherCity = x.BuildingMaster.OtherCity
+                                  });
+
                 }
             }
             if (lstgateVM.Count() > 0)
@@ -201,7 +202,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             else
             {
                 int orgId = user.Organization.Id;
-                result = _genericService.BuildingMaster.GetAll().Where(x => x.IsActive == true && x.Id == orgId)
+                result = _genericService.BuildingMaster.GetAll().Where(x => x.IsActive == true && x.OrganizationId == orgId)
                       .Select(y => new GeneralDropDownVM { Id = y.Id, Name = y.BuildingName });
             }
             return result.OrderByDescending(x => x.Id);
