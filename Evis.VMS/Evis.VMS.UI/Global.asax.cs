@@ -39,6 +39,14 @@ namespace Evis.VMS.UI
                 // ErrorHandling(sender, routeData);
             }
         }
+
+        protected void Application_BeginRequest()
+        {
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            Response.Cache.SetExpires(DateTime.UtcNow.AddHours(-1));
+            Response.Cache.SetNoStore();
+        }
+
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{*BarCodeHandler}", new { BarCodeHandler = @"(.*/)?Barcode.ashx(/.*)?" });

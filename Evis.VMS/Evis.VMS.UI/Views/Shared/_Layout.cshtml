@@ -113,7 +113,7 @@
                             <ul class="nav navbar-nav navbar-right">
                                 <li class="">
                                     <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                        <img id="imgUserAvatar" src="@(string.IsNullOrEmpty(@userSessionData.ProfilePicPath) ? "/images/avatar.jpg" : @userSessionData.ProfilePicPath)" alt="">@HttpContext.Current.User.Identity.GetUserName()<span style="padding-left: 5px;" class=" fa fa-angle-down"></span>
+                                        <img id="imgUserAvatar" src="@(string.IsNullOrEmpty(@userSessionData.ProfilePicPath) ? "/images/avatar.jpg" : @userSessionData.ProfilePicPath)" alt="">@userSessionData.FullName<span style="padding-left: 5px;" class=" fa fa-angle-down"></span>
                                     </a>
                                     <ul class="dropdown-menu dropdown-usermenu pull-right">
                                         <li class="myprofile"><a href="#">My Profile</a></li>
@@ -150,7 +150,7 @@
     @Scripts.Render("~/bundles/js")
     @Scripts.Render("~/bundles/knockout")
     @Scripts.Render("~/bundles/app")
-   
+
 
     <script type="text/javascript">
         function changetheme(themeName) {
@@ -186,8 +186,8 @@
             $('.loader-div').hide();
         }
 
-        function disableBack() { window.history.forward(); }
-        window.onload = disableBack();
+        //function disableBack() { window.history.forward(); }
+        //window.onload = disableBack();
         //setInterval(changetheme, (30 * 60 * 1000));
     </script>
 
