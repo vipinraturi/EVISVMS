@@ -80,7 +80,7 @@
     //self.userErrors = ko.validation.group(self);
 
     self.GetAllUsers = function () {
-        self.DataGrid.UpdateSearchParam('?globalSearch=' + $.trim($("#txtGlobalSearch").val()));
+        self.DataGrid.UpdateSearchParam('?globalSearch=' + $.trim($("#txtGlobalSearchUser").val()));
         DataGrid.FlipPage(1);
         self.DataGrid.GetData();
     }

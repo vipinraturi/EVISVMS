@@ -39,7 +39,7 @@ function OrganizationViewModel() {
     self.DataGrid = new RIT.eW.DataGridAjax('/Api/Administration/GetOrganizationsData', 7);
 
     self.GetAllOrganizations = function () {
-        self.DataGrid.UpdateSearchParam('?globalSearch=' + $.trim($("#txtGlobalSearch").val()));
+        self.DataGrid.UpdateSearchParam('?globalSearch=' + $.trim($("#txtGlobalSearchOrg").val()));
         DataGrid.FlipPage(1);
         self.DataGrid.GetData();
     }
