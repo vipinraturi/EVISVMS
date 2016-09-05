@@ -10,20 +10,21 @@ function OrganizationViewModel() {
     });
 
     self.CountryId = ko.observable(undefined).extend({ required: true });
-    self.WebSite = ko.observable('').extend({ url: true });
+    self.WebSite = ko.observable(''); //.extend({ url: true });
     self.Country = ko.observable('');
     self.GlobalSearch = ko.observable('');
 
-    ko.validation.rules['url'] = {
-        validator: function (val, required) {
-            if (!val) {
-                return !required
-            }
-            val = val.replace(/^\s+|\s+$/, '');
-            return val.match(/[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi);
-        },
-        message: 'This field has to be a valid URL'
-    };
+    //ko.validation.rules['url'] = {
+    //    validator: function (val, required) {
+    //        if (!val) {
+    //            return !required
+    //        }
+    //        val = val.replace(/^\s+|\s+$/, '');
+    //        return val.match(/[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi);
+    //    },
+    //    message: 'This field has to be a valid URL'
+    //};
+
     ko.validation.registerExtenders();
 
     self.organizationErrors = ko.validation.group({
@@ -45,6 +46,13 @@ function OrganizationViewModel() {
     }
 
     self.SaveOrganization = function () {
+        debugger;
+        if ($.trim(self.WebSite()) != '' && $.trim(self.WebSite()).match(/^(www\.)[a-zA-Z0-9./]+$/gim) == null) {
+            $("#spnWebsite").html("Invalid webiste url").show();
+        }
+        else {
+            $("#spnWebsite").html("").hide();
+        }
         if (self.organizationErrors().length > 0 || ($("#txtWebsite").val() != '' && $("span.validationMessage").text() != '')) {
             self.organizationErrors.showAllMessages(true);
             return false;
@@ -55,7 +63,7 @@ function OrganizationViewModel() {
 
             data.CompanyName = $.trim(self.CompanyName()),
             data.CountryId = self.CountryId(),
-            data.WebSite = self.WebSite();
+            data.WebSite = $.trim(self.WebSite());
 
             $('.loader-div').show();
             AjaxCall('/Api/Administration/SaveOrganization', data, 'POST', function (data) {
