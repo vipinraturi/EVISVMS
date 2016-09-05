@@ -3,7 +3,7 @@
     <li><a href="#" class="a-color">Building</a></li>
 </ol>
 <div class="row">
-    <div class="col-md-6 col-xs-12">
+    <div class="col-md-5 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
                 <h2>Create / Update Building</h2>
@@ -115,7 +115,7 @@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Zip Code<span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtPOBox" type="text" class="form-control Fieldfocus" placeholder="[Zip Code]"  required="required" maxlength="10" data-bind="value:ZipCode" />
+                            <input id="txtPOBox" type="text" class="form-control Fieldfocus" placeholder="[Zip Code]"  required="required" maxlength="6" data-bind="value:ZipCode" />
                             <span class="fa fa-envelope-o favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
@@ -130,7 +130,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-6 col-xs-12">
+    <div class="col-md-7 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
                 <h2>Manage Building</h2>
@@ -151,9 +151,10 @@
                         <thead>
                             <tr>
                                 <th style="width: 1%">#</th>
-                                <th style="width: 26%"> <a href="#" onclick="DataGrid.Sort('BuildingName')" class="BuildingName">BuildingName</a> </th>
-                                <th style="width: 27%"> <a href="#" onclick="DataGrid.Sort('OrganizationName')" class="OrganizationName">OrganizationName</a></th>
-                                <th style="width: 34%"><a href="#" onclick="DataGrid.Sort('Address')" class="Address">Address</a></th>
+                                <th style="width: 20%"> <a href="#" onclick="DataGrid.Sort('BuildingName')" class="BuildingName">BuildingName</a> </th>
+                                <th style="width: 20%"> <a href="#" onclick="DataGrid.Sort('OrganizationName')" class="OrganizationName">OrganizationName</a></th>
+                                <th style="width: 20%"><a href="#" onclick="DataGrid.Sort('CreatedOn')" class="CreatedOn">Created On<i class="fa fa-chevron-down icons"></i></a></th>
+                                <th style="width: 27%"><a href="#" onclick="DataGrid.Sort('Address')" class="Address">Address</a></th>
                                 <th style="width: 12%"></th>
                             </tr>
                         </thead>
@@ -162,6 +163,7 @@
                                 <th scope="row" data-bind="text: $index() +1"></th>
                                 <td data-bind="text: BuildingName"></td>
                                 <td data-bind="text: OrganizationName"></td>
+                                <td data-bind="text: CreatedOn"></td>
                                 <td data-bind="text: Address"></td>
                                 <td style="padding:0px !important">
                                     <a href="#" class="" data-bind="click: EditBuilding.bind($data)" title="click here to view or edit record."><i class="fa fa-pencil"></i></a>

@@ -35,7 +35,7 @@ namespace Evis.VMS.UI.ViewModel
         public string ContactNumber { get; set; }
         public string FaxNumber { get; set; }
         public string WebSite { get; set; }
-        public DateTime? CreatedOn { get; set; }
+        public string CreatedOn { get; set; }
         public string CreatedBy { get; set; }
         public DateTime? UpdatedOn { get; set; }
         public string UpdatedBy { get; set; }

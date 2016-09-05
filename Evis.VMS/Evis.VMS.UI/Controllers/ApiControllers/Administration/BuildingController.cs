@@ -66,6 +66,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     obj.WebSite = buildingMaster.WebSite;
                     obj.UpdatedBy = currentUserId;
                     obj.UpdatedOn = DateTime.UtcNow;
+                    obj.CreatedOn = DateTime.UtcNow;
+                    obj.CreatedBy = currentUserId;
                     obj.OtherCountry = (buildingMaster.CityId == null) ? buildingMaster.txtcountry : null;
                     obj.OtherState = (buildingMaster.CityId == null) ? buildingMaster.txtstate : null;
                     obj.OtherCity = (buildingMaster.CityId == null) ? buildingMaster.txtcity : null;
@@ -132,7 +134,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                  WebSite = x.WebSite,
                  txtcountry = x.OtherCountry,
                  txtstate = x.OtherState,
-                 txtcity = x.OtherCity
+                 txtcity = x.OtherCity,
+                 CreatedOn = x.CreatedOn.ToString()
              });
             }
             else
@@ -158,7 +161,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                      WebSite = x.WebSite,
                      txtcountry = x.OtherCountry,
                      txtstate = x.OtherState,
-                     txtcity = x.OtherCity
+                     txtcity = x.OtherCity,
+                     CreatedOn = x.CreatedOn.ToString()
 
                  });
                 }

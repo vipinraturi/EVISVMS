@@ -33,6 +33,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         [HttpPost]
         public ReturnResult Saveshift([FromBody]  ShitfMaster ShiftDetail)
         {
+            bool success = false;
+            string Message = "";
             var currentUserId = HttpContext.Current.User.Identity.GetUserId();
             if (ShiftDetail.Id == 0)
             {
@@ -53,6 +55,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                             ShiftDetail.FromTime = ShiftDetail.FromTime;
                             ShiftDetail.ToTime = ShiftDetail.ToTime;
                             _genericService.ShitfMaster.Insert(ShiftDetail);
+                            Message = "Shift saved successfully!!";
+                            success = true;
                         }
                         else
                         {
@@ -72,12 +76,13 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             else
             {
                 var shiftFromDb = _genericService.ShitfMaster.GetById(ShiftDetail.Id);
+
                 if (shiftFromDb != null)
                 {
-                    var data = _genericService.ShitfMaster.GetAll().Where(x => x.ShitfName == ShiftDetail.ShitfName.Trim()).ToList();
+                    var data = _genericService.ShitfMaster.GetAll().Where(x => x.Id != ShiftDetail.Id && x.ShitfName == ShiftDetail.ShitfName.Trim()).ToList();
                     if (data.Count() == 0)
                     {
-                        var result = _genericService.ShitfMaster.GetAll().Where(y => y.ToTime == ShiftDetail.ToTime && y.FromTime == ShiftDetail.FromTime).ToList();
+                        var result = _genericService.ShitfMaster.GetAll().Where(y => y.Id != ShiftDetail.Id && y.ToTime == ShiftDetail.ToTime && y.FromTime == ShiftDetail.FromTime).ToList();
                         if (result.Count() == 0)
                         {
                             if (ShiftDetail.FromTime != ShiftDetail.ToTime)
@@ -91,8 +96,10 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                                     shiftFromDb.UpdatedBy = currentUserId;
                                     shiftFromDb.UpdatedOn = DateTime.UtcNow;
                                     ShiftDetail.IsActive = true;
-                                    _genericService.ShitfMaster.Update(ShiftDetail);
-
+                                    shiftFromDb.CreatedOn = shiftFromDb.CreatedOn;
+                                    _genericService.ShitfMaster.Update(shiftFromDb);
+                                    Message = "Shift update successfully!!";
+                                    success = true;
                                 };
                             }
                             else
@@ -110,9 +117,12 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                         return new ReturnResult { Message = "Shift name already assigned to other shift", Success = false };
                     }
                 }
+
+
+
             }
             _genericService.Commit();
-            return new ReturnResult { Message = "Success", Success = true };
+            return new ReturnResult { Message = Message, Success = true };
         }
         [Route("~/Api/Shift/GetAllShift")]
         [HttpPost]
@@ -129,7 +139,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                                  ToTime = (x.ToTime),
                                  FromTime = x.FromTime,
                                  strFromTime = x.FromTime.ToString("hh:mm tt"),
-                                 strToTime = x.ToTime.ToString("hh:mm tt")
+                                 strToTime = x.ToTime.ToString("hh:mm tt"),
+                                 CreatedOn = x.CreatedOn.ToString(),
                              }).AsQueryable();
             }
             else
@@ -145,7 +156,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                                      ToTime = (x.ToTime),
                                      FromTime = x.FromTime,
                                      strFromTime = x.FromTime.ToString("hh:mm tt"),
-                                     strToTime = x.ToTime.ToString("hh:mm tt")
+                                     strToTime = x.ToTime.ToString("hh:mm tt"),
+                                     CreatedOn = x.CreatedOn.ToString(),
                                  }).AsQueryable();
 
                 }

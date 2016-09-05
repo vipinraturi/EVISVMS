@@ -17,6 +17,7 @@ namespace Evis.VMS.UI.ViewModel
         public int Id { get; set; }
         public string ShitfName { get; set; }
 
+        public string CreatedOn { get; set; }
 
         public DateTime FromTime { get; set; }
 

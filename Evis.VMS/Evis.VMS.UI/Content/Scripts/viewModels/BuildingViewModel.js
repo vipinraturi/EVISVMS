@@ -27,8 +27,8 @@
             params: /^([0-9\(\)\/\+ \-\.]*)$/
         },
         minLength: {
-            params: 8,
-            message: 'Enter minimum of 8-length number'
+            params: 6,
+            message: 'Enter minimum of 6-length number'
         }
     });
     self.EmailId = ko.observable('').extend({ minLength: 2, maxLength: 40, email: { message: "Invalid email" } });
@@ -73,6 +73,7 @@
     self.citydlltxt = ko.observable();
     self.StateId = ko.observable();
     self.CityId = ko.observable();
+    self.OrganizationName = ko.observable();
     self.NationalityId = ko.observable(undefined);
     self.OrganizationId = ko.observable(undefined).extend({ required: true });
     self.GlobalSearch = ko.observable('');
@@ -107,12 +108,8 @@
             self.OrganizationId(data[0].Id);
             $("#Org").attr('disabled', false);
         }
-
-
-
     });
     self.DataGrid = new RIT.eW.DataGridAjax('/Api/Administration/GetBuildingData', 7);
-
     self.GetAllBuildingData = function () {
         //debugger;
         self.DataGrid.UpdateSearchParam('?globalSearch=' + self.GlobalSearch());
@@ -121,15 +118,12 @@
     self.Countries = ko.observableArray();
     AjaxCall('/Api/Users/GetAllCountries', null, 'GET', function (data) {
         self.Countries(data);
-
     })
     self.City = ko.observableArray();
     self.LoadCities = function () {
-        debugger;
         if (self.StateId() != undefined && self.StateId() != 0) {
             AjaxCall('/Api/Administration/GetAllStateOrCity?id=' + self.StateId(), null, 'GET', function (data) {
                 if (data.length > 0) {
-                    debugger;
                     self.City(data);
                     self.CityId(cityId);
                 }
@@ -139,40 +133,40 @@
                     $('#dropcity').hide();
                     $('#dropstate').hide();
                 }
-
             })
         }
     }
 
     self.LoadStates = function () {
-        debugger;
-        if (self.NationalityId() != undefined && self.NationalityId() != 0) {
-            AjaxCall('/Api/Administration/GetAllStateOrCity?id=' + self.NationalityId(), null, 'GET', function (data) {
-                if (data.length > 0) {
-                    debugger;
-                    self.State(data);
-                    self.StateId(stateId);
-                    $('#dropcountry').hide();
-                    $('#dropcity').hide();
-                    $('#dropstate').hide();
-                    $('#state').show();
-                    $('#city').show();
-                    $(".ErrorCountryd").hide();
-                }
-                else {
-
-                    $('#state').hide();
-                    $('#city').hide();
-                    self.Countrydlltxt('');
-                    self.statedlltxt('');
-                    self.citydlltxt('');
-                    self.StateId(undefined);
-                    self.CityId(undefined);
-                    $('#dropcountry').show();
-                    $('#dropcity').show();
-                    $('#dropstate').show();
-                }
-            })
+        // alert(self.NationalityId());
+        if (self.NationalityId() != 11) {
+            if (self.NationalityId() != undefined && self.NationalityId() != 0) {
+                AjaxCall('/Api/Administration/GetAllStateOrCity?id=' + self.NationalityId(), null, 'GET', function (data) {
+                    if (data.length > 0) {
+                        debugger;
+                        self.State(data);
+                        self.StateId(stateId);
+                        $('#dropcountry').hide();
+                        $('#dropcity').hide();
+                        $('#dropstate').hide();
+                        $('#state').show();
+                        $('#city').show();
+                        $(".ErrorCountryd").hide();
+                    }
+                    else {
+                        $('#state').hide();
+                        $('#city').hide();
+                        self.Countrydlltxt('');
+                        self.statedlltxt('');
+                        self.citydlltxt('');
+                        self.StateId(undefined);
+                        self.CityId(undefined);
+                        $('#dropcountry').show();
+                        $('#dropcity').show();
+                        $('#dropstate').show();
+                    }
+                })
+            }
         }
     }
     self.SaveBuilding = function () {
@@ -189,19 +183,9 @@
         abc = self.Countrydlltxt;
         abc = self.statedlltxt;
         abc = self.citydlltxt;
-        //$('#selectCountries').change(function () {
-        //    alert($(this).val());
 
-        //});
-        debugger;
         var a = $("#selectCountries option:selected").text();
-        //if (a == "-- Select Country --") {
-        //    $('.ErrorCountryd').show();
-        //    document.getElementById('ErrorCountryd').style.visibility = 'visible';
-        //}
-        //else {
-        //    $('loginErrorCountryd').hide();
-        //}
+
         if (a == "Others") {
             var txtcountry = $("#txtcountry").val();
             if (txtcountry == "") {
@@ -290,8 +274,9 @@
              data.EmailId = self.EmailId(),
             data.ContactNumber = self.ContactNumber(),
             data.FaxNumber = self.FaxNumber(),
-             data.WebSite = self.WebSite();
-            data.CityId = self.CityId(),
+            data.WebSite = self.WebSite();
+            data.CityId = self.NationalityId() == 11 ? null : self.CityId(),
+            //alert(self.NationalityId());
             data.txtcountry = self.Countrydlltxt();
             data.txtstate = self.statedlltxt();
             data.txtcity = self.citydlltxt();
@@ -341,35 +326,38 @@
             self.Address(tableItem.Address);
             self.ZipCode(tableItem.ZipCode);
             self.OrganizationId(tableItem.OrganizationId);
-            self.NationalityId((tableItem.NationalityId == undefined) ? 11 : tableItem.NationalityId);
+            self.NationalityId((tableItem.NationalityId == 'undefined' || null) ? 11 : tableItem.NationalityId);
             stateId = (tableItem.StateId);
             cityId = (tableItem.CityId);
-            // alert(tableItem.txtcountry);
-            debugger;
             if (tableItem.txtcountry != null) {
-                self.Countrydlltxt(tableItem.txtcountry);
                 $("#Country").show();
                 $("#dropcountry").show();
+                self.Countrydlltxt(tableItem.txtcountry);
+                console.log(tableItem.txtcountry);
+                self.NationalityId(11);
+                self.CityId(0);
+                tableItem.CityId = 0;
+
             }
             else {
                 $("#Country").show();
                 $("#dropcountry").hide();
             }
             if (tableItem.txtstate != null) {
-                self.statedlltxt(tableItem.txtstate);
                 $("#state").hide();
                 $("#dropstate").show();
-
+                self.statedlltxt(tableItem.txtstate);
+                console.log(tableItem.txtstate);
             }
             else {
                 $("#state").show();
                 $("#dropstate").hide();
             }
             if (tableItem.txtcity != null) {
-                self.citydlltxt(tableItem.txtcity);
                 $("#city").hide();
                 $("#dropcity").show();
-
+                self.citydlltxt(tableItem.txtcity);
+                console.log(tableItem.txtcity);
             }
             else {
                 $("#city").show();
@@ -378,6 +366,7 @@
             self.IsInsert(false);
             $("#btnSaveBuilding").text("Update");
             $('#Org').attr('disabled', true);
+
         }
     }
     self.DeleteBuilding = function (tableItem) {

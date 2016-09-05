@@ -57,13 +57,14 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 var existinggate = _genericService.GateMaster.GetById(gateMaster.Id);
                 if (existinggate != null)
                 {
-                    var data = _genericService.GateMaster.GetAll().Where(x => x.GateNumber.Trim() == gateMaster.GateNumber.Trim() && x.BuildingId == gateMaster.BuildingId && x.IsActive == true).ToList();
+                    var data = _genericService.GateMaster.GetAll().Where(x => x.Id != gateMaster.Id && x.GateNumber.Trim() == gateMaster.GateNumber.Trim() && x.BuildingId == gateMaster.BuildingId && x.IsActive == true).ToList();
                     if (data.Count() == 0)
                     {
                         existinggate.BuildingId = gateMaster.BuildingId;
                         existinggate.GateNumber = gateMaster.GateNumber;
                         existinggate.UpdatedBy = currentUserId;
                         existinggate.UpdatedOn = DateTime.UtcNow;
+                        existinggate.CreatedOn = existinggate.CreatedOn;
                         gateMaster.IsActive = true;
                         _genericService.GateMaster.Update(existinggate);
                         message = "Gate update successfully!!";
@@ -93,8 +94,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                        BuildingId = x.BuildingId,
                        GateNumber = x.GateNumber,
                        BuildingName = x.BuildingMaster.BuildingName,
-                       Country = x.BuildingMaster.CityMaster.ParentValues.LookUpValue == null ? x.BuildingMaster.OtherCountry : x.BuildingMaster.CityMaster.ParentValues.LookUpValue,
-                       State = x.BuildingMaster.CityMaster.ParentValues.ParentValues.LookUpValue == null ? x.BuildingMaster.OtherState : x.BuildingMaster.CityMaster.ParentValues.ParentValues.LookUpValue,
+                       State = x.BuildingMaster.CityMaster.ParentValues.LookUpValue == null ? x.BuildingMaster.OtherCountry : x.BuildingMaster.CityMaster.ParentValues.LookUpValue,
+                       Country = x.BuildingMaster.CityMaster.ParentValues.ParentValues.LookUpValue == null ? x.BuildingMaster.OtherState : x.BuildingMaster.CityMaster.ParentValues.ParentValues.LookUpValue,
                        City = x.BuildingMaster.CityMaster.LookUpValue == null ? x.BuildingMaster.OtherCity : x.BuildingMaster.CityMaster.LookUpValue,
                        otherCountry = x.BuildingMaster.OtherCountry,
                        OtherState = x.BuildingMaster.OtherState,

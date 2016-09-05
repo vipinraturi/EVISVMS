@@ -3,7 +3,7 @@
     <li><a href="#" class="a-color">Shifts</a></li>
 </ol>
 <div class="row">
-    <div class="col-md-6 col-xs-12">
+    <div class="col-md-5 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
                 <h2>Create / Update Shift</h2>
@@ -44,7 +44,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-6 col-xs-12">
+    <div class="col-md-7 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
                 <h2>Manage Shift</h2>
@@ -65,9 +65,10 @@
                         <thead>
                             <tr>
                                 <th style="width: 1%">#</th>
-                                <th style="width: 26%"> <a href="#" onclick="DataGrid.Sort('ShitfName')" class="ShitfName">Shift Name</a> </th>
-                                <th style="width: 30%"> <a href="#" onclick="DataGrid.Sort('strFromTime')" class="strFromTime">From Time</a></th>
-                                <th style="width: 30%"><a href="#" onclick="DataGrid.Sort('strToTime')" class="strToTime">To Time</a></th>
+                                <th style="width: 24%"> <a href="#" onclick="DataGrid.Sort('ShitfName')" class="ShitfName">Shift Name</a> </th>
+                                <th style="width: 18%"> <a href="#" onclick="DataGrid.Sort('strFromTime')" class="strFromTime">From Time</a></th>
+                                <th style="width: 18%"><a href="#" onclick="DataGrid.Sort('strToTime')" class="strToTime">To Time</a></th>
+                                <th style="width:26%"><a href="#" onclick="DataGrid.Sort('CreatedOn')" class="CreatedOn">Created On<i class="fa fa-chevron-down icons"></i></a></th>
                                 <th style="width: 13%"></th>
                             </tr>
                         </thead>
@@ -77,9 +78,10 @@
                                 <td data-bind="text:ShitfName"></td>
                                 <td data-bind="text: strFromTime"></td>
                                 <td data-bind="text: strToTime"></td>
+                                <td data-bind="text: CreatedOn"></td>
                                 <td>
-                                    <a href="#"  data-bind="click: Editshift.bind($data)" title="click here to view or edit record."><i class="fa fa-pencil"></i></a>
-                                    <a href="#myModal" data-toggle="modal"  data-bind="click: DeleteSwift.bind($data)" title="click here to delete record."><i class="fa fa-trash-o"></i></a>
+                                    <a href="#" data-bind="click: Editshift.bind($data)" title="click here to view or edit record."><i class="fa fa-pencil"></i></a>
+                                    <a href="#myModal" data-toggle="modal" data-bind="click: DeleteSwift.bind($data)" title="click here to delete record."><i class="fa fa-trash-o"></i></a>
                                 </td>
                             </tr>
                         </tbody>

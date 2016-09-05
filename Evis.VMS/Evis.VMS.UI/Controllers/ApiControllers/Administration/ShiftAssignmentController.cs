@@ -184,7 +184,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         [HttpPost]
         public ReturnResult SaveShiftAssignment([FromBody] ShitfAssignment ShitfAssignment)
         {
-
+            bool success = false;
+            string Message = "";
             if (ShitfAssignment.Id == 0)
             {
                 var data = _genericService.ShitfAssignment.GetAll().Where(x => (x.FromDate >= ShitfAssignment.FromDate
@@ -203,6 +204,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     var FromDate = Convert.ToDateTime(ShitfAssignment.FromDate).ToShortDateString();
                     ShitfAssignment.FromDate = Convert.ToDateTime(FromDate);
                     _genericService.ShitfAssignment.Insert(ShitfAssignment);
+                    Message = "Shift saved successfully!!";
+                    success = true;
                 }
                 else
                 {
@@ -212,35 +215,39 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             else
             {
                 var existingShift = _genericService.ShitfAssignment.GetById(ShitfAssignment.Id);
-                if (existingShift != null)
-                {
-                    //var data = _genericService.ShitfAssignment.GetAll().Where(x => x.FromDate >= existingShift.FromDate
-                    //&& x.ToDate <= existingShift.ToDate
-                    //|| x.FromDate >= existingShift.FromDate
-                    //&& x.FromDate <= existingShift.ToDate
-                    //|| x.ToDate >= existingShift.FromDate
-                    //&& x.ToDate <= existingShift.ToDate
-                    //|| x.FromDate <= existingShift.ToDate
-                    //&& x.ToDate >= existingShift.FromDate).ToList();
-                    //if (data.Count() == 0)
-                    //{
-                    existingShift.BuildingId = ShitfAssignment.BuildingId;
-                    existingShift.GateId = ShitfAssignment.GateId;
-                    existingShift.UserId = ShitfAssignment.UserId;
-                    existingShift.ShitfId = ShitfAssignment.ShitfId;
-                    existingShift.FromDate = ShitfAssignment.FromDate;
-                    existingShift.ToDate = ShitfAssignment.ToDate;
-                    ShitfAssignment.IsActive = true;
-                    _genericService.ShitfAssignment.Update(existingShift);
+                //if (existingShift != null)
+                //{
+                //    var data = _genericService.ShitfAssignment.GetAll().Where(x => x.Id != ShitfAssignment.Id && x.FromDate >= ShitfAssignment.FromDate
+                //    && x.ToDate <= ShitfAssignment.ToDate
+                //    || x.FromDate >= ShitfAssignment.FromDate
+                //    && x.FromDate <= ShitfAssignment.ToDate
+                //    || x.ToDate >= ShitfAssignment.FromDate
+                //    && x.ToDate <= ShitfAssignment.ToDate
+                //    || x.FromDate <= ShitfAssignment.ToDate
+                //    && x.ToDate >= ShitfAssignment.FromDate).ToList();
+                //    if (data.Count() == 0)
+                //    {
+                        existingShift.BuildingId = ShitfAssignment.BuildingId;
+                        existingShift.GateId = ShitfAssignment.GateId;
+                        existingShift.UserId = ShitfAssignment.UserId;
+                        existingShift.ShitfId = ShitfAssignment.ShitfId;
+                        existingShift.FromDate = ShitfAssignment.FromDate;
+                        existingShift.ToDate = ShitfAssignment.ToDate;
+                        ShitfAssignment.IsActive = true;
+                        _genericService.ShitfAssignment.Update(existingShift);
+                        Message = "Shift update successfully!!";
+                        success = true;
                     //}
                     //else
                     //{
                     //    return new ReturnResult { Message = "UnSuccess", Success = false };
+
                     //}
-                };
+
+                //};
             }
             _genericService.Commit();
-            return new ReturnResult { Message = "Success", Success = true };
+            return new ReturnResult { Message = Message, Success = success };
         }
         [Route("~/Api/ShiftAssignment/DeleteShift")]
         [HttpPost]
