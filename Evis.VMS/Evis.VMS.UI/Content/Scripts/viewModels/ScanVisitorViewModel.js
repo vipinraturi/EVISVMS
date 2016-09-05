@@ -124,6 +124,9 @@ function ScanVisitorViewModel() {
         self.TypeOfCard('');
         self.TypeOfCardText('');
         self.IdNumber('');
+        self.CompanyName('');
+        self.EmailAddress('');
+        self.ContactNumber('');
         self.Nationality('');
         self.NationalityText('');
     }

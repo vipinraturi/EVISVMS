@@ -66,7 +66,7 @@ namespace Evis.VMS.UI.HelperClasses
                         lstVisitorCheckInAndOuttimes.Add(new VisitorCheckInCheckOutHistoryVM
                                                         {
                                                             CheckInDate = item.CheckIn.Date.ToShortDateString(),
-                                                            CheckInTime = item.CheckIn.ToString("hh:mm tt"),
+                                                            CheckInTime = item.CheckIn.ToLocalTime().ToString("hh:mm tt"),
                                                             CheckOutTime = (item.CheckOut == null ? string.Empty : item.CheckOut.Value.ToString("hh:mm tt")),
                                                             TotalDuration = (item.CheckOut == null ? "N/A" : Utility.TimeSince(item.CheckOut.Value.Subtract(item.CheckIn))),
                                                             CompanyName = item.CompanyName,
@@ -135,8 +135,8 @@ namespace Evis.VMS.UI.HelperClasses
                 _visitDetails.CheckIn = DateTime.UtcNow;
                 _visitDetails.CheckOut = null;
                 _visitDetails.CreatedBy = visitorCheckInVM.CreatedBy;
-                _visitDetails.CheckInGate = gate.Id;
-                _visitDetails.CheckOutGate = gate.Id;
+                _visitDetails.CheckInGate = gate.GateId;
+                _visitDetails.CheckOutGate = gate.GateId;
                 _visitDetails.CompanyName = visitorCheckInVM.CompanyName;
                 _visitDetails.VahicleNumber = visitorCheckInVM.VahicleNumber;
                 _visitDetails.Floor = visitorCheckInVM.Floor;
