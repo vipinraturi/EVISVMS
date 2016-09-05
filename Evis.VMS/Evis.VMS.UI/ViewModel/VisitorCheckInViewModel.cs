@@ -58,7 +58,7 @@ namespace Evis.VMS.UI.ViewModel
 
         public string CompanyName { get; set; }
 
-        public string VahicleNumber { get; set; }
+        public string VehicleNumber { get; set; }
 
         public string Floor { get; set; }
 
@@ -89,7 +89,7 @@ namespace Evis.VMS.UI.ViewModel
 
          public string CompanyName { get; set; }
 
-         public string VahicleNumber { get; set; }
+         public string VehicleNumber { get; set; }
 
          public string Floor { get; set; }
 
@@ -114,7 +114,7 @@ namespace Evis.VMS.UI.ViewModel
         public string CompanyName { get; set; }
         public string ContactPerson { get; set; }
         public string NoOfPerson { get; set; }
-        public string VahicleNumber { get; set; }
+        public string VehicleNumber { get; set; }
         public string Floor { get; set; }
         public string Purpose { get; set; }
     }
