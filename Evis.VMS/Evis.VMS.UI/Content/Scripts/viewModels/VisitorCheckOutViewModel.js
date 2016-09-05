@@ -18,7 +18,7 @@
 
 
     self.CompanyName = ko.observable('');
-    self.VahicleNumber = ko.observable('');
+    self.VehicleNumber = ko.observable('');
     self.Floor = ko.observable('');
     self.ContactPerson = ko.observable('');
     self.NoOfPerson = ko.observable('');
@@ -43,7 +43,7 @@
             //debugger;
 
             self.CompanyName(data.CompanyName);
-            self.VahicleNumber(data.VahicleNumber);
+            self.VehicleNumber(data.VehicleNumber);
             self.Floor(data.Floor);
             self.ContactPerson(data.ContactPerson);
             self.NoOfPerson(data.NoOfPerson);
@@ -86,7 +86,7 @@
         self.NoOfPerson(tableItem.NoOfPerson);
         self.Purpose_Remark(tableItem.Purpose);
         self.CompanyName(tableItem.CompanyName);
-        self.VahicleNumber(tableItem.VahicleNumber);
+        self.VehicleNumber(tableItem.VehicleNumber);
         self.Floor(tableItem.Floor);
     }
 

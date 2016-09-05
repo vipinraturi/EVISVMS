@@ -13,7 +13,7 @@
     self.Purpose_Remark = ko.observable('');
     self.logoURL = ko.observable('');
     self.CompanyName = ko.observable('');
-    self.VahicleNumber = ko.observable('');
+    self.VehicleNumber = ko.observable('');
     self.Floor = ko.observable('');
     self.TotalDuration = ko.observable('');
     
@@ -65,7 +65,7 @@
         self.NoOfPerson(tableItem.NoOfPerson);
         self.Purpose_Remark(tableItem.Purpose);
         self.CompanyName(tableItem.CompanyName);
-        self.VahicleNumber(tableItem.VahicleNumber);
+        self.VehicleNumber(tableItem.VehicleNumber);
         self.Floor(tableItem.Floor);
         self.DisabledFields();
     }
@@ -113,7 +113,7 @@
             data.NoOfPerson = self.NoOfPerson();
             data.PurposeOfVisit = self.Purpose_Remark();
             data.CompanyName = self.CompanyName();
-            data.VahicleNumber = self.VahicleNumber();
+            data.VehicleNumber = self.VehicleNumber();
             data.Floor = self.Floor();
             
             AjaxCall('/Api/VisitorManagement/SaveVisitorCheckIn', data, 'POST', function () {
@@ -127,7 +127,7 @@
         $('#txtCompanyName').removeAttr('disabled').removeClass('inputdisable');
         $('#txtContactPerson').removeAttr('disabled').removeClass('inputdisable');
         $('#txtNumberOfPerson').removeAttr('disabled').removeClass('inputdisable');
-        $('#txtVahicleNumber').removeAttr('disabled').removeClass('inputdisable');
+        $('#txtVehicleNumber').removeAttr('disabled').removeClass('inputdisable');
         $('#txtFloorNumber').removeAttr('disabled').removeClass('inputdisable');
         $('#txtAddress').removeAttr('disabled').removeClass('inputdisable');
     }
@@ -137,7 +137,7 @@
         $('#txtCompanyName').attr('disabled', 'disabled').addClass('inputdisable');
         $('#txtContactPerson').attr('disabled', 'disabled').addClass('inputdisable');
         $('#txtNumberOfPerson').attr('disabled', 'disabled').addClass('inputdisable');
-        $('#txtVahicleNumber').attr('disabled', 'disabled').addClass('inputdisable');
+        $('#txtVehicleNumber').attr('disabled', 'disabled').addClass('inputdisable');
         $('#txtFloorNumber').attr('disabled', 'disabled').addClass('inputdisable');
         $('#txtAddress').attr('disabled', 'disabled').addClass('inputdisable');
     }
@@ -148,7 +148,7 @@
         self.NoOfPerson('');
         self.Purpose_Remark('');
         self.CompanyName('');
-        self.VahicleNumber('');
+        self.VehicleNumber('');
         self.Floor('');
         $('.searchVisitor').val('');
         self.EnabledFields();
@@ -170,7 +170,7 @@
         self.NoOfPerson('');
         self.Purpose_Remark('');
         self.CompanyName('');
-        self.VahicleNumber('');
+        self.VehicleNumber('');
         self.Floor('');
         self.VisitorHiostory([]);
         $('.searchVisitor').val('');

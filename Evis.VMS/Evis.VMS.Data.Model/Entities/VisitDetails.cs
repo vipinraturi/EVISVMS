@@ -46,7 +46,7 @@ namespace Evis.VMS.Data.Model.Entities
 
         public string CompanyName { get; set; }
 
-        public string VahicleNumber { get; set; }
+        public string VehicleNumber { get; set; }
 
         public string Floor { get; set; }
     }
