@@ -73,7 +73,7 @@ namespace Evis.VMS.UI.HelperClasses
                                                             ContactPerson = item.ContactPerson,
                                                             NoOfPerson = item.NoOfPerson.ToString(),
                                                             Purpose = item.PurposeOfVisit,
-                                                            VehicleNumber = item.VehicleNumber,
+                                                            VahicleNumber = item.VahicleNumber,
                                                             Floor = item.Floor
                                                         });
                     });
@@ -138,7 +138,7 @@ namespace Evis.VMS.UI.HelperClasses
                 _visitDetails.CheckInGate = gate.GateId;
                 _visitDetails.CheckOutGate = gate.GateId;
                 _visitDetails.CompanyName = visitorCheckInVM.CompanyName;
-                _visitDetails.VehicleNumber = visitorCheckInVM.VehicleNumber;
+                _visitDetails.VahicleNumber = visitorCheckInVM.VahicleNumber;
                 _visitDetails.Floor = visitorCheckInVM.Floor;
                 _genericService.VisitDetails.Insert(_visitDetails);
                 _genericService.Commit();
