@@ -1,4 +1,5 @@
-﻿//function ShiftAssignmentViewModel() {
+﻿var gblDateToTest;
+//function ShiftAssignmentViewModel() {
 //    var self = this;
 //    var gateId = 0;
 //    var userId = 0;
@@ -294,22 +295,32 @@ function ShiftAssignmentViewModel() {
         });
     }
     self.EditShift = function (tableItem) {
-        var datetoFormat = new Date(tableItem.ToDate),
-            month = '' + (datetoFormat.getMonth() + 1),
-            day = '' + datetoFormat.getDate(),
-            year = '' + datetoFormat.getFullYear();
-        if (month.length < 2) month = '0' + month;
-        if (day.length < 2) day = '0' + day;
-        var toDate = [day, month, year].join('/');
+        gblDateToTest = tableItem.ToDate;
+        console.log('tableItem.ToDate ' + tableItem.ToDate + 'tableItem.FromDate  ' + tableItem.FromDate);
+
+        //var datetoFormat = new Date(tableItem.ToDate),
+        //    month = '' + (datetoFormat.getMonth() + 1),
+        //    day = '' + datetoFormat.getDate(),
+        //    year = '' + datetoFormat.getFullYear();
 
 
-        var datefromDate = new Date(tableItem.FromDate);
-        month = '' + (datefromDate.getMonth() + 1),
-        day = '' + datefromDate.getDate(),
-        year = datefromDate.getFullYear();
-        if (month.length < 2) month = '0' + month;
-        if (day.length < 2) day = '0' + day;
-        var fromDate = [day, month, year].join('/');
+        //if (month.length < 2) month = '0' + month;
+        //if (day.length < 2) day = '0' + day;
+        //var toDate = [day, month, year].join('/');
+
+
+        //var datefromDate = new Date(tableItem.FromDate);
+        //month = '' + (datefromDate.getMonth() + 1),
+        //day = '' + datefromDate.getDate(),
+        //year = datefromDate.getFullYear();
+        //if (month.length < 2) month = '0' + month;
+        //if (day.length < 2) day = '0' + day;
+        //var fromDate = [day, month, year].join('/');
+        var from = tableItem.ToDate.slice(0, 10).split('-');
+        var fromdate = from[2] + '/' + from[1] + '/' + from[0];
+        var TO = tableItem.ToDate.slice(0, 10).split('-');
+        var TODate = TO[2] + '/' + TO[1] + '/' + TO[0];
+
         if (tableItem != undefined) {
             self.Id(tableItem.Id);
             self.BuildingId(tableItem.BuildingId);
@@ -318,20 +329,32 @@ function ShiftAssignmentViewModel() {
             self.City(tableItem.City);
             userId = tableItem.UserId;
             self.UserId(tableItem.UserId);
-            self.FromDate(fromDate);
-            self.ToDate(toDate);
+            self.strFromDate(fromdate);
+            self.strToDate(TODate);
+            self.FromDate(fromdate);
+            self.ToDate(TODate);
+            //alert(fromDate);
+            //alert(toDate);
             $("#btnSaveshiftassignment").text("Update");
         }
     }
     SaveShiftAssignment = function () {
 
-        var initial = $('#dateFrom').val().split(/\//);
-        self.FromDate([initial[1], initial[0], initial[2]].join('/'));
+        //var initial = $('#dateFrom').val().split(/\//);
+        //self.FromDate([initial[0], initial[1], initial[2]].join('/'));
 
-        var initial1 = $('#dateTo').val().split(/\//);
-        self.ToDate([initial1[1], initial1[0], initial1[2]].join('/'));
+        //var initial1 = $('#dateTo').val().split(/\//);
+        //self.ToDate([initial1[0], initial1[1], initial1[2]].join('/'));
 
 
+
+        var from = $('#dateFrom').val().slice(0, 10).split('-');
+        var fromdate = from[2] + '/' + from[1] + '/' + from[0];
+        self.FromDate(from);
+        var TO = $('#dateTo').val().slice(0, 10).split('-');
+        var TODate = TO[2] + '/' + TO[1] + '/' + TO[0];
+        self.ToDate(TO);
+        debugger;
 
         if (self.errors().length > 0) {
             self.errors.showAllMessages(true);
@@ -347,7 +370,9 @@ function ShiftAssignmentViewModel() {
             data.GateId = self.GateId();
             data.FromDate = $('#dateFrom').val();
             data.ToDate = $('#dateTo').val();
-
+            data.strFromDate = $('#dateFrom').val();
+            data.strToDate = $('#dateTo').val();
+            console.log('self.FromDate()' + self.FromDate() + '  self.ToDate()' + self.ToDate());
 
             AjaxCall('/Api/ShiftAssignment/SaveShiftAssignment', data, 'POST', function (data) {
                 debugger;

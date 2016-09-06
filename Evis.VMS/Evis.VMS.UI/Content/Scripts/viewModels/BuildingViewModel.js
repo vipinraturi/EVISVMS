@@ -54,7 +54,7 @@
             message: 'Enter minimum of 8-length number'
         }
     });
-    self.WebSite = ko.observable('').extend({ url: true });
+    self.WebSite = ko.observable('');//.extend({ url: true });
     ko.validation.rules['url'] = {
         validator: function (val, required) {
             if (!val) {
@@ -250,8 +250,13 @@
             }
         }
         var a = $("#selectCountries option:selected").text();
-
-        if (self.errors().length > 0) {
+        if ($.trim(self.WebSite()) != '' && $.trim(self.WebSite()).match(/^(www\.)[a-zA-Z0-9./]+$/gim) == null) {
+            $("#spnWebsite").html("Invalid webiste url").show();
+        }
+        else {
+            $("#spnWebsite").html("").hide();
+        }
+        if (self.errors().length > 0 || ($("#txtWebsite").val() != '' && $("span.validationMessage").text() != '')) {
             self.errors.showAllMessages(true);
             if (a == "-- Select Country --") {
                 $('.ErrorCountryd').show();

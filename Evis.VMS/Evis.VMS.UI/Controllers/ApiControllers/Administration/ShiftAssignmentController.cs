@@ -175,19 +175,23 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 IList<ShiftAssignmentVM> result =
                    GenericSorterPager.GetSortedPagedList<ShiftAssignmentVM>(LSTShiftAssignmentVM, paginationRequest, out totalCount);
 
-                var jsonData = JsonConvert.SerializeObject(result);
+                var jsonData = JsonConvert.SerializeObject(result.OrderByDescending(x => x.Id));
                 return JsonConvert.SerializeObject(new { totalRows = totalCount, result = jsonData });
             }
             return null;
         }
         [Route("~/Api/ShiftAssignment/SaveShiftAssignment")]
         [HttpPost]
-        public ReturnResult SaveShiftAssignment([FromBody] ShitfAssignment ShitfAssignment)
+        public ReturnResult SaveShiftAssignment([FromBody] ShiftAssignmentVM ShitfAssignment)
         {
             bool success = false;
             string Message = "";
+            string currentUserId = HttpContext.Current.User.Identity.GetUserId();
             if (ShitfAssignment.Id == 0)
             {
+                ShitfAssignment.FromDate = Convert.ToDateTime(ShitfAssignment.strFromDate);
+                ShitfAssignment.ToDate = Convert.ToDateTime(ShitfAssignment.strToDate);
+
                 var data = _genericService.ShitfAssignment.GetAll().Where(x => (x.FromDate >= ShitfAssignment.FromDate
                     && x.ToDate <= ShitfAssignment.ToDate
                     || x.FromDate >= ShitfAssignment.FromDate
@@ -198,12 +202,22 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     && x.ToDate >= ShitfAssignment.FromDate) && (x.UserId == ShitfAssignment.UserId)).ToList();
                 if (data.Count() == 0)
                 {
-                    ShitfAssignment.IsActive = true;
-                    var ToDate = Convert.ToDateTime(ShitfAssignment.ToDate).ToShortDateString();
-                    ShitfAssignment.ToDate = Convert.ToDateTime(ToDate);
-                    var FromDate = Convert.ToDateTime(ShitfAssignment.FromDate).ToShortDateString();
-                    ShitfAssignment.FromDate = Convert.ToDateTime(FromDate);
-                    _genericService.ShitfAssignment.Insert(ShitfAssignment);
+                    ShitfAssignment obj = new Data.Model.Entities.ShitfAssignment();
+                    //ShitfAssignment.IsActive = true;
+                    //var ToDate = ShitfAssignment.ToDate.ToShortDateString();
+                    //ShitfAssignment.ToDate = Convert.ToDateTime(ToDate);
+                    //var FromDate = ShitfAssignment.FromDate.ToShortDateString();
+                    //ShitfAssignment.FromDate = Convert.ToDateTime(FromDate);
+                    obj.ShitfId = ShitfAssignment.ShitfId;
+                    obj.UserId = ShitfAssignment.UserId;
+                    obj.GateId = ShitfAssignment.GateId;
+                    obj.FromDate = ShitfAssignment.FromDate;
+                    obj.ToDate = ShitfAssignment.ToDate;
+                    obj.BuildingId = ShitfAssignment.BuildingId;
+                    obj.FromDate = DateTime.ParseExact(ShitfAssignment.strFromDate, "dd/MM/yyyy", null); //Convert.ToDateTime(ShitfAssignment.strFromDate);
+                    obj.ToDate = DateTime.ParseExact(ShitfAssignment.strToDate, "dd/MM/yyyy", null);//Convert.ToDateTime(ShitfAssignment.strToDate);
+                    obj.IsActive = true;
+                    _genericService.ShitfAssignment.Insert(obj);
                     Message = "Shift saved successfully!!";
                     success = true;
                 }
@@ -215,36 +229,41 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             else
             {
                 var existingShift = _genericService.ShitfAssignment.GetById(ShitfAssignment.Id);
-                //if (existingShift != null)
-                //{
-                //    var data = _genericService.ShitfAssignment.GetAll().Where(x => x.Id != ShitfAssignment.Id && x.FromDate >= ShitfAssignment.FromDate
-                //    && x.ToDate <= ShitfAssignment.ToDate
-                //    || x.FromDate >= ShitfAssignment.FromDate
-                //    && x.FromDate <= ShitfAssignment.ToDate
-                //    || x.ToDate >= ShitfAssignment.FromDate
-                //    && x.ToDate <= ShitfAssignment.ToDate
-                //    || x.FromDate <= ShitfAssignment.ToDate
-                //    && x.ToDate >= ShitfAssignment.FromDate).ToList();
-                //    if (data.Count() == 0)
-                //    {
-                        existingShift.BuildingId = ShitfAssignment.BuildingId;
-                        existingShift.GateId = ShitfAssignment.GateId;
-                        existingShift.UserId = ShitfAssignment.UserId;
+                if (existingShift != null)
+                {
+                    ShitfAssignment.FromDate = Convert.ToDateTime(ShitfAssignment.strFromDate);
+                    ShitfAssignment.ToDate = Convert.ToDateTime(ShitfAssignment.strToDate);
+                    var data = _genericService.ShitfAssignment.GetAll().Where(x => x.Id != ShitfAssignment.Id && x.FromDate >= ShitfAssignment.FromDate
+                    && x.ToDate <= ShitfAssignment.ToDate
+                    || x.FromDate >= ShitfAssignment.FromDate
+                    && x.FromDate <= ShitfAssignment.ToDate
+                    || x.ToDate >= ShitfAssignment.FromDate
+                    && x.ToDate <= ShitfAssignment.ToDate
+                    || x.FromDate <= ShitfAssignment.ToDate
+                    && x.ToDate >= ShitfAssignment.FromDate).ToList();
+                    if (data.Count() == 0)
+                    {
+
                         existingShift.ShitfId = ShitfAssignment.ShitfId;
-                        existingShift.FromDate = ShitfAssignment.FromDate;
-                        existingShift.ToDate = ShitfAssignment.ToDate;
-                        ShitfAssignment.IsActive = true;
+                        existingShift.UserId = ShitfAssignment.UserId;
+                        existingShift.GateId = ShitfAssignment.GateId;
+                        existingShift.BuildingId = ShitfAssignment.BuildingId;
+                        existingShift.FromDate = DateTime.Parse(ShitfAssignment.strFromDate);
+                        existingShift.ToDate = DateTime.Parse(ShitfAssignment.strToDate);
+                        existingShift.FromDate = DateTime.ParseExact(ShitfAssignment.strFromDate, "dd/MM/yyyy", null); //Convert.ToDateTime(ShitfAssignment.strFromDate);
+                        existingShift.ToDate = DateTime.ParseExact(ShitfAssignment.strToDate, "dd/MM/yyyy", null);//Convert.ToDateTime(ShitfAssignment.strToDate);
+                        existingShift.IsActive = true;
                         _genericService.ShitfAssignment.Update(existingShift);
                         Message = "Shift update successfully!!";
                         success = true;
-                    //}
-                    //else
-                    //{
-                    //    return new ReturnResult { Message = "UnSuccess", Success = false };
+                    }
+                    else
+                    {
+                        return new ReturnResult { Message = "UnSuccess", Success = false };
 
-                    //}
+                    }
 
-                //};
+                };
             }
             _genericService.Commit();
             return new ReturnResult { Message = Message, Success = success };

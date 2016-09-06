@@ -192,11 +192,11 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 }
 
 
-                //if (string.IsNullOrEmpty(sortField))
-                //{
-                //    sortField = "BuildingName";
+                if (string.IsNullOrEmpty(sortField))
+                {
+                    sortField = "CreatedOn";
 
-                //}
+                }
 
                 var paginationRequest = new PaginationRequest
                 {
@@ -210,7 +210,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 IList<BuildingVM> result =
                    GenericSorterPager.GetSortedPagedList<BuildingVM>(lstBuildingVM, paginationRequest, out totalCount);
 
-                var jsonData = JsonConvert.SerializeObject(result.OrderByDescending(x => x.UpdatedOn));
+                var jsonData = JsonConvert.SerializeObject(result.OrderByDescending(x => x.Id));
                 return JsonConvert.SerializeObject(new { totalRows = totalCount, result = jsonData });
             }
             return null;
