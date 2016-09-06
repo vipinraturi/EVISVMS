@@ -31,7 +31,9 @@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Website</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtWebsite" type="text" class="form-control Fieldfocus" maxlength="50" placeholder="[Website URL]" data-bind="value: WebSite.extend({ url: false })" />
+                            <input id="txtWebsite" type="text" class="form-control Fieldfocus" maxlength="50" placeholder="[Website URL]" 
+                                   data-bind="value: WebSite.extend({ url: false })" />
+                            <span id="spnWebsite" class="validationMessage" style="display:none"></span>
                             <span class="fa fa-globe favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
@@ -52,9 +54,9 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-                <div class="col-md-5 col-sm-5 col-xs-12  pull-right top_search">
+                <div class="col-md-4 col-sm-4 col-xs-12  pull-right top_search">
                     <div class="input-group">
-                        <input id="txtGlobalSearch" type="text" class="form-control" placeholder="[Global Search]"
+                        <input id="txtGlobalSearchOrg" type="text" class="form-control" placeholder="[Global Search]"
                                data-bind="value: GlobalSearch, valueUpdate: 'afterkeydown', enterkey: GlobalSearchEnter.bind()" />
                         <span class="input-group-btn">
                             <button class="btn btn-default" type="button" data-bind="click: GetAllOrganizations.bind()"><i class="fa fa-search"></i></button>

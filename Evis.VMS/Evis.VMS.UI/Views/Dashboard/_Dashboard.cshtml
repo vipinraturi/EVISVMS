@@ -42,28 +42,28 @@
             if (userSessionData.UserRole != Evis.VMS.UI.ViewModel.RoleType.SuperVisor)
             {
                 <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <div class="tile-stats box3">
-                    <a href="javascript:void(0)" id="lnkBuilding">
-                        <div class="icon" style="color: #1ABC9C"><i class="fa fa-building-o"></i></div>
-                        <div class="count">@DashboardData.BuldingCount</div>
-                        <h3>Building</h3>
-                        <p>Total bulding</p>
-                    </a>
-                </div>
-            </div>
-            }
-            
-
-        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                    <div class="tile-stats box4">
-                        <a href="javascript:void(0)" id="lnkGates">
-                            <div class="icon" style="color: #fb927d"><i class="fa fa-outdent"></i></div>
-                            <div class="count">@DashboardData.GatesCount</div>
-                            <h3>Gates</h3>
-                            <p>Total gates</p>
+                    <div class="tile-stats box3">
+                        <a href="javascript:void(0)" id="lnkBuilding">
+                            <div class="icon" style="color: #1ABC9C"><i class="fa fa-building-o"></i></div>
+                            <div class="count">@DashboardData.BuldingCount</div>
+                            <h3>Building</h3>
+                            <p>Total bulding</p>
                         </a>
                     </div>
                 </div>
+            }
+
+
+            <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <div class="tile-stats box4">
+                    <a href="javascript:void(0)" id="lnkGates">
+                        <div class="icon" style="color: #fb927d"><i class="fa fa-outdent"></i></div>
+                        <div class="count">@DashboardData.GatesCount</div>
+                        <h3>Gates</h3>
+                        <p>Total gates</p>
+                    </a>
+                </div>
+            </div>
         }
     }
 </div>
@@ -132,7 +132,11 @@
                         <td data-bind="text:ShiftName"></td>
                     </tr>
                 </tbody>
-                <tr class="blank_row" data-bind="visible: (DataGrid.DataRows().length == 0)"><td colspan="10">No data found.</td></tr>
+                <tr class="blank_row" data-bind="visible: (DataGrid.DataRows().length == 0)">
+                    <td colspan="10" style="text-align:center;">
+                        No data found.
+                    </td>
+                </tr>
             </table>
             @Html.Partial("_Pager")
         </div>

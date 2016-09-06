@@ -58,6 +58,13 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 var existingOrg = _genericService.Organization.GetById(organization.Id);
                 if (existingOrg != null)
                 {
+                    var existOrganization = _genericService.Organization.GetAll()
+                        .Where(x => x.Id != organization.Id && x.CompanyName.Trim().ToLower().Equals(organization.CompanyName.Trim().ToLower()));
+                    if (existOrganization != null && existOrganization.Count() > 0)
+                    {
+                        message = "Organization with this name is already exist! Please use some other name.";
+                        return new ReturnResult { Message = message, Success = success };
+                    }
                     existingOrg.CompanyName = organization.CompanyName;
                     existingOrg.CountryId = organization.CountryId;
                     existingOrg.WebSite = organization.WebSite;

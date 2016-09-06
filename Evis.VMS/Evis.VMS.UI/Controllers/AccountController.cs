@@ -47,6 +47,7 @@ namespace Evis.VMS.UI.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            ViewBag.PasswordChanged = TempData["PasswordChanged"];
             return View("~/Views/Account/Login.cshtml");
         }
 
@@ -118,6 +119,11 @@ namespace Evis.VMS.UI.Controllers
                 user.PasswordHash = hashedPassword;
                 user.IsActive = true;
                 await _userService.UpdateAsync(user, string.Empty);
+                TempData["PasswordChanged"] = "Password changed successfully! Please login using the newly set password.";
+
+                var emailFormat = _genericService.EmailFormats.GetAll().Where(x => x.Category == "PasswordReset").FirstOrDefault();
+                string body = string.Format(emailFormat.Format, user.FullName);
+                EmailHelper.SendMail(user.Email, "Password changed successfully", body);
                 return RedirectToAction("Login", "Account");
             }
             return null;
@@ -125,39 +131,46 @@ namespace Evis.VMS.UI.Controllers
 
         public async Task<JsonResult> ForgotPassword(string email)
         {
-            var user = await _userService.GetAsync(x => x.Email == email && x.IsActive == true);
             string Message = string.Empty;
-            if (user == null)
+            if (string.IsNullOrEmpty(email))
             {
-                Message = "Invalid email address/user is inactive";
+                Message = "Either password is already changed or link is expired.";
             }
             else
             {
-                // Uncomment it later - Junaid
-                string password = System.Web.Security.Membership.GeneratePassword(8, 0);
+                var user = await _userService.GetAsync(x => x.Email == email && x.IsActive == true);
+                if (user == null)
+                {
+                    Message = "Invalid email address/user is inactive";
+                }
+                else
+                {
+                    // Uncomment it later - Junaid
+                    string password = System.Web.Security.Membership.GeneratePassword(8, 0);
 
-                // Just for testing the application - remove this later
-                //string password = "Admin@123";
+                    // Just for testing the application - remove this later
+                    //string password = "Admin@123";
 
-                var passwordHash = new Microsoft.AspNet.Identity.PasswordHasher();
-                var hashedPassword = passwordHash.HashPassword(password);
-                user.PasswordHash = hashedPassword;
-                await _userService.UpdateAsync(user, string.Empty);
+                    var passwordHash = new Microsoft.AspNet.Identity.PasswordHasher();
+                    var hashedPassword = passwordHash.HashPassword(password);
+                    user.PasswordHash = hashedPassword;
+                    await _userService.UpdateAsync(user, string.Empty);
 
-                var proto = Request.Url.Scheme;
-                var baseUrl = Request.Url.Authority;
-                var callbackUrl = proto + "://" + baseUrl + "/Account/ResetPassword?email=" + user.Email + "&activationId=" + HttpUtility.UrlEncode(password);
+                    var proto = Request.Url.Scheme;
+                    var baseUrl = Request.Url.Authority;
+                    var callbackUrl = proto + "://" + baseUrl + "/Account/ResetPassword?email=" + user.Email + "&activationId=" + HttpUtility.UrlEncode(password);
 
-                var emailFormat = _genericService.EmailFormats.GetAll().Where(x => x.Category == "ForgotPassword").FirstOrDefault();
-                string body = string.Format(emailFormat.Format, user.FullName, callbackUrl);
+                    var emailFormat = _genericService.EmailFormats.GetAll().Where(x => x.Category == "ForgotPassword").FirstOrDefault();
+                    string body = string.Format(emailFormat.Format, user.FullName, callbackUrl);
 
-                //string body = "Dear " + user.FullName + ", <br/>Your password has been reset, click <a href=\"" + user.FullName + "\">here</a> to reset the password.<br/>" +
-                //    "<br/><br/>Regards,<br/>Administrator";
+                    //string body = "Dear " + user.FullName + ", <br/>Your password has been reset, click <a href=\"" + user.FullName + "\">here</a> to reset the password.<br/>" +
+                    //    "<br/><br/>Regards,<br/>Administrator";
 
-                // Send email on Forgot Password.
-                EmailHelper.SendMail(user.Email, "Reset Password", body);
+                    // Send email on Forgot Password.
+                    EmailHelper.SendMail(user.Email, "Reset your password", body);
 
-                Message = "Log in using the password which is to your email address";
+                    Message = "Please login using the password which is sent to your email id";
+                }
             }
             return Json(new { Message = Message }, JsonRequestBehavior.AllowGet);
         }
