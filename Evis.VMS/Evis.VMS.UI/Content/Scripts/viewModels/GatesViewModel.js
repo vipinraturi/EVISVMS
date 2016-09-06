@@ -77,6 +77,7 @@
             self.CityId(tableItem.CityId);
             self.CountryId(tableItem.CountryId);
             self.StateId(tableItem.StateId);
+            $("#btnSave").text("Update");
         }
     }
 
@@ -140,7 +141,7 @@
         ApplyCustomBinding('gates');
     }
     self.SaveGate = function () {
-        //debugger;
+        debugger;
         if (self.errors().length > 0) {
             self.errors.showAllMessages(true);
             this.errors().forEach(function (data) {
@@ -156,12 +157,13 @@
             data.GateNumber = self.GateNumber();
             //// display any error messages if we have them
             AjaxCall('/Api/Gates/SaveGate', data, 'POST', function (data) {
-                if (data.Message == "Success") {
-                    toastr.success('Gate saved successfully!!')
+                if (data.Success == true) {
+                    toastr.clear();
+                    toastr.success(data.Message)
                     ApplyCustomBinding('gates');
                 }
                 else {
-                    self.GateNumber('');
+                   // self.GateNumber('');
                     toastr.error('Gate name alreday exists!!')
                 }
                 //self.IsInsert(true);

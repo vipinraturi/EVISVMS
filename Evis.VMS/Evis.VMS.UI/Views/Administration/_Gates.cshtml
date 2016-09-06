@@ -28,7 +28,7 @@
                         <div class="col-md-9 col-sm-9 col-xs-12">
                             <input id="txtCountry" type="text" class="form-control inputdisable" placeholder="[Country]" disabled data-bind="value:CountryName" />
 
-                            <span class="fa fa-globe favwhite form-control-feedback right" aria-hidden="true"></span>
+                            <span class="fa  fa-map-marker favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
 
@@ -36,7 +36,7 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">State </label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
                             <input id="txtState" type="text" class="form-control inputdisable" placeholder="[State]" disabled data-bind="value:StateName" />
-                            <span class="fa fa-globe favwhite form-control-feedback right" aria-hidden="true"></span>
+                            <span class="fa  fa-map-marker favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
 
@@ -44,7 +44,7 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">City </label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
                             <input id="txtCity" type="text" class="form-control inputdisable" placeholder="Dubai" data-bind="value:CityName" disabled />
-                            <span class="fa fa-globe favwhite form-control-feedback right" aria-hidden="true"></span>
+                            <span class="fa  fa-map-marker favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
 
@@ -60,7 +60,7 @@
                     <div class="form-group">
                         <div class="pull-right">
                             <button type="button" class="btn btn-primary" data-bind="click: ResetGates.bind()">Reset <i class="fa fa-refresh"></i></button>
-                            <button type="button" class="btn btn-success" data-bind="click: SaveGate.bind()">Save <i class="fa fa-save"></i></button>
+                            <button type="button" class="btn btn-success" data-bind="click: SaveGate.bind()" id="btnSave">Save <i class="fa fa-save"></i></button>
                         </div>
                     </div>
 

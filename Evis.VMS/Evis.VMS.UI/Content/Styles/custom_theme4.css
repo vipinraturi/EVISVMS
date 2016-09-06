@@ -5346,3 +5346,8 @@ select option {
 .input-group-btn:last-child > .btn, .input-group-btn:last-child > .btn-group {
     border: 1px solid rgb(221, 158, 6)!important;
     }
+
+ select option {
+    background: #ffe5a2 !important;
+     color: #314457 !important;
+}

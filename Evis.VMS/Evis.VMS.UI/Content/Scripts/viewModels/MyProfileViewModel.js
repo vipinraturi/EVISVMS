@@ -1,6 +1,6 @@
 ﻿function MyProfileViewModel() {
     var self = this;
-
+    var temp = new Object();
     self.UserId = ko.observable('');
     self.FullName = ko.observable('').extend({
         required: true
@@ -9,7 +9,11 @@
         required: true,
         pattern: {
             message: 'Invalid phone number.',
-            params: /^([0-9\(\)\/\+ \-\.]*)$/
+            params: /^\s*\+?([0-9\(\)\/\-\.\s*]*)$/
+        },
+        minLength: {
+            params: 6,
+            message: 'Enter minimum of 6-length number'
         }
     });
     self.Email = ko.observable('');
@@ -39,6 +43,7 @@
     setTimeout(function () {
 
         AjaxCall('/Api/MyProfile/GetMyProfile', null, 'GET', function (data) {
+            temp = data;
             self.UserId(data.Id);
             self.FullName(data.FullName);
             self.DisplayName(data.FullName);
@@ -119,11 +124,26 @@
     }
 
     self.ResetMyProfile = function () {
-        ApplyCustomBinding('myprofile');
+        self.FullName(temp.FullName);
+        self.PhoneNumber(temp.PhoneNumber);
+        self.GenderId(temp.GenderId);
+
+        //ApplyCustomBinding('myprofile');
     }
 
     self.ViewImage = function () {
-        $('#originalSize').attr('src', self.ProfilePicturePath());
+
+        //debugger;
+        var srcURL = '';
+        if ($('.dz-image img').attr('alt') != "" && $('.dz-image img').attr('alt') != "User Image" && $('.dz-image img').attr('alt') !=  "undefined") {
+            srcURL = '/images/UserImages/' + $('.dz-image img').attr('alt');
+        }
+        else {
+            srcURL =  self.ProfilePicturePath();
+        }
+
+
+        $('#originalSize').attr('src', srcURL);
         $('#imageModal').modal('show');
     }
 }

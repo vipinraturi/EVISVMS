@@ -25,22 +25,33 @@
         pattern: {
             message: "Invalid zip code.",
             params: /^([0-9\(\)\/\+ \-\.]*)$/
+        },
+        minLength: {
+            params: 6,
+            message: 'Enter minimum of 6-length number'
         }
     });
     self.EmailId = ko.observable('').extend({ minLength: 2, maxLength: 40, email: { message: "Invalid email" } });
     self.ContactNumber = ko.observable('').extend({
         required: true,
         pattern: {
-            message: 'Invalid Contact Number.',
-            params: /^([0-9\(\)\/\+ \-\.]*)$/
+            message: 'Invalid phone number.',
+            params: /^\+?([0-9\(\)\/\-\.]*)$/
+        },
+        minLength: {
+            params: 6,
+            message: 'Enter minimum of 6-length number'
         }
     });
 
     self.FaxNumber = ko.observable('').extend({
-        required: true,
         pattern: {
             message: 'Invalid Fax Number.',
             params: /^([0-9\(\)\/\+ \-\.]*)$/
+        },
+        minLength: {
+            params: 8,
+            message: 'Enter minimum of 8-length number'
         }
     });
     self.WebSite = ko.observable('').extend({ url: true });
@@ -50,8 +61,6 @@
                 return !required
             }
             val = val.replace(/^\s+|\s+$/, ''); //Strip whitespace
-            //Regex by Diego Perini from: http://mathiasbynens.be/demo/url-regex
-            //return val.match(/^(?:(?:https?|ftp):\/\/)(?:\S+(?::\S*)?@)?(?:(?!10(?:\.\d{1,3}){3})(?!127(?:\.‌​\d{1,3}){3})(?!169\.254(?:\.\d{1,3}){2})(?!192\.168(?:\.\d{1,3}){2})(?!172\.(?:1[‌​6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1‌​,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00‌​a1-\uffff0-9]+-?)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]+-?)*[a-z\u‌​00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?$/i);
             return val.match(/[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi);
         },
         message: 'This field has to be a valid URL'
@@ -64,6 +73,7 @@
     self.citydlltxt = ko.observable();
     self.StateId = ko.observable();
     self.CityId = ko.observable();
+    self.OrganizationName = ko.observable();
     self.NationalityId = ko.observable(undefined);
     self.OrganizationId = ko.observable(undefined).extend({ required: true });
     self.GlobalSearch = ko.observable('');
@@ -89,10 +99,17 @@
         });
     self.Organizations = ko.observableArray();
     AjaxCall('/Api/User/GetAllOrganizations', null, 'GET', function (data) {
+        console.log(data);
+        debugger;
+        // alert(data.length);
         self.Organizations(data);
+        if (data.length == 1) {
+            // alert(data[0].Name);
+            self.OrganizationId(data[0].Id);
+            $("#Org").attr('disabled', false);
+        }
     });
     self.DataGrid = new RIT.eW.DataGridAjax('/Api/Administration/GetBuildingData', 7);
-
     self.GetAllBuildingData = function () {
         //debugger;
         self.DataGrid.UpdateSearchParam('?globalSearch=' + self.GlobalSearch());
@@ -101,62 +118,60 @@
     self.Countries = ko.observableArray();
     AjaxCall('/Api/Users/GetAllCountries', null, 'GET', function (data) {
         self.Countries(data);
-
     })
     self.City = ko.observableArray();
     self.LoadCities = function () {
-        debugger;
         if (self.StateId() != undefined && self.StateId() != 0) {
             AjaxCall('/Api/Administration/GetAllStateOrCity?id=' + self.StateId(), null, 'GET', function (data) {
                 if (data.length > 0) {
-                    debugger;
                     self.City(data);
                     self.CityId(cityId);
-                  
                 }
                 else {
-
                     document.getElementById('dropcity').style.visibility = 'visible';
-                    
-                }
-
-            })
-        }
-    }
-  
-    self.LoadStates = function () {
-
-        if (self.NationalityId() != undefined && self.NationalityId() != 0) {
-            AjaxCall('/Api/Administration/GetAllStateOrCity?id=' + self.NationalityId(), null, 'GET', function (data) {
-                if (data.length > 0) {
-                    debugger;
-                    self.State(data);
-                    self.StateId(stateId);
                     $('#dropcountry').hide();
                     $('#dropcity').hide();
                     $('#dropstate').hide();
-                    $('#state').show();
-                    $('#city').show();
-                    $(".ErrorCountryd").hide();
-                }
-                else {
-                    $('#dropcountry').show();
-                    $('#dropcity').show();
-                    $('#dropstate').show();
-                    $('#state').hide();
-                    $('#city').hide();
-                    self.Countrydlltxt('');
-                    self.statedlltxt('');
-                    self.citydlltxt('');
-                    self.StateId(undefined);
-                    self.CityId(undefined);
                 }
             })
+        }
+    }
+
+    self.LoadStates = function () {
+        // alert(self.NationalityId());
+        if (self.NationalityId() != 11) {
+            if (self.NationalityId() != undefined && self.NationalityId() != 0) {
+                AjaxCall('/Api/Administration/GetAllStateOrCity?id=' + self.NationalityId(), null, 'GET', function (data) {
+                    if (data.length > 0) {
+                        debugger;
+                        self.State(data);
+                        self.StateId(stateId);
+                        $('#dropcountry').hide();
+                        $('#dropcity').hide();
+                        $('#dropstate').hide();
+                        $('#state').show();
+                        $('#city').show();
+                        $(".ErrorCountryd").hide();
+                    }
+                    else {
+                        $('#state').hide();
+                        $('#city').hide();
+                        self.Countrydlltxt('');
+                        self.statedlltxt('');
+                        self.citydlltxt('');
+                        self.StateId(undefined);
+                        self.CityId(undefined);
+                        $('#dropcountry').show();
+                        $('#dropcity').show();
+                        $('#dropstate').show();
+                    }
+                })
+            }
         }
     }
     self.SaveBuilding = function () {
         var abc = self.BuildingName();
-        //abc = self.StateName();
+        abc = self.WebSite();
         abc = self.Address();
         abc = self.ZipCode();
         //abc = self.Nationality();
@@ -168,23 +183,13 @@
         abc = self.Countrydlltxt;
         abc = self.statedlltxt;
         abc = self.citydlltxt;
-        //$('#selectCountries').change(function () {
-        //    alert($(this).val());
 
-        //});
-        debugger;
         var a = $("#selectCountries option:selected").text();
-        //if (a == "-- Select Country --") {
-        //    $('.ErrorCountryd').show();
-        //    document.getElementById('ErrorCountryd').style.visibility = 'visible';
-        //}
-        //else {
-        //    $('loginErrorCountryd').hide();
-        //}
+
         if (a == "Others") {
             var txtcountry = $("#txtcountry").val();
             if (txtcountry == "") {
-              //  alert('Fill this field');
+                //  alert('Fill this field');
                 $(".loginErrorCountrydlltxt").show();
                 return false;
             }
@@ -202,7 +207,7 @@
             }
             var txtcitydl = $("#txtcitydl").val();
             if (txtcitydl == "") {
-              //  alert('Fill this field');
+                //  alert('Fill this field');
                 $(".loginErrorcitydlltxt").show();
                 return false;
             }
@@ -250,11 +255,11 @@
             self.errors.showAllMessages(true);
             if (a == "-- Select Country --") {
                 $('.ErrorCountryd').show();
-             //   document.getElementById('ErrorCountryd').style.visibility = 'visible';
+                //   document.getElementById('ErrorCountryd').style.visibility = 'visible';
             }
             else {
                 $('ErrorCountryd').hide();
-               // document.getElementById('ErrorCountryd').style.visibility = 'none';
+                // document.getElementById('ErrorCountryd').style.visibility = 'none';
             }
             this.errors().forEach(function (data) {
             });
@@ -269,15 +274,18 @@
              data.EmailId = self.EmailId(),
             data.ContactNumber = self.ContactNumber(),
             data.FaxNumber = self.FaxNumber(),
-             data.WebSite = self.WebSite();
-            data.CityId = self.CityId(),
+            data.WebSite = self.WebSite();
+            data.CityId = self.NationalityId() == 11 ? null : self.CityId(),
+            //alert(self.NationalityId());
             data.txtcountry = self.Countrydlltxt();
             data.txtstate = self.statedlltxt();
             data.txtcity = self.citydlltxt();
             //// display any error messages if we have them
             AjaxCall('/Api/Administration/SaveBuilding', data, 'POST', function (data) {
-                if (data.Message == "Success") {
-                    toastr.success('Building saved successfully!!')
+                debugger;
+                if (data.Success == true) {
+                    toastr.clear();
+                    toastr.success(data.Message)
                     ApplyCustomBinding('buildings');
                     self.Countrydlltxt('')
                 }
@@ -307,8 +315,6 @@
 
     }
     self.EditBuilding = function (tableItem) {
-        debugger;
-      
         if (tableItem != undefined) {
             $('.ErrorCountryd').hide();
             self.Id(tableItem.Id);
@@ -320,34 +326,38 @@
             self.Address(tableItem.Address);
             self.ZipCode(tableItem.ZipCode);
             self.OrganizationId(tableItem.OrganizationId);
-            self.NationalityId((tableItem.NationalityId == undefined) ? 11 : tableItem.NationalityId);
+            self.NationalityId((tableItem.NationalityId == 'undefined' || null) ? 11 : tableItem.NationalityId);
             stateId = (tableItem.StateId);
             cityId = (tableItem.CityId);
             if (tableItem.txtcountry != null) {
-                self.Countrydlltxt(tableItem.txtcountry);
                 $("#Country").show();
                 $("#dropcountry").show();
-                //  document.getElementById('dropcountry').style.visibility = 'visible';
+                self.Countrydlltxt(tableItem.txtcountry);
+                console.log(tableItem.txtcountry);
+                self.NationalityId(11);
+                self.CityId(0);
+                tableItem.CityId = 0;
+
             }
             else {
                 $("#Country").show();
                 $("#dropcountry").hide();
             }
             if (tableItem.txtstate != null) {
-                self.statedlltxt(tableItem.txtstate);
                 $("#state").hide();
                 $("#dropstate").show();
-                //  document.getElementById('dropstate').style.visibility = 'visible';
+                self.statedlltxt(tableItem.txtstate);
+                console.log(tableItem.txtstate);
             }
             else {
                 $("#state").show();
                 $("#dropstate").hide();
             }
             if (tableItem.txtcity != null) {
-                self.citydlltxt(tableItem.txtcity);
                 $("#city").hide();
                 $("#dropcity").show();
-                // document.getElementById('dropcity').style.visibility = 'visible';
+                self.citydlltxt(tableItem.txtcity);
+                console.log(tableItem.txtcity);
             }
             else {
                 $("#city").show();
@@ -356,6 +366,7 @@
             self.IsInsert(false);
             $("#btnSaveBuilding").text("Update");
             $('#Org').attr('disabled', true);
+
         }
     }
     self.DeleteBuilding = function (tableItem) {

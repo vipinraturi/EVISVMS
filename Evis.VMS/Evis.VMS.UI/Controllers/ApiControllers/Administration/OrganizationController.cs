@@ -20,6 +20,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
+using System.Globalization;
 
 namespace Evis.VMS.UI.Controllers.ApiControllers
 {
@@ -39,7 +40,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 var existOrganization = _genericService.Organization.GetAll().Where(x => x.CompanyName.Trim().ToLower().Equals(organization.CompanyName.Trim().ToLower()));
                 if (existOrganization != null && existOrganization.Count() > 0)
                 {
-                    message = "Organization with this name is already exist! Please some other use other name.";
+                    message = "Organization with this name is already exist! Please use some other name.";
                     return new ReturnResult { Message = message, Success = success };
                 }
                 organization.IsActive = true;
@@ -49,14 +50,6 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 organization.UpdatedOn = DateTime.UtcNow;
                 _genericService.Organization.Insert(organization);
 
-                var proto = Request.GetRequestContext().Url.Request.RequestUri.Scheme;
-                var baseUrl = Request.GetRequestContext().Url.Request.RequestUri.Authority;
-
-                var emailFormat = _genericService.EmailFormats.GetAll().Where(x => x.Category == "OrganizationCreation").FirstOrDefault();
-                string body = string.Format(emailFormat.Format, organization.CompanyName);
-
-                // Send email on organization creation.
-                //EmailHelper.SendMail(organization.EmailId, "Company Prfile is created", body);
                 message = "Organization saved successfully!!";
                 success = true;
             }
@@ -65,6 +58,13 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 var existingOrg = _genericService.Organization.GetById(organization.Id);
                 if (existingOrg != null)
                 {
+                    var existOrganization = _genericService.Organization.GetAll()
+                        .Where(x => x.Id != organization.Id && x.CompanyName.Trim().ToLower().Equals(organization.CompanyName.Trim().ToLower()));
+                    if (existOrganization != null && existOrganization.Count() > 0)
+                    {
+                        message = "Organization with this name is already exist! Please use some other name.";
+                        return new ReturnResult { Message = message, Success = success };
+                    }
                     existingOrg.CompanyName = organization.CompanyName;
                     existingOrg.CountryId = organization.CountryId;
                     existingOrg.WebSite = organization.WebSite;
@@ -82,7 +82,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
         [Route("~/Api/Administration/GetOrganizationsData")]
         [HttpPost]
-        public string GetOrganizationsData(string globalSearch, int pageIndex, int pageSize, string sortField = "Id", string sortOrder = "DESC")
+        public string GetOrganizationsData(string globalSearch, int pageIndex, int pageSize, string sortField = "", string sortOrder = "DESC")
         {
             var organizationsList = _genericService.Organization.GetAll().Where(x => x.IsActive == true)
             .Select(x => new OrganisationVM
@@ -91,6 +91,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 CompanyName = x.CompanyName,
                 CountryId = x.CountryId,
                 Country = x.CountryMaster.LookUpValue,
+                CreatedOn = x.CreatedOn.ToString(),
                 WebSite = x.WebSite
             });
 
@@ -101,8 +102,15 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     organizationsList = organizationsList.Where(item =>
                         item.CompanyName.ToLower().Contains(globalSearch.ToLower()) ||
                         item.Country.ToLower().Contains(globalSearch.ToLower()) ||
+                        item.CreatedOn.ToString().ToLower().Contains(globalSearch.ToLower()) ||
                         item.WebSite.ToLower().Contains(globalSearch.ToLower())
                         ).AsQueryable();
+                }
+
+                if (string.IsNullOrEmpty(sortField))
+                {
+                    sortField = "CreatedOn";
+                    sortOrder = "DESC";
                 }
 
                 //creating pager object to send for filtering and sorting
@@ -111,7 +119,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     PageIndex = (pageIndex - 1),
                     PageSize = pageSize,
                     SearchText = globalSearch,
-                    Sort = new Sort { SortDirection = (sortOrder == "DESC" ? SortDirection.Descending : SortDirection.Ascending), SortBy = sortField }
+                    Sort = new Sort { SortDirection = (sortOrder == "ASC" ? SortDirection.Ascending : SortDirection.Descending), SortBy = sortField }
                 };
 
                 int totalCount = 0;

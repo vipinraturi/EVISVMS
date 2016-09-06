@@ -61,8 +61,10 @@
             data.ToTime = self.strToTime();
             AjaxCall('/Api/Shift/SaveShift', data, 'POST', function (data) {
                 if (data.Success == true) {
+                    toastr.clear();
+                    debugger;
                     ApplyCustomBinding('newshiftcreate');
-                    toastr.success('Shift saved successfully!!');
+                    toastr.success(data.Message);
                 }
                 else if (data.Success == false) {
                     //self.ShitfName('');
@@ -109,7 +111,7 @@
                 toastr.clear();
                 toastr.warning(data.Message);
             }
-           
+
         });
     }
 

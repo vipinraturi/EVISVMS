@@ -4,8 +4,14 @@
 
     $('.side-menu li').click(function () {
        
-        $(this).parents('.child_menu').find('li').removeClass('active');//removing old active class
-        $(this).addClass('active');//adding new active class on current element
+        //debugger;
+
+        var $lis = $(this).parents('.child_menu').find('li');
+        if ($lis.length > 0) {
+            $lis.removeClass('active');//removing old active class
+            $(this).addClass('active');//adding new active class on current element
+        }
+        
 
         AttachClickEvent($(this).attr('id'));
     });

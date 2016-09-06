@@ -10,6 +10,7 @@ namespace Evis.VMS.UI.ViewModel
         public string ThemeName { get; set; }
         public string ImageLogoPath { get; set; }
         public string ProfilePicPath { get; set; }
+        public string FullName { get; set; }
         public RoleType UserRole { get; set; }
     }
 

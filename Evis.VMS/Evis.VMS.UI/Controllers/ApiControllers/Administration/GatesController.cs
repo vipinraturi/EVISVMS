@@ -30,10 +30,12 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         [HttpPost]
         public ReturnResult SaveGate([FromBody]  GateMaster gateMaster)
         {
+            bool success = false;
+            string message = "";
             var currentUserId = HttpContext.Current.User.Identity.GetUserId();
             if (gateMaster.Id == 0)
             {
-                var data = _genericService.GateMaster.GetAll().Where(x => x.GateNumber == gateMaster.GateNumber.Trim() && x.BuildingId == gateMaster.BuildingId && x.IsActive == true).ToList();
+                var data = _genericService.GateMaster.GetAll().Where(x => x.GateNumber.Trim() == gateMaster.GateNumber.Trim() && x.BuildingId == gateMaster.BuildingId && x.IsActive == true).ToList();
                 if (data.Count() == 0)
                 {
                     gateMaster.IsActive = true;
@@ -42,6 +44,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     gateMaster.UpdatedBy = currentUserId;
                     gateMaster.UpdatedOn = DateTime.UtcNow;
                     _genericService.GateMaster.Insert(gateMaster);
+                    message = "Gate saved successfully!!";
+                    success = true;
                 }
                 else
                 {
@@ -53,16 +57,27 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 var existinggate = _genericService.GateMaster.GetById(gateMaster.Id);
                 if (existinggate != null)
                 {
-                    existinggate.BuildingId = gateMaster.BuildingId;
-                    existinggate.GateNumber = gateMaster.GateNumber;
-                    existinggate.UpdatedBy = currentUserId;
-                    existinggate.UpdatedOn = DateTime.UtcNow;
-                    gateMaster.IsActive = true;
-                    _genericService.GateMaster.Update(existinggate);
+                    var data = _genericService.GateMaster.GetAll().Where(x => x.Id != gateMaster.Id && x.GateNumber.Trim() == gateMaster.GateNumber.Trim() && x.BuildingId == gateMaster.BuildingId && x.IsActive == true).ToList();
+                    if (data.Count() == 0)
+                    {
+                        existinggate.BuildingId = gateMaster.BuildingId;
+                        existinggate.GateNumber = gateMaster.GateNumber;
+                        existinggate.UpdatedBy = currentUserId;
+                        existinggate.UpdatedOn = DateTime.UtcNow;
+                        existinggate.CreatedOn = existinggate.CreatedOn;
+                        gateMaster.IsActive = true;
+                        _genericService.GateMaster.Update(existinggate);
+                        message = "Gate update successfully!!";
+                        success = true;
+                    }
+                    else
+                    {
+                        return new ReturnResult { Message = "UnSuccess", Success = false };
+                    }
                 };
             }
             _genericService.Commit();
-            return new ReturnResult { Message = "Success", Success = true };
+            return new ReturnResult { Message = message, Success = true };
         }
         [Route("~/Api/Gates/GetAllGate")]
         [HttpPost]
@@ -79,8 +94,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                        BuildingId = x.BuildingId,
                        GateNumber = x.GateNumber,
                        BuildingName = x.BuildingMaster.BuildingName,
-                       Country = x.BuildingMaster.CityMaster.ParentValues.LookUpValue == null ? x.BuildingMaster.OtherCountry : x.BuildingMaster.CityMaster.ParentValues.LookUpValue,
-                       State = x.BuildingMaster.CityMaster.ParentValues.ParentValues.LookUpValue == null ? x.BuildingMaster.OtherState : x.BuildingMaster.CityMaster.ParentValues.ParentValues.LookUpValue,
+                       State = x.BuildingMaster.CityMaster.ParentValues.LookUpValue == null ? x.BuildingMaster.OtherCountry : x.BuildingMaster.CityMaster.ParentValues.LookUpValue,
+                       Country = x.BuildingMaster.CityMaster.ParentValues.ParentValues.LookUpValue == null ? x.BuildingMaster.OtherState : x.BuildingMaster.CityMaster.ParentValues.ParentValues.LookUpValue,
                        City = x.BuildingMaster.CityMaster.LookUpValue == null ? x.BuildingMaster.OtherCity : x.BuildingMaster.CityMaster.LookUpValue,
                        otherCountry = x.BuildingMaster.OtherCountry,
                        OtherState = x.BuildingMaster.OtherState,
@@ -92,21 +107,22 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 int orgId = user.Organization.Id;
                 if (orgId != null)
                 {
-                    var data = _genericService.BuildingMaster.GetAll().Where(x => x.OrganizationId == orgId).FirstOrDefault();
-                    lstgateVM = _genericService.GateMaster.GetAll().Where(x => x.IsActive == true && x.BuildingId == data.Id)
-                            .Select(x => new GatesVM
-                            {
-                                Id = x.Id,
-                                BuildingId = x.BuildingId,
-                                GateNumber = x.GateNumber,
-                                BuildingName = x.BuildingMaster.BuildingName,
-                                Country = x.BuildingMaster.CityMaster.ParentValues.LookUpValue == null ? x.BuildingMaster.OtherCountry : x.BuildingMaster.CityMaster.ParentValues.LookUpValue,
-                                State = x.BuildingMaster.CityMaster.ParentValues.ParentValues.LookUpValue == null ? x.BuildingMaster.OtherState : x.BuildingMaster.CityMaster.ParentValues.ParentValues.LookUpValue,
-                                City = x.BuildingMaster.CityMaster.LookUpValue == null ? x.BuildingMaster.OtherCity : x.BuildingMaster.CityMaster.LookUpValue,
-                                otherCountry = x.BuildingMaster.OtherCountry,
-                                OtherState = x.BuildingMaster.OtherState,
-                                OtherCity = x.BuildingMaster.OtherCity
-                            });
+
+                    lstgateVM = _genericService.GateMaster.GetAll().Where(x => x.IsActive == true && x.BuildingMaster.OrganizationId == orgId)
+                                  .Select(x => new GatesVM
+                                  {
+                                      Id = x.Id,
+                                      BuildingId = x.BuildingId,
+                                      GateNumber = x.GateNumber,
+                                      BuildingName = x.BuildingMaster.BuildingName,
+                                      Country = x.BuildingMaster.CityMaster.ParentValues.LookUpValue == null ? x.BuildingMaster.OtherCountry : x.BuildingMaster.CityMaster.ParentValues.LookUpValue,
+                                      State = x.BuildingMaster.CityMaster.ParentValues.ParentValues.LookUpValue == null ? x.BuildingMaster.OtherState : x.BuildingMaster.CityMaster.ParentValues.ParentValues.LookUpValue,
+                                      City = x.BuildingMaster.CityMaster.LookUpValue == null ? x.BuildingMaster.OtherCity : x.BuildingMaster.CityMaster.LookUpValue,
+                                      otherCountry = x.BuildingMaster.OtherCountry,
+                                      OtherState = x.BuildingMaster.OtherState,
+                                      OtherCity = x.BuildingMaster.OtherCity
+                                  });
+
                 }
             }
             if (lstgateVM.Count() > 0)
@@ -187,7 +203,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             else
             {
                 int orgId = user.Organization.Id;
-                result = _genericService.BuildingMaster.GetAll().Where(x => x.IsActive == true && x.Id == orgId)
+                result = _genericService.BuildingMaster.GetAll().Where(x => x.IsActive == true && x.OrganizationId == orgId)
                       .Select(y => new GeneralDropDownVM { Id = y.Id, Name = y.BuildingName });
             }
             return result.OrderByDescending(x => x.Id);

@@ -35,14 +35,14 @@ namespace Evis.VMS.UI.ViewModel
         public string ContactNumber { get; set; }
         public string FaxNumber { get; set; }
         public string WebSite { get; set; }
-        public DateTime? CreatedOn { get; set; }
+        public string CreatedOn { get; set; }
         public string CreatedBy { get; set; }
         public DateTime? UpdatedOn { get; set; }
         public string UpdatedBy { get; set; }
         public string txtcountry { get; set; }
         public string txtstate { get; set; }
         public string txtcity { get; set; }
-        //public string OtherCountry { get; set; }
+       
         //public string OtherState { get; set; }
         //public string OtherCity { get; set; }
     }

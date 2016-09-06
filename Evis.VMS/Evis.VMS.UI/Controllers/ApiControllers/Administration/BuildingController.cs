@@ -34,6 +34,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         [HttpPost]
         public ReturnResult SaveBuilding([FromBody] BuildingVM buildingMaster)
         {
+            bool success = false;
+            string message = "";
             string currentUserId = HttpContext.Current.User.Identity.GetUserId();
             if (buildingMaster.Id == 0)
             {
@@ -64,11 +66,14 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     obj.WebSite = buildingMaster.WebSite;
                     obj.UpdatedBy = currentUserId;
                     obj.UpdatedOn = DateTime.UtcNow;
+                    obj.CreatedOn = DateTime.UtcNow;
+                    obj.CreatedBy = currentUserId;
                     obj.OtherCountry = (buildingMaster.CityId == null) ? buildingMaster.txtcountry : null;
                     obj.OtherState = (buildingMaster.CityId == null) ? buildingMaster.txtstate : null;
                     obj.OtherCity = (buildingMaster.CityId == null) ? buildingMaster.txtcity : null;
                     _genericService.BuildingMaster.Insert(obj);
-                    //}
+                    message = "Building saved successfully!!";
+                    success = true;
                 }
                 else
                 {
@@ -80,26 +85,36 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 var existingOrg = _genericService.BuildingMaster.GetById(buildingMaster.Id);
                 if (existingOrg != null)
                 {
-                    existingOrg.Address = buildingMaster.Address;
-                    existingOrg.BuildingName = buildingMaster.BuildingName;
-                    existingOrg.CityId = buildingMaster.CityId;
-                    existingOrg.ZipCode = buildingMaster.ZipCode;
-                    existingOrg.OrganizationId = existingOrg.OrganizationId;
-                    buildingMaster.IsActive = true;
-                    existingOrg.EmailId = buildingMaster.EmailId;
-                    existingOrg.ContactNumber = buildingMaster.ContactNumber;
-                    existingOrg.FaxNumber = buildingMaster.FaxNumber;
-                    existingOrg.WebSite = buildingMaster.WebSite;
-                    existingOrg.UpdatedBy = currentUserId;
-                    existingOrg.UpdatedOn = DateTime.UtcNow;
-                    existingOrg.OtherCountry = (buildingMaster.CityId == null) ? buildingMaster.txtcountry : null;
-                    existingOrg.OtherState = (buildingMaster.CityId == null) ? buildingMaster.txtstate : null;
-                    existingOrg.OtherCity = (buildingMaster.CityId == null) ? buildingMaster.txtcity : null;
-                    _genericService.BuildingMaster.Update(existingOrg);
+                    var data = _genericService.BuildingMaster.GetAll().Where(x => x.BuildingName == buildingMaster.BuildingName.Trim() && x.OrganizationId == buildingMaster.OrganizationId).ToList();
+                    if (data.Count() == 0)
+                    {
+                        existingOrg.Address = buildingMaster.Address;
+                        existingOrg.BuildingName = buildingMaster.BuildingName;
+                        existingOrg.CityId = buildingMaster.CityId;
+                        existingOrg.ZipCode = buildingMaster.ZipCode;
+                        existingOrg.OrganizationId = existingOrg.OrganizationId;
+                        buildingMaster.IsActive = true;
+                        existingOrg.EmailId = buildingMaster.EmailId;
+                        existingOrg.ContactNumber = buildingMaster.ContactNumber;
+                        existingOrg.FaxNumber = buildingMaster.FaxNumber;
+                        existingOrg.WebSite = buildingMaster.WebSite;
+                        existingOrg.UpdatedBy = currentUserId;
+                        existingOrg.UpdatedOn = DateTime.UtcNow;
+                        existingOrg.OtherCountry = (buildingMaster.CityId == null) ? buildingMaster.txtcountry : null;
+                        existingOrg.OtherState = (buildingMaster.CityId == null) ? buildingMaster.txtstate : null;
+                        existingOrg.OtherCity = (buildingMaster.CityId == null) ? buildingMaster.txtcity : null;
+                        _genericService.BuildingMaster.Update(existingOrg);
+                        message = "Building update successfully!!";
+                        success = true;
+                    }
+                    else
+                    {
+                        return new ReturnResult { Message = "UnSuccess", Success = false };
+                    }
                 };
             }
             _genericService.Commit();
-            return new ReturnResult { Message = "Success", Success = true };
+            return new ReturnResult { Message = message, Success = true };
         }
 
         [Route("~/Api/Administration/GetBuildingData")]
@@ -127,7 +142,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                  WebSite = x.WebSite,
                  txtcountry = x.OtherCountry,
                  txtstate = x.OtherState,
-                 txtcity = x.OtherCity
+                 txtcity = x.OtherCity,
+                 CreatedOn = x.CreatedOn.ToString()
              });
             }
             else
@@ -153,7 +169,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                      WebSite = x.WebSite,
                      txtcountry = x.OtherCountry,
                      txtstate = x.OtherState,
-                     txtcity = x.OtherCity
+                     txtcity = x.OtherCity,
+                     CreatedOn = x.CreatedOn.ToString()
 
                  });
                 }
@@ -178,7 +195,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 //if (string.IsNullOrEmpty(sortField))
                 //{
                 //    sortField = "BuildingName";
-                    
+
                 //}
 
                 var paginationRequest = new PaginationRequest
@@ -193,7 +210,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 IList<BuildingVM> result =
                    GenericSorterPager.GetSortedPagedList<BuildingVM>(lstBuildingVM, paginationRequest, out totalCount);
 
-                var jsonData = JsonConvert.SerializeObject(result.OrderByDescending(x=>x.Id));
+                var jsonData = JsonConvert.SerializeObject(result.OrderByDescending(x => x.UpdatedOn));
                 return JsonConvert.SerializeObject(new { totalRows = totalCount, result = jsonData });
             }
             return null;

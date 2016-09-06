@@ -21,6 +21,7 @@ using System.Web;
 using System.Web.Http;
 using Microsoft.AspNet.Identity;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
 
 namespace Evis.VMS.UI.Controllers.ApiControllers
@@ -32,27 +33,39 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         [HttpPost]
         public ReturnResult Saveshift([FromBody]  ShitfMaster ShiftDetail)
         {
-
+            bool success = false;
+            string Message = "";
             var currentUserId = HttpContext.Current.User.Identity.GetUserId();
-
             if (ShiftDetail.Id == 0)
             {
                 var data = _genericService.ShitfMaster.GetAll().Where(x => x.ShitfName == ShiftDetail.ShitfName.Trim()).ToList();
                 if (data.Count() == 0)
                 {
-                    var result = _genericService.ShitfMaster.GetAll().Where(y => y.ToTime == ShiftDetail.ToTime && y.FromTime == ShiftDetail.FromTime).ToList();
-                    if (result.Count() == 0)
+                    var result = _genericService.ShitfMaster.GetAll().Where(y => DbFunctions.CreateTime(y.ToTime.Hour, y.ToTime.Minute, y.ToTime.Second) == DbFunctions.CreateTime(ShiftDetail.ToTime.Hour, ShiftDetail.ToTime.Minute, ShiftDetail.ToTime.Second)
+                        && DbFunctions.CreateTime(y.FromTime.Hour, y.FromTime.Minute, y.FromTime.Second) == DbFunctions.CreateTime(ShiftDetail.FromTime.Hour, ShiftDetail.FromTime.Minute, ShiftDetail.FromTime.Second)).ToList();
+                    if (ShiftDetail.FromTime != ShiftDetail.ToTime)
                     {
-                        ShiftDetail.IsActive = true;
-                        ShiftDetail.CreatedBy = currentUserId;
-                        ShiftDetail.CreatedOn = DateTime.UtcNow;
-                        ShiftDetail.UpdatedBy = currentUserId;
-                        ShiftDetail.UpdatedOn = DateTime.UtcNow;
-                        _genericService.ShitfMaster.Insert(ShiftDetail);
+                        if (result.Count() == 0)
+                        {
+                            ShiftDetail.IsActive = true;
+                            ShiftDetail.CreatedBy = currentUserId;
+                            ShiftDetail.CreatedOn = DateTime.UtcNow;
+                            ShiftDetail.UpdatedBy = currentUserId;
+                            ShiftDetail.UpdatedOn = DateTime.UtcNow;
+                            ShiftDetail.FromTime = ShiftDetail.FromTime;
+                            ShiftDetail.ToTime = ShiftDetail.ToTime;
+                            _genericService.ShitfMaster.Insert(ShiftDetail);
+                            Message = "Shift saved successfully!!";
+                            success = true;
+                        }
+                        else
+                        {
+                            return new ReturnResult { Message = "Shift time already assigned to other shift", Success = false };
+                        }
                     }
                     else
                     {
-                        return new ReturnResult { Message = "Shift time already assigned to other shift", Success = false };
+                        return new ReturnResult { Message = "Shift time invalid", Success = false };
                     }
                 }
                 else
@@ -63,21 +76,53 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             else
             {
                 var shiftFromDb = _genericService.ShitfMaster.GetById(ShiftDetail.Id);
+
                 if (shiftFromDb != null)
                 {
+                    var data = _genericService.ShitfMaster.GetAll().Where(x => x.Id != ShiftDetail.Id && x.ShitfName == ShiftDetail.ShitfName.Trim()).ToList();
+                    if (data.Count() == 0)
+                    {
+                        var result = _genericService.ShitfMaster.GetAll().Where(y => y.Id != ShiftDetail.Id && y.ToTime == ShiftDetail.ToTime && y.FromTime == ShiftDetail.FromTime).ToList();
+                        if (result.Count() == 0)
+                        {
+                            if (ShiftDetail.FromTime != ShiftDetail.ToTime)
+                            {
+                                if (shiftFromDb != null)
+                                {
 
-                    shiftFromDb.ShitfName = ShiftDetail.ShitfName;
-                    shiftFromDb.FromTime = ShiftDetail.FromTime;
-                    shiftFromDb.ToTime = ShiftDetail.ToTime;
-                    shiftFromDb.UpdatedBy = currentUserId;
-                    shiftFromDb.UpdatedOn = DateTime.UtcNow;
-                    ShiftDetail.IsActive = true;
-                    _genericService.ShitfMaster.Update(ShiftDetail);
+                                    shiftFromDb.ShitfName = ShiftDetail.ShitfName;
+                                    shiftFromDb.FromTime = ShiftDetail.FromTime;
+                                    shiftFromDb.ToTime = ShiftDetail.ToTime;
+                                    shiftFromDb.UpdatedBy = currentUserId;
+                                    shiftFromDb.UpdatedOn = DateTime.UtcNow;
+                                    ShiftDetail.IsActive = true;
+                                    shiftFromDb.CreatedOn = shiftFromDb.CreatedOn;
+                                    _genericService.ShitfMaster.Update(shiftFromDb);
+                                    Message = "Shift update successfully!!";
+                                    success = true;
+                                };
+                            }
+                            else
+                            {
+                                return new ReturnResult { Message = "Shift time invalid", Success = false };
+                            }
+                        }
+                        else
+                        {
+                            return new ReturnResult { Message = "Shift time already assigned to other shift", Success = false };
+                        }
+                    }
+                    else
+                    {
+                        return new ReturnResult { Message = "Shift name already assigned to other shift", Success = false };
+                    }
+                }
 
-                };
+
+
             }
             _genericService.Commit();
-            return new ReturnResult { Message = "Success", Success = true };
+            return new ReturnResult { Message = Message, Success = true };
         }
         [Route("~/Api/Shift/GetAllShift")]
         [HttpPost]
@@ -94,7 +139,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                                  ToTime = (x.ToTime),
                                  FromTime = x.FromTime,
                                  strFromTime = x.FromTime.ToString("hh:mm tt"),
-                                 strToTime = x.ToTime.ToString("hh:mm tt")
+                                 strToTime = x.ToTime.ToString("hh:mm tt"),
+                                 CreatedOn = x.CreatedOn.ToString(),
                              }).AsQueryable();
             }
             else
@@ -110,7 +156,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                                      ToTime = (x.ToTime),
                                      FromTime = x.FromTime,
                                      strFromTime = x.FromTime.ToString("hh:mm tt"),
-                                     strToTime = x.ToTime.ToString("hh:mm tt")
+                                     strToTime = x.ToTime.ToString("hh:mm tt"),
+                                     CreatedOn = x.CreatedOn.ToString(),
                                  }).AsQueryable();
 
                 }

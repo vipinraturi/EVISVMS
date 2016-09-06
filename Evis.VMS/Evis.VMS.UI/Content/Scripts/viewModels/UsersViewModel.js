@@ -8,12 +8,20 @@
         deferValidation: true
     });
 
-    self.Email = ko.observable('').extend({ required: true, maxLength: 50, email: { message: "Invalid email" } });
+    self.Email = ko.observable('').extend({
+        required: true,
+        maxLength: 50,
+        pattern: {
+            message: 'Invalid email.',
+            params: /\s*\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*\s*/
+        }
+    });
+
     self.ContactNumber = ko.observable('').extend({
         required: true,
         pattern: {
             message: 'Invalid phone number.',
-            params: /^\+?([0-9\(\)\/\-\.]*)$/
+            params: /^\s*\+?([0-9\(\)\/\-\.\s*]*)$/
         },
         minLength: {
             params: 6,
@@ -72,7 +80,7 @@
     //self.userErrors = ko.validation.group(self);
 
     self.GetAllUsers = function () {
-        self.DataGrid.UpdateSearchParam('?globalSearch=' + $.trim($("#txtGlobalSearch").val()));
+        self.DataGrid.UpdateSearchParam('?globalSearch=' + $.trim($("#txtGlobalSearchUser").val()));
         DataGrid.FlipPage(1);
         self.DataGrid.GetData();
     }
@@ -106,13 +114,13 @@
             var data = new Object();
             data.UserId = self.UserId(),
             data.OrganizationId = self.OrganizationId(),
-            data.FullName = self.FullName(),
-            data.Email = self.Email(),
-            data.ContactNumber = self.ContactNumber(),
+            data.FullName = $.trim(self.FullName()),
+            data.Email = $.trim(self.Email()),
+            data.ContactNumber = $.trim(self.ContactNumber()),
             data.GenderId = self.GenderId(),
             data.Nationality = self.Nationality(),
             data.RoleId = self.RoleId();
-            if ($('.dz-image img').attr('alt') == undefined) {
+            if ($('.dz-image img').attr('alt') == undefined || $('.dz-image img').attr('alt') == "undefined") {
                 data.ProfilePicturePath = "";
             }
             else {
@@ -121,6 +129,8 @@
                     data.ProfilePicturePath = imagePath;
                 }
             }
+
+            
             $('.loader-div').show();
             AjaxCall('/Api/Users/SaveUser', data, 'POST', function (data) {
                 if (data.Success == true) {
@@ -214,7 +224,17 @@
     }
 
     self.ViewImage = function () {
-        $('#originalSize').attr('src', self.ProfilePicturePath());
+        var srcURL = '';
+       // debugger;
+        if ($('.dz-image img').attr('alt') != "" && $('.dz-image img').attr('alt') != "undefined") {
+            srcURL = '/images/UserImages/' + $('.dz-image img').attr('alt');
+        }
+        else {
+            srcURL = self.ProfilePicturePath();
+        }
+
+
+        $('#originalSize').attr('src', srcURL);
         $('#imageModal').modal('show');
     }
 
