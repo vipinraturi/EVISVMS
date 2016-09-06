@@ -81,8 +81,17 @@
         }, 500);
         $('.loader-div').hide();
     }
-
-
+    self.LoadImage = function () {
+        debugger;
+        $('#avatar-modal').modal('hide');
+        var output = document.getElementById('myImg');
+        output.src = '#';
+        document.getElementById("avatarInput").files.length = 0;
+        $("#avatarInput").val('');
+        RefreshImage(ImagePath);
+    }
+   
+  
     self.ResetOrganization = function () {
         self.IsInsert(true);
         self.GlobalSearch('');
@@ -172,7 +181,6 @@
 
 }
 
-
 RefreshImage = function (Imagepath) {
     //debugger;
 
@@ -187,3 +195,5 @@ RefreshImage = function (Imagepath) {
         $('.loader-div').hide();
     }, 2000);
 }
+
+
