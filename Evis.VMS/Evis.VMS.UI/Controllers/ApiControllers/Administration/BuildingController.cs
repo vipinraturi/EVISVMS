@@ -85,24 +85,32 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 var existingOrg = _genericService.BuildingMaster.GetById(buildingMaster.Id);
                 if (existingOrg != null)
                 {
-                    existingOrg.Address = buildingMaster.Address;
-                    existingOrg.BuildingName = buildingMaster.BuildingName;
-                    existingOrg.CityId = buildingMaster.CityId;
-                    existingOrg.ZipCode = buildingMaster.ZipCode;
-                    existingOrg.OrganizationId = existingOrg.OrganizationId;
-                    buildingMaster.IsActive = true;
-                    existingOrg.EmailId = buildingMaster.EmailId;
-                    existingOrg.ContactNumber = buildingMaster.ContactNumber;
-                    existingOrg.FaxNumber = buildingMaster.FaxNumber;
-                    existingOrg.WebSite = buildingMaster.WebSite;
-                    existingOrg.UpdatedBy = currentUserId;
-                    existingOrg.UpdatedOn = DateTime.UtcNow;
-                    existingOrg.OtherCountry = (buildingMaster.CityId == null) ? buildingMaster.txtcountry : null;
-                    existingOrg.OtherState = (buildingMaster.CityId == null) ? buildingMaster.txtstate : null;
-                    existingOrg.OtherCity = (buildingMaster.CityId == null) ? buildingMaster.txtcity : null;
-                    _genericService.BuildingMaster.Update(existingOrg);
-                    message = "Building update successfully!!";
-                    success = true;
+                    var data = _genericService.BuildingMaster.GetAll().Where(x => x.BuildingName == buildingMaster.BuildingName.Trim() && x.OrganizationId == buildingMaster.OrganizationId).ToList();
+                    if (data.Count() == 0)
+                    {
+                        existingOrg.Address = buildingMaster.Address;
+                        existingOrg.BuildingName = buildingMaster.BuildingName;
+                        existingOrg.CityId = buildingMaster.CityId;
+                        existingOrg.ZipCode = buildingMaster.ZipCode;
+                        existingOrg.OrganizationId = existingOrg.OrganizationId;
+                        buildingMaster.IsActive = true;
+                        existingOrg.EmailId = buildingMaster.EmailId;
+                        existingOrg.ContactNumber = buildingMaster.ContactNumber;
+                        existingOrg.FaxNumber = buildingMaster.FaxNumber;
+                        existingOrg.WebSite = buildingMaster.WebSite;
+                        existingOrg.UpdatedBy = currentUserId;
+                        existingOrg.UpdatedOn = DateTime.UtcNow;
+                        existingOrg.OtherCountry = (buildingMaster.CityId == null) ? buildingMaster.txtcountry : null;
+                        existingOrg.OtherState = (buildingMaster.CityId == null) ? buildingMaster.txtstate : null;
+                        existingOrg.OtherCity = (buildingMaster.CityId == null) ? buildingMaster.txtcity : null;
+                        _genericService.BuildingMaster.Update(existingOrg);
+                        message = "Building update successfully!!";
+                        success = true;
+                    }
+                    else
+                    {
+                        return new ReturnResult { Message = "UnSuccess", Success = false };
+                    }
                 };
             }
             _genericService.Commit();
