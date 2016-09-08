@@ -31,11 +31,16 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         IQueryable<ShiftDetailsVM> LstShiftDetailsVM;
         [Route("~/Api/Shift/SaveShift")]
         [HttpPost]
-        public ReturnResult Saveshift([FromBody]  ShitfMaster ShiftDetail)
+        public async Task<ReturnResult> Saveshift([FromBody]  ShitfMaster ShiftDetail)
         {
             bool success = false;
             string Message = "";
             var currentUserId = HttpContext.Current.User.Identity.GetUserId();
+            var user = (await _userService.GetAllAsync()).Where(x => x.Id == HttpContext.Current.User.Identity.GetUserId() && x.IsActive == true).FirstOrDefault();
+            //if (user != null)// cehck for user 
+            //{
+
+            //}
             if (ShiftDetail.Id == 0)
             {
                 var data = _genericService.ShitfMaster.GetAll().Where(x => x.ShitfName == ShiftDetail.ShitfName.Trim()).ToList();
@@ -54,6 +59,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                             ShiftDetail.UpdatedOn = DateTime.UtcNow;
                             ShiftDetail.FromTime = ShiftDetail.FromTime;
                             ShiftDetail.ToTime = ShiftDetail.ToTime;
+                            ShiftDetail.OrganizationId = user == null ? null : user.OrganizationId;
                             _genericService.ShitfMaster.Insert(ShiftDetail);
                             Message = "Shift saved successfully!!";
                             success = true;
@@ -148,7 +154,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 string userid = user.Id;
                 if (userid != null)
                 {
-                    LstShiftDetailsVM = _genericService.ShitfMaster.GetAll().Where(x => x.IsActive == true && x.UpdatedBy == userid).AsEnumerable()
+                    LstShiftDetailsVM = _genericService.ShitfMaster.GetAll().Where(x => x.IsActive == true && x.OrganizationId == null || x.OrganizationId == user.OrganizationId).AsEnumerable()
                                  .Select(x => new ShiftDetailsVM
                                  {
                                      Id = x.Id,
