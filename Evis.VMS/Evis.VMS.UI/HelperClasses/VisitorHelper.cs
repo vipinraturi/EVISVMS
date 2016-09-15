@@ -153,11 +153,13 @@ namespace Evis.VMS.UI.HelperClasses
         {
             var visitors =
                 _genericService.VisitorMaster.GetAll();
-
-
-            if (visitors.Where(item => item.EmailId == visitorDetailsVM.EmailAddress).FirstOrDefault() != null)
+            if (visitorDetailsVM.EmailAddress != "")
             {
-                return "Email already exist";
+
+                if (visitors.Where(item => item.EmailId == visitorDetailsVM.EmailAddress).FirstOrDefault() != null)
+                {
+                    return "Email already exist";
+                }
             }
             else if (visitors.Where(item => item.EmailId == visitorDetailsVM.ContactNo).FirstOrDefault() != null)
             {
