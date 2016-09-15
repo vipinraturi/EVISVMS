@@ -45,9 +45,9 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 }
                 organization.IsActive = true;
                 organization.CreatedBy = currentUserId;
-                organization.CreatedOn = DateTime.UtcNow;
+                organization.CreatedOn = DateTime.Now;
                 organization.UpdatedBy = currentUserId;
-                organization.UpdatedOn = DateTime.UtcNow;
+                organization.UpdatedOn = DateTime.Now;
                 _genericService.Organization.Insert(organization);
 
                 message = "Organization saved successfully!!";
