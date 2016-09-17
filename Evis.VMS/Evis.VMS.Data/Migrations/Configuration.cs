@@ -39,7 +39,7 @@ namespace Evis.VMS.Data.Migrations
             context.EmailFormats.Add(new EmailFormats { Id = 1, Category = "ForgotPassword", IsActive = true, Format = "Dear {0}, <br/>Please click <a href={1}>here</a> to reset the password.<br/><br/><br/>Regards,<br/>Administrator" });
             context.EmailFormats.Add(new EmailFormats { Id = 2, Category = "UserCreation", IsActive = true, Format = "Dear {0}, <br/>Your account has been created, click <a href={1}>here</a> to activate the account.<br/>Use the below credentials after successfull activation. <br/>UserName: {2} <br/>Password: {3}<br/><br/>Regards,<br/>Administrator" });
             context.EmailFormats.Add(new EmailFormats { Id = 3, Category = "OrganizationCreation", IsActive = true, Format = "Dear Sir/Madam, <br/><br/>Your company with the name {0} has been created successfully.<br/><br/>Regards,<br/>Administrator" });
-            context.EmailFormats.Add(new EmailFormats { Id = 4, Category = "OrganizationCreation", IsActive = true, Format = "Dear {0}, <br/>Your account password has changed successfully.<br/><br/>Regards,<br/>Administrator" });
+            context.EmailFormats.Add(new EmailFormats { Id = 4, Category = "PasswordReset", IsActive = true, Format = "Dear {0}, <br/>Your account password has changed successfully.<br/><br/>Regards,<br/>Administrator" });
 
             context.Database.ExecuteSqlCommand("SET IDENTITY_INSERT EmailFormats ON");
         }

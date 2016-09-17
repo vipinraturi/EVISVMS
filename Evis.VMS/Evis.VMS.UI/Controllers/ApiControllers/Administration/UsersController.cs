@@ -296,7 +296,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     await _userService.UpdateAsync(user, string.Empty);
                     return new ReturnResult { Message = "Password changed successfully!", Success = true };
                 }
-                else if (passwordExist != null)
+                else if (user != null && passwordExist != null)
                 {
                     return new ReturnResult { Message = "New entered password should not be same as the current password!", Success = false };
                 }
