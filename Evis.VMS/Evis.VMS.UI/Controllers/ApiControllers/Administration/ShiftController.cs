@@ -104,6 +104,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                                     ShiftDetail.IsActive = true;
                                     shiftFromDb.CreatedOn = shiftFromDb.CreatedOn;
                                     _genericService.ShitfMaster.Update(shiftFromDb);
+                                    ShiftDetail.OrganizationId = user == null ? null : user.OrganizationId;
                                     Message = "Shift update successfully!!";
                                     success = true;
                                 };

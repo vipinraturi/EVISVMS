@@ -231,37 +231,37 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 var existingShift = _genericService.ShitfAssignment.GetById(ShitfAssignment.Id);
                 if (existingShift != null)
                 {
-                    ShitfAssignment.FromDate = Convert.ToDateTime(ShitfAssignment.strFromDate);
-                    ShitfAssignment.ToDate = Convert.ToDateTime(ShitfAssignment.strToDate);
-                    var data = _genericService.ShitfAssignment.GetAll().Where(x => x.Id != ShitfAssignment.Id && x.FromDate >= ShitfAssignment.FromDate
-                    && x.ToDate <= ShitfAssignment.ToDate
-                    || x.FromDate >= ShitfAssignment.FromDate
-                    && x.FromDate <= ShitfAssignment.ToDate
-                    || x.ToDate >= ShitfAssignment.FromDate
-                    && x.ToDate <= ShitfAssignment.ToDate
-                    || x.FromDate <= ShitfAssignment.ToDate
-                    && x.ToDate >= ShitfAssignment.FromDate).ToList();
-                    if (data.Count() == 0)
-                    {
+                    //ShitfAssignment.FromDate = Convert.ToDateTime(ShitfAssignment.strFromDate);
+                    //ShitfAssignment.ToDate = Convert.ToDateTime(ShitfAssignment.strToDate);
+                    //var data = _genericService.ShitfAssignment.GetAll().Where(x => x.Id != ShitfAssignment.Id && x.FromDate >= ShitfAssignment.FromDate
+                    //&& x.ToDate <= ShitfAssignment.ToDate
+                    //|| x.FromDate >= ShitfAssignment.FromDate
+                    //&& x.FromDate <= ShitfAssignment.ToDate
+                    //|| x.ToDate >= ShitfAssignment.FromDate
+                    //&& x.ToDate <= ShitfAssignment.ToDate
+                    //|| x.FromDate <= ShitfAssignment.ToDate
+                    //&& x.ToDate >= ShitfAssignment.FromDate).ToList();
+                    //if (data.Count() == 0)
+                    //{
 
-                        existingShift.ShitfId = ShitfAssignment.ShitfId;
-                        existingShift.UserId = ShitfAssignment.UserId;
-                        existingShift.GateId = ShitfAssignment.GateId;
-                        existingShift.BuildingId = ShitfAssignment.BuildingId;
-                        existingShift.FromDate = DateTime.Parse(ShitfAssignment.strFromDate);
-                        existingShift.ToDate = DateTime.Parse(ShitfAssignment.strToDate);
-                        existingShift.FromDate = DateTime.ParseExact(ShitfAssignment.strFromDate, "dd/MM/yyyy", null); //Convert.ToDateTime(ShitfAssignment.strFromDate);
-                        existingShift.ToDate = DateTime.ParseExact(ShitfAssignment.strToDate, "dd/MM/yyyy", null);//Convert.ToDateTime(ShitfAssignment.strToDate);
-                        existingShift.IsActive = true;
-                        _genericService.ShitfAssignment.Update(existingShift);
-                        Message = "Shift update successfully!!";
-                        success = true;
-                    }
-                    else
-                    {
-                        return new ReturnResult { Message = "UnSuccess", Success = false };
+                    existingShift.ShitfId = ShitfAssignment.ShitfId;
+                    existingShift.UserId = ShitfAssignment.UserId;
+                    existingShift.GateId = ShitfAssignment.GateId;
+                    existingShift.BuildingId = ShitfAssignment.BuildingId;
+                    existingShift.FromDate = DateTime.Parse(ShitfAssignment.strFromDate);
+                    existingShift.ToDate = DateTime.Parse(ShitfAssignment.strToDate);
+                    existingShift.FromDate = DateTime.ParseExact(ShitfAssignment.strFromDate, "dd/MM/yyyy", null); //Convert.ToDateTime(ShitfAssignment.strFromDate);
+                    existingShift.ToDate = DateTime.ParseExact(ShitfAssignment.strToDate, "dd/MM/yyyy", null);//Convert.ToDateTime(ShitfAssignment.strToDate);
+                    existingShift.IsActive = true;
+                    _genericService.ShitfAssignment.Update(existingShift);
+                    Message = "Shift update successfully!!";
+                    success = true;
+                    //}
+                    //else
+                    //{
+                    //    return new ReturnResult { Message = "UnSuccess", Success = false };
 
-                    }
+                    //}
 
                 };
             }
