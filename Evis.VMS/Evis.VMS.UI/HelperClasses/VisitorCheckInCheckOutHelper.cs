@@ -114,7 +114,7 @@ namespace Evis.VMS.UI.HelperClasses
                 result.Nationality = visitorData.CountryMaster.LookUpValue;
                 result.VisitorId = visitorData.Id;
                 result.VisitorName = visitorData.VisitorName;
-
+                result.CompanyName = visitorData.CompanyName;
 
             }
 
@@ -201,7 +201,8 @@ namespace Evis.VMS.UI.HelperClasses
                         LogoUrl = "/images/VisitorImages/" + item.ProfilePicPath,
                         IdentityImage1_Path = "/images/VisitorIdentityImages/" + item.IdentityImage1_Path,
                         IdentityImage2_Path = "/images/VisitorIdentityImages/" + item.IdentityImage2_Path,
-                        IdentityImage3_Path = "/images/VisitorIdentityImages/" + item.IdentityImage3_Path
+                        IdentityImage3_Path = "/images/VisitorIdentityImages/" + item.IdentityImage3_Path,
+                        CompanyName = item.CompanyName
                     });
                 });
             }

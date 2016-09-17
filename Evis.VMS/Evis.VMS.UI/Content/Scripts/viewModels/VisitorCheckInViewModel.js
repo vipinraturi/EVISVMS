@@ -40,6 +40,7 @@
             self.MobileNo(data.MobileNo);
             self.EmailId(data.EmailId);
             self.IdentificationNo(data.IdentificationNo);
+            self.CompanyName(data.CompanyName);
             self.Nationality(data.Nationality);
             self.VisitorHiostory(data.VisitorHiostory);
             self.IsSecurityPerson(data.IsSecurityPerson);

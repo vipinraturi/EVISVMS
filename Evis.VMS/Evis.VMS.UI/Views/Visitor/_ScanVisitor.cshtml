@@ -10,7 +10,7 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-                <p>Drag or browse upto 3 images (2 identity and 1 visiting card) to the box below or click to select files.</p>
+                <p>Drag or browse upto 3 images only (2 identity and 1 visiting card).</p>
                 <div style="text-align:center">
                     <form action="~/Visitor/SaveVisitorIdentityImages" method="post"
                           enctype="multipart/form-data" class="dropzone dz-clickable" id="dropzoneForm"></form>
@@ -27,7 +27,7 @@
     <div class="col-md-6 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h2>Add Visitor</h2>
+                <h2>Scanned Visitor's Data</h2>
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
@@ -35,7 +35,8 @@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Visitor Name: </label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtFirstName" type="text" class="form-control inputdisable" placeholder="[Visitor Name]" data-bind="value: VisitorName" readonly="readonly" />
+                            <input id="txtFirstName" type="text" class="form-control inputdisable" placeholder="[Visitor Name]" data-bind="value: VisitorName" 
+                                   readonly="readonly" />
                             <span class="fa fa-user favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
@@ -58,7 +59,7 @@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Type Of Card:</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id=""  type="text" class="form-control inputdisable" placeholder="[Emirates Id]" data-bind="value: TypeOfCardText" />
+                            <input id="" type="text" class="form-control inputdisable" placeholder="[Emirates Id]" data-bind="value: TypeOfCardText" readonly="readonly" />
                             <span class="fa fa-credit-card favwhite form-control-feedback right" aria-hidden="true"></span>
                         </div>
                     </div>
@@ -157,6 +158,7 @@
                 ////debugger;
                 var maxLengthExceeded = false;
 
+                
                 if (this.files[4] != null) {
                     maxLengthExceeded = true;
                     this.removeFile(this.files[0]);
@@ -168,10 +170,10 @@
                     this.removeFile(this.files[0]);
                 }
 
-                if (maxLengthExceeded) {
-                    toastr.clear();
-                    toastr.warning('Only 3 images can be uploaded.');
-                }
+                //if (maxLengthExceeded) {
+                //    toastr.clear();
+                //    toastr.warning('Only 3 images can be uploaded.');
+                //}
 
                 var removeButton = Dropzone.createElement("<i class='fa fa-remove red' aria-hidden='true'></i>");
                 var _this = this;

@@ -93,8 +93,8 @@ function ScanVisitorViewModel() {
             if (data.ContactNumber != undefined) {
                 self.ContactNumber(data.ContactNumber);
             }
-
-            $('input[type=text]').removeAttr('readonly').removeClass('inputdisable');
+            $('#txtFirstName').focus();
+            //$('input[type=text]').removeAttr('readonly').removeClass('inputdisable');
 
             $('.dz-image img').each(function () {
                 //debugger;

@@ -63,5 +63,6 @@ namespace Evis.VMS.Data.Model.Entities
 
         public string IdentityImage3_Path { get; set; }
 
+        public string CompanyName { get; set; }
     }
 }
