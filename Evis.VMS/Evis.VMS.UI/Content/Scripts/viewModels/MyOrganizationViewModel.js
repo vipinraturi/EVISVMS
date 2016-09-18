@@ -64,9 +64,9 @@
                 var data = new Object();
               
                 data.Id = self.Id(),
-                data.CompanyName = self.CompanyName(),
+                data.CompanyName = self.CompanyName().Trim(),
                 data.CountryId = self.CountryId(),
-                data.WebSite = self.WebSite()
+                data.WebSite = self.WebSite().Trim()
                 data.IsInsert = self.IsInsert();
 
                 //// display any error messages if we have them
