@@ -118,8 +118,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
             if (string.IsNullOrEmpty(sortField))
             {
-                sortField = "FromDate";
-                sortOrder = "ASC";
+                sortField = "UserName";
+                //sortOrder = "ASC";
             }
             
             var paginationRequest = new PaginationRequest
@@ -133,7 +133,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             IList<ShiftAssignmentVM> result =
             GenericSorterPager.GetSortedPagedList<ShiftAssignmentVM>(ShiftDisplay.AsQueryable(), paginationRequest, out totalCount);
 
-            var jsonData = JsonConvert.SerializeObject(ShiftDisplay.OrderBy(x => x.UserName));
+            var jsonData = JsonConvert.SerializeObject(result);
             return JsonConvert.SerializeObject(new { totalRows = totalCount, result = jsonData });
             //return Shift;
 
