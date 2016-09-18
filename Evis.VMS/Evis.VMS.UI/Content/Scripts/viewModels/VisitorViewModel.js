@@ -1,5 +1,6 @@
 ﻿function VisitorViewModel(visitorName, gender, nationalityVal, dateOfBirth, typeOfCard, idNumber, nationalityVal, companyName, emailAddress,
     contactNumber, identityImages) {
+
     //alert(companyName);
     nationality = (nationalityVal != "" ? nationalityVal : undefined);
     typeOfCard = (typeOfCard != "" ? typeOfCard : undefined);
@@ -13,9 +14,7 @@
             params: /^([\d\w-\.]+@([\d\w-]+\.)+[\w]{2,4})?$/,
             message:"Enter a valid EmailID"
         }
-    
-
-    });
+        });
 Gender = ko.observable(gender).extend({ required: true });
 DOB = ko.observable(dateOfBirth).extend({ required: true });
 TypeOfCardValue = ko.observable(typeOfCard).extend({ required: true });
@@ -23,6 +22,23 @@ IdNo = ko.observable(idNumber).extend({ required: true });
 Nationality = ko.observable(nationality).extend({ required: true });
 ContactNo = ko.observable(contactNumber).extend({ required: true });
 
+//alert('typeOfCard ' + typeOfCard + '  gender ' + gender + ' nationalityVal ' + nationalityVal);
+
+setTimeout(function () {
+    if (typeOfCard != undefined) {
+        TypeOfCardValue = ko.observable(typeOfCard).extend({ required: true });
+    }
+
+    if (nationality != undefined) {
+        Nationality = ko.observable(nationality).extend({ required: true });
+    }
+
+    if (gender != undefined) {
+        Gender = ko.observable(gender).extend({ required: true });
+    }
+
+}, 1500);
+    
 self.ContactNo = ko.observable('').extend({
     required: true,
     pattern: {

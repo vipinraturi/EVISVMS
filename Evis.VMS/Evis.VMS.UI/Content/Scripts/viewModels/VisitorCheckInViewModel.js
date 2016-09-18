@@ -12,8 +12,13 @@
     self.NoOfPerson = ko.observable('').extend({ required: true });
     self.Purpose_Remark = ko.observable('');
     self.logoURL = ko.observable('');
-    self.CompanyName = ko.observable('');
-    self.VahicleNumber = ko.observable('');
+    self.CompanyName = ko.observable('[Company Name]');
+    self.VahicleNumber = ko.observable('').extend({
+        pattern: {
+            params: /^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/,
+            message:"Enter atleat one alphabet and digit"
+        }
+    });
     self.Floor = ko.observable('');
     self.TotalDuration = ko.observable('');
     
@@ -48,6 +53,9 @@
             self.IsAlreadyCheckIn(data.IsAlreadyCheckIn);
             self.TotalDuration(data.TotalDuration);
             self.IsShiftAssignedToSecurity(data.IsShiftAssignedToSecurity);
+            
+
+            
             
             $('.searchVisitor').val('');
             //toastr.clear();toastr.success('Visitor data loaded!!');
@@ -170,7 +178,7 @@
         self.ContactPerson('');
         self.NoOfPerson('');
         self.Purpose_Remark('');
-        self.CompanyName('');
+        self.CompanyName('[Company Name]');
         self.VahicleNumber('');
         self.Floor('');
         self.VisitorHiostory([]);

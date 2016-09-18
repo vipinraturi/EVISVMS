@@ -53,10 +53,19 @@ namespace Evis.VMS.UI.HelperClasses
                                                             IdentityImage1_Path = item.IdentityImage1_Path,
                                                             IdentityImage2_Path = item.IdentityImage2_Path,
                                                             IdentityImage3_Path = item.IdentityImage3_Path,
-                                                            CompanyName = item.CompanyName
+                                                            CompanyName = item.CompanyName,
+                                                            CreatedOn = item.CreatedDate
                                                         })
                                                         .AsQueryable();
 
+
+
+            //Default Sorting
+            //if (string.IsNullOrEmpty(sortField))
+            //{
+            //    sortField = "Id";
+            //    sortOrder = "DESC";
+            //}
 
             //creating pager object to send for filtering and sorting
             var paginationRequest = new PaginationRequest

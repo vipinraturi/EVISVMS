@@ -46,5 +46,7 @@ namespace Evis.VMS.UI.ViewModel
 
         public string CompanyName { get; set; }
 
+        public DateTime CreatedOn { get; set; }
+
     }
 }

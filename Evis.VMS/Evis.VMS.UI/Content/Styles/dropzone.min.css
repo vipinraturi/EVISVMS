@@ -237,11 +237,13 @@
 }
 
     .dropzone.dz-clickable {
-        cursor: pointer;
+     
+         cursor: pointer;
     }
 
         .dropzone.dz-clickable * {
-            cursor: default;
+            /*cursor: default;*/
+              cursor: inherit;
         }
 
         .dropzone.dz-clickable .dz-message, .dropzone.dz-clickable .dz-message * {
