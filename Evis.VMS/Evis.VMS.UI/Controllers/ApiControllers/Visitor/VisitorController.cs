@@ -90,7 +90,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
             if (string.IsNullOrEmpty(sortField))
             {
-                sortField = "VisitorName";
+                sortField = "CreatedOn";
+                sortOrder = "DESC";
             }
 
             if (string.IsNullOrEmpty(globalSearch))
@@ -102,7 +103,9 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             pageIndex = (pageIndex - 1);
 
             var lstVisitorsFromDb = _visitorHelper.GetAllVisitorsData(globalSearch, pageIndex, pageSize, sortField, sortOrder, out totalCount, (user == null) ? null : user.OrganizationId);
-            var jsonData = JsonConvert.SerializeObject(lstVisitorsFromDb.OrderByDescending(x => x.Id));
+            var jsonData = JsonConvert.SerializeObject(lstVisitorsFromDb);//.OrderByDescending(x => x.Id)
+
+            
             var total = totalCount;
             return JsonConvert.SerializeObject(new { totalRows = total, result = jsonData });
         }

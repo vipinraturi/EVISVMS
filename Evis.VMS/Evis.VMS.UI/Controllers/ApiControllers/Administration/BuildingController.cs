@@ -54,23 +54,23 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     //else
                     //{
                     BuildingMaster obj = new BuildingMaster();
-                    obj.Address = buildingMaster.Address;
-                    obj.BuildingName = buildingMaster.BuildingName;
+                    obj.Address = buildingMaster.Address.Trim();
+                    obj.BuildingName = buildingMaster.BuildingName.Trim();
                     obj.CityId = buildingMaster.CityId;
-                    obj.ZipCode = buildingMaster.ZipCode;
+                    obj.ZipCode = buildingMaster.ZipCode.Trim();
                     obj.OrganizationId = buildingMaster.OrganizationId;
                     obj.IsActive = true;
-                    obj.EmailId = buildingMaster.EmailId;
-                    obj.ContactNumber = buildingMaster.ContactNumber;
-                    obj.FaxNumber = buildingMaster.FaxNumber;
-                    obj.WebSite = buildingMaster.WebSite;
+                    obj.EmailId = buildingMaster.EmailId.Trim();
+                    obj.ContactNumber = buildingMaster.ContactNumber.Trim();
+                    obj.FaxNumber = buildingMaster.FaxNumber.Trim();
+                    obj.WebSite = buildingMaster.WebSite.Trim();
                     obj.UpdatedBy = currentUserId;
                     obj.UpdatedOn = DateTime.UtcNow;
                     obj.CreatedOn = DateTime.UtcNow;
                     obj.CreatedBy = currentUserId;
-                    obj.OtherCountry = (buildingMaster.CityId == null) ? buildingMaster.txtcountry : null;
-                    obj.OtherState = (buildingMaster.CityId == null) ? buildingMaster.txtstate : null;
-                    obj.OtherCity = (buildingMaster.CityId == null) ? buildingMaster.txtcity : null;
+                    obj.OtherCountry = (buildingMaster.CityId == null) ? buildingMaster.txtcountry.Trim() : null;
+                    obj.OtherState = (buildingMaster.CityId == null) ? buildingMaster.txtstate.Trim() : null;
+                    obj.OtherCity = (buildingMaster.CityId == null) ? buildingMaster.txtcity.Trim() : null;
                     _genericService.BuildingMaster.Insert(obj);
                     message = "Building saved successfully!!";
                     success = true;
@@ -88,21 +88,21 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     var data = _genericService.BuildingMaster.GetAll().Where(x => x.BuildingName == buildingMaster.BuildingName.Trim() && x.OrganizationId == buildingMaster.OrganizationId).ToList();
                     if (data.Count() == 0)
                     {
-                        existingOrg.Address = buildingMaster.Address;
-                        existingOrg.BuildingName = buildingMaster.BuildingName;
+                        existingOrg.Address = buildingMaster.Address.Trim();
+                        existingOrg.BuildingName = buildingMaster.BuildingName.Trim();
                         existingOrg.CityId = buildingMaster.CityId;
-                        existingOrg.ZipCode = buildingMaster.ZipCode;
+                        existingOrg.ZipCode = buildingMaster.ZipCode.Trim();
                         existingOrg.OrganizationId = existingOrg.OrganizationId;
                         buildingMaster.IsActive = true;
-                        existingOrg.EmailId = buildingMaster.EmailId;
-                        existingOrg.ContactNumber = buildingMaster.ContactNumber;
-                        existingOrg.FaxNumber = buildingMaster.FaxNumber;
-                        existingOrg.WebSite = buildingMaster.WebSite;
+                        existingOrg.EmailId = buildingMaster.EmailId.Trim();
+                        existingOrg.ContactNumber = buildingMaster.ContactNumber.Trim();
+                        existingOrg.FaxNumber = buildingMaster.FaxNumber.Trim();
+                        existingOrg.WebSite = buildingMaster.WebSite.Trim();
                         existingOrg.UpdatedBy = currentUserId;
                         existingOrg.UpdatedOn = DateTime.UtcNow;
-                        existingOrg.OtherCountry = (buildingMaster.CityId == null) ? buildingMaster.txtcountry : null;
-                        existingOrg.OtherState = (buildingMaster.CityId == null) ? buildingMaster.txtstate : null;
-                        existingOrg.OtherCity = (buildingMaster.CityId == null) ? buildingMaster.txtcity : null;
+                        existingOrg.OtherCountry = (buildingMaster.CityId == null) ? buildingMaster.txtcountry.Trim() : null;
+                        existingOrg.OtherState = (buildingMaster.CityId == null) ? buildingMaster.txtstate.Trim() : null;
+                        existingOrg.OtherCity = (buildingMaster.CityId == null) ? buildingMaster.txtcity.Trim() : null;
                         _genericService.BuildingMaster.Update(existingOrg);
                         message = "Building update successfully!!";
                         success = true;
