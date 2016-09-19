@@ -43,6 +43,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     gateMaster.CreatedOn = DateTime.UtcNow;
                     gateMaster.UpdatedBy = currentUserId;
                     gateMaster.UpdatedOn = DateTime.UtcNow;
+                    gateMaster.GateNumber = gateMaster.GateNumber.Trim();
                     _genericService.GateMaster.Insert(gateMaster);
                     message = "Gate saved successfully!!";
                     success = true;
@@ -61,7 +62,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     if (data.Count() == 0)
                     {
                         existinggate.BuildingId = gateMaster.BuildingId;
-                        existinggate.GateNumber = gateMaster.GateNumber;
+                        existinggate.GateNumber = gateMaster.GateNumber.Trim();
                         existinggate.UpdatedBy = currentUserId;
                         existinggate.UpdatedOn = DateTime.UtcNow;
                         existinggate.CreatedOn = existinggate.CreatedOn;

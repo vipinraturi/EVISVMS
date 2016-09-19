@@ -242,9 +242,9 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     || y.ToDate >= ShitfAssignment.FromDate
                     && y.ToDate <= ShitfAssignment.ToDate
                     || y.FromDate <= ShitfAssignment.ToDate
-                    && y.ToDate >= ShitfAssignment.FromDate
+                    && y.ToDate >= ShitfAssignment.FromDate)
                     && (y.UserId == ShitfAssignment.UserId)
-                    )).ToList();
+                    ).ToList();
                     //existingShift.FromDate = Convert.ToDateTime(ShitfAssignment.strFromDate);
                     //existingShift.ToDate = Convert.ToDateTime(ShitfAssignment.strToDate);
                     //var data = _genericService.ShitfAssignment.GetAll().Where(x => x.Id != ShitfAssignment.Id && x.FromDate >= existingShift.FromDate
