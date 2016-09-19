@@ -55,7 +55,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
            
             foreach (var item in myData)
             {
-                if (item.CreateTime >= lastDate && item.CreateTime < currentDate)
+                if (item.CreateTime >= lastDate && item.CreateTime <= currentDate)
                 {
                     mydict.Add(new Tuple<int, string,DateTime>(item.Count, (Convert.ToDateTime(item.CreateTime)).ToString("dd/MM/yyyy"),Convert.ToDateTime(item.CreateTime)));
                 }
