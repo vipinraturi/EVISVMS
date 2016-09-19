@@ -53,9 +53,19 @@ namespace Evis.VMS.UI.HelperClasses
                                                             IdentityImage1_Path = item.IdentityImage1_Path,
                                                             IdentityImage2_Path = item.IdentityImage2_Path,
                                                             IdentityImage3_Path = item.IdentityImage3_Path,
+                                                            CompanyName = item.CompanyName,
+                                                            CreatedOn = item.CreatedDate
                                                         })
                                                         .AsQueryable();
 
+
+
+            //Default Sorting
+            //if (string.IsNullOrEmpty(sortField))
+            //{
+            //    sortField = "Id";
+            //    sortOrder = "DESC";
+            //}
 
             //creating pager object to send for filtering and sorting
             var paginationRequest = new PaginationRequest
@@ -97,7 +107,8 @@ namespace Evis.VMS.UI.HelperClasses
                         ProfilePicPath = visitorDetailsVM.ImagePath,
                         IdentityImage1_Path = visitorDetailsVM.IdentityImage1_Path,
                         IdentityImage2_Path = visitorDetailsVM.IdentityImage2_Path,
-                        IdentityImage3_Path = visitorDetailsVM.IdentityImage3_Path
+                        IdentityImage3_Path = visitorDetailsVM.IdentityImage3_Path,
+                        CompanyName = visitorDetailsVM.CompanyName
                     });
                 _genericService.Commit();
             }
@@ -125,6 +136,7 @@ namespace Evis.VMS.UI.HelperClasses
                     visitor.IdentityImage1_Path = visitorDetailsVM.IdentityImage1_Path;
                     visitor.IdentityImage2_Path = visitorDetailsVM.IdentityImage2_Path;
                     visitor.IdentityImage3_Path = visitorDetailsVM.IdentityImage3_Path;
+                    visitor.CompanyName = visitorDetailsVM.CompanyName;
                     _genericService.VisitorMaster.Update(visitor);
                     _genericService.Commit();
                 }

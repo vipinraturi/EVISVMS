@@ -17,11 +17,11 @@ namespace Evis.VMS.UI.HelperClasses
 {
     public class ScanVisitorHelper
     {
-        ScanVisitorVM obj = null;
+        ScanVisitorVM objScannedData = null;
 
         public ScanVisitorHelper()
         {
-            obj = new ScanVisitorVM();
+            objScannedData = new ScanVisitorVM();
         }
 
         public ScanVisitorVM ScanDetails(string item)
@@ -39,51 +39,51 @@ namespace Evis.VMS.UI.HelperClasses
                 || extractedText.Contains("Idenmy Card"))
             //Front page of emirates id card
             {
-                obj.TypeOfCard = "Emirates Id";
+                objScannedData.TypeOfCard = "Emirates Id";
                 if (resultSplitted.Length >= 4 && !string.IsNullOrEmpty(resultSplitted[3]))
                 {
-                    obj.IDNumber = resultSplitted[3].Replace("<br /", "").Replace(" ", "");
+                    objScannedData.IDNumber = resultSplitted[3].Replace("<br /", "").Replace(" ", "");
                 }
                 if (resultSplitted.Length >= 6 && !string.IsNullOrEmpty(resultSplitted[5]))
                 {
-                    obj.VisitorName = resultSplitted[5].Replace("<br /", "").Replace("Name:", "").Replace(" ", "");
+                    objScannedData.VisitorName = resultSplitted[5].Replace("<br /", "").Replace("Name:", "").Replace(" ", "");
                 }
                 if (resultSplitted.Length >= 8 && !string.IsNullOrEmpty(resultSplitted[7]))
                 {
-                    obj.Nationality = resultSplitted[7].Replace("<br /", "").Replace("NaonahIy:", "").Replace("Nationality:", "").Replace(" ", "");
+                    objScannedData.Nationality = resultSplitted[7].Replace("<br /", "").Replace("NaonahIy:", "").Replace("Nationality:", "").Replace(" ", "");
                 }
             }
             else if (extractedText.Contains("Date of Birth"))
             {
-                obj.TypeOfCard = "Emirates Id";
+                objScannedData.TypeOfCard = "Emirates Id";
                 //Back page of emirates id card 
                 if (resultSplitted.Length >= 1 && !string.IsNullOrEmpty(resultSplitted[0]))
                 {
                     if ( resultSplitted[0].Contains(":"))
                     {
-                        obj.Gender = resultSplitted[0].Split(':')[1];
-                        obj.DateOfBirth = resultSplitted[0].Split(':')[2].Replace("<br /", " ").Replace("Date of Birth", " ").Replace("j1", "").Replace(" ", "");    
+                        objScannedData.Gender = resultSplitted[0].Split(':')[1];
+                        objScannedData.DateOfBirth = resultSplitted[0].Split(':')[2].Replace("<br /", " ").Replace("Date of Birth", " ").Replace("j1", "").Replace(" ", "");    
                     }
                 }
             }
             else if (extractedText.Contains("License No"))
             //Driving licence
             {
-                obj.TypeOfCard = "License";
+                objScannedData.TypeOfCard = "License";
                 if (resultSplitted.Length >= 4 && !string.IsNullOrEmpty(resultSplitted[3]))
                 {
-                    obj.LienceNo = resultSplitted[16].Replace("License No.", "").Replace("<br /", "");
+                    objScannedData.LienceNo = resultSplitted[16].Replace("License No.", "").Replace("<br /", "");
                 }
             }
             else //visiting card
             {
-                obj.CompanyName = "";
+                objScannedData.CompanyName = "";
                 //logic to retrieve email address
                 foreach (var curreIitem in extractedText.Split('<'))
                 {
                     if (curreIitem.Contains("@") || curreIitem.ToLower().Contains("email"))
                     {
-                        obj.EmailAddress = curreIitem
+                        objScannedData.EmailAddress = curreIitem
                                             .Replace("br />", "")
                                             .Replace(":", "")
                                             .Replace("—", "")
@@ -98,7 +98,7 @@ namespace Evis.VMS.UI.HelperClasses
                     if (curreIitem.Contains("+") || curreIitem.ToLower().Contains("tel")
                         || curreIitem.ToLower().Contains("cell") || curreIitem.ToLower().Contains("mob"))
                     {
-                        obj.ContactNumber = curreIitem.Replace("br />", "")
+                        objScannedData.ContactNumber = curreIitem.Replace("br />", "")
                             .Replace(":", "")
                             .Replace("Tel", "").Replace("tel", "")
                             .Replace("Mob", "").Replace("mob", "")
@@ -108,8 +108,10 @@ namespace Evis.VMS.UI.HelperClasses
                     }
                 }
             }
+            objScannedData.CompanyName = "For Testing";
+
             modiDocument.Close();
-            return obj;
+            return objScannedData;
         }
     }
 }

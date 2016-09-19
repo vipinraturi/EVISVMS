@@ -44,5 +44,9 @@ namespace Evis.VMS.UI.ViewModel
         public string IdentityImage2_Path { get; set; }
         public string IdentityImage3_Path { get; set; }
 
+        public string CompanyName { get; set; }
+
+        public DateTime CreatedOn { get; set; }
+
     }
 }

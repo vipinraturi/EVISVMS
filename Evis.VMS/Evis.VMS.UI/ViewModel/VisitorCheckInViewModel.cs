@@ -65,6 +65,7 @@ namespace Evis.VMS.UI.ViewModel
         public bool IsAlreadyCheckIn { get; set; }
 
         public bool IsShiftAssignedToSecurity { get; set; }
+
     }
 
     public class VisitorCheckInVM
@@ -130,5 +131,7 @@ namespace Evis.VMS.UI.ViewModel
         public string IdentityImage1_Path { get; set; }
         public string IdentityImage2_Path { get; set; }
         public string IdentityImage3_Path { get; set; }
+
+        public string CompanyName { get; set; }
     }
 }

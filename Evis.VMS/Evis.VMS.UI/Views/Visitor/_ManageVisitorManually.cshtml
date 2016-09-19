@@ -79,7 +79,7 @@
                                },
                                optionsValue: 'Id',
                                value: Gender,
-                               optionsCaption: 'Select'"></select>
+                               optionsCaption: '--Select--'"></select>
                     </div>
                 </div>
                 <div class="form-group col-md-9 col-sm-9 col-xs-12">
@@ -90,7 +90,7 @@
                     </div>
                 </div>
                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Type Of Cards <span class="mandatoryField">*</span></label>
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Type Of Card <span class="mandatoryField">*</span></label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
                        <select class="form-control Fieldfocus" data-bind="options: TypeOfCards,
                                optionsText: function(item) {
@@ -98,7 +98,7 @@
                                },
                                optionsValue: 'Id',
                                value: TypeOfCardValue,
-                               optionsCaption: 'Select'"></select>
+                               optionsCaption: '--Select--'"></select>
                     </div>
                 </div>
                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
@@ -117,7 +117,7 @@
                                },
                                optionsValue: 'Id',
                                value: Nationality,
-                               optionsCaption: 'Select'"></select>
+                               optionsCaption: '--Select--'"></select>
                     </div>
                 </div>
                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
@@ -127,6 +127,15 @@
                         <span class="fa fa-mobile favwhite form-control-feedback right" aria-hidden="true"></span>
                     </div>
                 </div>
+
+                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Company Name <span class="mandatoryField"></span></label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input maxlength="15" id="txtContactNo" type="text" data-bind="value: CompanyName" class="form-control Fieldfocus" placeholder="[Company Name]" />
+                        <span class="fa fa-building favwhite form-control-feedback right" aria-hidden="true"></span>
+                    </div>
+                </div>
+
                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Address</label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
@@ -170,9 +179,9 @@
                         <thead>
                             <tr>
                                 <th style="width: 1%">#</th>
-                                <th style="width: 15%"> <a href="#" class="sortCol">Visitor Name</a> </th>
-                                <th style="width: 15%"> <a href="#" class="sortCol">Nationality</a></th>
-                                <th style="width: 13%"><a href="#" class="sortCol">Contact Number</a></th>
+                                <th style="width: 15%"> <a href="#" onclick="DataGrid.Sort('VisitorName')" class="VisitorName">Visitor Name</a> </th>
+                                <th style="width: 15%"> <a href="#" onclick="DataGrid.Sort('NationalityVal')" class="NationalityVal">Nationality</a></th>
+                                <th style="width: 13%"><a href="#" onclick="DataGrid.Sort('ContactNo')" class="ContactNo">Contact Number</a></th>
                                 <th style="width: 17%"></th>
                             </tr>
                         </thead>

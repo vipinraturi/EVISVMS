@@ -5226,7 +5226,7 @@ select option {
 }
 
 .inputdisable {
-    /*background-color: #838080;*/
+    background-color: lightgrey;
 }
 
 

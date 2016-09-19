@@ -88,7 +88,8 @@ BindingViewModel = function (controllerUrl, viewModel) {
                 dateFormat: 'dd/mm/yy',
                 maxDate: 'now',
                 changeMonth: true,
-                changeYear: true
+                changeYear: true,
+                yearRange: "-100:+0"
 
             });
         }

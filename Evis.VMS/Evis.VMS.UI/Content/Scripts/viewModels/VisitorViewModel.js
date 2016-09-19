@@ -1,5 +1,7 @@
-﻿function VisitorViewModel(visitorName, gender, nationalityVal, dateOfBirth, typeOfCard, idNumber, nationalityVal, companyName, emailAddress, contactNumber, identityImages) {
+﻿function VisitorViewModel(visitorName, gender, nationalityVal, dateOfBirth, typeOfCard, idNumber, nationalityVal, companyName, emailAddress,
+    contactNumber, identityImages) {
 
+    //alert(companyName);
     nationality = (nationalityVal != "" ? nationalityVal : undefined);
     typeOfCard = (typeOfCard != "" ? typeOfCard : undefined);
     gender = (gender != "" ? gender : undefined);
@@ -12,15 +14,31 @@
             params: /^([\d\w-\.]+@([\d\w-]+\.)+[\w]{2,4})?$/,
             message:"Enter a valid EmailID"
         }
-    
-
-    });
+        });
 Gender = ko.observable(gender).extend({ required: true });
 DOB = ko.observable(dateOfBirth).extend({ required: true });
 TypeOfCardValue = ko.observable(typeOfCard).extend({ required: true });
 IdNo = ko.observable(idNumber).extend({ required: true });
 Nationality = ko.observable(nationality).extend({ required: true });
 ContactNo = ko.observable(contactNumber).extend({ required: true });
+
+//alert('typeOfCard ' + typeOfCard + '  gender ' + gender + ' nationalityVal ' + nationalityVal);
+
+setTimeout(function () {
+    if (typeOfCard != undefined) {
+        TypeOfCardValue = ko.observable(typeOfCard).extend({ required: true });
+    }
+
+    if (nationality != undefined) {
+        Nationality = ko.observable(nationality).extend({ required: true });
+    }
+
+    if (gender != undefined) {
+        Gender = ko.observable(gender).extend({ required: true });
+    }
+
+}, 1500);
+    
 self.ContactNo = ko.observable('').extend({
     required: true,
     pattern: {
@@ -42,6 +60,7 @@ self.Genders = ko.observableArray();
 self.TypeOfCards = ko.observableArray();
 self.Nationalities = ko.observableArray();
 self.ImagePath = ko.observable();
+self.CompanyName = ko.observable(companyName);
 
     
 self.errors = ko.validation.group({
@@ -100,6 +119,7 @@ self.SaveVisitor = function () {
         data.IdNo = self.IdNo(),
         data.Nationality = self.Nationality()
         data.ContactNo = self.ContactNo();
+        data.CompanyName = self.CompanyName();
 
         //debugger;
         data.ImagePath = $('#dropzoneImageForm .dz-image img').attr("img-name-unique");
@@ -211,6 +231,7 @@ self.EditVisitor = function (tableItem) {
         self.VisitorName(tableItem.VisitorName);
         self.EmailAddress(tableItem.EmailAddress);
         self.Gender(tableItem.Gender);
+        self.CompanyName(tableItem.CompanyName);
         self.DOB(dateDob);
         self.TypeOfCardValue(tableItem.TypeOfCard);
         self.IdNo(tableItem.IdNo);
@@ -278,7 +299,7 @@ self.EditVisitor = function (tableItem) {
 
 self.LoadIdentityImage = function (identityImages) {
         
-    debugger;
+    //debugger;
 
     $('#dropzoneForm .dz-image-preview').remove();
     var MultipleImagePath = [];
