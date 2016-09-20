@@ -214,8 +214,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     obj.FromDate = ShitfAssignment.FromDate;
                     obj.ToDate = ShitfAssignment.ToDate;
                     obj.BuildingId = ShitfAssignment.BuildingId;
-                    obj.FromDate = DateTime.ParseExact(ShitfAssignment.strFromDate, "dd/MM/yyyy", null); //Convert.ToDateTime(ShitfAssignment.strFromDate);
-                    obj.ToDate = DateTime.ParseExact(ShitfAssignment.strToDate, "dd/MM/yyyy", null);//Convert.ToDateTime(ShitfAssignment.strToDate);
+                    obj.FromDate = DateTime.ParseExact(ShitfAssignment.strFromDate, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture); //Convert.ToDateTime(ShitfAssignment.strFromDate);
+                    obj.ToDate = DateTime.ParseExact(ShitfAssignment.strToDate, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);//Convert.ToDateTime(ShitfAssignment.strToDate);
                     obj.IsActive = true;
                     _genericService.ShitfAssignment.Insert(obj);
                     Message = "Shift saved successfully!!";
@@ -265,8 +265,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                         existingShift.BuildingId = ShitfAssignment.BuildingId;
                         existingShift.FromDate = DateTime.Parse(ShitfAssignment.strFromDate);
                         existingShift.ToDate = DateTime.Parse(ShitfAssignment.strToDate);
-                        existingShift.FromDate = DateTime.ParseExact(ShitfAssignment.strFromDate, "dd/MM/yyyy", null); //Convert.ToDateTime(ShitfAssignment.strFromDate);
-                        existingShift.ToDate = DateTime.ParseExact(ShitfAssignment.strToDate, "dd/MM/yyyy", null);//Convert.ToDateTime(ShitfAssignment.strToDate);
+                        existingShift.FromDate = DateTime.ParseExact(ShitfAssignment.strFromDate, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture); //Convert.ToDateTime(ShitfAssignment.strFromDate);
+                        existingShift.ToDate = DateTime.ParseExact(ShitfAssignment.strToDate, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);//Convert.ToDateTime(ShitfAssignment.strToDate);
                         existingShift.IsActive = true;
                         _genericService.ShitfAssignment.Update(existingShift);
                         Message = "Shift update successfully!!";

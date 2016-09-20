@@ -143,7 +143,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                  txtcountry = x.OtherCountry,
                  txtstate = x.OtherState,
                  txtcity = x.OtherCity,
-                 CreatedOn = x.CreatedOn.ToString()
+                 CreatedOn = x.CreatedOn.ToString(),
+                 Country = x.CityMaster.ParentValues.ParentValues.LookUpValue
              });
             }
             else
@@ -170,7 +171,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                      txtcountry = x.OtherCountry,
                      txtstate = x.OtherState,
                      txtcity = x.OtherCity,
-                     CreatedOn = x.CreatedOn.ToString()
+                     CreatedOn = x.CreatedOn.ToString(),
+                     Country = x.CityMaster.ParentValues.ParentValues.LookUpValue
 
                  });
                 }
