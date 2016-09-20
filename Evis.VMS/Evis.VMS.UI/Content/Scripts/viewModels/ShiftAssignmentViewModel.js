@@ -276,6 +276,7 @@ function ShiftAssignmentViewModel() {
         self.UserId('');
         self.BuildingId('');
         self.GateId('');
+        $('#SecurityPerson').attr('disabled', true);
         ApplyCustomBinding('shiftassignment');
 
     }
@@ -316,7 +317,9 @@ function ShiftAssignmentViewModel() {
         //if (month.length < 2) month = '0' + month;
         //if (day.length < 2) day = '0' + day;
         //var fromDate = [day, month, year].join('/');
-        var from = tableItem.ToDate.slice(0, 10).split('-');
+        $('#SecurityPerson').attr('disabled', true);
+        
+        var from = tableItem.FromDate.slice(0, 10).split('-');
         var fromdate = from[2] + '/' + from[1] + '/' + from[0];
         var TO = tableItem.ToDate.slice(0, 10).split('-');
         var TODate = TO[2] + '/' + TO[1] + '/' + TO[0];

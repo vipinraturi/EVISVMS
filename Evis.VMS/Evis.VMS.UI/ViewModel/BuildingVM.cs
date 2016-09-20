@@ -42,7 +42,7 @@ namespace Evis.VMS.UI.ViewModel
         public string txtcountry { get; set; }
         public string txtstate { get; set; }
         public string txtcity { get; set; }
-       
+        public string Country { get; set; }
         //public string OtherState { get; set; }
         //public string OtherCity { get; set; }
     }

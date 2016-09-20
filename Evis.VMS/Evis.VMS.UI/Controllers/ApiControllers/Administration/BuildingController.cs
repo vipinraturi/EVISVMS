@@ -85,7 +85,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 var existingOrg = _genericService.BuildingMaster.GetById(buildingMaster.Id);
                 if (existingOrg != null)
                 {
-                    var data = _genericService.BuildingMaster.GetAll().Where(x => x.BuildingName == buildingMaster.BuildingName.Trim() && x.OrganizationId == buildingMaster.OrganizationId).ToList();
+                    var data = _genericService.BuildingMaster.GetAll().Where(x => x.Id != buildingMaster.Id && x.BuildingName == buildingMaster.BuildingName.Trim() && x.OrganizationId == buildingMaster.OrganizationId).ToList();
                     if (data.Count() == 0)
                     {
                         existingOrg.Address = buildingMaster.Address.Trim();
@@ -143,7 +143,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                  txtcountry = x.OtherCountry,
                  txtstate = x.OtherState,
                  txtcity = x.OtherCity,
-                 CreatedOn = x.CreatedOn.ToString()
+                 CreatedOn = x.CreatedOn.ToString(),
+                 Country = x.CityMaster.ParentValues.ParentValues.LookUpValue
              });
             }
             else
@@ -170,7 +171,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                      txtcountry = x.OtherCountry,
                      txtstate = x.OtherState,
                      txtcity = x.OtherCity,
-                     CreatedOn = x.CreatedOn.ToString()
+                     CreatedOn = x.CreatedOn.ToString(),
+                     Country = x.CityMaster.ParentValues.ParentValues.LookUpValue
 
                  });
                 }
