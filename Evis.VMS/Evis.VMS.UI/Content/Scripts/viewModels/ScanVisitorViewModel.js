@@ -30,7 +30,7 @@ function ScanVisitorViewModel() {
         data.push(thirdimg);
         ShowLoader();
         AjaxCall('/Api/Visitor/ScanImage', data, 'POST', function (data) {
-            //debugger;
+            
             if (data.Gender != undefined) {
                 var gender = data.Gender.trim().toLowerCase();
                 if (gender == "m" || gender == "male") {
@@ -60,20 +60,26 @@ function ScanVisitorViewModel() {
 
             }
 
+          
+                if (data.Nationality != undefined) {
 
-            if (data.Nationality != undefined) {
-                var nationalityVal = data.Nationality.trim().toLowerCase();
-                if (nationalityVal.indexOf("arab") != -1) {
-                    self.Nationality('35');//UAE
-                }
-                else if (nationalityVal.indexOf("ind") != -1) {
-                    self.Nationality('32');//Emirates
-                }
-                else {
-                    self.TypeOfCard('-1');
-                }
                 self.NationalityText(data.Nationality);
+                self.Nationality(data.NationalityId);
             }
+            //if (data.Nationality != undefined) {
+            //    var nationalityVal = data.Nationality.trim().toLowerCase();
+            //    if (nationalityVal.indexOf("arab") != -1) {
+            //        self.Nationality('35');//UAE
+            //    }
+            //    else if (nationalityVal.indexOf("ind") != -1) {
+            //        self.Nationality('32');//Emirates
+            //    }
+            //    else {
+            //        self.Nationality('-1');
+            //       //self.TypeOfCard('-1');
+            //    }
+            //    self.NationalityText(data.Nationality);
+            //}
 
             if (data.VisitorName != undefined) {
                 self.VisitorName(data.VisitorName);
@@ -132,18 +138,21 @@ function ScanVisitorViewModel() {
     }
 
     self.PrepareData = function () {
+       
         dataToSend =
-            (self.VisitorName() + "&" +
-            self.Gender() + "&" +
-            self.Nationality() + "&" +
-            self.DOB() + "&" +
-            self.TypeOfCard() + "&" +
-            self.IdNumber() + "&" +
-            self.Nationality() + "&" +
-            self.CompanyName() + "&" +
-            self.EmailAddress() + "&" +
-            self.ContactNumber() + "&" +
+            (self.VisitorName() + "&&" +
+            self.Gender() + "&&" +
+            self.Nationality() + "&&" +
+            self.DOB() + "&&   " +
+            self.TypeOfCard() + "&&" +
+            self.IdNumber() + "&&" +
+            self.Nationality() + "&&" +
+            self.CompanyName() + "&&" +
+            self.EmailAddress() + "&&" +
+            self.ContactNumber() + "&&" +
             self.IdentityImages());
+        alert(dataToSend);
+        //debugger;
     }
 
 

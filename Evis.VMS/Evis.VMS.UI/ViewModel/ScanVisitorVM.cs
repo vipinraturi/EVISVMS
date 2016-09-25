@@ -24,7 +24,9 @@ namespace Evis.VMS.UI.ViewModel
         public string EmailAddress { get; set; }
         public string ContactNumber { get; set; }
         public string Nationality { get; set; }
+        public int NationalityId { get; set; }
         public string LienceNo { get; set; }
+
     }
 
 }
