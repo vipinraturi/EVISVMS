@@ -44,7 +44,8 @@ namespace Evis.VMS.UI.HelperClasses
                                        Building = vd.GateMaster.BuildingMaster.BuildingName,
                                        Gate = vd.GateMaster.GateNumber,
                                        Security = vd.CreatedUser.FullName,
-                                       CompanyName = vm.CompanyName //vd.GateMaster.BuildingMaster.Organization.CompanyName
+                                       CompanyName = vm.CompanyName ,
+                                       ContactPerson= vd.ContactPerson
                                    }).ToList();
 
 
@@ -109,7 +110,9 @@ namespace Evis.VMS.UI.HelperClasses
                                        Building = vd.GateMaster.BuildingMaster.BuildingName,
                                        Gate = vd.GateMaster.GateNumber,
                                        Security = vd.CreatedUser.FullName,
-                                       CompanyName = vd.GateMaster.BuildingMaster.Organization.CompanyName
+                                       CompanyName = vm.CompanyName,
+                                       //vd.GateMaster.BuildingMaster.Organization.CompanyName
+                                       ContactPerson=vd.ContactPerson
                                    }).ToList();
             var searchDetails = JsonConvert.DeserializeObject<SearchVisitorVM>(searchDetailss);
             string targetDate = "";

@@ -12,7 +12,7 @@
   <xs:element name="VisitorsDetailsDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="VisitorsDetailsDataSet" msprop:Generator_UserDSName="VisitorsDetailsDataSet">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="DTVisitorsDetails" msprop:Generator_TableClassName="DTVisitorsDetailsDataTable" msprop:Generator_TableVarName="tableDTVisitorsDetails" msprop:Generator_RowChangedName="DTVisitorsDetailsRowChanged" msprop:Generator_TablePropName="DTVisitorsDetails" msprop:Generator_RowDeletingName="DTVisitorsDetailsRowDeleting" msprop:Generator_RowChangingName="DTVisitorsDetailsRowChanging" msprop:Generator_RowEvHandlerName="DTVisitorsDetailsRowChangeEventHandler" msprop:Generator_RowDeletedName="DTVisitorsDetailsRowDeleted" msprop:Generator_RowClassName="DTVisitorsDetailsRow" msprop:Generator_UserTableName="DTVisitorsDetails" msprop:Generator_RowEvArgName="DTVisitorsDetailsRowChangeEvent">
+        <xs:element name="DTVisitorsDetails" msprop:Generator_TableClassName="DTVisitorsDetailsDataTable" msprop:Generator_TableVarName="tableDTVisitorsDetails" msprop:Generator_TablePropName="DTVisitorsDetails" msprop:Generator_RowDeletingName="DTVisitorsDetailsRowDeleting" msprop:Generator_RowChangingName="DTVisitorsDetailsRowChanging" msprop:Generator_RowEvHandlerName="DTVisitorsDetailsRowChangeEventHandler" msprop:Generator_RowDeletedName="DTVisitorsDetailsRowDeleted" msprop:Generator_UserTableName="DTVisitorsDetails" msprop:Generator_RowChangedName="DTVisitorsDetailsRowChanged" msprop:Generator_RowEvArgName="DTVisitorsDetailsRowChangeEvent" msprop:Generator_RowClassName="DTVisitorsDetailsRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="VisitorId" msprop:Generator_ColumnVarNameInTable="columnVisitorId" msprop:Generator_ColumnPropNameInRow="VisitorId" msprop:Generator_ColumnPropNameInTable="VisitorIdColumn" msprop:Generator_UserColumnName="VisitorId" type="xs:long" minOccurs="0" />
@@ -28,6 +28,7 @@
               <xs:element name="GateName" msprop:Generator_ColumnVarNameInTable="columnGateName" msprop:Generator_ColumnPropNameInRow="GateName" msprop:Generator_ColumnPropNameInTable="GateNameColumn" msprop:Generator_UserColumnName="GateName" type="xs:string" minOccurs="0" />
               <xs:element name="SecurityPerson" msprop:Generator_ColumnVarNameInTable="columnSecurityPerson" msprop:Generator_ColumnPropNameInRow="SecurityPerson" msprop:Generator_ColumnPropNameInTable="SecurityPersonColumn" msprop:Generator_UserColumnName="SecurityPerson" type="xs:string" minOccurs="0" />
               <xs:element name="CompanyName" msprop:Generator_ColumnVarNameInTable="columnCompanyName" msprop:Generator_ColumnPropNameInRow="CompanyName" msprop:Generator_ColumnPropNameInTable="CompanyNameColumn" msprop:Generator_UserColumnName="CompanyName" type="xs:string" minOccurs="0" />
+              <xs:element name="ContactPerson" msprop:Generator_ColumnVarNameInTable="columnContactPerson" msprop:Generator_ColumnPropNameInRow="ContactPerson" msprop:Generator_ColumnPropNameInTable="ContactPersonColumn" msprop:Generator_UserColumnName="ContactPerson" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

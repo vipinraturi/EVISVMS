@@ -20,6 +20,8 @@ namespace Evis.VMS.UI.ViewModel
         public string Security { get; set; }
 
         public string CompanyName { get; set; }
+
+        public string ContactPerson { get; set; }
     }
 
     public class SearchVisitorVM
