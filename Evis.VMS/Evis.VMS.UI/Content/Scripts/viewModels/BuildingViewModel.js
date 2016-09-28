@@ -103,8 +103,8 @@
         });
     self.Organizations = ko.observableArray();
     AjaxCall('/Api/User/GetAllOrganizations', null, 'GET', function (data) {
-        console.log(data);
-        debugger;
+        //console.log(data);
+        
         // alert(data.length);
         self.Organizations(data);
         if (data.length == 1) {
@@ -115,7 +115,7 @@
     });
     self.DataGrid = new RIT.eW.DataGridAjax('/Api/Administration/GetBuildingData', 7);
     self.GetAllBuildingData = function () {
-        //debugger;
+        
         self.DataGrid.UpdateSearchParam('?globalSearch=' + self.GlobalSearch());
         self.DataGrid.GetData();
     }
@@ -147,7 +147,7 @@
             if (self.NationalityId() != undefined && self.NationalityId() != 0) {
                 AjaxCall('/Api/Administration/GetAllStateOrCity?id=' + self.NationalityId(), null, 'GET', function (data) {
                     if (data.length > 0) {
-                        debugger;
+                        
                         self.State(data);
                         self.StateId(stateId);
                         $('#dropcountry').hide();
@@ -219,10 +219,10 @@
                 $(".loginErrorcitydlltxt").hide();
             }
         }
-        debugger;
+        
         var a = $("#selectCountries option:selected").text();
         if (a != "Others") {
-            debugger;
+            
             if (document.getElementById("selectCountries").selectedIndex != 0) {
                 var selectState = document.getElementById("selectState").selectedIndex;
                 if (selectState == 0) {
@@ -291,7 +291,7 @@
             data.txtcity = self.citydlltxt();
             //// display any error messages if we have them
             AjaxCall('/Api/Administration/SaveBuilding', data, 'POST', function (data) {
-                debugger;
+                
                 if (data.Success == true) {
                     toastr.clear();
                     toastr.success(data.Message)
@@ -342,7 +342,7 @@
                 $("#Country").show();
                 $("#dropcountry").show();
                 self.Countrydlltxt(tableItem.txtcountry);
-                console.log(tableItem.txtcountry);
+                //console.log(tableItem.txtcountry);
                 self.NationalityId(11);
                 self.CityId(0);
                 tableItem.CityId = 0;
@@ -356,7 +356,7 @@
                 $("#state").hide();
                 $("#dropstate").show();
                 self.statedlltxt(tableItem.txtstate);
-                console.log(tableItem.txtstate);
+                //console.log(tableItem.txtstate);
             }
             else {
                 $("#state").show();
@@ -366,7 +366,7 @@
                 $("#city").hide();
                 $("#dropcity").show();
                 self.citydlltxt(tableItem.txtcity);
-                console.log(tableItem.txtcity);
+                //console.log(tableItem.txtcity);
             }
             else {
                 $("#city").show();
@@ -381,7 +381,7 @@
     self.DeleteBuilding = function (tableItem) {
         //var message = confirm("Are you sure, you want to delete selected record!");
         //if (message == true) {
-        //    //debugger;
+        //    
         //    AjaxCall('/Api/Administration/DeleteBuilding', tableItem, 'POST', function () {
         //        toastr.success('Building deleted successfully!!')
         //        ApplyCustomBinding('buildings');
@@ -406,9 +406,9 @@
         });
     }
     self.GlobalSearchEnter = function (data) {
-        //debugger;
+        
         self.GetAllBuildingData();
-        console.log(event);
+        //console.log(event);
     }
     ko.bindingHandlers.enterkey = {
         init: function (element, valueAccessor, allBindings, viewModel) {

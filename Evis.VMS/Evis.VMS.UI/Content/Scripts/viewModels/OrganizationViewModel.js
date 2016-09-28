@@ -46,7 +46,7 @@ function OrganizationViewModel() {
     }
 
     self.SaveOrganization = function () {
-        debugger;
+        
         if ($.trim(self.WebSite()) != '' && $.trim(self.WebSite()).match(/^(www\.)[a-zA-Z0-9./]+$/gim) == null) {
             $("#spnWebsite").html("Invalid webiste url").show();
         }
@@ -123,7 +123,7 @@ function OrganizationViewModel() {
 
     self.GlobalSearchEnter = function (data) {
         self.GetAllOrganizations();
-        console.log(event);
+        //console.log(event);
     }
 
     self.GetAllOrganizations();

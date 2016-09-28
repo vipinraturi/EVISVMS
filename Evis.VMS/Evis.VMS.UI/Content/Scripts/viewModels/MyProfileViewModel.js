@@ -56,7 +56,7 @@
             $('#viewImageUnique').show();
 
             $('.dz-image-preview').empty();
-            //debugger;
+            
 
             if (data.ProfilePicturePath != null && data.ProfilePicturePath != "" && data.ProfilePicturePath != "/images/UserImages/VisitorImage") {
                 var imagePath = data.ProfilePicturePath;
@@ -95,7 +95,7 @@
         if (self.myProfileErrors().length > 0) {
             self.myProfileErrors.showAllMessages(true);
             this.myProfileErrors().forEach(function (data) {
-                console.log(event);
+                //console.log(event);
             });
         }
         else {
@@ -133,7 +133,7 @@
 
     self.ViewImage = function () {
 
-        //debugger;
+        
         var srcURL = '';
         if ($('.dz-image img').attr('alt') != "" && $('.dz-image img').attr('alt') != "User Image" && $('.dz-image img').attr('alt') !=  "undefined") {
             srcURL = '/images/UserImages/' + $('.dz-image img').attr('alt');

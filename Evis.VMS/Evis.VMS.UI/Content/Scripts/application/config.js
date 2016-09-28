@@ -76,7 +76,7 @@ ApplyCustomBinding = function (elementName) {
 }
 
 BindingViewModel = function (controllerUrl, viewModel) {
-    // //debugger;
+    // 
     $('#content').load(controllerUrl, function () {
         ko.cleanNode($('#content')[0]);
         ko.applyBindings(viewModel, $('#content')[0]);
@@ -189,6 +189,10 @@ BindingViewModel = function (controllerUrl, viewModel) {
         if (controllerUrl == "/Administration/_Shifts") {
             $(".timepickerCtr").keypress(function (event) { event.preventDefault(); });
             $('.timepickerCtr').timepicker();
+        }
+
+        if (controllerUrl == "/Administration/_ShiftManagement") {
+            $('#txtShiftDate').datepicker();
         }
     });
 }

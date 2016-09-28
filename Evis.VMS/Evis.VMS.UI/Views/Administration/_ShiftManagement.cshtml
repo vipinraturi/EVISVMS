@@ -1,4 +1,4 @@
-﻿<link href="~/Content/Styles/shift_management.css" rel="stylesheet" />
+﻿@Styles.Render("~/Content/shift_management")
 
 <ol class="breadcrumb">
     <li><a href="#" class="a-color">Administration</a></li>
@@ -7,269 +7,229 @@
 <div class="row">
     <div id="ccanvas">
         <div id="top">
-            <div id="_s_chart" class="hide" style="width: calc(100% - 190px); height: 65px; margin-left: 190px; display: none;"></div>
-            <div class="date">
-                <!-- MONTH COLUMN HEADERS -->
-                <table class="timeline" id="tmonth" style="display: none;">
-                    <tbody>
-                        <tr>
-                            <td class="daterange jump" id="_mdr"></td>
-                            <td id="mtl1"></td>
-                            <td id="mtl2"></td>
-                            <td id="mtl3"></td>
-                            <td id="mtl4"></td>
-                            <td id="mtl5"></td>
-                            <td id="mtl6"></td>
-                            <td id="mtl7"></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <!-- WEEK COLUMN HEADERS -->
-                <table class="timeline" id="tweek" style="display: table;">
-                    <tbody>
-                        <tr>
-                            <td class="daterange jump" id="_wdr" alt="month" title="Sep 4, 2016">Sep 4, 2016 - Sep 10, 2016</td>
-                            <td class="jump" id="wtl1" alt="day" title="Sep 4, 2016">Sun, Sep 4</td>
-                            <td class="jump" id="wtl2" alt="day" title="Sep 5, 2016">Mon, Sep 5</td>
-                            <td class="jump" id="wtl3" alt="day" title="Sep 6, 2016">Tue, Sep 6</td>
-                            <td class="jump" id="wtl4" alt="day" title="Sep 7, 2016">Wed, Sep 7</td>
-                            <td class="jump" id="wtl5" alt="day" title="Sep 8, 2016">Thu, Sep 8</td>
-                            <td class="jump" id="wtl6" alt="day" title="Sep 9, 2016">Fri, Sep 9</td>
-                            <td class="jump" id="wtl7" alt="day" title="Sep 10, 2016">Sat, Sep 10</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <!-- 2-WEEK COLUMN HEADERS -->
-                <table class="timeline timelinetwoweek" id="t2week" style="display: none;">
-                    <tbody>
-                        <tr>
-                            <td class="daterange jump" id="_t2wdr"></td>
-                            <td class="jump" id="w2tl1"></td>
-                            <td class="jump" id="w2tl2"></td>
-                            <td class="jump" id="w2tl3"></td>
-                            <td class="jump" id="w2tl4"></td>
-                            <td class="jump" id="w2tl5"></td>
-                            <td class="jump" id="w2tl6"></td>
-                            <td class="jump" id="w2tl7"></td>
-                            <td class="jump" id="w2tl8"></td>
-                            <td class="jump" id="w2tl9"></td>
-                            <td class="jump" id="w2tl10"></td>
-                            <td class="jump" id="w2tl11"></td>
-                            <td class="jump" id="w2tl12"></td>
-                            <td class="jump" id="w2tl13"></td>
-                            <td class="jump" id="w2tl14"></td>
-                        </tr>
-                    </tbody>
-                </table>
 
-                <!-- 4-WEEK COLUMN HEADERS -->
-                <table class="timeline timelinefourweek" id="t4week" style="display: none;">
-                    <tbody>
-                        <tr>
-                            <td class="daterange jump" id="_t4wdr"></td>
-                            <td class="jump" id="w4tl1"></td>
-                            <td class="jump" id="w4tl2"></td>
-                            <td class="jump" id="w4tl3"></td>
-                            <td class="jump" id="w4tl4"></td>
-                            <td class="jump" id="w4tl5"></td>
-                            <td class="jump" id="w4tl6"></td>
-                            <td class="jump" id="w4tl7"></td>
-                            <td class="jump" id="w4tl8"></td>
-                            <td class="jump" id="w4tl9"></td>
-                            <td class="jump" id="w4tl10"></td>
-                            <td class="jump" id="w4tl11"></td>
-                            <td class="jump" id="w4tl12"></td>
-                            <td class="jump" id="w4tl13"></td>
-                            <td class="jump" id="w4tl14"></td>
-                            <td class="jump" id="w4tl15"></td>
-                            <td class="jump" id="w4tl16"></td>
-                            <td class="jump" id="w4tl17"></td>
-                            <td class="jump" id="w4tl18"></td>
-                            <td class="jump" id="w4tl19"></td>
-                            <td class="jump" id="w4tl20"></td>
-                            <td class="jump" id="w4tl21"></td>
-                            <td class="jump" id="w4tl22"></td>
-                            <td class="jump" id="w4tl23"></td>
-                            <td class="jump" id="w4tl24"></td>
-                            <td class="jump" id="w4tl25"></td>
-                            <td class="jump" id="w4tl26"></td>
-                            <td class="jump" id="w4tl27"></td>
-                            <td class="jump" id="w4tl28"></td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="row">
+                <div class="col-md-12 col-xs-12">
+                    <div class="form-group col-md-2 col-sm-2 col-xs-12">
 
-                <!-- DAY/HOURLY COLUMN HEADERS -->
-                <table class="timeline" id="tday" style="display: none;">
-                    <tbody>
-                        <tr>
-                            <td class="daterange jump" id="_ddr"></td>
-                            <td>12<div>AM</div></td>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>4</td>
-                            <td>5</td>
-                            <td>6</td>
-                            <td>7</td>
-                            <td>8</td>
-                            <td>9</td>
-                            <td>10</td>
-                            <td>11<div>AM</div></td>
-                            <td>12<div>PM</div></td>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>4</td>
-                            <td>5</td>
-                            <td>6</td>
-                            <td>7</td>
-                            <td>8</td>
-                            <td>9</td>
-                            <td>10</td>
-                            <td>11<div>PM</div></td>
-                        </tr>
-                    </tbody>
-                </table>
+                        <div class="col-xs-12">
+                            <select class="form-control Fieldfocus">
+                                <option>-- Select Building --</option>
+                                <option>Building 1</option>
+                                <option>Building 2</option>
+                                <option>Building 3</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-2 col-sm-2 col-xs-12">
 
-                <table class="timeline" id="tdayv" style="display: none;">
-                    <tbody>
-                        <tr>
-                            <td class="daterange jump" id="_ddrv"></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <table class="timeline" id="tyear" style="display: none;">
-                    <tbody>
-                        <tr>
-                            <td class="daterange" id="_ydr" style="text-align: center !important; padding-let: 0px !important;"></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <table class="timeline" id="tprint" style="display: none;">
-                    <tbody>
-                        <tr>
-                            <td class="daterange"></td>
-                            <td>Print Preview</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <table class="timeline" id="trequests" style="display: none;">
-                    <tbody>
-                        <tr>
-                            <td class="daterange"></td>
-                            <td id="_ddsr">Schedule Requests</td>
-                        </tr>
-                    </tbody>
-                </table>
+                        <div class="col-xs-12">
+                            <select class="form-control Fieldfocus">
+                                <option>-- Select Gate --</option>
+                                <option>Gate 1</option>
+                                <option>Gate 2</option>
+                                <option>Gate 3</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-2 col-sm-2 col-xs-12">
 
-                <table class="timeline" id="tlist" style="display: none;">
-                    <tbody>
-                        <tr>
-                            <td class="daterange" id="_ddrl">Sep 4, 2016 - Sep 10, 2016</td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
+                        <div class="col-xs-12">
+                            <input id="txtShiftDate" type="text" class="form-control Fieldfocus" placeholder="dd/mm/yyyy" />
+                        </div>
+                    </div>
+                    <div class="form-group col-md-2 col-sm-2 col-xs-12" style="margin-top:5px;">
 
+                        <div class="col-xs-12">
+                            <button type="submit" class="btn btn-success">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-4 col-sm-4 col-xs-12 pull-right" style="">
+                        <div class="col-xs-12">
+                            <div class="timelines" id="">
+                                <div id="tls_day" title="Day">Day</div>
+                                <div id="tls_week" title="Week" class="selected">Week</div>
+                                <div id="tls_twoweek" title="Two Weeks">2 Week</div>
+                                <div id="tls_month" title="Month" class="last">4 Week</div>
+
+                                <div onclick="prev();">&lt;</div>
+                                <div onclick="today();" id="tls_today" title="Today">Today</div>
+                                <div onclick="next();" style="margin-right: -1px;">&gt;</div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
             </div>
 
+            <div id="_s_chart" class="hide" style="width: calc(100% - 190px); height: 65px; margin-left: 190px; display: none;"></div>
+            <div class="date">
+                <table class="timeline" id="tweek" style="display: table; overflow:scroll; overflow-x:scroll;  ">
+                    <tbody>
+                        <tr>
+                            <td class="daterange jump" id="_wdr" title="Sep 4, 2016">Sep 4, 2016 - Sep 10, 2016</td>
+                            <td class="shiftname jump" id="_wdr">Shift Name</td>
+                            <td class="jump" id="wtl1" title="Sep 4, 2016">Sun, Sep 4</td>
+                            <td class="jump" id="wtl2" title="Sep 5, 2016">Mon, Sep 5</td>
+                            <td class="jump" id="wtl3" title="Sep 6, 2016">Tue, Sep 6</td>
+                            <td class="jump" id="wtl4" title="Sep 7, 2016">Wed, Sep 7</td>
+                            <td class="jump" id="wtl5" title="Sep 8, 2016">Thu, Sep 8</td>
+                            <td class="jump" id="wtl6" title="Sep 9, 2016">Fri, Sep 9</td>
+                            <td class="jump" id="wtl7" title="Sep 10, 2016">Sat, Sep 10</td>
+                            <td class="jump" id="wtl7" title="Sep 10, 2016">Sat, Sep 10</td>
+                            <td class="jump" id="wtl7" title="Sep 10, 2016">Sat, Sep 10</td>
+                            <td class="jump" id="wtl7" title="Sep 10, 2016">Sat, Sep 10</td>
+                            <td class="jump" id="wtl1" title="Sep 4, 2016">Sun, Sep 4</td>
+                            <td class="jump" id="wtl2" title="Sep 5, 2016">Mon, Sep 5</td>
+                            <td class="jump" id="wtl3" title="Sep 6, 2016">Tue, Sep 6</td>
+                            <td class="jump" id="wtl4" title="Sep 7, 2016">Wed, Sep 7</td>
+                            <td class="jump" id="wtl5" title="Sep 8, 2016">Thu, Sep 8</td>
+                            <td class="jump" id="wtl6" title="Sep 9, 2016">Fri, Sep 9</td>
+                            <td class="jump" id="wtl7" title="Sep 10, 2016">Sat, Sep 10</td>
+                            <td class="jump" id="wtl7" title="Sep 10, 2016">Sat, Sep 10</td>
+                            <td class="jump" id="wtl7" title="Sep 10, 2016">Sat, Sep 10</td>
+                            <td class="jump" id="wtl7" title="Sep 10, 2016">Sat, Sep 10</td>
+                            <td class="jump" id="wtl1" title="Sep 4, 2016">Sun, Sep 4</td>
+                            <td class="jump" id="wtl2" title="Sep 5, 2016">Mon, Sep 5</td>
+                            <td class="jump" id="wtl3" title="Sep 6, 2016">Tue, Sep 6</td>
+                            <td class="jump" id="wtl4" title="Sep 7, 2016">Wed, Sep 7</td>
+                            <td class="jump" id="wtl5" title="Sep 8, 2016">Thu, Sep 8</td>
+                            <td class="jump" id="wtl6" title="Sep 9, 2016">Fri, Sep 9</td>
+                            <td class="jump" id="wtl7" title="Sep 10, 2016">Sat, Sep 10</td>
+                            <td class="jump" id="wtl7" title="Sep 10, 2016">Sat, Sep 10</td>
+                            <td class="jump" id="wtl7" title="Sep 10, 2016">Sat, Sep 10</td>
+                            <td class="jump" id="wtl7" title="Sep 10, 2016">Sat, Sep 10</td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-
-        <div id="scheduler_disable" style="width: 1315px; height: 619px; left: 244px; top: 152px; display: none;"></div>
-
         <div id="scheduler" class="emp_view" style="margin-right: 0px; height: 402px;">
             <table id="weeklist" class="weeklist tbl">
                 <tbody>
-                    <tr id="employee_empty" class="employee_empty" style="display: table-row;"><td class="wemp" id="e_empty"><div alt="empty"><i class="icon-emptyShifts"></i><span class="" alt="user" uid="empty">Empty Shifts</span><div id="cost_empty" class="costs"></div></div></td><td class="day wk dcol0" alt="Sep_4__2016" id="w_empty_Sep_4__2016" employee="empty" week="36"></td><td class="day wk dcol1" alt="Sep_5__2016" id="w_empty_Sep_5__2016" employee="empty" week="36"></td><td class="day wk dcol2" alt="Sep_6__2016" id="w_empty_Sep_6__2016" employee="empty" week="36"></td><td class="day wk dcol3" alt="Sep_7__2016" id="w_empty_Sep_7__2016" employee="empty" week="36"></td><td class="day wk dcol4" alt="Sep_8__2016" id="w_empty_Sep_8__2016" employee="empty" week="36"></td><td class="day wk dcol5" alt="Sep_9__2016" id="w_empty_Sep_9__2016" employee="empty" week="36"></td><td class="day wk dcol6" alt="Sep_10__2016" id="w_empty_Sep_10__2016" employee="empty" week="36"></td></tr>
-                    <tr id="employee_2893422" searchholder="ANITH RAJ p:Test"><td class="wemp" id="e_2893422"><div class="udrag ui-draggable" alt="2893422"><img src="https://d1l4eua1htq84w.cloudfront.net/app/layout/images/no_avatar.png" class="usr tti" title="Drag to a shift"><span class="jump" alt="user" uid="2893422">Anith Raj</span><div id="cost_2893422" class="costs"></div></div></td><td class="day wk dcol0" alt="Sep_4__2016" id="w_2893422_Sep_4__2016" employee="2893422" week="36"><form onsubmit="return false;"></form><form onsubmit="return false;"></form></td><td class="day wk dcol1" alt="Sep_5__2016" id="w_2893422_Sep_5__2016" employee="2893422" week="36"></td><td class="day wk dcol2 inlineactive" alt="Sep_6__2016" id="w_2893422_Sep_6__2016" employee="2893422" week="36"><form onsubmit="return false;"><div class="temps_list"><input type="text" id="temps_list" autocomplete="off"><br><div id="temps_list_hint">eg:&nbsp; 8am - 4pm</div></div></form></td><td class="day wk dcol3" alt="Sep_7__2016" id="w_2893422_Sep_7__2016" employee="2893422" week="36"></td><td class="day wk dcol4" alt="Sep_8__2016" id="w_2893422_Sep_8__2016" employee="2893422" week="36"></td><td class="day wk dcol5" alt="Sep_9__2016" id="w_2893422_Sep_9__2016" employee="2893422" week="36"></td><td class="day wk dcol6" alt="Sep_10__2016" id="w_2893422_Sep_10__2016" employee="2893422" week="36"></td></tr>
-                    <tr id="employee_2893421" searchholder="CHARLES PETER"><td class="wemp" id="e_2893421"><div class="udrag" alt="2893421"><img src="https://d1l4eua1htq84w.cloudfront.net/app/layout/images/no_avatar.png" class="usr tti" title="Drag to a shift"><span class="jump" alt="user" uid="2893421">Charles Peter</span><div id="cost_2893421" class="costs"></div></div></td><td class="day wk dcol0" alt="Sep_4__2016" id="w_2893421_Sep_4__2016" employee="2893421" week="36"></td><td class="day wk dcol1" alt="Sep_5__2016" id="w_2893421_Sep_5__2016" employee="2893421" week="36"></td><td class="day wk dcol2" alt="Sep_6__2016" id="w_2893421_Sep_6__2016" employee="2893421" week="36"></td><td class="day wk dcol3" alt="Sep_7__2016" id="w_2893421_Sep_7__2016" employee="2893421" week="36"></td><td class="day wk dcol4" alt="Sep_8__2016" id="w_2893421_Sep_8__2016" employee="2893421" week="36"></td><td class="day wk dcol5" alt="Sep_9__2016" id="w_2893421_Sep_9__2016" employee="2893421" week="36"></td><td class="day wk dcol6" alt="Sep_10__2016" id="w_2893421_Sep_10__2016" employee="2893421" week="36"></td></tr>
-                    <tr id="employee_2893418" searchholder="VIPIN RATURI p:Test"><td class="wemp" id="e_2893418"><div class="udrag" alt="2893418"><img src="https://d1l4eua1htq84w.cloudfront.net/app/layout/images/no_avatar.png" class="usr tti" title="Drag to a shift"><span class="jump" alt="user" uid="2893418">Vipin Raturi</span><div id="cost_2893418" class="costs"></div></div></td><td class="day wk dcol0" alt="Sep_4__2016" id="w_2893418_Sep_4__2016" employee="2893418" week="36"></td><td class="day wk dcol1" alt="Sep_5__2016" id="w_2893418_Sep_5__2016" employee="2893418" week="36"></td><td class="day wk dcol2" alt="Sep_6__2016" id="w_2893418_Sep_6__2016" employee="2893418" week="36"></td><td class="day wk dcol3" alt="Sep_7__2016" id="w_2893418_Sep_7__2016" employee="2893418" week="36"></td><td class="day wk dcol4" alt="Sep_8__2016" id="w_2893418_Sep_8__2016" employee="2893418" week="36"></td><td class="day wk dcol5" alt="Sep_9__2016" id="w_2893418_Sep_9__2016" employee="2893418" week="36"></td><td class="day wk dcol6" alt="Sep_10__2016" id="w_2893418_Sep_10__2016" employee="2893418" week="36"></td></tr>
+
+                    <tr id="employee_2893422">
+                        <td class="wemp" id="e_2893422">
+                            <div class="udrag ui-draggable" alt="2893422">
+                                <img src="/images/avatar.jpg" class="usr tti" title="Drag to a shift"><span class="jump" alt="user" uid="2893422">Anith Raj</span>
+                                <div id="cost_2893422" class="costs"></div>
+                            </div>
+                        </td>
+                        <td class="shiftNameCol" id="w_2893422_Sep_4__2016">
+                            <table class="weeklist tbl">
+                                <tr>
+                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
+                                        Morning
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
+                                        Afternoon
+                                    </td>
+                                </tr>
+                                <tr class="shiftCell" id="w_2893422_Sep_5__2016">
+                                    Evening
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="day wk dcol0" id="w_2893422_Sep_4__2016">
+                            <table class="weeklist tbl">
+                                <tr>
+                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
+                                        <i class="fa fa-check" aria-hidden="true"></i>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
+                                        <i class="fa fa-check" aria-hidden="true"></i>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="shiftCell" id="w_2893422_Sep_5__2016"></td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="day wk dcol1" id="w_2893422_Sep_5__2016">
+                            <table class="weeklist tbl">
+                                <tr>
+                                    <td class="shiftCell" id="w_2893422_Sep_5__2016"></td>
+                                </tr>
+                                <tr>
+                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
+                                        <i class="fa fa-check" aria-hidden="true"></i>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="shiftCell" id="w_2893422_Sep_5__2016"></td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="day wk dcol2 " id="w_2893422_Sep_6__2016">
+                            <table class="weeklist tbl">
+                                <tr>
+                                    <td class="shiftCell"></td>
+                                </tr>
+                                <tr>
+                                    <td class="shiftCell">
+                                        <i class="fa fa-check" aria-hidden="true"></i>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="shiftCell"></td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="day wk dcol3" id="w_2893422_Sep_7__2016">
+                            <table class="weeklist tbl">
+                                <tr>
+                                    <td class="day wk" id="w_2893422_Sep_5__2016"></td>
+                                </tr>
+                                <tr>
+                                    <td class="day wk" id="w_2893422_Sep_5__2016">
+                                        <i class="fa fa-check" aria-hidden="true"></i>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="day wk" id="w_2893422_Sep_5__2016"></td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="day wk dcol4" id="w_2893422_Sep_8__2016"></td>
+                        <td class="day wk dcol5" id="w_2893422_Sep_9__2016"></td>
+                        <td class="day wk dcol6" id="w_2893422_Sep_10__2016"></td>
+                        <td class="day wk dcol6" id="w_2893422_Sep_10__2016"></td>
+                        <td class="day wk dcol6" id="w_2893422_Sep_10__2016">Hellow World!</td>
+                        <td class="day wk dcol6" id="w_2893422_Sep_10__2016"></td>
+                        <td class="day wk dcol0" id="w_2893422_Sep_4__2016"></td>
+                        <td class="day wk dcol1" id="w_2893422_Sep_5__2016"></td>
+                        <td class="day wk dcol2" id="w_2893422_Sep_6__2016"></td>
+                        <td class="day wk dcol3" id="w_2893422_Sep_7__2016"></td>
+                        <td class="day wk dcol4" id="w_2893422_Sep_8__2016">Hellow World!</td>
+                        <td class="day wk dcol5" id="w_2893422_Sep_9__2016"></td>
+                        <td class="day wk dcol6" id="w_2893422_Sep_10__2016">Hellow World!</td>
+                        <td class="day wk dcol6" id="w_2893422_Sep_10__2016"></td>
+                        <td class="day wk dcol6" id="w_2893422_Sep_10__2016"></td>
+                        <td class="day wk dcol6" id="w_2893422_Sep_10__2016"></td>
+                        <td class="day wk dcol0" id="w_2893422_Sep_4__2016"></td>
+                        <td class="day wk dcol1" id="w_2893422_Sep_5__2016"></td>
+                        <td class="day wk dcol2" id="w_2893422_Sep_6__2016"></td>
+                        <td class="day wk dcol3" id="w_2893422_Sep_7__2016"></td>
+                        <td class="day wk dcol4" id="w_2893422_Sep_8__2016"></td>
+                        <td class="day wk dcol5" id="w_2893422_Sep_9__2016"></td>
+                        <td class="day wk dcol6" id="w_2893422_Sep_10__2016"></td>
+                        <td class="day wk dcol6" id="w_2893422_Sep_10__2016"></td>
+                        <td class="day wk dcol6" id="w_2893422_Sep_10__2016"></td>
+                        <td class="day wk dcol6" id="w_2893422_Sep_10__2016"></td>
+                    </tr>
+
                 </tbody>
             </table>
         </div>
 
-        <div id="status_bar" style="bottom: -27px; display: none;"></div>
-
-        <div id="forecast_bar" style="margin: 0px 0px 0px -190px; padding: 0px 0px 0px 190px;">
-
-            <table class="forecast" id="ftweek">
-                <tbody>
-                    <tr>
-                        <td class="daterange">
-                            <div class="wfct"></div>
-                            <div class="wfct_edit">
-                                <img src="https://d1l4eua1htq84w.cloudfront.net/app/layout/images/icon/pencil.png" onclick="inlinebudgetset();" class="wfc_ibs" title="Edit Budget">
-                                <img src="https://d1l4eua1htq84w.cloudfront.net/app/layout/images/icon/pencil.png" onclick="inlinebudgetset(true);" class="wfc_ibs_exit hide" title="Finished">
-                            </div>
-                        </td>
-                        <td class="wfc0 wfc" title="0"></td>
-                        <td class="wfc1 wfc" title="1"></td>
-                        <td class="wfc2 wfc" title="2"></td>
-                        <td class="wfc3 wfc" title="3"></td>
-                        <td class="wfc4 wfc" title="4"></td>
-                        <td class="wfc5 wfc" title="5"></td>
-                        <td class="wfc6 wfc" title="6"></td>
-                    </tr>
-                    <tr>
-                        <td class="daterange">
-                            <div style="padding:12px;font-size:11px;">Daily vs. Weekly Budget</div>
-                        </td>
-                        <td class="dvw0 dvw" title="0"></td>
-                        <td class="dvw1 dvw" title="1"></td>
-                        <td class="dvw2 dvw" title="2"></td>
-                        <td class="dvw3 dvw" title="3"></td>
-                        <td class="dvw4 dvw" title="4"></td>
-                        <td class="dvw5 dvw" title="5"></td>
-                        <td class="dvw6 dvw" title="6"></td>
-                    </tr>
-                </tbody>
-            </table>
-            <table class="forecast" id="ftday">
-                <tbody>
-                    <tr>
-                        <td class="daterange">
-                            <div class="wfct"></div>
-                            <div class="wfct_edit">
-                                <img src="https://d1l4eua1htq84w.cloudfront.net/app/layout/images/icon/pencil.png" onclick="inlinebudgetset();" class="wfc_ibs" title="Edit Budget">
-                                <img src="https://d1l4eua1htq84w.cloudfront.net/app/layout/images/icon/pencil.png" onclick="inlinebudgetset(true);" class="wfc_ibs_exit hide" title="Finished">
-                            </div>
-                            <!--
-                            <div class="wfct_edit">
-                                    <a href="javascript://" onclick="inlinebudgetset();" class="wfc_ibs">Edit Budget</a>
-                                    <a href="javascript://" onclick="inlinebudgetset(true);" class="wfc_ibs_exit hide">Finished</a>
-                            </div>
-                            -->
-                        </td>
-                        <td class="wfc0 wfc" title="0"></td>
-                        <td class="wfc1 wfc" title="1"></td>
-                        <td class="wfc2 wfc" title="2"></td>
-                        <td class="wfc3 wfc" title="3"></td>
-                        <td class="wfc4 wfc" title="4"></td>
-                        <td class="wfc5 wfc" title="5"></td>
-                        <td class="wfc6 wfc" title="6"></td>
-                        <td class="wfc7 wfc" title="7"></td>
-                        <td class="wfc8 wfc" title="8"></td>
-                        <td class="wfc9 wfc" title="9"></td>
-                        <td class="wfc10 wfc" title="10"></td>
-                        <td class="wfc11 wfc" title="11"></td>
-                        <td class="wfc12 wfc" title="12"></td>
-                        <td class="wfc13 wfc" title="13"></td>
-                        <td class="wfc14 wfc" title="14"></td>
-                        <td class="wfc15 wfc" title="15"></td>
-                        <td class="wfc16 wfc" title="16"></td>
-                        <td class="wfc17 wfc" title="17"></td>
-                        <td class="wfc18 wfc" title="18"></td>
-                        <td class="wfc19 wfc" title="19"></td>
-                        <td class="wfc20 wfc" title="20"></td>
-                        <td class="wfc21 wfc" title="21"></td>
-                        <td class="wfc22 wfc" title="22"></td>
-                        <td class="wfc23 wfc" title="23"></td>
-                    </tr>
-                </tbody>
-            </table>
-
-        </div>
 
     </div>
 </div>

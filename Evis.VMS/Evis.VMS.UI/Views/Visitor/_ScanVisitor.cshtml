@@ -125,7 +125,7 @@
         var myDropzone = new Dropzone("#dropzoneForm");
         myDropzone.maxFiles = 2;
         myDropzone.on("maxfilesexceeded", function (file) {
-            //debugger;
+            
             var res = eval('(' + file.xhr.responseText + ')');
             toastr.warning('Only two images allowed.');
         });
@@ -155,7 +155,7 @@
                 }
             }
             else {
-                ////debugger;
+                //
                 var maxLengthExceeded = false;
 
                 

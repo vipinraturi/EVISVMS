@@ -59,7 +59,7 @@
                 return false;
             }
             else {
-                //debugger;
+                
 
                 var data = new Object();
               
@@ -105,7 +105,7 @@
         CompanyName: self.CompanyName,
         
     };
-    ////debugger;
+    //
     self.Orginization = ko.observable(Orginization);
 
 
@@ -129,7 +129,7 @@
             }
             $('.loader-div').hide();
         }, 1000);
-        //debugger;
+        
         self.Id(data.CompanyId);
         self.CountryId(data.CountryId);
         self.CompanyName(data.CompanyName);
@@ -159,7 +159,7 @@
 
             formData.append("avatarInput", file);
         }
-        ////debugger;
+        //
         $.ajax({
             type: "POST",
             url: '/Administration/SaveUploadedFile',
@@ -182,7 +182,7 @@
 }
 
 RefreshImage = function (Imagepath) {
-    //debugger;
+    
 
     setTimeout(function () {
         var d = new Date();

@@ -10769,7 +10769,7 @@ select:-moz-focusring {
 }
 
 div.timelines {
-    margin: 10px 0 0 18px;
+    margin: 5px 0 0 18px;
     background-color: #fff;
     border-radius: 3px;
     float: right;
@@ -10782,7 +10782,7 @@ div.timelines {
         border: 1px solid #d2d2d2;
         margin-right: -1px;
         cursor: pointer;
-        padding: 8px 12px 8px 12px;
+        padding: 6px 12px 6px 12px;
         font-size: 13px;
     }
 
@@ -10897,16 +10897,33 @@ div.timelines {
             margin-left: none;
         }
 
-    #ccanvas .date table.timeline div.split {
-        float: left;
-        margin-left: -2px;
-        background: url('/app/schedule/images/split.png') no-repeat;
-        width: 2px;
-        height: 48px;
-    }
+        #ccanvas .date table.timeline td.shiftname {
+            width: 100px !important;
+            text-align: left !important;
+            padding-left: 15px;
+            background: none !important;
+            margin-left: none;
+        }
+
+#ccanvas #scheduler table.weeklist td.shiftNameCol {
+    vertical-align: top;
+    height: 30px;
+    width: 100px !important;
+    text-align: center;
+    vertical-align: middle;
+}
+
+#ccanvas .date table.timeline div.split {
+    float: left;
+    margin-left: -2px;
+    background: url('/app/schedule/images/split.png') no-repeat;
+    width: 2px;
+    height: 48px;
+}
 
 #ccanvas .date #tweek td {
     font-size: 12px !important;
+    border: 1px solid #d7d7d7;
 }
 
 #ccanvas .date #tday td div {
@@ -10991,8 +11008,12 @@ div.timelines {
         #ccanvas #scheduler table.weeklist td.day {
             vertical-align: top;
             height: 30px;
-            padding-bottom: 10px;
+            text-align: center;
+            vertical-align: middle;
         }
+
+
+
 
         #ccanvas #scheduler table.weeklist td.entered {
             background-color: yellow;
@@ -11152,6 +11173,14 @@ div.timelines {
         vertical-align: top;
         line-height: 18px;
     }
+
+    
+        #ccanvas #scheduler table.weeklist td.shiftCell {
+            vertical-align: top;
+            height: 30px;
+            text-align: center;
+            vertical-align: middle;
+        }
 
         #ccanvas #scheduler table.shiftlist td.demp {
             padding: 5px;
