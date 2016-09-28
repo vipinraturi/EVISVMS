@@ -11,7 +11,7 @@
             <div class="row">
                 <div class="col-md-12 col-xs-12">
                     <div class="form-group col-md-2 col-sm-2 col-xs-12">
-                      
+
                         <div class="col-xs-12">
                             <select class="form-control Fieldfocus">
                                 <option>-- Select Building --</option>
@@ -22,7 +22,7 @@
                         </div>
                     </div>
                     <div class="form-group col-md-2 col-sm-2 col-xs-12">
-                        
+
                         <div class="col-xs-12">
                             <select class="form-control Fieldfocus">
                                 <option>-- Select Gate --</option>
@@ -33,13 +33,13 @@
                         </div>
                     </div>
                     <div class="form-group col-md-2 col-sm-2 col-xs-12">
-                       
+
                         <div class="col-xs-12">
                             <input id="txtShiftDate" type="text" class="form-control Fieldfocus" placeholder="dd/mm/yyyy" />
                         </div>
                     </div>
                     <div class="form-group col-md-2 col-sm-2 col-xs-12" style="margin-top:5px;">
-                      
+
                         <div class="col-xs-12">
                             <button type="submit" class="btn btn-success">
                                 <i class="fa fa-search"></i>
@@ -54,7 +54,7 @@
                                 <div id="tls_week" title="Week" class="selected">Week</div>
                                 <div id="tls_twoweek" title="Two Weeks">2 Week</div>
                                 <div id="tls_month" title="Month" class="last">4 Week</div>
-                           
+
                                 <div onclick="prev();">&lt;</div>
                                 <div onclick="today();" id="tls_today" title="Today">Today</div>
                                 <div onclick="next();" style="margin-right: -1px;">&gt;</div>
@@ -71,6 +71,7 @@
                     <tbody>
                         <tr>
                             <td class="daterange jump" id="_wdr" title="Sep 4, 2016">Sep 4, 2016 - Sep 10, 2016</td>
+                            <td class="shiftname jump" id="_wdr">Shift Name</td>
                             <td class="jump" id="wtl1" title="Sep 4, 2016">Sun, Sep 4</td>
                             <td class="jump" id="wtl2" title="Sep 5, 2016">Mon, Sep 5</td>
                             <td class="jump" id="wtl3" title="Sep 6, 2016">Tue, Sep 6</td>
@@ -101,7 +102,7 @@
                             <td class="jump" id="wtl7" title="Sep 10, 2016">Sat, Sep 10</td>
                             <td class="jump" id="wtl7" title="Sep 10, 2016">Sat, Sep 10</td>
                             <td class="jump" id="wtl7" title="Sep 10, 2016">Sat, Sep 10</td>
-                           
+
                         </tr>
                     </tbody>
                 </table>
@@ -118,18 +119,85 @@
                                 <div id="cost_2893422" class="costs"></div>
                             </div>
                         </td>
+                        <td class="shiftNameCol" id="w_2893422_Sep_4__2016">
+                            <table class="weeklist tbl">
+                                <tr>
+                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
+                                        Morning
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
+                                        Afternoon
+                                    </td>
+                                </tr>
+                                <tr class="shiftCell" id="w_2893422_Sep_5__2016">
+                                    Evening
+                                </tr>
+                            </table>
+                        </td>
                         <td class="day wk dcol0" id="w_2893422_Sep_4__2016">
+                            <table class="weeklist tbl">
+                                <tr>
+                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
+                                        <i class="fa fa-check" aria-hidden="true"></i>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
+                                        <i class="fa fa-check" aria-hidden="true"></i>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="shiftCell" id="w_2893422_Sep_5__2016"></td>
+                                </tr>
+                            </table>
                         </td>
                         <td class="day wk dcol1" id="w_2893422_Sep_5__2016">
                             <table class="weeklist tbl">
                                 <tr>
-                                    <td class="day wk dcol1" id="w_2893422_Sep_5__2016">Shift1</td>
+                                    <td class="shiftCell" id="w_2893422_Sep_5__2016"></td>
                                 </tr>
-                                
+                                <tr>
+                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
+                                        <i class="fa fa-check" aria-hidden="true"></i>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="shiftCell" id="w_2893422_Sep_5__2016"></td>
+                                </tr>
                             </table>
                         </td>
-                        <td class="day wk dcol2 " id="w_2893422_Sep_6__2016"></td>
-                        <td class="day wk dcol3" id="w_2893422_Sep_7__2016">Hellow World!</td>
+                        <td class="day wk dcol2 " id="w_2893422_Sep_6__2016">
+                            <table class="weeklist tbl">
+                                <tr>
+                                    <td class="shiftCell"></td>
+                                </tr>
+                                <tr>
+                                    <td class="shiftCell">
+                                        <i class="fa fa-check" aria-hidden="true"></i>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="shiftCell"></td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="day wk dcol3" id="w_2893422_Sep_7__2016">
+                            <table class="weeklist tbl">
+                                <tr>
+                                    <td class="day wk" id="w_2893422_Sep_5__2016"></td>
+                                </tr>
+                                <tr>
+                                    <td class="day wk" id="w_2893422_Sep_5__2016">
+                                        <i class="fa fa-check" aria-hidden="true"></i>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="day wk" id="w_2893422_Sep_5__2016"></td>
+                                </tr>
+                            </table>
+                        </td>
                         <td class="day wk dcol4" id="w_2893422_Sep_8__2016"></td>
                         <td class="day wk dcol5" id="w_2893422_Sep_9__2016"></td>
                         <td class="day wk dcol6" id="w_2893422_Sep_10__2016"></td>
