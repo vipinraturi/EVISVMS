@@ -42,6 +42,7 @@ namespace Evis.VMS.UI.Controllers
                 InvoiceRow.CheckOut = item.CheckOut;
                 InvoiceRow.ContactNumber = item.ContactNumber;
                 InvoiceRow.CompanyName = item.CompanyName;
+                InvoiceRow.ContactPerson = item.ContactPerson;
                 visitorsDetailsDataSet.DTVisitorsDetails.AddDTVisitorsDetailsRow(InvoiceRow);
             }
             
@@ -98,6 +99,7 @@ namespace Evis.VMS.UI.Controllers
                 InvoiceRow.CheckOut = item.CheckOut;
                 InvoiceRow.ContactNumber = item.ContactNumber;
                 InvoiceRow.CompanyName = item.CompanyName;
+                InvoiceRow.ContactPerson = item.ContactPerson;
                 visitorsDetailsDataSet.DTVisitorsDetails.AddDTVisitorsDetailsRow(InvoiceRow);
             }
             var reportData = new ReportDataSource("VisitorsDetailsDataSet", visitorsDetailsDataSet.Tables[0]);

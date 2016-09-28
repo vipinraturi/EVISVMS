@@ -305,6 +305,8 @@ namespace Evis.VMS.UI.Reports.DataSet {
             
             private global::System.Data.DataColumn columnCompanyName;
             
+            private global::System.Data.DataColumn columnContactPerson;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public DTVisitorsDetailsDataTable() {
@@ -444,6 +446,14 @@ namespace Evis.VMS.UI.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn ContactPersonColumn {
+                get {
+                    return this.columnContactPerson;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -479,7 +489,7 @@ namespace Evis.VMS.UI.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public DTVisitorsDetailsRow AddDTVisitorsDetailsRow(long VisitorId, string ContactNumber, string VisitDetails, int BuildingId, int GateId, string SecurityId, string VisitorName, string CheckIn, string CheckOut, string BuildingName, string GateName, string SecurityPerson, string CompanyName) {
+            public DTVisitorsDetailsRow AddDTVisitorsDetailsRow(long VisitorId, string ContactNumber, string VisitDetails, int BuildingId, int GateId, string SecurityId, string VisitorName, string CheckIn, string CheckOut, string BuildingName, string GateName, string SecurityPerson, string CompanyName, string ContactPerson) {
                 DTVisitorsDetailsRow rowDTVisitorsDetailsRow = ((DTVisitorsDetailsRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         VisitorId,
@@ -494,7 +504,8 @@ namespace Evis.VMS.UI.Reports.DataSet {
                         BuildingName,
                         GateName,
                         SecurityPerson,
-                        CompanyName};
+                        CompanyName,
+                        ContactPerson};
                 rowDTVisitorsDetailsRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowDTVisitorsDetailsRow);
                 return rowDTVisitorsDetailsRow;
@@ -530,6 +541,7 @@ namespace Evis.VMS.UI.Reports.DataSet {
                 this.columnGateName = base.Columns["GateName"];
                 this.columnSecurityPerson = base.Columns["SecurityPerson"];
                 this.columnCompanyName = base.Columns["CompanyName"];
+                this.columnContactPerson = base.Columns["ContactPerson"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -561,6 +573,8 @@ namespace Evis.VMS.UI.Reports.DataSet {
                 base.Columns.Add(this.columnSecurityPerson);
                 this.columnCompanyName = new global::System.Data.DataColumn("CompanyName", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnCompanyName);
+                this.columnContactPerson = new global::System.Data.DataColumn("ContactPerson", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnContactPerson);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -911,6 +925,22 @@ namespace Evis.VMS.UI.Reports.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string ContactPerson {
+                get {
+                    try {
+                        return ((string)(this[this.tableDTVisitorsDetails.ContactPersonColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ContactPerson\' in table \'DTVisitorsDetails\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDTVisitorsDetails.ContactPersonColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsVisitorIdNull() {
                 return this.IsNull(this.tableDTVisitorsDetails.VisitorIdColumn);
             }
@@ -1063,6 +1093,18 @@ namespace Evis.VMS.UI.Reports.DataSet {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetCompanyNameNull() {
                 this[this.tableDTVisitorsDetails.CompanyNameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsContactPersonNull() {
+                return this.IsNull(this.tableDTVisitorsDetails.ContactPersonColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetContactPersonNull() {
+                this[this.tableDTVisitorsDetails.ContactPersonColumn] = global::System.Convert.DBNull;
             }
         }
         

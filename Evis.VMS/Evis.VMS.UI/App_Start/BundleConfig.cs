@@ -145,6 +145,7 @@ namespace Evis.VMS.UI
               "~/Content/Scripts/viewModels/MyOrganizationViewModel.js",
               "~/Content/Scripts/viewModels/ScanVisitorViewModel.js",
               "~/Content/Scripts/viewModels/ShiftAssignmentViewModel.js",
+              "~/Content/Scripts/viewModels/ShiftManagementViewModel.js",
               "~/Content/Scripts/viewModels/ShiftDetailsViewModel.js",
               "~/Content/Scripts/viewModels/ShiftViewModel.js",
               "~/Content/Scripts/viewModels/UsersViewModel.js",

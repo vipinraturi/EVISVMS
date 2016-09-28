@@ -1,6 +1,7 @@
 ﻿function VisitorViewModel(visitorName, gender, nationalityVal, dateOfBirth, typeOfCard, idNumber, nationalityVal, companyName, emailAddress,
     contactNumber, identityImages) {
-
+    debugger;
+      alert('emailAddress ' + emailAddress + ' contactNumber' + contactNumber);
     //alert(companyName);
     nationality = (nationalityVal != "" ? nationalityVal : undefined);
     typeOfCard = (typeOfCard != "" ? typeOfCard : undefined);
@@ -8,25 +9,43 @@
     var self = this;
     Id = ko.observable(0);
     VisitorName = ko.observable(visitorName).extend({ required: true });
-    EmailAddress = ko.observable(emailAddress);
-    self.EmailAddress = ko.observable('').extend({
-        pattern: {
-            params: /^([\d\w-\.]+@([\d\w-]+\.)+[\w]{2,4})?$/,
-            message:"Enter a valid EmailID"
-        }
-        });
+    EmailAddress = ko.observable(emailAddress).extend({
+            pattern: {
+                params: /^([\d\w-\.]+@([\d\w-]+\.)+[\w]{2,4})?$/,
+                message:"Enter a valid EmailID"
+            }
+            });
+    //debugger;
+    //alert(EmailAddress);
+    //self.EmailAddress = ko.observable('').extend({
+    //    pattern: {
+    //        params: /^([\d\w-\.]+@([\d\w-]+\.)+[\w]{2,4})?$/,
+    //        message:"Enter a valid EmailID"
+    //    }
+    //    });
 Gender = ko.observable(gender).extend({ required: true });
 DOB = ko.observable(dateOfBirth).extend({ required: true });
 TypeOfCardValue = ko.observable(typeOfCard).extend({ required: true });
 IdNo = ko.observable(idNumber).extend({ required: true });
 Nationality = ko.observable(nationality).extend({ required: true });
-ContactNo = ko.observable(contactNumber).extend({ required: true });
+ContactNo = ko.observable(contactNumber).extend({
+    required: true,
+    pattern: {
+        message: 'Invalid Contact Number.',
+        params: /^([0-9\(\)\/\+ \-\.]*)$/
+    },
+    minLength: {
+        params: 10,
+        message: 'Enter atleast 10 digits'
+    }
+});
 
 //alert('typeOfCard ' + typeOfCard + '  gender ' + gender + ' nationalityVal ' + nationalityVal);
 
 setTimeout(function () {
     if (typeOfCard != undefined) {
         TypeOfCardValue = ko.observable(typeOfCard).extend({ required: true });
+       
     }
 
     if (nationality != undefined) {
@@ -35,21 +54,22 @@ setTimeout(function () {
 
     if (gender != undefined) {
         Gender = ko.observable(gender).extend({ required: true });
+       // alert(Gender);
     }
 
 }, 1500);
     
-self.ContactNo = ko.observable('').extend({
-    required: true,
-    pattern: {
-        message: 'Invalid Contact Number.',
-        params: /^([0-9\(\)\/\+ \-\.]*)$/
-    },
-    minLength: {
-        params: 10,
-        message:'Enter atleast 10 digits'
-    }
-});
+//self.ContactNo = ko.observable('').extend({
+//    required: true,
+//    pattern: {
+//        message: 'Invalid Contact Number.',
+//        params: /^([0-9\(\)\/\+ \-\.]*)$/
+//    },
+//    minLength: {
+//        params: 10,
+//        message:'Enter atleast 10 digits'
+//    }
+//});
 ContactAddress = ko.observable('');
 
 self.GlobalSearch = ko.observable('');
@@ -83,6 +103,7 @@ self.GetAllVisitor = function () {
 }
 
 self.LoadMasterData = function () {
+    debugger;
     var lookUpTypes = [];
     lookUpTypes.push("Gender");
     lookUpTypes.push("TypeOfCards");
