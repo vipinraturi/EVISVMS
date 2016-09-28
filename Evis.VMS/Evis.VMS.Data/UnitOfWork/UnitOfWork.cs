@@ -37,6 +37,7 @@ namespace Evis.VMS.Data
         private IRepository<VisitDetails> _visitDetails;
         private IRepository<VisitorCardTypeDetails> _visitorCardTypeDetails;
         private IRepository<VisitorMaster> _visitorMaster;
+        private IRepository<ShiftDetails> _ShiftDetails;
 
         #endregion
 
@@ -191,6 +192,17 @@ namespace Evis.VMS.Data
                     this._visitorMaster = new Repository<VisitorMaster>(_DataContext);
                 }
                 return _visitorMaster;
+            }
+        }
+        public IRepository<ShiftDetails> ShiftDetails
+        {
+            get
+            {
+                if (this._ShiftDetails == null)
+                {
+                    this._ShiftDetails = new Repository<ShiftDetails>(_DataContext);
+                }
+                return _ShiftDetails;
             }
         }
 

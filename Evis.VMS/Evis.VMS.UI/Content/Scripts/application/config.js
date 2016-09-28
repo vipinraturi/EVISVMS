@@ -190,6 +190,10 @@ BindingViewModel = function (controllerUrl, viewModel) {
             $(".timepickerCtr").keypress(function (event) { event.preventDefault(); });
             $('.timepickerCtr').timepicker();
         }
+
+        if (controllerUrl == "/Administration/_ShiftManagement") {
+            $('#txtShiftDate').datepicker();
+        }
     });
 }
 

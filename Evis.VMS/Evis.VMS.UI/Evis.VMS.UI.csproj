@@ -223,6 +223,7 @@
     <Compile Include="HelperClasses\MyProfileHelper.cs" />
     <Compile Include="HelperClasses\ShiftAssignmentHelper.cs" />
     <Compile Include="HelperClasses\ShiftHelper.cs" />
+    <Compile Include="HelperClasses\ShiftManagemetHelper.cs" />
     <Compile Include="HelperClasses\UsersHelper.cs" />
     <Compile Include="HelperClasses\DashboardHelper.cs" />
     <Compile Include="HelperClasses\ShiftDetailsReportHelper.cs" />
@@ -253,6 +254,7 @@
     <Compile Include="ViewModel\OrganisationVM.cs" />
     <Compile Include="ViewModel\ResetPasswordVM.cs" />
     <Compile Include="ViewModel\SearchShiftReport.cs" />
+    <Compile Include="ViewModel\ShiftManagementVM.cs" />
     <Compile Include="ViewModel\UserSessionDataVM.cs" />
     <Compile Include="ViewModel\VisitorCheckInViewModel.cs" />
     <Compile Include="ViewModel\VisitorDetailsVM.cs" />
@@ -371,6 +373,7 @@
     <Content Include="Content\Styles\jquery.timepicker.css" />
     <Content Include="Content\Styles\Logincustom.min.css" />
     <Content Include="Content\Styles\pager.css" />
+    <Content Include="Content\Styles\shift_management.css" />
     <Content Include="Content\Styles\toastr-custom.css" />
     <Content Include="Content\Styles\toastr.min.css" />
     <Content Include="favicon.ico" />
@@ -557,11 +560,11 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>63864</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:64444/</IISUrl>
+          <IISUrl>http://localhost:63457/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
