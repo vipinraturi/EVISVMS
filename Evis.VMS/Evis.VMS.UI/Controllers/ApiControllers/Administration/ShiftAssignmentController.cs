@@ -203,11 +203,13 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 if (data.Count() == 0)
                 {
                     ShitfAssignment obj = new Data.Model.Entities.ShitfAssignment();
+                    ShiftDetails ShiftDetails = new Data.Model.Entities.ShiftDetails();
                     //ShitfAssignment.IsActive = true;
                     //var ToDate = ShitfAssignment.ToDate.ToShortDateString();
                     //ShitfAssignment.ToDate = Convert.ToDateTime(ToDate);
                     //var FromDate = ShitfAssignment.FromDate.ToShortDateString();
                     //ShitfAssignment.FromDate = Convert.ToDateTime(FromDate);
+
                     obj.ShitfId = ShitfAssignment.ShitfId;
                     obj.UserId = ShitfAssignment.UserId;
                     obj.GateId = ShitfAssignment.GateId;
@@ -217,6 +219,13 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     obj.FromDate = DateTime.ParseExact(ShitfAssignment.strFromDate, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture); //Convert.ToDateTime(ShitfAssignment.strFromDate);
                     obj.ToDate = DateTime.ParseExact(ShitfAssignment.strToDate, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);//Convert.ToDateTime(ShitfAssignment.strToDate);
                     obj.IsActive = true;
+                    for (DateTime frDate = ShitfAssignment.FromDate; frDate > ShitfAssignment.ToDate; frDate.AddDays(1))
+                    {
+                        ShiftDetails.ShiftID = ShitfAssignment.ShitfId;
+                        ShiftDetails.SecurityID = ShitfAssignment.UserId;
+                        ShiftDetails.ShiftDate = ShitfAssignment.FromDate;
+                    }
+                    _genericService.ShiftDetails.Insert(ShiftDetails);
                     _genericService.ShitfAssignment.Insert(obj);
                     Message = "Shift saved successfully!!";
                     success = true;
