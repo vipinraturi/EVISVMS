@@ -17,10 +17,40 @@ namespace Evis.VMS.UI.HelperClasses
         }
         public IList<ShiftManagementVM> GetShiftData(DateTime fromDate,DateTime toDate, int buldingId, int gateId)
         {
-            
+            var userDataWithShift=_genericService.ShiftDetails.GetAll().Where(x=>x.GateID==gateId)
+                .Select(x=> new ShiftManagementVM
+                {
+                    Securityname=x.ApplicationUser.UserName,
+                    ShiftManageDates=GetShiftWthDate(fromDate,toDate,x.ApplicationUser.UserName)
+                }).ToList();
 
 
-            return null;
+            return userDataWithShift;
+        }
+
+        private List<ShiftManagemetDates> GetShiftWthDate(DateTime fromDate, DateTime toDate, string securityName)
+        {
+            var datesWithShift = _genericService.ShiftDetails.GetAll().Where(x => x.ApplicationUser.UserName == securityName && x.ShiftDate >= fromDate && x.ShiftDate <= toDate)
+                .Select(x => new ShiftManagemetDates
+            {
+                ShiftDate=x.ShiftDate,
+                ShiftManage=ListAllShifts(x.ShiftDate,x.ApplicationUser.UserName)
+               
+
+            }).ToList();
+
+            return datesWithShift; 
+        }
+
+        private List<ShiftDatesShifts> ListAllShifts(DateTime shiftDate, string securityName)
+        {
+
+            var listAllShiftsOneDay = _genericService.ShiftDetails.GetAll().Where(x => x.ApplicationUser.UserName == securityName && x.ShiftDate == shiftDate)
+                .Select(x=> new ShiftDatesShifts
+                {
+                    ShiftId=x.ShiftID
+                }).ToList();
+            return listAllShiftsOneDay;
         }
     }
 }

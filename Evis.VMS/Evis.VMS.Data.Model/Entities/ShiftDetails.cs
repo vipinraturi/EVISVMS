@@ -13,6 +13,8 @@ namespace Evis.VMS.Data.Model.Entities
 
         public int ShiftID { get; set; }
 
+        public int GateID { get; set; }
+
         public DateTime ShiftDate { get; set; }
 
         [ForeignKey("SecurityID")]
@@ -20,5 +22,8 @@ namespace Evis.VMS.Data.Model.Entities
 
         [ForeignKey("ShiftID")]
         public virtual ShitfMaster Shitfs { get; set; }
+
+        [ForeignKey("GateID")]
+        public virtual GateMaster Gates { get; set; }
     }
 }

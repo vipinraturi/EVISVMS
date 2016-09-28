@@ -7,9 +7,9 @@ namespace Evis.VMS.UI.ViewModel
 {
     public class ShiftManagementVM
     {
-        public int SecurityId { get; set; }
-        public int BuldingId { get; set; }
-        public int GateId { get; set; }
+        public string Securityname { get; set; }
+        public string BuldingName { get; set; }
+        public string GateName { get; set; }
         public List<ShiftManagemetDates> ShiftManageDates { get; set; }
     }
 

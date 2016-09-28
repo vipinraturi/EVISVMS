@@ -223,6 +223,7 @@
     <Compile Include="HelperClasses\MyProfileHelper.cs" />
     <Compile Include="HelperClasses\ShiftAssignmentHelper.cs" />
     <Compile Include="HelperClasses\ShiftHelper.cs" />
+    <Compile Include="HelperClasses\ShiftManagemetHelper.cs" />
     <Compile Include="HelperClasses\UsersHelper.cs" />
     <Compile Include="HelperClasses\DashboardHelper.cs" />
     <Compile Include="HelperClasses\ShiftDetailsReportHelper.cs" />
@@ -253,6 +254,7 @@
     <Compile Include="ViewModel\OrganisationVM.cs" />
     <Compile Include="ViewModel\ResetPasswordVM.cs" />
     <Compile Include="ViewModel\SearchShiftReport.cs" />
+    <Compile Include="ViewModel\ShiftManagementVM.cs" />
     <Compile Include="ViewModel\UserSessionDataVM.cs" />
     <Compile Include="ViewModel\VisitorCheckInViewModel.cs" />
     <Compile Include="ViewModel\VisitorDetailsVM.cs" />
