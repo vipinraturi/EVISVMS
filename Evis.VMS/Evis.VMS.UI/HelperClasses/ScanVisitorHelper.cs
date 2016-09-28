@@ -12,16 +12,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
+using Evis.VMS.Business;
 namespace Evis.VMS.UI.HelperClasses
 {
     public class ScanVisitorHelper
     {
         ScanVisitorVM objScannedData = null;
-
+        GenericService _genericSer = null;
+       
         public ScanVisitorHelper()
         {
             objScannedData = new ScanVisitorVM();
+            _genericSer = new GenericService();
         }
 
         public ScanVisitorVM ScanDetails(string item)
@@ -32,9 +34,22 @@ namespace Evis.VMS.UI.HelperClasses
             modiDocument.Create(filePath);
             modiDocument.OCR(MiLANGUAGES.miLANG_ENGLISH);
             MODI.Image modiImage = (modiDocument.Images[0] as MODI.Image);
+            var actualtText = modiImage.Layout.Text;
+
             var extractedText = modiImage.Layout.Text.Replace(Environment.NewLine, "<br />").Trim(new char[] { '\\' });
             string[] resultSplitted = extractedText.Split('>');
-
+            if (objScannedData.Nationality != null)
+            {
+                var data = _genericSer.LookUpValues.GetAll().Where(x => x.LookUpValue == objScannedData.Nationality).FirstOrDefault();
+                if (data != null)
+                {
+                    objScannedData.NationalityId = data.Id;
+                }
+                else
+                {
+                    objScannedData.NationalityId = 38;
+                }
+            }
             if (extractedText.Contains("United Arab Emêrates") || extractedText.Contains("United Arab Emirates") 
                 || extractedText.Contains("Idenmy Card"))
             //Front page of emirates id card
@@ -51,18 +66,31 @@ namespace Evis.VMS.UI.HelperClasses
                 if (resultSplitted.Length >= 8 && !string.IsNullOrEmpty(resultSplitted[7]))
                 {
                     objScannedData.Nationality = resultSplitted[7].Replace("<br /", "").Replace("NaonahIy:", "").Replace("Nationality:", "").Replace(" ", "");
+
                 }
             }
-            else if (extractedText.Contains("Date of Birth"))
+            else if (extractedText.Contains("Date of Birth") || extractedText.Contains("Dale B.rlh"))
             {
                 objScannedData.TypeOfCard = "Emirates Id";
                 //Back page of emirates id card 
                 if (resultSplitted.Length >= 1 && !string.IsNullOrEmpty(resultSplitted[0]))
                 {
-                    if ( resultSplitted[0].Contains(":"))
+                    //		resultSplitted[0].Split(' ')[5][0]	48 '0'	char
+                    if (resultSplitted[0].Contains(":") && !resultSplitted[0].Contains("Dale B.rlh"))
                     {
+
                         objScannedData.Gender = resultSplitted[0].Split(':')[1];
                         objScannedData.DateOfBirth = resultSplitted[0].Split(':')[2].Replace("<br /", " ").Replace("Date of Birth", " ").Replace("j1", "").Replace(" ", "");    
+                    }
+                    else
+                    {
+                        objScannedData.Gender = resultSplitted[0].Split(' ')[1];
+                        objScannedData.DateOfBirth = (resultSplitted[0].Split(' ')[5][0].ToString() + resultSplitted[0].Split(' ')[5][1].ToString() 
+                            + "/" + resultSplitted[0].Split(' ')[5][3].ToString() + resultSplitted[0].Split(' ')[5][4].ToString() 
+                            + "/" + resultSplitted[0].Split(' ')[5][6].ToString() + resultSplitted[0].Split(' ')[5][7].ToString()
+                            + resultSplitted[0].Split(' ')[5][8].ToString()
+                            + resultSplitted[0].Split(' ')[5][9].ToString());    
+
                     }
                 }
             }

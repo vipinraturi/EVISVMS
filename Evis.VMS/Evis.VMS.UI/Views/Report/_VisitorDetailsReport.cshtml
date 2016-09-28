@@ -127,7 +127,8 @@
                             <th style="width: 12%"><a href="#" onclick="DataGrid.Sort('CheckIn')" class="CheckIn">Check In<i class="fa fa-chevron-down icons"></i></a></th>
                             <th style="width: 12%"><a href="#" onclick="DataGrid.Sort('CheckOut')" class="CheckOut">Check Out</a></th>
                             <th style="width: 12%"><a href="#" onclick="DataGrid.Sort('ContactNumber')" class="ContactNumber">Contact Number</a></th>
-                            <th style="width: 20%"><a href="#" onclick="DataGrid.Sort('VisitDetails')" class="VisitDetails">Visit Details</a></th>
+                            @*<th style="width: 20%"><a href="#" onclick="DataGrid.Sort('VisitDetails')" class="VisitDetails">Visit Details</a></th>*@
+                            <th style="width: 20%"><a href="#" onclick="DataGrid.Sort('ContactPerson')" class="ContactPerson">Contact Person</a></th>
                         </tr>
                     </thead>
                     <tbody data-bind="foreach:DataGrid.DataRows">
@@ -140,8 +141,8 @@
                             <td data-bind="text: CheckIn"></td>
                             <td data-bind="text: CheckOut"></td>
                             <td data-bind="text: ContactNumber"></td>
-                            <td data-bind="text: VisitDetails"></td>
-                        </tr>
+                            @*<td data-bind="text: VisitDetails"></td>*@
+                            <td data-bind="text: ContactPerson"></td></tr>
                     </tbody>
                     <tr class="blank_row" data-bind="visible: (DataGrid.DataRows().length == 0)"><td align="center" colspan="10">No data found.</td></tr>
                 </table>

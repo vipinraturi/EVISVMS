@@ -34,6 +34,9 @@ ApplyCustomBinding = function (elementName) {
         case 'shiftassignment':
             BindingViewModel("/Administration/_ShiftAssignment", ShiftAssignmentViewModel());
             break;
+        case 'shiftmanagement':
+            BindingViewModel("/Administration/_ShiftManagement", ShiftManagementViewModel());
+            break;
         case 'myprofile':
             BindingViewModel("/Administration/_Myprofile", MyProfileViewModel());
             break;
@@ -49,7 +52,7 @@ ApplyCustomBinding = function (elementName) {
             break;
         case 'managevisitor':
             var scanVisitorViewModel = ScanVisitorViewModel();
-            BindingViewModel("/Visitor/_ManageVisitorManually", VisitorViewModel(scanVisitorViewModel.split('&')[0], scanVisitorViewModel.split('&')[1], scanVisitorViewModel.split('&')[2], scanVisitorViewModel.split('&')[3], scanVisitorViewModel.split('&')[4], scanVisitorViewModel.split('&')[5], scanVisitorViewModel.split('&')[6], scanVisitorViewModel.split('&')[7], scanVisitorViewModel.split('&')[8], scanVisitorViewModel.split('&')[9], scanVisitorViewModel.split('&')[10]));
+            BindingViewModel("/Visitor/_ManageVisitorManually", VisitorViewModel(scanVisitorViewModel.split('&&')[0], scanVisitorViewModel.split('&&')[1], scanVisitorViewModel.split('&&')[2], scanVisitorViewModel.split('&&')[3], scanVisitorViewModel.split('&&')[4], scanVisitorViewModel.split('&&')[5], scanVisitorViewModel.split('&&')[6], scanVisitorViewModel.split('&&')[7], scanVisitorViewModel.split('&&')[8], scanVisitorViewModel.split('&&')[9], scanVisitorViewModel.split('&&')[10]));
             break;
         case 'visitorcheckin':
             BindingViewModel("/Visitor/_VisitorCheckIn", VisitorCheckInViewModel());
@@ -64,8 +67,6 @@ ApplyCustomBinding = function (elementName) {
         case 'shiftdetailsreport':
             BindingViewModel("/Report/_ShiftDetailsReport", ShiftDetailsViewModel());
             break;
-
-            //Dashboard
         case 'dashboard':
             BindingViewModel("../Dashboard/_Dashboard", DashboardViewModel());
             break;

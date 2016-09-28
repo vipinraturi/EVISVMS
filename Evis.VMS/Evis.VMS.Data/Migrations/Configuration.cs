@@ -113,7 +113,14 @@ namespace Evis.VMS.Data.Migrations
             context.LookUpValues.Add(new LookUpValues { Id = 36, LookUpTypeId = 6, LookUpValue = "Indian", Description = "Indian", IsActive = true });
             context.LookUpValues.Add(new LookUpValues { Id = 37, LookUpTypeId = 6, LookUpValue = "American", Description = "American", IsActive = true });
             context.LookUpValues.Add(new LookUpValues { Id = 38, LookUpTypeId = 6, LookUpValue = "Other", Description = "Other", IsActive = true });
-
+            //smitha added
+            context.LookUpValues.Add(new LookUpValues { Id = 47, LookUpTypeId = 6, LookUpValue = "Afghan", Description = "Afghan", IsActive = true });
+            context.LookUpValues.Add(new LookUpValues { Id = 48, LookUpTypeId = 6, LookUpValue = "Armenian", Description = "Armenian", IsActive = true });
+            context.LookUpValues.Add(new LookUpValues { Id = 49, LookUpTypeId = 6, LookUpValue = "Australian", Description = "Australian", IsActive = true });
+            context.LookUpValues.Add(new LookUpValues { Id = 50, LookUpTypeId = 6, LookUpValue = "Bahraini", Description = "Bahraini", IsActive = true });
+            context.LookUpValues.Add(new LookUpValues { Id = 51, LookUpTypeId = 6, LookUpValue = "Bangladeshi", Description = "Bangladeshi", IsActive = true });
+            context.LookUpValues.Add(new LookUpValues { Id = 51, LookUpTypeId = 6, LookUpValue = "Tunisia", Description = "Tunisia", IsActive = true });
+            
             //inserting theme
             context.LookUpValues.Add(new LookUpValues { Id = 39, LookUpTypeId = 7, LookUpValue = "theme1", Description = "Theme1", IsActive = true });
             context.LookUpValues.Add(new LookUpValues { Id = 40, LookUpTypeId = 7, LookUpValue = "theme2", Description = "Theme2", IsActive = true });

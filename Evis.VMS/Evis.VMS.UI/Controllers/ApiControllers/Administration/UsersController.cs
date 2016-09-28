@@ -108,7 +108,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             }
 
             var temp = (from users in getUsers
-                        join roles in getRoles on users.Roles.First().RoleId equals roles.Id
+                        join roles in getRoles on users.Roles.FirstOrDefault().RoleId equals roles.Id
                         select new UsersVM
                         {
                             UserId = users.Id,
