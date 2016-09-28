@@ -23,5 +23,14 @@ namespace Evis.VMS.UI.ViewModel
     public class ShiftDatesShifts
     {
         public int ShiftId { get; set; }
+        public string ShiftName { get; set; }
     }
+
+    public class ShiftHeaders
+    {
+        public string ShiftMainDates { get; set; }
+        public List<string> ListAllDates { get; set; }
+    }
+
+   
 }
