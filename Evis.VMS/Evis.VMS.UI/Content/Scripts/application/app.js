@@ -1,10 +1,10 @@
 ﻿$(function () {
-    ////debugger;
+    //
     ApplyCustomBinding('dashboard');
 
     $('.side-menu li').click(function () {
        
-        //debugger;
+        
 
         var $lis = $(this).parents('.child_menu').find('li');
         if ($lis.length > 0) {

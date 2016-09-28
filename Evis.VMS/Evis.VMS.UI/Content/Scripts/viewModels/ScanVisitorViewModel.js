@@ -103,7 +103,7 @@ function ScanVisitorViewModel() {
             //$('input[type=text]').removeAttr('readonly').removeClass('inputdisable');
 
             $('.dz-image img').each(function () {
-                //debugger;
+                
                 if (self.IdentityImages().indexOf(",") == -1) {
                     self.IdentityImages($(this).attr('img-name-unique')+",");
                 }
@@ -152,7 +152,7 @@ function ScanVisitorViewModel() {
             self.ContactNumber() + "&&" +
             self.IdentityImages());
         alert(dataToSend);
-        //debugger;
+        
     }
 
 

@@ -18,7 +18,7 @@
     });
     self.Buildings = ko.observableArray();
     AjaxCall('/Api/Gates/GetAllBuilding', null, 'GET', function (data) {
-        //debugger;;
+        ;
         self.Buildings(data);
     })
     self.BuildingName = ko.observable('').extend({ required: true });
@@ -69,7 +69,7 @@
 
 
     self.EditGate = function (tableItem) {
-        //debugger;;
+        ;
         if (tableItem != undefined) {
             self.Id(tableItem.Id);
             self.GateNumber(tableItem.GateNumber);
@@ -84,7 +84,7 @@
 
 
     self.DeleteGate = function (tableItem) {
-        debugger;
+        
         //var message = confirm("Are you sure, you want to delete selected record!");
         //if (message == true) {
         //    AjaxCall('/Api/Gates/DeleteGate', tableItem, 'POST', function (data) {
@@ -105,7 +105,7 @@
         recordToDelete = tableItem;
     }
     self.DeleteConfirmed = function () {
-        debugger;
+        
         $('#myModal').modal('hide');
         $('.modal-backdrop').modal('show');
         $('.modal-backdrop').modal('hide');
@@ -141,7 +141,7 @@
         ApplyCustomBinding('gates');
     }
     self.SaveGate = function () {
-        debugger;
+        
         if (self.errors().length > 0) {
             self.errors.showAllMessages(true);
             this.errors().forEach(function (data) {
@@ -151,7 +151,7 @@
         }
         else {
             var data = new Object();
-            //debugger;
+            
             data.Id = self.Id(),
             data.BuildingId = self.BuildingId(),
             data.GateNumber = self.GateNumber();
@@ -172,14 +172,14 @@
     }
     //}
     self.GlobalSearchEnter = function (data) {
-        //debugger;
+        
         self.GetAllGateData();
-        console.log(event);
+        //console.log(event);
     }
     ko.bindingHandlers.enterkey = {
         init: function (element, valueAccessor, allBindings, viewModel) {
             var callback = valueAccessor();
-            debugger;
+            
             $(element).keypress(function (event) {
                 var keyCode = (event.which ? event.which : event.keyCode);
                 if (keyCode === 13) {

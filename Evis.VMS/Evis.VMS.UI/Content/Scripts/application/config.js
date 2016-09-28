@@ -76,7 +76,7 @@ ApplyCustomBinding = function (elementName) {
 }
 
 BindingViewModel = function (controllerUrl, viewModel) {
-    // //debugger;
+    // 
     $('#content').load(controllerUrl, function () {
         ko.cleanNode($('#content')[0]);
         ko.applyBindings(viewModel, $('#content')[0]);

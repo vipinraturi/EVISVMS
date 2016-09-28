@@ -31,7 +31,7 @@
         self.DataGrid.GetData();
     }
     self.Editshift = function (tableItem) {
-        //debugger;
+        
         if (tableItem != undefined) {
             self.Id(tableItem.Id);
             self.ShitfName(tableItem.ShitfName);
@@ -43,7 +43,7 @@
         }
     }
     self.Saveshift = function () {
-        //debugger;
+        
         if (self.errors().length > 0) {
             // alert(self.errors());
             self.errors.showAllMessages(true);
@@ -62,7 +62,7 @@
             AjaxCall('/Api/Shift/SaveShift', data, 'POST', function (data) {
                 if (data.Success == true) {
                     toastr.clear();
-                    debugger;
+                    
                     ApplyCustomBinding('newshiftcreate');
                     toastr.success(data.Message);
                 }
@@ -89,7 +89,7 @@
         //var message = confirm("Are you sure, you want to delete selected record!");
         //if (message == true) {
         //    AjaxCall('/Api/Shift/DeleteShift', tableItem, 'POST', function () {
-        //        //debugger;
+        //        
         //        toastr.success('Shift deleted successfully!!');
         //        ApplyCustomBinding('newshiftcreate');
 
@@ -116,9 +116,9 @@
     }
 
     self.GlobalSearchEnter = function (data) {
-        //debugger;
+        
         self.GetAllShiftData();
-        console.log(event);
+        //console.log(event);
     }
     ko.bindingHandlers.enterkey = {
         init: function (element, valueAccessor, allBindings, viewModel) {

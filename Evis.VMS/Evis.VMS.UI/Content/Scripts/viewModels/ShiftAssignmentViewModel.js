@@ -48,7 +48,7 @@ function ShiftAssignmentViewModel() {
     }
     self.Gates = ko.observableArray();
     self.GetGates = function () {
-        //  //debugger;
+        //  
         if (self.BuildingId() != undefined && self.BuildingId() != 0) {
             AjaxCall('/Api/ShiftAssignment/GetAllGates?BuildingId=' + self.BuildingId(), null, 'GET', function (data) {
                 self.Gates(new Object());
@@ -64,12 +64,12 @@ function ShiftAssignmentViewModel() {
     })
     self.Buildings = ko.observableArray();
     AjaxCall('/Api/Gates/GetAllBuilding', null, 'GET', function (data) {
-        debugger;
+        
         self.Buildings(data);
     })
     self.Users = ko.observableArray();
     self.GetUsers = function () {
-        // //debugger;
+        // 
         if (self.GateId() != undefined && self.GateId() != 0) {
             AjaxCall('/Api/ShiftAssignment/GetAllUsers?GateId=' + self.GateId(), null, 'GET', function (data) {
                 self.Users(new Object());
@@ -93,7 +93,7 @@ function ShiftAssignmentViewModel() {
         recordToDelete = tableItem;
     }
     self.DeleteConfirmed = function () {
-        debugger;
+        
         $('#myModal').modal('hide');
         $('.modal-backdrop').modal('show');
         $('.modal-backdrop').modal('hide');
@@ -106,7 +106,7 @@ function ShiftAssignmentViewModel() {
     }
     self.EditShift = function (tableItem) {
         gblDateToTest = tableItem.ToDate;
-        console.log('tableItem.ToDate ' + tableItem.ToDate + 'tableItem.FromDate  ' + tableItem.FromDate);
+        //console.log('tableItem.ToDate ' + tableItem.ToDate + 'tableItem.FromDate  ' + tableItem.FromDate);
 
         //var datetoFormat = new Date(tableItem.ToDate),
         //    month = '' + (datetoFormat.getMonth() + 1),
@@ -166,7 +166,7 @@ function ShiftAssignmentViewModel() {
         var TO = $('#dateTo').val().slice(0, 10).split('-');
         var TODate = TO[2] + '/' + TO[1] + '/' + TO[0];
         self.ToDate(TO);
-        debugger;
+        
 
         if (self.errors().length > 0) {
             self.errors.showAllMessages(true);
@@ -184,10 +184,10 @@ function ShiftAssignmentViewModel() {
             data.ToDate = $('#dateTo').val();
             data.strFromDate = $('#dateFrom').val();
             data.strToDate = $('#dateTo').val();
-            console.log('self.FromDate()' + self.FromDate() + '  self.ToDate()' + self.ToDate());
+            //console.log('self.FromDate()' + self.FromDate() + '  self.ToDate()' + self.ToDate());
 
             AjaxCall('/Api/ShiftAssignment/SaveShiftAssignment', data, 'POST', function (data) {
-                debugger;
+                
                 if (data.Success == true) {
                     toastr.clear();
                     toastr.success(data.Message);
@@ -203,7 +203,7 @@ function ShiftAssignmentViewModel() {
     }
     self.GlobalSearchEnter = function (data) {
         self.GetAllShiftAssignmentData();
-        console.log(event);
+        //console.log(event);
     }
     ko.bindingHandlers.enterkey = {
         init: function (element, valueAccessor, allBindings, viewModel) {

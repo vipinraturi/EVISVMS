@@ -41,7 +41,7 @@
             self.IsAlreadyCheckIn(data.IsAlreadyCheckIn);
             self.TotalDuration(data.TotalDuration);
 
-            //debugger;
+            
 
             self.CompanyName(data.CompanyName);
             self.VahicleNumber(data.VahicleNumber);
@@ -82,7 +82,7 @@
 
 
     self.ViewHistory = function (tableItem) {
-        //debugger;
+        
         self.ContactPerson(tableItem.ContactPerson);
         self.NoOfPerson(tableItem.NoOfPerson);
         self.Purpose_Remark(tableItem.Purpose);
@@ -152,7 +152,7 @@ BindAutoCompleteEventCheckout = function () {
         }
     })
 .autocomplete("instance")._renderItem = function (ul, item) {
-    console.log(item.logoUrl);
+    //console.log(item.logoUrl);
     return $('<li>')
          .data('item.autocomplete', item)
          .append('<div  style="border: 1px solid black" class="row" ><div class=col-sm-9>'

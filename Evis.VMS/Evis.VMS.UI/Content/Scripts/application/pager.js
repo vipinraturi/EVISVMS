@@ -25,7 +25,7 @@ RIT.eW.Services.AjaxPostCall = function (fullUrl, dataObj, callbackFunction, sea
         //data: JSON.stringify(dataObj),
         success: function (data)
         {
-            ////debugger;
+            //
             callbackFunction(RIT.eW.Utils.GetJson(data));
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -52,7 +52,7 @@ RIT.eW.DataGridAjax = (function () {
     var getDataUrl = '';
     function DataGridAjax(url, pageSize) {
         var self = this;
-        //////debugger;
+        ////
         getDataUrl = url;
         self.GridParams = {
             pageIndex: ko.observable(1),
@@ -78,7 +78,7 @@ RIT.eW.DataGridAjax = (function () {
 
     DataGridAjax.prototype.GetData = function () {
         var self = this;
-        ////debugger;
+        //
         RIT.eW.Services.AjaxPostCall(getDataUrl, self.GridParams, $.proxy(self.OnGetDataDone, this), self.search());
     };
 
@@ -95,7 +95,7 @@ RIT.eW.DataGridAjax = (function () {
 
     DataGridAjax.prototype.FlipPage = function (newPageNo) {
         var self = this;
-        //////debugger;
+        ////
         if (parseInt(newPageNo) > 0 && parseInt(newPageNo) <= self.GridParams.totalPages()) {
             self.GridParams.pageIndex(newPageNo);
             self.GetData();
@@ -183,12 +183,12 @@ RIT.eW.DataGridBasic = (function () {
     };
     DataGridBasic.prototype.UpdateData = function () {
         var self = this;
-        //////debugger;
+        ////
 
         self.DataRows(self.GetPagedData());
         var totalPages = Math.ceil(self.GridParams.totalRows() / self.GridParams.pageSize());
         self.GridParams.totalPages(totalPages);
-        //////debugger;
+        ////
         self.GridParams.requestedPage(self.GridParams.pageIndex());
     };
     DataGridBasic.prototype.FlipPage = function (newPageNo) {
@@ -244,7 +244,7 @@ RIT.eW.DataGridBasic = (function () {
         return allDataRows.slice(start, start + size);
     };
     DataGridBasic.prototype.dynamicSort = function (sortProperty, direction) {
-        //////debugger;
+        ////
         var thisMethod = function(a, b) {
             var valueA = a[sortProperty];
             var valueB = b[sortProperty];
@@ -276,9 +276,9 @@ RIT.eW.DataGridBasic = (function () {
 })();
 RIT.eW.Utils = RIT.eW.Utils || {};
 RIT.eW.Utils.GetJson = function (data) {
-    ////debugger;
+    //
     if (data == '' || data == 'undefined')
         return null;
-    //debugger;
+    
     return (JSON && JSON.parse(data) || $.parseJSON(data));
 };

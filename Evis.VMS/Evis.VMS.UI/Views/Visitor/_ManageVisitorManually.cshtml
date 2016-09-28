@@ -228,7 +228,7 @@
         $('#dropzoneImageForm .dz-image').addClass('dz-message');
         $('#dropzoneImageForm .dz-image img').addClass('dz-message');
         dropZoneVisitorImage.on("maxfilesexceeded", function (file) {
-            //debugger;
+            
             var res = eval('(' + file.xhr.responseText + ')');
             toastr.warning('Only two images allowed.');
         });

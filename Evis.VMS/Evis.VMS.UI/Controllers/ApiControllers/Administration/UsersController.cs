@@ -85,6 +85,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                             (user == null || (user != null && x.OrganizationId == user.OrganizationId
                             && x.Id != HttpContext.Current.User.Identity.GetUserId()))).AsQueryable();
 
+            var gerUserRoleMappingData = (await _applicationRoleService.GetAllAsync()).AsQueryable();
+
             if (string.IsNullOrEmpty(sortField))
             {
                 sortField = "CreatedOn";
@@ -109,6 +111,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
             var temp = (from users in getUsers
                         join roles in getRoles on users.Roles.First().RoleId equals roles.Id
+                        into new_roles
+                        from roles in new_roles.DefaultIfEmpty()
                         select new UsersVM
                         {
                             UserId = users.Id,
