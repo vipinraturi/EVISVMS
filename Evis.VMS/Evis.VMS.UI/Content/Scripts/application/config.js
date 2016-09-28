@@ -34,6 +34,9 @@ ApplyCustomBinding = function (elementName) {
         case 'shiftassignment':
             BindingViewModel("/Administration/_ShiftAssignment", ShiftAssignmentViewModel());
             break;
+        case 'shiftmanagement':
+            BindingViewModel("/Administration/_ShiftManagement", ShiftManagementViewModel());
+            break;
         case 'myprofile':
             BindingViewModel("/Administration/_Myprofile", MyProfileViewModel());
             break;
@@ -49,21 +52,7 @@ ApplyCustomBinding = function (elementName) {
             break;
         case 'managevisitor':
             var scanVisitorViewModel = ScanVisitorViewModel();
-            // 5 7 8989 hjfhjhfjhj
-           // alert(scanVisitorViewModel);
             BindingViewModel("/Visitor/_ManageVisitorManually", VisitorViewModel(scanVisitorViewModel.split('&&')[0], scanVisitorViewModel.split('&&')[1], scanVisitorViewModel.split('&&')[2], scanVisitorViewModel.split('&&')[3], scanVisitorViewModel.split('&&')[4], scanVisitorViewModel.split('&&')[5], scanVisitorViewModel.split('&&')[6], scanVisitorViewModel.split('&&')[7], scanVisitorViewModel.split('&&')[8], scanVisitorViewModel.split('&&')[9], scanVisitorViewModel.split('&&')[10]));
-            //alert("name"+scanVisitorViewModel.split('&&')[0]);
-            //alert("gen" + scanVisitorViewModel.split('&&')[1]);
-            //alert("nationality" + scanVisitorViewModel.split('&&')[2]);
-            //alert("DOB" + scanVisitorViewModel.split('&&')[3]);
-            //alert("Typofcustomer" + scanVisitorViewModel.split('&&')[4]);
-            //alert("idnumber" + scanVisitorViewModel.split('&&')[5]);
-            //alert("natinalval" + scanVisitorViewModel.split('&&')[6]);
-            //alert("companyname" + scanVisitorViewModel.split('&&')[7]);
-            //alert("email addre" + scanVisitorViewModel.split('&&')[8]);
-            //alert("contactnum" + scanVisitorViewModel.split('&&')[9]);
-            //alert("image" + scanVisitorViewModel.split('&&')[10]);
-
             break;
         case 'visitorcheckin':
             BindingViewModel("/Visitor/_VisitorCheckIn", VisitorCheckInViewModel());
@@ -78,8 +67,6 @@ ApplyCustomBinding = function (elementName) {
         case 'shiftdetailsreport':
             BindingViewModel("/Report/_ShiftDetailsReport", ShiftDetailsViewModel());
             break;
-
-            //Dashboard
         case 'dashboard':
             BindingViewModel("../Dashboard/_Dashboard", DashboardViewModel());
             break;

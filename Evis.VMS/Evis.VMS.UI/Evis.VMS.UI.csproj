@@ -335,6 +335,7 @@
     <Content Include="Content\Scripts\viewModels\MyProfileViewModel.js" />
     <Content Include="Content\Scripts\viewModels\BuildingViewModel.js" />
     <Content Include="Content\Scripts\viewModels\MyOrganizationViewModel.js" />
+    <Content Include="Content\Scripts\viewModels\ShiftManagementViewModel.js" />
     <Content Include="Content\Scripts\viewModels\ShiftDetailsViewModel.js" />
     <Content Include="Content\Scripts\viewModels\ThemeSelectionViewModel.js" />
     <Content Include="Content\Scripts\viewModels\UsersViewModel.js" />
@@ -476,6 +477,7 @@
     <Content Include="Views\Dashboard\_Dashboard.cshtml">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="Views\Administration\_ShiftManagement.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
