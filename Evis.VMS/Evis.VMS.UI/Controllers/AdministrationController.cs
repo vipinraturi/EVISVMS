@@ -91,6 +91,11 @@ namespace Evis.VMS.UI.Controllers
             return View();
         }
 
+        public ActionResult _ShiftManagement_dynamic()
+        {
+            return View();
+        }
+
         public async Task<ActionResult> SaveUploadedFile()
         {
             bool isSavedSuccessfully = true;

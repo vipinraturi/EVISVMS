@@ -68,7 +68,6 @@
                                                 }
                                                 <li id="gates"><a href="javascript:void(0)">Gates</a></li>
                                                 <li id="newuser"><a href="javascript:void(0)">Users</a></li>
-                                                <li id="newshiftcreate"><a href="javascript:void(0)">New Shifts</a></li>
                                             </ul>
                                         </li>
                                     }
@@ -79,10 +78,12 @@
                                         <ul class="nav child_menu">
                                             @if (userSessionData.UserRole != Evis.VMS.UI.ViewModel.RoleType.Security)
                                             {
+                                                <li id="newshiftcreate"><a href="javascript:void(0)">New Shifts</a></li>
                                                 <li id="shiftassignment"><a href="javascript:void(0)">Shift Assignment</a></li>
                                             }
 
                                             <li id="shiftmanagement"><a href="javascript:void(0)">Shift Management</a></li>
+                                            <li id="shiftmanagementdynamic"><a href="javascript:void(0)">Shift Management 1</a></li>
                                         </ul>
                                     </li>
                                     <li>

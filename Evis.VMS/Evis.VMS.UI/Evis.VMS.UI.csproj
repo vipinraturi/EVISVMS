@@ -192,6 +192,7 @@
     <Compile Include="Controllers\ApiControllers\Administration\BuildingController.cs" />
     <Compile Include="Controllers\ApiControllers\Administration\GatesController.cs" />
     <Compile Include="Controllers\ApiControllers\Administration\MyOrganizationController.cs" />
+    <Compile Include="Controllers\ApiControllers\Administration\ShiftManagementController.cs" />
     <Compile Include="Controllers\ApiControllers\Administration\UsersController.cs" />
     <Compile Include="Controllers\ApiControllers\Administration\ShiftController.cs" />
     <Compile Include="Controllers\ApiControllers\Administration\ShiftAssignmentController.cs" />
@@ -337,6 +338,7 @@
     <Content Include="Content\Scripts\viewModels\MyProfileViewModel.js" />
     <Content Include="Content\Scripts\viewModels\BuildingViewModel.js" />
     <Content Include="Content\Scripts\viewModels\MyOrganizationViewModel.js" />
+    <Content Include="Content\Scripts\viewModels\ShiftManagementdynamicViewModell.js" />
     <Content Include="Content\Scripts\viewModels\ShiftManagementViewModel.js" />
     <Content Include="Content\Scripts\viewModels\ShiftDetailsViewModel.js" />
     <Content Include="Content\Scripts\viewModels\ThemeSelectionViewModel.js" />
@@ -481,6 +483,7 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="Views\Administration\_ShiftManagement.cshtml" />
+    <Content Include="Views\Administration\_ShiftManagement_dynamic.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
