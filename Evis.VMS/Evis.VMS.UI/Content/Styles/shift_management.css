@@ -10886,13 +10886,13 @@ div.timelines {
         text-align: center;
         background: url('/app/schedule/images/split.png') no-repeat 0 0;
         margin-left: 1px;
-        padding: 10px 0px;
+        padding: 5px 5px 5px 5px;
     }
 
         #ccanvas .date table.timeline td.daterange {
-            width: 190px !important;
+            width: 150px !important;
             text-align: left !important;
-            padding-left: 15px;
+            padding-left: 5px;
             background: none !important;
             margin-left: none;
         }
@@ -11002,7 +11002,7 @@ div.timelines {
     #ccanvas #scheduler table.weeklist td {
         height: 20px;
         margin: 0px;
-        border: 1px solid #d7d7d7;
+        border-bottom: 1px solid #d7d7d7;
     }
 
         #ccanvas #scheduler table.weeklist td.day {
@@ -11060,9 +11060,9 @@ div.timelines {
     }
 
     #ccanvas #scheduler table.weeklist td.wemp {
-        width: 190px;
+        width: 150px;
         border-bottom: 1px solid #d7d7d7;
-        padding: 10px;
+        padding: 5px;
         word-wrap: break-word;
     }
 

@@ -1,4 +1,5 @@
 ﻿var dataToSend = '';
+var gblTableId;
 
 ShowLoader = function () {
     $('.loader-div').show();
@@ -193,6 +194,12 @@ BindingViewModel = function (controllerUrl, viewModel) {
 
         if (controllerUrl == "/Administration/_ShiftManagement") {
             $('#txtShiftDate').datepicker();
+
+
+            $('.shiftCell').click(function () {
+                gblTableId = $(this).attr('id');
+                $('#myModal').modal('show');
+            });
         }
     });
 }
