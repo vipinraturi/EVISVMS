@@ -61,7 +61,8 @@ namespace Evis.VMS.UI.HelperClasses
                 }
                 if (resultSplitted.Length >= 6 && !string.IsNullOrEmpty(resultSplitted[5]))
                 {
-                    objScannedData.VisitorName = resultSplitted[5].Replace("<br /", "").Replace("Name:", "").Replace(" ", "");
+                    objScannedData.VisitorName = resultSplitted[5].Replace("<br /", "").Replace("Name:", "").Replace("Name","");
+                    //.Replace(" ", "")
                 }
                 if (resultSplitted.Length >= 8 && !string.IsNullOrEmpty(resultSplitted[7]))
                 {
