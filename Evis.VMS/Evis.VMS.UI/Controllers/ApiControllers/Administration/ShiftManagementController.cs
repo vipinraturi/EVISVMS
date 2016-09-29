@@ -33,8 +33,10 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         [HttpPost]
         public ShiftManagementResponseVM GetAllShifts(ShiftManagementRequest request)
         {
-            var header = _shiftManagemetHelper.GetHeaders(DateTime.Now.AddDays(-12), DateTime.Now);
-            var body = _shiftManagemetHelper.GetShiftData(DateTime.Now.AddDays(-12), DateTime.Now, request.BuildingId, request.GateId);
+            var shiftDate = DateTime.ParseExact(request.ShiftDate, "dd/MM/yyyy", null);
+
+            var header = _shiftManagemetHelper.GetHeaders(shiftDate, shiftDate.AddDays(request.NoOfDays));
+            var body = _shiftManagemetHelper.GetShiftData(shiftDate, shiftDate.AddDays(request.NoOfDays), request.BuildingId, request.GateId);
 
             return new ShiftManagementResponseVM { Header = header, Body = body };
         }

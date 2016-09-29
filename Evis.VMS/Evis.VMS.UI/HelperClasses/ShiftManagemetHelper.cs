@@ -39,43 +39,52 @@ namespace Evis.VMS.UI.HelperClasses
                 .Select(x => new ShiftManagementVM
                 {
                     Securityname = x.ApplicationUser.FullName,
+                    UserName = x.ApplicationUser.UserName,
                     GateName=x.Gates.GateNumber,
+                    GateId = x.GateID,
                     BuldingName=x.Gates.BuildingMaster.BuildingName
                 }).Distinct().ToList();
 
             var result = userDataWithShift.AsEnumerable().Select(x => new ShiftManagementVM
                 {
                     Securityname = x.Securityname,
+                    UserName = x.UserName,
                     GateName=x.GateName,
                     BuldingName=x.BuldingName,
-                    ShiftManageDates = GetShiftWthDate(fromDate, toDate, x.Securityname)
+                    Shifts = GetAllShifts(x.GateId),
+                    ShiftManageDates = GetShiftWthDate(fromDate, toDate, x.UserName)
                 }).ToList();
+
+
             return result;
         }
 
-        private List<ShiftManagemetDates> GetShiftWthDate(DateTime fromDate, DateTime toDate, string securityName)
+        private List<string> GetAllShifts(int gateId)
         {
-            var datesWithShift = _genericService.ShiftDetails.GetAll().Where(x => x.ApplicationUser.UserName == securityName && x.ShiftDate >= fromDate && x.ShiftDate <= toDate)
+            return _genericService.ShitfMaster.GetAll().Select(x=> x.ShitfName).ToList();
+        }
+
+        private List<ShiftManagemetDates> GetShiftWthDate(DateTime fromDate, DateTime toDate, string securityUserName)
+        {
+            var datesWithShift = _genericService.ShiftDetails.GetAll().Where(x => x.ApplicationUser.UserName == securityUserName && x.ShiftDate >= fromDate && x.ShiftDate <= toDate)
                 .Select(x => new ShiftManagemetDates
             {
                 ShiftDate = x.ShiftDate
-
-
 
             }).Distinct().ToList();
             var result = datesWithShift.AsEnumerable().Select(x => new ShiftManagemetDates
            {
                ShiftDate=x.ShiftDate,
                
-               ShiftManage = ListAllShifts(x.ShiftDate,securityName)
+               ShiftManage = ListAllShifts(x.ShiftDate,securityUserName)
            }).ToList();
             return result;
         }
 
-        private List<ShiftDatesShifts> ListAllShifts(DateTime shiftDate, string securityName)
+        private List<ShiftDatesShifts> ListAllShifts(DateTime shiftDate, string securityUserName)
         {
 
-            var listAllShiftsOneDay = _genericService.ShiftDetails.GetAll().Where(x => x.ApplicationUser.UserName == securityName && x.ShiftDate == shiftDate)
+            var listAllShiftsOneDay = _genericService.ShiftDetails.GetAll().Where(x => x.ApplicationUser.UserName == securityUserName && x.ShiftDate == shiftDate)
                 .Select(x => new ShiftDatesShifts
                 {
                     ShiftId = x.ShiftID,

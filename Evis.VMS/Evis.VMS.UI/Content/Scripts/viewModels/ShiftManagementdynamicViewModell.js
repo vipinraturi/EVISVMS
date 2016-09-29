@@ -1,4 +1,6 @@
-﻿
+﻿var glbData1 = [];
+var glbData2Unique = [];
+
 function ShiftManagementdynamicViewModell() {
     var self = this;
     self.Buildings = ko.observableArray();
@@ -9,8 +11,8 @@ function ShiftManagementdynamicViewModell() {
 
     self.BuildingId = ko.observable(-1);
     self.GateId = ko.observable(-1);
-    self.ShiftDate = ko.observable('');
-    self.NoOfDays = ko.observable(0);
+    self.ShiftDate = ko.observable('01/10/2016');
+    self.NoOfDays = ko.observable(14);
 
 
     var request = new Object();
@@ -21,8 +23,13 @@ function ShiftManagementdynamicViewModell() {
 
     AjaxCall('/Api/ShiftAssignment/GetAllShift', request, 'POST', function (data) {
         self.Header(data.Header);
+
+        //alert(self.Header());
+        glbData1 = self.Header();
         self.Body(data.Body);
-    })
+        glbData2Unique = self.Body();
+        //debugger;
+    });
 
 
 

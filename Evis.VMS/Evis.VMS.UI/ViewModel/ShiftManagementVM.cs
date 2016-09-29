@@ -23,11 +23,16 @@ namespace Evis.VMS.UI.ViewModel
     public class ShiftManagementVM
     {
         public string Securityname { get; set; }
+        public string UserName { get; set; }
         public string BuldingName { get; set; }
         public string GateName { get; set; }
+        public int GateId { get; set; }
+        public List<string> Shifts { get; set; }
         public List<ShiftManagemetDates> ShiftManageDates { get; set; }
     }
 
+
+    
     public class ShiftManagemetDates
     {
         public DateTime ShiftDate { get; set; }
