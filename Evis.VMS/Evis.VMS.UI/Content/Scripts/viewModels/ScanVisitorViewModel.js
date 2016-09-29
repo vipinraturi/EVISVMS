@@ -2,18 +2,18 @@
 function ScanVisitorViewModel() {
 
     var self = this;
-    self.VisitorName = ko.observable('[Visitor Name]');
+    self.VisitorName = ko.observable('');
     self.Gender = ko.observable('');
-    self.GenderText = ko.observable('[Gender]');
-    self.DOB = ko.observable('[Date Of Birth]');
+    self.GenderText = ko.observable('');
+    self.DOB = ko.observable('');
     self.TypeOfCard = ko.observable('');
-    self.TypeOfCardText = ko.observable('[Type Of Card]');
-    self.IdNumber = ko.observable('[Id Number]');
+    self.TypeOfCardText = ko.observable('');
+    self.IdNumber = ko.observable('');
     self.Nationality = ko.observable('');
-    self.NationalityText = ko.observable('[Nationality]');
-    self.CompanyName = ko.observable('[Company Name]');
-    self.EmailAddress = ko.observable('[Email Id]');
-    self.ContactNumber = ko.observable('[Contact Number]');
+    self.NationalityText = ko.observable('');
+    self.CompanyName = ko.observable('');
+    self.EmailAddress = ko.observable('');
+    self.ContactNumber = ko.observable('');
     self.IdentityImages = ko.observable('');
 
     self.ReadImageData = function () {
@@ -151,7 +151,7 @@ function ScanVisitorViewModel() {
             self.EmailAddress() + "&&" +
             self.ContactNumber() + "&&" +
             self.IdentityImages());
-        alert(dataToSend);
+        //alert(dataToSend);
         
     }
 

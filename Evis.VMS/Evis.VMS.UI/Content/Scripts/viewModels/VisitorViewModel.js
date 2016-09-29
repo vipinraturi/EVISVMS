@@ -1,8 +1,7 @@
 ﻿function VisitorViewModel(visitorName, gender, nationalityVal, dateOfBirth, typeOfCard, idNumber, nationalityVal, companyName, emailAddress,
     contactNumber, identityImages) {
     
-      alert('emailAddress ' + emailAddress + ' contactNumber' + contactNumber);
-    //alert(companyName);
+      //alert('emailAddress ' + emailAddress + ' contactNumber' + contactNumber);
     nationality = (nationalityVal != "" ? nationalityVal : undefined);
     typeOfCard = (typeOfCard != "" ? typeOfCard : undefined);
     gender = (gender != "" ? gender : undefined);
@@ -57,7 +56,7 @@ setTimeout(function () {
        // alert(Gender);
     }
 
-}, 1500);
+}, 500);
     
 //self.ContactNo = ko.observable('').extend({
 //    required: true,
@@ -71,7 +70,6 @@ setTimeout(function () {
 //    }
 //});
 ContactAddress = ko.observable('');
-
 self.GlobalSearch = ko.observable('');
 self.IsInsert = ko.observable(true);
 self.IsEdit = ko.observable(false);
@@ -81,8 +79,7 @@ self.TypeOfCards = ko.observableArray();
 self.Nationalities = ko.observableArray();
 self.ImagePath = ko.observable();
 self.CompanyName = ko.observable(companyName);
-
-    
+  
 self.errors = ko.validation.group({
     VisitorName: this.VisitorName,
     Gender: this.Gender,
@@ -123,6 +120,7 @@ self.LoadMasterData = function () {
         }));
     })
 }
+
 self.SaveVisitor = function () {
     if (self.errors().length > 0) {
         self.errors.showAllMessages(true);
@@ -317,10 +315,9 @@ self.EditVisitor = function (tableItem) {
     }
 }
 
-
 self.LoadIdentityImage = function (identityImages) {
-        
-    
+   // alert(1);
+    debugger;
 
     $('#dropzoneForm .dz-image-preview').remove();
     var MultipleImagePath = [];
@@ -359,8 +356,6 @@ self.LoadIdentityImage = function (identityImages) {
         });
     }
 }
-
-
 
 self.ViewVisitorImage = function () {
     var srcURL = '';
