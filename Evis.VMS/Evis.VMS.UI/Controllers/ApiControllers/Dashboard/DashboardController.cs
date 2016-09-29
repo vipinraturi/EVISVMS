@@ -69,7 +69,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
             foreach (DateTime day in EachDay(lastDate, currentDate))
             {
-                if(!mydict.Any(s=>s.Item3==day))
+                if(!mydict.Any(s=>s.Item3.Date==day.Date))
                 {
 
                     mydict.Add(new Tuple<int, string, DateTime>(0, (Convert.ToDateTime(day.Date)).ToString("dd/MM/yyyy"), day));
