@@ -27,14 +27,23 @@ namespace Evis.VMS.UI.ViewModel
         public string BuldingName { get; set; }
         public string GateName { get; set; }
         public int GateId { get; set; }
+        public List<ShiftDetails_Shift> ShiftDetails_Shift { get; set; }
+
         public List<string> Shifts { get; set; }
-        public List<ShiftManagemetDates> ShiftManageDates { get; set; }
+        public List<ShiftDetails_PerShift> ShiftDetails_PerShift { get; set; }
     }
 
+    public class ShiftDetails_Shift
+    {
+        public string ShiftName { get; set; }
+        public List<string> ShiftDates { get; set; }
+    }
 
     
-    public class ShiftManagemetDates
+
+    public class ShiftDetails_PerShift
     {
+        public string ShiftName { get; set; }
         public DateTime ShiftDate { get; set; }
         public List<ShiftDatesShifts> ShiftManage { get; set; }
 

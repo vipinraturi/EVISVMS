@@ -65,9 +65,8 @@
         <div id="scheduler" class="emp_view" style="margin-right: 0px; height: 402px;">
             <table id="weeklist" class="weeklist tbl">
                 <tbody>
-
                     <!-- ko foreach: self.Body() -->
-                    <tr id="employee_2893422">
+                    <tr>
                         <td class="wemp" id="e_2893422">
                             <div class="udrag ui-draggable" alt="2893422">
                                 <img src="/images/avatar.jpg" class="usr tti" title="Drag to a shift"><span class="jump" data-bind="text: Securityname"></span>
@@ -82,22 +81,22 @@
                                 </tbody>
                             </table>
                         </td>
-                        <!-- ko foreach: $data.ShiftManageDates -->
+
                         <td class="day wk dcol0">
                             <table class="weeklist tbl">
-                                <tr>
-                                    <!-- ko foreach: $data.ShiftManage -->
-                                    <td class="shiftCell" id="4">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                    <!-- /ko -->
-                                </tr>
+                                <tbody data-bind="foreach:$data.ShiftDetails_Shift">
+                                    <tr>
+                                        <!-- ko foreach: $data.ShiftDates -->
+                                        <td class="shiftCell" id="4">
+                                            <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
+                                        </td>
+                                        <!-- /ko -->
+                                    </tr>
+                                </tbody>
                             </table>
                         </td>
-                        <!-- /ko -->
                     </tr>
                     <!-- /ko -->
-
                 </tbody>
             </table>
         </div>
