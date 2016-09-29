@@ -5,6 +5,21 @@ using System.Web;
 
 namespace Evis.VMS.UI.ViewModel
 {
+
+    public class ShiftManagementRequest
+    {
+        public int BuildingId { get; set; }
+        public int GateId { get; set; }
+        public string ShiftDate { get; set; }
+        public int NoOfDays { get; set; }
+    }
+
+    public class ShiftManagementResponseVM
+    {
+        public ShiftHeaders Header { get; set; }   
+        public IList<ShiftManagementVM> Body { get; set; }   
+    }
+
     public class ShiftManagementVM
     {
         public string Securityname { get; set; }

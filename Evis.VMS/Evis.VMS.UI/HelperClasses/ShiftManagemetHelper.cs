@@ -35,7 +35,7 @@ namespace Evis.VMS.UI.HelperClasses
         }
         public IList<ShiftManagementVM> GetShiftData(DateTime fromDate, DateTime toDate, int buldingId, int gateId)
         {
-            var userDataWithShift = _genericService.ShiftDetails.GetAll().Where(x => x.GateID == gateId)
+            var userDataWithShift = _genericService.ShiftDetails.GetAll().Where(x => (x.GateID == gateId || gateId == -1))
                 .Select(x => new ShiftManagementVM
                 {
                     Securityname = x.ApplicationUser.FullName,

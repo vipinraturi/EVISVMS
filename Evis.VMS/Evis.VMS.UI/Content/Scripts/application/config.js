@@ -1,4 +1,5 @@
 ﻿var dataToSend = '';
+var gblTableId;
 
 ShowLoader = function () {
     $('.loader-div').show();
@@ -37,6 +38,12 @@ ApplyCustomBinding = function (elementName) {
         case 'shiftmanagement':
             BindingViewModel("/Administration/_ShiftManagement", ShiftManagementViewModel());
             break;
+
+        case 'shiftmanagementdynamic':
+            BindingViewModel("/Administration/_ShiftManagement_dynamic", ShiftManagementdynamicViewModell());
+            break;
+            
+
         case 'myprofile':
             BindingViewModel("/Administration/_Myprofile", MyProfileViewModel());
             break;
@@ -193,6 +200,22 @@ BindingViewModel = function (controllerUrl, viewModel) {
 
         if (controllerUrl == "/Administration/_ShiftManagement") {
             $('#txtShiftDate').datepicker();
+
+
+            $('.shiftCell').click(function () {
+                gblTableId = $(this).attr('id');
+                $('#myModal').modal('show');
+            });
+        }
+
+        if (controllerUrl == "/Administration/_ShiftManagement_dynamic") {
+            $('#txtShiftDate').datepicker();
+
+
+            $('.shiftCell').click(function () {
+                gblTableId = $(this).attr('id');
+                $('#myModal').modal('show');
+            });
         }
     });
 }

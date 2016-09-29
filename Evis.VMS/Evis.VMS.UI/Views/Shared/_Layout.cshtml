@@ -68,12 +68,24 @@
                                                 }
                                                 <li id="gates"><a href="javascript:void(0)">Gates</a></li>
                                                 <li id="newuser"><a href="javascript:void(0)">Users</a></li>
-                                                <li id="newshiftcreate"><a href="javascript:void(0)">New Shifts</a></li>
-                                                <li id="shiftassignment"><a href="javascript:void(0)">Shift Assignment</a></li>
-                                                <li id="shiftmanagement"><a href="javascript:void(0)">Shift Management</a></li>
                                             </ul>
                                         </li>
                                     }
+
+
+                                    <li>
+                                        <a><i class="fa fa-clock-o"></i>Shift Administration <span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            @if (userSessionData.UserRole != Evis.VMS.UI.ViewModel.RoleType.Security)
+                                            {
+                                                <li id="newshiftcreate"><a href="javascript:void(0)">New Shifts</a></li>
+                                                <li id="shiftassignment"><a href="javascript:void(0)">Shift Assignment</a></li>
+                                            }
+
+                                            <li id="shiftmanagement"><a href="javascript:void(0)">Shift Management</a></li>
+                                            <li id="shiftmanagementdynamic"><a href="javascript:void(0)">Shift Management 1</a></li>
+                                        </ul>
+                                    </li>
                                     <li>
                                         <a><i class="fa fa-car" aria-hidden="true"></i>Visitor Management <span class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu">
