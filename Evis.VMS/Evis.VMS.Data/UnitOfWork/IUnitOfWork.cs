@@ -44,5 +44,6 @@ namespace Evis.VMS.Data
         IRepository<VisitDetails> VisitDetails { get; }
         IRepository<VisitorCardTypeDetails> VisitorCardTypeDetails { get; }
         IRepository<VisitorMaster> VisitorMaster { get; }
+        IRepository<ShiftDetails> ShiftDetails { get; }
     }
 }

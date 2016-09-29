@@ -1,6 +1,6 @@
 ﻿function VisitorViewModel(visitorName, gender, nationalityVal, dateOfBirth, typeOfCard, idNumber, nationalityVal, companyName, emailAddress,
     contactNumber, identityImages) {
-    debugger;
+    
       alert('emailAddress ' + emailAddress + ' contactNumber' + contactNumber);
     //alert(companyName);
     nationality = (nationalityVal != "" ? nationalityVal : undefined);
@@ -15,7 +15,7 @@
                 message:"Enter a valid EmailID"
             }
             });
-    //debugger;
+    
     //alert(EmailAddress);
     //self.EmailAddress = ko.observable('').extend({
     //    pattern: {
@@ -103,7 +103,7 @@ self.GetAllVisitor = function () {
 }
 
 self.LoadMasterData = function () {
-    debugger;
+    
     var lookUpTypes = [];
     lookUpTypes.push("Gender");
     lookUpTypes.push("TypeOfCards");
@@ -142,7 +142,7 @@ self.SaveVisitor = function () {
         data.ContactNo = self.ContactNo();
         data.CompanyName = self.CompanyName();
 
-        //debugger;
+        
         data.ImagePath = $('#dropzoneImageForm .dz-image img').attr("img-name-unique");
         if (data.ImagePath == undefined) {
             data.ImagePath = $('#dropzoneImageForm .dz-image img').attr("alt");
@@ -163,7 +163,7 @@ self.SaveVisitor = function () {
             data.IdentityImage3_Path = $('.dz-image-preview img').eq(2).attr("alt");
         }
 
-        //debugger;
+        
 
         data.ContactAddress = self.ContactAddress()
         data.IsInsert = self.IsInsert();
@@ -237,7 +237,7 @@ self.DeleteVisitor = function (tableItem) {
 self.EditVisitor = function (tableItem) {
         
     if (tableItem != undefined) {
-        debugger;
+        
         var d = new Date(tableItem.DOB),
         month = '' + (d.getMonth() + 1),
         day = '' + d.getDate(),
@@ -320,7 +320,7 @@ self.EditVisitor = function (tableItem) {
 
 self.LoadIdentityImage = function (identityImages) {
         
-    //debugger;
+    
 
     $('#dropzoneForm .dz-image-preview').remove();
     var MultipleImagePath = [];

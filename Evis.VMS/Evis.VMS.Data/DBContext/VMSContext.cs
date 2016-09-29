@@ -58,5 +58,9 @@ namespace Evis.VMS.Data.DBContext
 
         public DbSet<VisitorMaster> VisitorMaster { get; set; }
 
+        public DbSet<ShiftDetails> ShiftDetails { get; set; }
+
+
+
     }
 }

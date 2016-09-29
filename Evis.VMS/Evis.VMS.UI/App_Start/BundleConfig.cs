@@ -21,6 +21,10 @@ namespace Evis.VMS.UI
 
                  ));
 
+            bundles.Add(new StyleBundle("~/Content/shift_management").Include(
+                "~/Content/Styles/shift_management.css"
+            ));
+
             bundles.Add(new StyleBundle("~/Content/theme1").Include(
                   "~/Content/Styles/jquery-ui.css",
                "~/Content/Styles/green.css",
@@ -104,7 +108,7 @@ namespace Evis.VMS.UI
             .Include("~/Content/Scripts/plugins/jquery.min.js")
             .Include("~/Content/Scripts/plugins/jquery-ui.js")
             .Include("~/Content/Scripts/plugins/bootstrap.min.js")
-             //.Include("~/Content/Scripts/plugins/Chart.min.js")
+                //.Include("~/Content/Scripts/plugins/Chart.min.js")
             .Include("~/Content/Scripts/plugins/bootstrap-progressbar.min.js")
             .Include("~/Content/Scripts/plugins/date.js")
             .Include("~/Content/Scripts/plugins/moment.min.js")
@@ -114,9 +118,9 @@ namespace Evis.VMS.UI
             .Include("~/Content/Scripts/plugins/icheck.min.js")
             .Include("~/Content/Scripts/plugins/fastclick.js")
             .Include("~/Content/Scripts/plugins/dropzone.min.js")
-            //.Include("~/Content/Scripts/plugins/Chart.bundle.js")
-             //.Include("~/Content/Scripts/plugins/curvedLines.js")
-             //.Include("~/Content/Scripts/plugins/jquery.flot.js")
+                //.Include("~/Content/Scripts/plugins/Chart.bundle.js")
+                //.Include("~/Content/Scripts/plugins/curvedLines.js")
+                //.Include("~/Content/Scripts/plugins/jquery.flot.js")
             .Include("~/Content/Scripts/plugins/googleapi.js")
             .Include("~/Content/Scripts/plugins/custom.min.js")
             .Include("~/Content/Scripts/plugins/jquery.timepicker.js");
@@ -145,6 +149,8 @@ namespace Evis.VMS.UI
               "~/Content/Scripts/viewModels/MyOrganizationViewModel.js",
               "~/Content/Scripts/viewModels/ScanVisitorViewModel.js",
               "~/Content/Scripts/viewModels/ShiftAssignmentViewModel.js",
+              "~/Content/Scripts/viewModels/ShiftManagementViewModel.js",
+              "~/Content/Scripts/viewModels/ShiftManagementdynamicViewModell.js",
               "~/Content/Scripts/viewModels/ShiftDetailsViewModel.js",
               "~/Content/Scripts/viewModels/ShiftViewModel.js",
               "~/Content/Scripts/viewModels/UsersViewModel.js",

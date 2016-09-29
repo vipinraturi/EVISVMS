@@ -189,8 +189,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             string currentUserId = HttpContext.Current.User.Identity.GetUserId();
             if (ShitfAssignment.Id == 0)
             {
-                ShitfAssignment.FromDate = Convert.ToDateTime(ShitfAssignment.strFromDate);
-                ShitfAssignment.ToDate = Convert.ToDateTime(ShitfAssignment.strToDate);
+                ShitfAssignment.FromDate = DateTime.ParseExact(ShitfAssignment.strFromDate, "dd/MM/yyyy", null);
+                ShitfAssignment.ToDate = DateTime.ParseExact(ShitfAssignment.strToDate, "dd/MM/yyyy", null);
 
                 var data = _genericService.ShitfAssignment.GetAll().Where(x => (x.FromDate >= ShitfAssignment.FromDate
                     && x.ToDate <= ShitfAssignment.ToDate
@@ -203,11 +203,13 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 if (data.Count() == 0)
                 {
                     ShitfAssignment obj = new Data.Model.Entities.ShitfAssignment();
+                    ShiftDetails ShiftDetails = new Data.Model.Entities.ShiftDetails();
                     //ShitfAssignment.IsActive = true;
                     //var ToDate = ShitfAssignment.ToDate.ToShortDateString();
                     //ShitfAssignment.ToDate = Convert.ToDateTime(ToDate);
                     //var FromDate = ShitfAssignment.FromDate.ToShortDateString();
                     //ShitfAssignment.FromDate = Convert.ToDateTime(FromDate);
+
                     obj.ShitfId = ShitfAssignment.ShitfId;
                     obj.UserId = ShitfAssignment.UserId;
                     obj.GateId = ShitfAssignment.GateId;
@@ -217,6 +219,26 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     obj.FromDate = DateTime.ParseExact(ShitfAssignment.strFromDate, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture); //Convert.ToDateTime(ShitfAssignment.strFromDate);
                     obj.ToDate = DateTime.ParseExact(ShitfAssignment.strToDate, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);//Convert.ToDateTime(ShitfAssignment.strToDate);
                     obj.IsActive = true;
+                   //TODO
+
+
+                    var currentDate = new DateTime();
+                    for (int i = 0; i < (ShitfAssignment.ToDate.Date - ShitfAssignment.FromDate.Date).TotalDays; i++)
+                    {
+                        currentDate = ShitfAssignment.ToDate.Date;
+                        ShiftDetails.ShiftID = ShitfAssignment.ShitfId;
+                        ShiftDetails.SecurityID = ShitfAssignment.UserId;
+                        ShiftDetails.ShiftDate = currentDate;
+                        ShiftDetails.GateID = ShitfAssignment.GateId;
+                        currentDate.AddDays(1);
+                    }
+
+
+                    //for (DateTime frDate = ShitfAssignment.FromDate.Date; frDate > ShitfAssignment.ToDate.Date; frDate.AddDays(1))
+                    //{
+                       
+                    //}
+                    _genericService.ShiftDetails.Insert(ShiftDetails);
                     _genericService.ShitfAssignment.Insert(obj);
                     Message = "Shift saved successfully!!";
                     success = true;

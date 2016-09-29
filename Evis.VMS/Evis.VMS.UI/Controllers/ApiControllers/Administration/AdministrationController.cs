@@ -24,6 +24,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         private readonly UserService _userService = null;
         private readonly GenericService _genericService = null;
         private readonly ApplicationRoleService _applicationRoleService = null;
+        private readonly ShiftManagemetHelper _shiftManagemetHelper = null;
 
         public AdministrationController()
         {
@@ -31,6 +32,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             _userService = new UserService();
             _genericService = new GenericService();
             _applicationRoleService = new ApplicationRoleService();
+            _shiftManagemetHelper = new ShiftManagemetHelper();
         }
 
     }

@@ -37,7 +37,7 @@
     //To get the buildings
     self.Buildings = ko.observableArray();
     self.GetBuildings = function () {
-        //debugger;
+        
         AjaxCall('/Api/Report/GetBuildings?id=' + self.organisationId, null, 'GET', function (data) {
             self.Buildings(data);
         });
@@ -77,7 +77,7 @@
     GetShiftname();
 
     self.SearchDetails = function () {
-        debugger;
+        
         var data = new Object();
         data.BuildingId = self.BuildingId();
         data.GateId = self.GateId();
@@ -90,7 +90,7 @@
         self.DataGrid.GetData();
     }
     self.ResetDetails = function () {
-        //debugger;
+        
         $('#txtFromDate').val('');
         $('#txtToDate').val('');
         self.BuildingId(undefined);
@@ -103,7 +103,7 @@
     }
 
     self.GenerateRDLCReportPDF = function () {
-        //debugger;
+        
         var data = new Object();
         data.BuildingId = self.BuildingId();
         data.GateId = self.GateId();

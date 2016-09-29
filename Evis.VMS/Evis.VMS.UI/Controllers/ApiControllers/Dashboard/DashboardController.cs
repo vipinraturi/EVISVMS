@@ -11,6 +11,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
 using Evis.VMS.Utilities;
+using Evis.VMS.UI.HelperClasses;
 
 namespace Evis.VMS.UI.Controllers.ApiControllers
 {
@@ -22,11 +23,15 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         //
         // GET: /Dashboard/
 
+       
 
         [Route("~/Api/DashBoard/LoadGraph")]
         [HttpGet]
         public async Task<List<Tuple<int, string,DateTime>>> GetGraphData()//, int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC")
         {
+
+           
+
 
             var currentUserId = HttpContext.Current.User.Identity.GetUserId();
             var currentUser = await _userService.GetAsync(x => x.Id == currentUserId);
@@ -57,17 +62,17 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             {
                 if (item.CreateTime >= lastDate && item.CreateTime <= currentDate)
                 {
-                    mydict.Add(new Tuple<int, string,DateTime>(item.Count, (Convert.ToDateTime(item.CreateTime)).ToString("dd/MM/yyyy"),Convert.ToDateTime(item.CreateTime).ToUniversalTime()));
+                    mydict.Add(new Tuple<int, string,DateTime>(item.Count, (Convert.ToDateTime(item.CreateTime)).ToString("dd/MM/yyyy"),Convert.ToDateTime(item.CreateTime)));
                 }
               
             }
 
             foreach (DateTime day in EachDay(lastDate, currentDate))
             {
-                if(!mydict.Any(s=>s.Item2==day.Date.ToShortDateString()))
+                if(!mydict.Any(s=>s.Item3==day))
                 {
 
-                    mydict.Add(new Tuple<int, string, DateTime>(0, (Convert.ToDateTime(day.Date)).ToString("dd/MM/yyyy"), day.ToUniversalTime()));
+                    mydict.Add(new Tuple<int, string, DateTime>(0, (Convert.ToDateTime(day.Date)).ToString("dd/MM/yyyy"), day));
                 }
             }
             mydict= mydict.OrderByDescending(x => x.Item3).ToList();

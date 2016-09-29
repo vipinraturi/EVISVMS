@@ -184,7 +184,7 @@
     }
 
     self.DeleteConfirmed = function () {
-        debugger;
+        
         $('#myModal').modal('hide');
         $('.modal-backdrop').modal('show');
         $('.modal-backdrop').modal('hide');

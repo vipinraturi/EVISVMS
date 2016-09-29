@@ -13,7 +13,9 @@
         <li class="liBGLast"><a href="#" data-bind="click: function () { DataGrid.FlipPage(DataGrid.GridParams.totalPages()) }"></a></li>
     </ul>
     <div class="pagerNumWrap">
-        <span># of rows in page </span>
+        <span data-bind="text: 'Total Records : ' + DataGrid.GridParams.totalRows()"> </span>
+
+        <span>| No. of rows in page </span>
         <select style="background-color:transparent !important;"  data-bind="options: DataGrid.GridParams.pageSizeOptions, value: DataGrid.SelectedPageSizeOption "></select>
     </div> 
     <!--this is for demo only. unhide it in style to view color:#fff !important; -->

@@ -69,7 +69,7 @@
     }
 
     self.ViewHistory = function (tableItem) {
-        ////debugger;
+        //
         self.ContactPerson(tableItem.ContactPerson);
         self.NoOfPerson(tableItem.NoOfPerson);
         self.Purpose_Remark(tableItem.Purpose);
@@ -84,7 +84,7 @@
         if (self.errors().length > 0) {
             self.errors.showAllMessages(true);
 
-            //debugger;
+            
             
 
             this.errors().forEach(function (data) {

@@ -1,5 +1,5 @@
 ﻿function ChangePasswordViewModel() {
-    //debugger;
+    
     var self = this;
 
     self.Password = ko.observable('');//.extend({ required: true, minLength: 8 });

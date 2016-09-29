@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using Evis.VMS.UI.HelperClasses;
 namespace Evis.VMS.UI.Controllers
 {
     [Authorize]
@@ -26,6 +27,12 @@ namespace Evis.VMS.UI.Controllers
         // GET: /Dashboard/
         public async Task<ActionResult> _Dashboard()
         {
+
+            ShiftManagemetHelper obj = new ShiftManagemetHelper();
+            //DateTime dd = DateTime.Now;
+            //var a = DateTime.DaysInMonth(dd.Year, dd.Month);
+            var q = obj.GetHeaders(DateTime.Now.AddDays(-12), DateTime.Now);
+            var test = obj.GetShiftData(DateTime.Now.AddDays(-12), DateTime.Now, 1, 23);
             var userId = System.Web.HttpContext.Current.User.Identity.GetUserId();
 
             var _userService = new UserService();
