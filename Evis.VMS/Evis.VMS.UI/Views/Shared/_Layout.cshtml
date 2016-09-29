@@ -9,6 +9,8 @@
     <title>CEENEX VMS </title>
 
     <link rel="Stylesheet" href="@Url.Content("~/Content/style")" id="styleCommon" />
+    <link rel="Stylesheet" href="@Url.Content("~/Content/shift_management")" id="styleCommon" />
+    
     @if (@Session["UserSession"] != null)
     {
         var userSessionData = (Evis.VMS.UI.ViewModel.UserSessionDataVM)Session["UserSession"];
