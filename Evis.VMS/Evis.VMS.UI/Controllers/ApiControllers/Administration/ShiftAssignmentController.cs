@@ -220,12 +220,23 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     obj.ToDate = DateTime.ParseExact(ShitfAssignment.strToDate, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);//Convert.ToDateTime(ShitfAssignment.strToDate);
                     obj.IsActive = true;
                    //TODO
-                    //for (DateTime frDate = ShitfAssignment.FromDate.Date; frDate > ShitfAssignment.ToDate.Date; frDate.AddDays(1))
-                    //{
+
+
+                    var currentDate = new DateTime();
+                    for (int i = 0; i < (ShitfAssignment.ToDate.Date - ShitfAssignment.FromDate.Date).TotalDays; i++)
+                    {
+                        currentDate = ShitfAssignment.ToDate.Date;
                         ShiftDetails.ShiftID = ShitfAssignment.ShitfId;
                         ShiftDetails.SecurityID = ShitfAssignment.UserId;
-                        ShiftDetails.ShiftDate = obj.FromDate;
+                        ShiftDetails.ShiftDate = currentDate;
                         ShiftDetails.GateID = ShitfAssignment.GateId;
+                        currentDate.AddDays(1);
+                    }
+
+
+                    //for (DateTime frDate = ShitfAssignment.FromDate.Date; frDate > ShitfAssignment.ToDate.Date; frDate.AddDays(1))
+                    //{
+                       
                     //}
                     _genericService.ShiftDetails.Insert(ShiftDetails);
                     _genericService.ShitfAssignment.Insert(obj);

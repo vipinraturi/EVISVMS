@@ -36,7 +36,7 @@ function ShiftManagementdynamicViewModell() {
             AjaxCall('/Api/ShiftAssignment/GetAllGates?BuildingId=' + self.BuildingId(), null, 'GET', function (data) {
                 self.Gates(new Object());
                 self.Gates(data);
-                self.GateId(gateId);
+                //self.GateId(gateId);
 
             })
         }
