@@ -25,8 +25,8 @@ namespace Evis.VMS.UI.HelperClasses
 
         private List<string> GetAllDate(DateTime fromDate, DateTime todate)
         {
-            var allDates=new  List<string>();
-            for (DateTime startDate = fromDate; startDate <= todate;startDate= startDate.AddDays(1))
+            var allDates = new List<string>();
+            for (DateTime startDate = fromDate; startDate <= todate; startDate = startDate.AddDays(1))
             {
                 allDates.Add(startDate.ToString("ddd MMM dd"));
             }
@@ -40,19 +40,19 @@ namespace Evis.VMS.UI.HelperClasses
                 {
                     Securityname = x.ApplicationUser.FullName,
                     UserName = x.ApplicationUser.UserName,
-                    GateName=x.Gates.GateNumber,
+                    GateName = x.Gates.GateNumber,
                     GateId = x.GateID,
-                    BuldingName=x.Gates.BuildingMaster.BuildingName
+                    BuldingName = x.Gates.BuildingMaster.BuildingName
                 }).Distinct().ToList();
 
             var result = userDataWithShift.AsEnumerable().Select(x => new ShiftManagementVM
                 {
                     Securityname = x.Securityname,
                     UserName = x.UserName,
-                    GateName=x.GateName,
-                    BuldingName=x.BuldingName,
+                    GateName = x.GateName,
+                    BuldingName = x.BuldingName,
                     Shifts = GetAllShifts(x.GateId),
-                    ShiftDetails_PerShift = GetShiftWthDate(fromDate, toDate, x.UserName),
+                    //ShiftDetails_PerShift = GetShiftWthDate(fromDate, toDate, x.UserName),
                     ShiftDetails_Shift = GetShiftDetails_Shift(fromDate, toDate)
                 }).ToList();
 
@@ -64,29 +64,35 @@ namespace Evis.VMS.UI.HelperClasses
         {
             var lstShiftDetails = new List<ShiftDetails_Shift>();
 
-            
+
             List<string> lstDates = new List<string>();
-            for (DateTime startDate = fromDate; startDate <= toDate;startDate= startDate.AddDays(1))
+            for (DateTime startDate = fromDate; startDate <= toDate; startDate = startDate.AddDays(1))
             {
                 lstDates.Add(startDate.ToString("ddd MMM dd"));
             }
 
             foreach (string shiftName in GetAllShifts(0))
-	        {
+            {
                 lstShiftDetails.Add(new ShiftDetails_Shift { ShiftName = shiftName, ShiftDates = lstDates });
-	        }
-            
+            }
+
             return lstShiftDetails;
         }
 
         private List<string> GetAllShifts(int gateId)
         {
-            return _genericService.ShitfMaster.GetAll().Select(x=> x.ShitfName).ToList();
+            var shifts = new List<string>();
+
+             _genericService.ShitfMaster.GetAll().ToList().ForEach(item => {
+                 shifts.Add(item.ShitfName + " (" + item.FromTime.ToString("h:mm tt") + "-" + item.ToTime.ToString("h:mm tt") + ")");
+             });
+
+            return shifts;
         }
 
         private List<ShiftDetails_PerShift> GetShiftWthDate(DateTime fromDate, DateTime toDate, string securityUserName)
         {
-            var datesWithShift = 
+            var datesWithShift =
                 _genericService.ShiftDetails.GetAll()
                 .Where(x => x.ApplicationUser.UserName == securityUserName && x.ShiftDate >= fromDate && x.ShiftDate <= toDate)
                 .Select(x => new ShiftDetails_PerShift
@@ -97,9 +103,9 @@ namespace Evis.VMS.UI.HelperClasses
 
             var result = datesWithShift.AsEnumerable().Select(x => new ShiftDetails_PerShift
            {
-               ShiftDate=x.ShiftDate,
-               
-               ShiftManage = ListAllShifts(x.ShiftDate,securityUserName)
+               ShiftDate = x.ShiftDate,
+
+               ShiftManage = ListAllShifts(x.ShiftDate, securityUserName)
            }).ToList();
             return result;
 
@@ -113,7 +119,7 @@ namespace Evis.VMS.UI.HelperClasses
                 .Select(x => new ShiftDatesShifts
                 {
                     ShiftId = x.ShiftID,
-                    ShiftName=x.Shitfs.ShitfName
+                    ShiftName = x.Shitfs.ShitfName
                 }).Distinct().ToList();
             return listAllShiftsOneDay;
         }

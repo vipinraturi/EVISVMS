@@ -25,21 +25,23 @@
                     </div>
                     <div class="form-group col-md-1 col-sm-1 col-xs-12" style="margin-top:5px;">
                         <div class="col-xs-12">
-                            <button type="submit" class="btn btn-success">
+                            <button type="submit" class="btn btn-success" data-bind="click: GeShiftsData.bind()">
                                 <i class="fa fa-search"></i>
                             </button>
                         </div>
                     </div>
+                    
+
                     <div class="form-group col-md-5 col-sm-5 col-xs-12 pull-right" style="">
                         <div class="col-xs-12">
                             <div class="timelines" id="">
-                                <div id="tls_day" title="Day">Day</div>
-                                <div id="tls_week" title="Week" class="selected">Week</div>
-                                <div id="tls_twoweek" title="Two Weeks">2 Week</div>
-                                <div id="tls_month" title="Month" class="last">4 Week</div>
-                                <div onclick="prev();">&lt;</div>
-                                <div onclick="today();" id="tls_today" title="Today">Today</div>
-                                <div onclick="next();" style="margin-right: -1px;">&gt;</div>
+                                <div id="tls_day" title="Day" data-bind="click: DayClick.bind()">Day</div>
+                                <div id="tls_week" title="Week" class="selected" data-bind="click: WeekClick.bind()">Week</div>
+                                <div id="tls_twoweek" title="Two Weeks" data-bind="click: TwoWeekClick.bind()">2 Week</div>
+                                <div id="tls_month" title="Month" class="last" data-bind="click: FourWeekClick.bind()">4 Week</div>
+                                <div onclick="prev();" data-bind="click: PrevClick.bind()">&lt;</div>
+                                <div onclick="today();" id="tls_today" title="Today" data-bind="click: TodayClick.bind()">Today</div>
+                                <div onclick="next();" style="margin-right: -1px;" data-bind="click: NextClick.bind()">&gt;</div>
                             </div>
                         </div>
                     </div>

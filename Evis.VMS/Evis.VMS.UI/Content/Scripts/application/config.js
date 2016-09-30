@@ -209,7 +209,14 @@ BindingViewModel = function (controllerUrl, viewModel) {
         }
 
         if (controllerUrl == "/Administration/_ShiftManagement_dynamic") {
-            $('#txtShiftDate').datepicker();
+            $('#txtShiftDate').datepicker({
+                dateFormat: 'dd/mm/yy',
+                //minDate: 'now',
+                changeMonth: true,
+                changeYear: true,
+                onSelect: function (date) {
+                }
+            });
 
 
             $('.shiftCell').click(function () {

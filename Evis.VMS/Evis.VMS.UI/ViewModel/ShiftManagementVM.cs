@@ -30,7 +30,7 @@ namespace Evis.VMS.UI.ViewModel
         public List<ShiftDetails_Shift> ShiftDetails_Shift { get; set; }
 
         public List<string> Shifts { get; set; }
-        public List<ShiftDetails_PerShift> ShiftDetails_PerShift { get; set; }
+       // public List<ShiftDetails_PerShift> ShiftDetails_PerShift { get; set; }
     }
 
     public class ShiftDetails_Shift
