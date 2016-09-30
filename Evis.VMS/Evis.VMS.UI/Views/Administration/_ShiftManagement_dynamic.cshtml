@@ -30,7 +30,7 @@
                             </button>
                         </div>
                     </div>
-                    
+
 
                     <div class="form-group col-md-5 col-sm-5 col-xs-12 pull-right" style="">
                         <div class="col-xs-12">
@@ -39,9 +39,9 @@
                                 <div id="tls_week" title="Week" class="selected" data-bind="click: WeekClick.bind()">Week</div>
                                 <div id="tls_twoweek" title="Two Weeks" data-bind="click: TwoWeekClick.bind()">2 Week</div>
                                 <div id="tls_month" title="Month" class="last" data-bind="click: FourWeekClick.bind()">4 Week</div>
-                                <div onclick="prev();" data-bind="click: PrevClick.bind()">&lt;</div>
-                                <div onclick="today();" id="tls_today" title="Today" data-bind="click: TodayClick.bind()">Today</div>
-                                <div onclick="next();" style="margin-right: -1px;" data-bind="click: NextClick.bind()">&gt;</div>
+                                <div data-bind="click: PrevClick.bind()">&lt;</div>
+                                <div id="tls_today" title="Today" data-bind="click: TodayClick.bind()">Today</div>
+                                <div style="margin-right: -1px;" data-bind="click: NextClick.bind()">&gt;</div>
                             </div>
                         </div>
                     </div>
@@ -67,11 +67,17 @@
         <div id="scheduler" class="emp_view" style="margin-right: 0px; height: 402px;">
             <table id="weeklist" class="weeklist tbl">
                 <tbody>
+                    <!-- ko if: self.Body().length > 0 -->
                     <!-- ko foreach: self.Body() -->
                     <tr>
                         <td class="wemp" id="e_2893422">
                             <div class="udrag ui-draggable" alt="2893422">
-                                <img src="/images/avatar.jpg" class="usr tti" title="Drag to a shift"><span class="jump" data-bind="text: Securityname"></span>
+                                <!-- ko if: $data.UserProfilePicPath != null  -->
+                                    <img data-bind="attr: { src : $data.UserProfilePicPath }" class="usr tti"><span class="jump" data-bind="text: Securityname"></span>
+                                <!-- /ko -->
+                                <!-- ko if: $data.UserProfilePicPath == null  -->
+                                    <img src="/images/avatar.jpg" class="usr tti"><span class="jump" data-bind="text: Securityname"></span>
+                                <!-- /ko -->
                             </div>
                         </td>
                         <td class="shiftNameCol" id="w_2893422_Sep_4__2016">
@@ -83,19 +89,31 @@
                                 </tbody>
                             </table>
                         </td>
-
                         <td class="day wk dcol0">
                             <table class="weeklist tbl">
                                 <tbody data-bind="foreach:$data.ShiftDetails_Shift">
                                     <tr>
-                                        <!-- ko foreach: $data.ShiftDates -->
+                                        <!-- ko foreach: $data.ShiftsAssigned -->
                                         <td class="shiftCell" id="4">
+                                            @*<span data-bind="text:  $data"></span>*@
+
+                                            <!-- ko if: $data == true -->
                                             <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
+                                            <!-- /ko -->
                                         </td>
                                         <!-- /ko -->
                                     </tr>
                                 </tbody>
                             </table>
+                        </td>
+                    </tr>
+                    <!-- /ko -->
+                    <!-- /ko -->
+                    <!-- ko if: self.Body().length == 0 -->
+                    <tr>
+                        <td class="jump" id="wtl1" data-bind="attr: { colspan : Header().length }"
+                            style="text-align:center; ">
+                            No Shift Available. Please apply filter and try again.
                         </td>
                     </tr>
                     <!-- /ko -->

@@ -11174,49 +11174,50 @@ div.timelines {
         line-height: 18px;
     }
 
-    
-        #ccanvas #scheduler table.weeklist td.shiftCell {
-            vertical-align: top;
-            height: 30px;
-            text-align: center;
-            vertical-align: middle;
-        }
 
-        #ccanvas #scheduler table.shiftlist td.demp {
-            padding: 5px;
-            height: 28px;
-        }
+#ccanvas #scheduler table.weeklist td.shiftCell {
+    vertical-align: top;
+    height: 40px;
+    text-align: center;
+    vertical-align: middle;
+    border-right:1px solid #d7d7d7;
+}
 
-            #ccanvas #scheduler table.shiftlist td.demp div {
-                float: left;
-                font-size: 13px;
-                font-face: Arial;
-                color: #666;
-            }
+#ccanvas #scheduler table.shiftlist td.demp {
+    padding: 5px;
+    height: 28px;
+}
 
-        #ccanvas #scheduler table.shiftlist td.first {
-            width: 174px;
-        }
-
-        #ccanvas #scheduler table.shiftlist td.second {
-            width: 190px;
-            cursor: pointer;
-        }
-
-        #ccanvas #scheduler table.shiftlist td.third {
-            width: 190px;
-            cursor: pointer;
-            color: #616161;
-        }
-
-        #ccanvas #scheduler table.shiftlist td.fourth {
-            color: #616161;
-            cursor: pointer;
-        }
-
-    #ccanvas #scheduler table.shiftlist div.ttl {
-        color: #616161;
+    #ccanvas #scheduler table.shiftlist td.demp div {
+        float: left;
+        font-size: 13px;
+        font-face: Arial;
+        color: #666;
     }
+
+#ccanvas #scheduler table.shiftlist td.first {
+    width: 174px;
+}
+
+#ccanvas #scheduler table.shiftlist td.second {
+    width: 190px;
+    cursor: pointer;
+}
+
+#ccanvas #scheduler table.shiftlist td.third {
+    width: 190px;
+    cursor: pointer;
+    color: #616161;
+}
+
+#ccanvas #scheduler table.shiftlist td.fourth {
+    color: #616161;
+    cursor: pointer;
+}
+
+#ccanvas #scheduler table.shiftlist div.ttl {
+    color: #616161;
+}
 /* #ccanvas #scheduler table.weeklist td.wk { vertical-align: middle; } */
 
 #ccanvas #scheduler table.weeklist td.wk {

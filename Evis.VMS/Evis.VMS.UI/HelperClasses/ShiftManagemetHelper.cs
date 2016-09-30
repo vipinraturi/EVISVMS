@@ -17,9 +17,10 @@ namespace Evis.VMS.UI.HelperClasses
         }
         public ShiftHeaders GetHeaders(DateTime fromDate, DateTime todate)
         {
-            ShiftHeaders shiftHeader = new ShiftHeaders();
-            shiftHeader.ShiftMainDates = fromDate.ToString("MMM d yyyy") + " - " + todate.ToString("MMM d yyyy");
+            var shiftHeader = new ShiftHeaders();
+            shiftHeader.ShiftMainDates = fromDate.ToString("MMM d yyyy") + "-" + todate.ToString("MMM d yyyy");
             shiftHeader.ListAllDates = GetAllDate(fromDate, todate);
+
             return shiftHeader;
         }
 
@@ -40,9 +41,11 @@ namespace Evis.VMS.UI.HelperClasses
                 {
                     Securityname = x.ApplicationUser.FullName,
                     UserName = x.ApplicationUser.UserName,
+                    UserId = x.ApplicationUser.Id,
                     GateName = x.Gates.GateNumber,
                     GateId = x.GateID,
-                    BuldingName = x.Gates.BuildingMaster.BuildingName
+                    BuldingName = x.Gates.BuildingMaster.BuildingName,
+                    UserProfilePicPath = x.ApplicationUser.ProfilePicturePath
                 }).Distinct().ToList();
 
             var result = userDataWithShift.AsEnumerable().Select(x => new ShiftManagementVM
@@ -52,28 +55,51 @@ namespace Evis.VMS.UI.HelperClasses
                     GateName = x.GateName,
                     BuldingName = x.BuldingName,
                     Shifts = GetAllShifts(x.GateId),
-                    //ShiftDetails_PerShift = GetShiftWthDate(fromDate, toDate, x.UserName),
-                    ShiftDetails_Shift = GetShiftDetails_Shift(fromDate, toDate)
+                    ShiftDetails_Shift = GetShiftDetails_Shift(fromDate, toDate, x.UserId, x.GateId),
+                    UserProfilePicPath = x.UserProfilePicPath
                 }).ToList();
 
 
             return result;
         }
 
-        private List<ShiftDetails_Shift> GetShiftDetails_Shift(DateTime fromDate, DateTime toDate)
+        private List<ShiftDetails_Shift> GetShiftDetails_Shift(DateTime shiftDate, DateTime toDate, string userId, int gateId)
         {
             var lstShiftDetails = new List<ShiftDetails_Shift>();
 
+            var lstDates = new List<string>();
+            var lstShiftsAssigned = new List<bool>();
 
-            List<string> lstDates = new List<string>();
-            for (DateTime startDate = fromDate; startDate <= toDate; startDate = startDate.AddDays(1))
+            foreach (int shiftId in GetAllShiftIds(-1))
             {
-                lstDates.Add(startDate.ToString("ddd MMM dd"));
-            }
+                 lstDates = new List<string>();
+                 lstShiftsAssigned = new List<bool>();
 
-            foreach (string shiftName in GetAllShifts(0))
-            {
-                lstShiftDetails.Add(new ShiftDetails_Shift { ShiftName = shiftName, ShiftDates = lstDates });
+
+                for (DateTime startDate = shiftDate; startDate <= toDate; startDate = startDate.AddDays(1))
+                {
+
+
+                    var isShiftAssigned = _genericService.ShitfAssignment.GetAll()
+                                       .Where(item => item.GateId == gateId && item.UserId == userId && item.ShitfId == shiftId)
+                                       .FirstOrDefault();
+
+                    // && item.FromDate >= shiftDate && item.ToDate <= shiftDate
+
+                    if (isShiftAssigned != null)
+                    {
+                        lstShiftsAssigned.Add(true);
+                    }
+                    else
+                    {
+                        lstShiftsAssigned.Add(false);
+                    }
+
+                    lstDates.Add(startDate.ToString("ddd MMM dd"));
+                }
+
+                var shift = _genericService.ShitfMaster.GetById(shiftId);
+                lstShiftDetails.Add(new ShiftDetails_Shift { ShiftName = shift.ShitfName, ShiftDates = lstDates, ShiftsAssigned = lstShiftsAssigned });
             }
 
             return lstShiftDetails;
@@ -83,9 +109,22 @@ namespace Evis.VMS.UI.HelperClasses
         {
             var shifts = new List<string>();
 
-             _genericService.ShitfMaster.GetAll().ToList().ForEach(item => {
-                 shifts.Add(item.ShitfName + " (" + item.FromTime.ToString("h:mm tt") + "-" + item.ToTime.ToString("h:mm tt") + ")");
-             });
+            _genericService.ShitfMaster.GetAll().ToList().ForEach(item =>
+            {
+                shifts.Add(item.ShitfName + " (" + item.FromTime.ToString("h:mm tt") + "-" + item.ToTime.ToString("h:mm tt") + ")");
+            });
+
+            return shifts;
+        }
+
+        private List<int> GetAllShiftIds(int gateId)
+        {
+            var shifts = new List<int>();
+
+            _genericService.ShitfMaster.GetAll().ToList().ForEach(item =>
+            {
+                shifts.Add(item.Id);
+            });
 
             return shifts;
         }

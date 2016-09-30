@@ -23,7 +23,9 @@ namespace Evis.VMS.UI.ViewModel
     public class ShiftManagementVM
     {
         public string Securityname { get; set; }
+        public string UserId { get; set; }
         public string UserName { get; set; }
+        public string UserProfilePicPath { get; set; }
         public string BuldingName { get; set; }
         public string GateName { get; set; }
         public int GateId { get; set; }
@@ -37,6 +39,7 @@ namespace Evis.VMS.UI.ViewModel
     {
         public string ShiftName { get; set; }
         public List<string> ShiftDates { get; set; }
+        public List<bool> ShiftsAssigned { get; set; }
     }
 
     

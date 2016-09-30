@@ -8,15 +8,13 @@ function ShiftManagementdynamicViewModell() {
     var self = this;
     self.Buildings = ko.observableArray();
     self.Gates = ko.observableArray();
-
     self.Header = ko.observableArray();
     self.Body = ko.observableArray();
-
     self.BuildingId = ko.observable(-1);
     self.GateId = ko.observable(-1);
-    self.NoOfDays = ko.observable(14);
+    self.NoOfDays = ko.observable(7);
 
-    GetShiftDetails(todayDate);
+    //GetShiftDetails(todayDate);
 
 
     self.GeShiftsData = function () {
@@ -28,13 +26,10 @@ function ShiftManagementdynamicViewModell() {
     })
 
     self.GetGates = function () {
-        //  
         if (self.BuildingId() != undefined && self.BuildingId() != 0) {
             AjaxCall('/Api/ShiftAssignment/GetAllGates?BuildingId=' + self.BuildingId(), null, 'GET', function (data) {
                 self.Gates(new Object());
                 self.Gates(data);
-                //self.GateId(gateId);
-
             })
         }
     }
@@ -85,7 +80,8 @@ function ShiftManagementdynamicViewModell() {
     }
 
     self.PrevClick = function () {
-
+        $('#txtShiftDate').val(todayDate);
+        GetShiftDetails(todayDate);
     }
 
     self.TodayClick = function () {
@@ -94,7 +90,8 @@ function ShiftManagementdynamicViewModell() {
     }
 
     self.NextClick = function () {
-
+        $('#txtShiftDate').val(todayDate);
+        GetShiftDetails(todayDate);
     }
 
 }
@@ -146,12 +143,9 @@ function GetShiftDetails(defaultDate) {
 
     AjaxCall('/Api/ShiftAssignment/GetAllShift', request, 'POST', function (data) {
         self.Header(data.Header);
-
-        //alert(self.Header());
         glbData1 = self.Header();
         self.Body(data.Body);
         glbData2Unique = self.Body();
-        //debugger;
     });
 }
 
