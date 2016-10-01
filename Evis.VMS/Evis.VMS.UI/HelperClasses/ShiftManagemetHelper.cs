@@ -188,11 +188,9 @@ namespace Evis.VMS.UI.HelperClasses
                 else
                 {
                     var shiftAssignmentChange = _genericService.ShiftDetails.GetAll()
-                         .FirstOrDefault(item_db => item_db.ShiftID == item.ShiftId && item.UserId == item.UserId
-                             && item_db.ShiftDate == item.ShiftDate
+                         .FirstOrDefault(item_db => item_db.ShiftID == item.ShiftId && item_db.SecurityID == item.UserId
+                             && item_db.ShiftDate == item.ShiftDate && item_db.IsActive
                         );
-                    //TODO vipin
-                     //
                     if (shiftAssignmentChange != null)
                     {
                         shiftAssignmentChange.IsActive = false;
