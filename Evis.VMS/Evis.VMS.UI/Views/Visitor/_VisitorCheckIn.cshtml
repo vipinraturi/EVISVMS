@@ -116,7 +116,7 @@
             <div class="x_content ">
                 <br />
                 <form class="form-horizontal form-label-left">
-                    <table class="table jambo_table">
+                    <table class="table jambo_table table-striped">
                         <thead>
                             <tr>
                                 <th style="width: 1%">#</th>
@@ -134,8 +134,10 @@
                                 <td data-bind="text: CheckInTime"></td>
                                 <td data-bind="text: CheckOutTime"></td>
                                 <td data-bind="text: TotalDuration"></td>
-                                <td><a href="#" class="btn  btn-s"
-   title="click here to view record." data-bind="click: ViewHistory.bind($data)"><i class="fa fa-eye"></i></a></td>
+                                <td>
+                                    <a href="#" class="btn  btn-s"
+                                       title="click here to view record." data-bind="click: ViewHistory.bind($data)"><i class="fa fa-eye"></i></a>
+                                </td>
                             </tr>
                         </tbody>
                         <tbody data-bind="if:VisitorHiostory().length == 0">
