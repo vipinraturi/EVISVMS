@@ -9,8 +9,7 @@
     <title>CEENEX VMS </title>
 
     <link rel="Stylesheet" href="@Url.Content("~/Content/style")" id="styleCommon" />
-    <link rel="Stylesheet" href="@Url.Content("~/Content/shift_management")" id="styleCommon" />
-    
+  
     @if (@Session["UserSession"] != null)
     {
         var userSessionData = (Evis.VMS.UI.ViewModel.UserSessionDataVM)Session["UserSession"];
@@ -84,8 +83,8 @@
                                                 <li id="shiftassignment"><a href="javascript:void(0)">Shift Assignment</a></li>
                                             }
 
-                                            <li id="shiftmanagement"><a href="javascript:void(0)">Shift Management</a></li>
-                                            <li id="shiftmanagementdynamic"><a href="javascript:void(0)">Shift Management 1</a></li>
+                                            @*<li id="shiftmanagement"><a href="javascript:void(0)">Shift Management</a></li>*@
+                                            <li id="shiftmanagementdynamic"><a href="javascript:void(0)">Shift Management</a></li>
                                         </ul>
                                     </li>
                                     <li>
