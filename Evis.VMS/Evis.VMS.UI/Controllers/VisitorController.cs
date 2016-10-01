@@ -101,11 +101,11 @@ namespace Evis.VMS.UI.Controllers
 
             if (isSavedSuccessfully)
             {
-                return Json(new { Message = fName, FilePath  = "\\images\\Visitors" + file.FileName });
+                return Json(new { Message = fName, FilePath = "\\images\\Visitors" + file.FileName });
             }
             else
             {
-                return Json(new { Message = "Error in saving file", FilePath = "\\images\\Visitors" + file.FileName });
+                return Json(new { Message = "Error in saving file", FilePath = "\\images\\Visitors" + (file == null ? string.Empty : file.FileName) });
             }
         }
 

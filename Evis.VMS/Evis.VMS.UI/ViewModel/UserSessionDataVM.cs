@@ -12,6 +12,7 @@ namespace Evis.VMS.UI.ViewModel
         public string ProfilePicPath { get; set; }
         public string FullName { get; set; }
         public RoleType UserRole { get; set; }
+        public bool IsImageAvailable { get; set; }
     }
 
     public enum RoleType

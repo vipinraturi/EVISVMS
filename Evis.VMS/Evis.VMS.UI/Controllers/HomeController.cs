@@ -58,7 +58,8 @@ namespace Evis.VMS.UI.Controllers
                                     ImageLogoPath = (user.Organization == null ? "~\\images\\logo\\main_logo.png" : (string.IsNullOrEmpty(user.Organization.ImagePath) ? "~\\images\\logo\\main_logo.png" : user.Organization.ImagePath)),
                                     UserRole = roleType,
                                     ProfilePicPath = user.ProfilePicturePath,
-                                    FullName = user.FullName
+                                    FullName = user.FullName,
+                                    IsImageAvailable = System.IO.File.Exists( Server.MapPath("\\") + "" + user.ProfilePicturePath.Replace("/", "\\"))
                                 };
             Session["UserSession"] = userSessionData;
 

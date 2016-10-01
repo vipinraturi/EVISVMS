@@ -66,6 +66,13 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 }
 
             }
+
+            if (currentUser != null)
+            {
+                var filePath = HttpContext.Current.Server.MapPath("\\") + "" + currentUser.ProfilePicturePath.Replace("/", "\\");
+                currentUser.IsImageAvailable = System.IO.File.Exists(filePath);      
+            }
+
             return currentUser;
         }
 

@@ -129,7 +129,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                             CreatedOn = users.CreatedOn,
                             CreatedBy = users.CreatedBy,
                             UpdatedBy = users.UpdatedBy,
-                            UpdatedOn = users.UpdatedOn
+                            UpdatedOn = users.UpdatedOn,
+                            IsImageAvailable = false
                         }).AsQueryable();
 
             if (temp.Count() > 0)
@@ -208,7 +209,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
                 if ((string.IsNullOrEmpty(usersVM.ProfilePicturePath) || usersVM.ProfilePicturePath == "VisitorImage"))
                 {
-                    user.ProfilePicturePath = string.Format("/images/UserImages/{0}", usersVM.ProfilePicturePath);  
+                    user.ProfilePicturePath = string.Format("/images/UserImages/{0}", usersVM.ProfilePicturePath);
+                    //user.IsImageAvailable = true;
                 }
 
                 await _userService.InsertAsync(user, password, usersVM.RoleId);

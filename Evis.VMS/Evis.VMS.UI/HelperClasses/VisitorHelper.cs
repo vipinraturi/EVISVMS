@@ -105,7 +105,7 @@ namespace Evis.VMS.UI.HelperClasses
                         IdNo = visitorDetailsVM.IdNo,
                         Address = visitorDetailsVM.ContactAddress,
                         ProfilePicPath = visitorDetailsVM.ImagePath,
-                        IdentityImage1_Path = visitorDetailsVM.IdentityImage1_Path,
+                        IdentityImage1_Path = (visitorDetailsVM.IdentityImage2_Path == "VisitorImage" ? null : visitorDetailsVM.IdentityImage2_Path),
                         IdentityImage2_Path = visitorDetailsVM.IdentityImage2_Path,
                         IdentityImage3_Path = visitorDetailsVM.IdentityImage3_Path,
                         CompanyName = visitorDetailsVM.CompanyName

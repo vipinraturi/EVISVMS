@@ -103,7 +103,20 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             pageIndex = (pageIndex - 1);
 
             var lstVisitorsFromDb = _visitorHelper.GetAllVisitorsData(globalSearch, pageIndex, pageSize, sortField, sortOrder, out totalCount, (user == null) ? null : user.OrganizationId);
-            var jsonData = JsonConvert.SerializeObject(lstVisitorsFromDb);//.OrderByDescending(x => x.Id)
+
+            lstVisitorsFromDb.ToList().ForEach(item =>
+            {
+                if (item.ImagePath != null)
+                {
+                    var filePath = HttpContext.Current.Server.MapPath("\\") + "images\\VisitorImages\\" + item.ImagePath.Replace("/", "\\");
+                    item.IsImageAvailable = System.IO.File.Exists(filePath);
+                }
+            });
+            
+
+            var jsonData = JsonConvert.SerializeObject(lstVisitorsFromDb);
+
+
 
             
             var total = totalCount;
