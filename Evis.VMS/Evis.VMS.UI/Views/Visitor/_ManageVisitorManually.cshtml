@@ -1,5 +1,4 @@
 ﻿<script src="@Url.Content("~/Content/Scripts/plugins/Webcam_Plugin/jquery.webcam.js")"></script>
-
 <ol class="breadcrumb">
     <li><a href="#" class="a-color">Visitor Management</a></li>
     <li><a href="#" class="a-color">Manage Visitor</a></li>
@@ -11,8 +10,8 @@
                 <h2>Add/Edit Visitor</h2>
                 <div class="clearfix"></div>
             </div>
-            <div class="x_content leftcontent ">                
-                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+            <div class="x_content leftcontent ">
+                <div class="form-group col-md-12 col-sm-12 col-xs-12">
                     <div class="">
                         <div class="x_content">
                             <p>Drag or browse upto 3 images (2 identity and 1 visiting card) to the box below or click to select files.</p>
@@ -20,6 +19,30 @@
                                 <form action="~/Visitor/SaveVisitorIdentityImages" method="post"
                                       enctype="multipart/form-data" class="dropzone dz-clickable" id="dropzoneForm"
                                       style="min-height:160px !important"></form>
+
+                                <a id="viewimageunique" href="#" data-bind="click: ViewImage"><u>View Image</u></a>
+                                <div id="imageModal" class="modal fade" aria-hidden="true" aria-labelledby="avatar-modal-label" role="dialog" tabindex="-1">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <form class="avatar-form" action="javascript:void(0)" enctype="multipart/form-data" method="post">
+                                                <div class="modal-header">
+                                                    <button class="close" data-dismiss="modal" type="button">&times;</button>
+                                                    <h4 class="modal-title" id="avatar-modal-label">image</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="avatar-body">
+                                                        <img width="500" id="originalSize" src="#" />
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button class="btn btn-primary" data-dismiss="modal" type="button">close</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+
                             </div>
                         </div>
                     </div>
@@ -27,8 +50,7 @@
                 <div class="form-horizontal form-label-left input_mask">
                     <div class="form-group col-md-3 col-sm-3 col-xs-12 pull-right">
                         <form class="dropzone-avatar dz-clickable img-responsive_Visitor avatar-view" action="~/Visitor/SaveVisitorProfilePicture" method="post" style="height: 129px !important; padding: 2px !important; "
-                              enctype="multipart/form-data" id="dropzoneImageForm" title="Change the avatar">
-                        </form>
+                              enctype="multipart/form-data" id="dropzoneImageForm" title="Change the avatar"></form>
                         <a id="viewVisitorImageUnique" style="text-align:center;display:none" href="#" data-bind="click: ViewVisitorImage"><u>View Image</u></a>
                         <div id="visitorImageModal" class="modal fade" aria-hidden="true" aria-labelledby="avatar-modal-label" role="dialog" tabindex="-1">
                             <div class="modal-dialog modal-lg">
@@ -63,7 +85,7 @@
                 </div>
                 <div class="form-group col-md-9 col-sm-9 col-xs-12">
                     <label class=" control-label col-md-4 col-sm-4 col-xs-12">
-                        Email Address 
+                        Email Address
                     </label>
                     <div class="col-md-8 col-sm-8 col-xs-12">
                         <input maxlength="50" id="txtEmailAddress" type="text" data-bind="value: EmailAddress" class="form-control Fieldfocus" placeholder="[email@domain.com]" />
@@ -73,7 +95,7 @@
                 <div class="form-group col-md-9 col-sm-9 col-xs-12">
                     <label class="control-label col-md-4 col-sm-4 col-xs-12">Gender <span class="mandatoryField">*</span></label>
                     <div class="col-md-8 col-sm-8 col-xs-12">
-                       <select class="form-control Fieldfocus" data-bind="options: Genders,
+                        <select class="form-control Fieldfocus" data-bind="options: Genders,
                                optionsText: function(item) {
                                    return item.LookUpValue
                                },
@@ -92,7 +114,7 @@
                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Type Of Card <span class="mandatoryField">*</span></label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
-                       <select class="form-control Fieldfocus" data-bind="options: TypeOfCards,
+                        <select class="form-control Fieldfocus" data-bind="options: TypeOfCards,
                                optionsText: function(item) {
                                    return item.LookUpValue
                                },
@@ -111,7 +133,7 @@
                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Nationality <span class="mandatoryField">*</span></label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
-                       <select class="form-control Fieldfocus" data-bind="options: Nationalities,
+                        <select class="form-control Fieldfocus" data-bind="options: Nationalities,
                                optionsText: function(item) {
                                    return item.LookUpValue
                                },
@@ -127,7 +149,6 @@
                         <span class="fa fa-mobile favwhite form-control-feedback right" aria-hidden="true"></span>
                     </div>
                 </div>
-
                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Company Name <span class="mandatoryField"></span></label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
@@ -135,7 +156,6 @@
                         <span class="fa fa-building favwhite form-control-feedback right" aria-hidden="true"></span>
                     </div>
                 </div>
-
                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Address</label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
@@ -172,7 +192,6 @@
                             <button class="btn btn-default" type="button" data-bind="click: GetAllVisitor.bind()"><i class="fa fa-search"></i></button>
                         </span>
                     </div>
-
                 </div>
                 <form class="form-horizontal form-label-left">
                     <table class="table jambo_table">
@@ -216,8 +235,7 @@
     var dropZoneVisitorImage;
     var dropZoneMultipleFiels;
 
-    $(function ()
-    {
+    $(function () {
         dropZoneVisitorImage = new Dropzone("#dropzoneImageForm");
         dropZoneVisitorImage.maxFiles = 2;
         var imagePath = '/images/avatar.jpg';
@@ -228,7 +246,7 @@
         $('#dropzoneImageForm .dz-image').addClass('dz-message');
         $('#dropzoneImageForm .dz-image img').addClass('dz-message');
         dropZoneVisitorImage.on("maxfilesexceeded", function (file) {
-            
+
             var res = eval('(' + file.xhr.responseText + ')');
             toastr.warning('Only two images allowed.');
         });
@@ -258,7 +276,7 @@
         dropZoneVisitorImage.on('success', function (file) {
             //$('.dz-image').addClass('dz-message');
         });
-       
+
         dropZoneMultipleFiels = new Dropzone("#dropzoneForm");
         dropZoneMultipleFiels.maxFiles = 2;
         dropZoneMultipleFiels.on("maxfilesexceeded", function (file) {
@@ -315,7 +333,7 @@
                     file.previewElement.appendChild(removeButton);
                 }
             }
-        
+
         });
     });
 </script>

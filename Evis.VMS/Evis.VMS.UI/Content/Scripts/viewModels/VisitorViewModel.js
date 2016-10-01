@@ -375,6 +375,33 @@ self.GlobalSearchEnter = function (data, event) {
     //}
 }
 
+
+
+
+
+    self.ViewImage = function () {
+
+        debugger;
+        var srcURL = '';
+        //$('.dz-image img').attr('alt') != "User Image" &&
+        if ($('.dz-image img').attr('alt') != "" &&  $('.dz-image img').attr('alt') != "undefined") {
+            srcURL = '/images/VisitorIdentityImages/' + $('.dz-image img').attr('alt');
+        }
+        else {
+         //   srcURL = self.ProfilePicturePath();
+        }
+
+
+        $('#originalSize').attr('src', srcURL);
+        $('#imageModal').modal('show');
+    }
+
+
+
+
+
+
+
 self.GetAllVisitor();
 self.LoadMasterData();
 
