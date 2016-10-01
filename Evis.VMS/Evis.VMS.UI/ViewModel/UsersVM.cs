@@ -45,5 +45,7 @@ namespace Evis.VMS.UI.ViewModel
         public DateTime? UpdatedOn { get; set; }
 
         public string UpdatedBy { get; set; }
+
+        public bool IsImageAvailable { get; set; }
     }
 }

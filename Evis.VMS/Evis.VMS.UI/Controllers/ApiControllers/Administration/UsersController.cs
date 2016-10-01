@@ -129,7 +129,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                             CreatedOn = users.CreatedOn,
                             CreatedBy = users.CreatedBy,
                             UpdatedBy = users.UpdatedBy,
-                            UpdatedOn = users.UpdatedOn
+                            UpdatedOn = users.UpdatedOn,
+                            IsImageAvailable = false
                         }).AsQueryable();
 
             if (temp.Count() > 0)
@@ -157,6 +158,15 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
                 IList<UsersVM> result =
                     GenericSorterPager.GetSortedPagedList<UsersVM>(temp, paginationRequest, out totalCount);
+
+                result.ToList().ForEach(item =>
+                {
+                    if (item.ProfilePicturePath != null)
+                    {
+                        var filePath = HttpContext.Current.Server.MapPath("\\") + "" + item.ProfilePicturePath;
+                        item.IsImageAvailable = System.IO.File.Exists(filePath);                        
+                    }
+                });
 
                 var jsonData = JsonConvert.SerializeObject(result);
                 return JsonConvert.SerializeObject(new { totalRows = totalCount, result = jsonData });
@@ -199,7 +209,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
                 if ((string.IsNullOrEmpty(usersVM.ProfilePicturePath) || usersVM.ProfilePicturePath == "VisitorImage"))
                 {
-                    user.ProfilePicturePath = string.Format("/images/UserImages/{0}", usersVM.ProfilePicturePath);  
+                    user.ProfilePicturePath = string.Format("/images/UserImages/{0}", usersVM.ProfilePicturePath);
+                    //user.IsImageAvailable = true;
                 }
 
                 await _userService.InsertAsync(user, password, usersVM.RoleId);

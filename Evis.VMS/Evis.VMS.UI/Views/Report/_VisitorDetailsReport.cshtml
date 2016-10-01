@@ -116,7 +116,7 @@
                 <div class="clearfix"></div>
             </div>
             <form class="form-horizontal form-label-left">
-                <table class="table jambo_table">
+                <table class="table jambo_table table-striped">
                     <thead>
                         <tr>
                             <th style="width: 1%">#</th>
@@ -142,7 +142,8 @@
                             <td data-bind="text: CheckOut"></td>
                             <td data-bind="text: ContactNumber"></td>
                             @*<td data-bind="text: VisitDetails"></td>*@
-                            <td data-bind="text: ContactPerson"></td></tr>
+                            <td data-bind="text: ContactPerson"></td>
+                        </tr>
                     </tbody>
                     <tr class="blank_row" data-bind="visible: (DataGrid.DataRows().length == 0)"><td align="center" colspan="10">No data found.</td></tr>
                 </table>

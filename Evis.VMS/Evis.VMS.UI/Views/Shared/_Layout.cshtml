@@ -129,7 +129,7 @@
                             <ul class="nav navbar-nav navbar-right">
                                 <li class="">
                                     <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                        <img id="imgUserAvatar" src="@(string.IsNullOrEmpty(@userSessionData.ProfilePicPath) ? "/images/avatar.jpg" : @userSessionData.ProfilePicPath)" alt="">@userSessionData.FullName<span style="padding-left: 5px;" class=" fa fa-angle-down"></span>
+                                        <img id="imgUserAvatar" src="@((string.IsNullOrEmpty(@userSessionData.ProfilePicPath) || !@userSessionData.IsImageAvailable) ? "/images/avatar.jpg" : @userSessionData.ProfilePicPath)" alt="">@userSessionData.FullName<span style="padding-left: 5px;" class=" fa fa-angle-down"></span>
                                     </a>
                                     <ul class="dropdown-menu dropdown-usermenu pull-right">
                                         <li class="myprofile"><a href="#">My Profile</a></li>

@@ -57,19 +57,20 @@
 
             $('.dz-image-preview').empty();
             
+            if (data.IsImageAvailable) {
+                if (data.ProfilePicturePath != null && data.ProfilePicturePath != "" && data.ProfilePicturePath != "/images/UserImages/VisitorImage") {
+                    var imagePath = data.ProfilePicturePath;
+                    self.ProfilePicturePath(data.ProfilePicturePath);
+                    var mockFile = { name: "User Image", size: 1024 };
+                    myDropzoneUnique.emit("addedfile", mockFile);
+                    myDropzoneUnique.emit("thumbnail", mockFile, imagePath);
+                    myDropzoneUnique.createThumbnailFromUrl(mockFile, imagePath);
+                    $('.dz-image').addClass('dz-message');
+                    $('.dz-image img').addClass('dz-message');
 
-            if (data.ProfilePicturePath != null && data.ProfilePicturePath != "" && data.ProfilePicturePath != "/images/UserImages/VisitorImage") {
-                var imagePath = data.ProfilePicturePath;
-                self.ProfilePicturePath(data.ProfilePicturePath);
-                var mockFile = { name: "User Image", size: 1024 };
-                myDropzoneUnique.emit("addedfile", mockFile);
-                myDropzoneUnique.emit("thumbnail", mockFile, imagePath);
-                myDropzoneUnique.createThumbnailFromUrl(mockFile, imagePath);
-                $('.dz-image').addClass('dz-message');
-                $('.dz-image img').addClass('dz-message');
-
-                if (imagePath != "") {
-                    $('#imgUserAvatar').attr('src', imagePath);
+                    if (imagePath != "") {
+                        $('#imgUserAvatar').attr('src', imagePath);
+                    }
                 }
             }
             else {
@@ -80,6 +81,10 @@
                 myDropzoneUnique.createThumbnailFromUrl(mockFile, imagePath);
                 $('#dropzoneMyProfileImageForm .dz-image').addClass('dz-message');
                 $('#dropzoneMyProfileImageForm .dz-image img').addClass('dz-message');
+
+                if (imagePath != "") {
+                    $('#imgUserAvatar').attr('src', imagePath);
+                }
             }
 
             self.Roles().forEach(function (item) {

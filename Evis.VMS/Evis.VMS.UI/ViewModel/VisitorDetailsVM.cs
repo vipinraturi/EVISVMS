@@ -14,6 +14,8 @@ namespace Evis.VMS.UI.ViewModel
 {
     public class VisitorDetailsVM
     {
+        public bool IsImageAvailable { get; set; }
+
         public long Id { get; set; }
 
         public string VisitorName { get; set; }
