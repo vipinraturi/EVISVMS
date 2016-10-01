@@ -16,8 +16,8 @@ namespace Evis.VMS.UI.ViewModel
 
     public class ShiftManagementResponseVM
     {
-        public ShiftHeaders Header { get; set; }   
-        public IList<ShiftManagementVM> Body { get; set; }   
+        public ShiftHeaders Header { get; set; }
+        public IList<ShiftManagementVM> Body { get; set; }
     }
 
     public class ShiftManagementVM
@@ -32,7 +32,7 @@ namespace Evis.VMS.UI.ViewModel
         public List<ShiftDetails_Shift> ShiftDetails_Shift { get; set; }
 
         public List<string> Shifts { get; set; }
-       // public List<ShiftDetails_PerShift> ShiftDetails_PerShift { get; set; }
+        // public List<ShiftDetails_PerShift> ShiftDetails_PerShift { get; set; }
     }
 
     public class ShiftDetails_Shift
@@ -40,9 +40,23 @@ namespace Evis.VMS.UI.ViewModel
         public string ShiftName { get; set; }
         public List<string> ShiftDates { get; set; }
         public List<bool> ShiftsAssigned { get; set; }
+        public List<ShiftsAssignedCell> ShiftsAssignedCells { get; set; }
+
+
     }
 
-    
+
+    public class ShiftsAssignedCell
+    {
+        public int Id { get; set; }
+        public bool IsAssigned { get; set; }
+        public string ShiftName { get; set; }
+        public int ShiftId { get; set; }
+        public DateTime ShiftDate { get; set; }
+        public string UserId { get; set; }
+        public int GateId { get; set; }
+    }
+
 
     public class ShiftDetails_PerShift
     {
@@ -64,5 +78,16 @@ namespace Evis.VMS.UI.ViewModel
         public List<string> ListAllDates { get; set; }
     }
 
-   
+    public class ShiftAssignmentChanges
+    {
+        public int Id { get; set; }
+        public int ShiftId { get; set; }
+        public bool IsAssigned { get; set; }
+        public DateTime ShiftDate { get; set; }
+        public string ShiftName { get; set; }
+        public string UserId { get; set; }
+        public int GateId { get; set; }
+    }
+
+
 }
