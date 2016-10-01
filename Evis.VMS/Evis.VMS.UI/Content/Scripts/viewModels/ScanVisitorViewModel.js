@@ -151,7 +151,7 @@ function ScanVisitorViewModel() {
             self.EmailAddress() + "&&" +
             self.ContactNumber() + "&&" +
             self.IdentityImages());
-        //alert(dataToSend);
+       
         
     }
 

@@ -1,7 +1,7 @@
 ﻿function VisitorViewModel(visitorName, gender, nationalityVal, dateOfBirth, typeOfCard, idNumber, nationalityVal, companyName, emailAddress,
     contactNumber, identityImages) {
     
-      //alert('emailAddress ' + emailAddress + ' contactNumber' + contactNumber);
+      
     nationality = (nationalityVal != "" ? nationalityVal : undefined);
     typeOfCard = (typeOfCard != "" ? typeOfCard : undefined);
     gender = (gender != "" ? gender : undefined);
@@ -15,7 +15,7 @@
             }
             });
     
-    //alert(EmailAddress);
+
     //self.EmailAddress = ko.observable('').extend({
     //    pattern: {
     //        params: /^([\d\w-\.]+@([\d\w-]+\.)+[\w]{2,4})?$/,
@@ -39,7 +39,7 @@ ContactNo = ko.observable(contactNumber).extend({
     }
 });
 
-//alert('typeOfCard ' + typeOfCard + '  gender ' + gender + ' nationalityVal ' + nationalityVal);
+
 
 setTimeout(function () {
     if (typeOfCard != undefined) {
@@ -53,7 +53,7 @@ setTimeout(function () {
 
     if (gender != undefined) {
         Gender = ko.observable(gender).extend({ required: true });
-       // alert(Gender);
+       
     }
 
 }, 500);
@@ -316,8 +316,7 @@ self.EditVisitor = function (tableItem) {
 }
 
 self.LoadIdentityImage = function (identityImages) {
-   // alert(1);
-    debugger;
+ 
 
     $('#dropzoneForm .dz-image-preview').remove();
     var MultipleImagePath = [];
