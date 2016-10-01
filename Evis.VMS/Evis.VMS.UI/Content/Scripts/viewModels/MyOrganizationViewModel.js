@@ -169,22 +169,20 @@
             contentType: false,
             processData: false,
             success: function (response) {
-                debugger;
-                alert(formData.ImagePath);
-
+                RefreshImage(response.ImagePath);
             },
             error: function (error) {
                 //  alert("errror");
             }
 
         });
-        RefreshImage(ImagePath);
+       
     }
 
 }
 
 RefreshImage = function (Imagepath) {
-    
+    debugger;
     
     setTimeout(function () {
         var d = new Date();
