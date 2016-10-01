@@ -170,16 +170,30 @@
 
             $('.dz-image-preview').empty();
 
-            if (tableItem.ProfilePicturePath != undefined && tableItem.ProfilePicturePath != "") {
-                var imagePath = tableItem.ProfilePicturePath;
-                self.ProfilePicturePath(tableItem.ProfilePicturePath);
-                var mockFile = { name: tableItem.ImagePath, size: 1024 };
+            if (tableItem.IsImageAvailable) {
+                if (tableItem.ProfilePicturePath != undefined && tableItem.ProfilePicturePath != "") {
+                    //debugger;
+                    var imagePath = tableItem.ProfilePicturePath;
+                    self.ProfilePicturePath(tableItem.ProfilePicturePath);
+                    var mockFile = { name: tableItem.ImagePath, size: 1024 };
+                    myDropzone.emit("addedfile", mockFile);
+                    myDropzone.emit("thumbnail", mockFile, imagePath);
+                    myDropzone.createThumbnailFromUrl(mockFile, imagePath);
+                    $('.dz-image').addClass('dz-message');
+                    $('.dz-image img').addClass('dz-message');
+                }
+            }
+            else {
+
+                var imagePath = '/images/avatar.jpg';
+                var mockFile = { name: 'UserImage', size: 1024 };
                 myDropzone.emit("addedfile", mockFile);
                 myDropzone.emit("thumbnail", mockFile, imagePath);
                 myDropzone.createThumbnailFromUrl(mockFile, imagePath);
                 $('.dz-image').addClass('dz-message');
                 $('.dz-image img').addClass('dz-message');
             }
+            
         }
     }
 

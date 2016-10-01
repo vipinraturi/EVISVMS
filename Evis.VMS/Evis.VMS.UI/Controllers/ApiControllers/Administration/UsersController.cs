@@ -158,6 +158,15 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 IList<UsersVM> result =
                     GenericSorterPager.GetSortedPagedList<UsersVM>(temp, paginationRequest, out totalCount);
 
+                result.ToList().ForEach(item =>
+                {
+                    if (item.ProfilePicturePath != null)
+                    {
+                        var filePath = HttpContext.Current.Server.MapPath("\\") + "" + item.ProfilePicturePath;
+                        item.IsImageAvailable = System.IO.File.Exists(filePath);                        
+                    }
+                });
+
                 var jsonData = JsonConvert.SerializeObject(result);
                 return JsonConvert.SerializeObject(new { totalRows = totalCount, result = jsonData });
             }
