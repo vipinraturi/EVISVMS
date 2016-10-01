@@ -200,7 +200,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     || x.ToDate >= ShitfAssignment.FromDate
                     && x.ToDate <= ShitfAssignment.ToDate
                     || x.FromDate <= ShitfAssignment.ToDate
-                    && x.ToDate >= ShitfAssignment.FromDate) && (x.UserId == ShitfAssignment.UserId)).ToList();
+                    && x.ToDate >= ShitfAssignment.FromDate) && (x.UserId == ShitfAssignment.UserId) && (x.ShitfId == ShitfAssignment.ShitfId)).ToList();
                 if (data.Count() == 0)
                 {
                     ShitfAssignment obj = new Data.Model.Entities.ShitfAssignment();
@@ -275,7 +275,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     && y.ToDate <= ShitfAssignment.ToDate
                     || y.FromDate <= ShitfAssignment.ToDate
                     && y.ToDate >= ShitfAssignment.FromDate)
-                    && (y.UserId == ShitfAssignment.UserId)
+                    && (y.UserId == ShitfAssignment.UserId) && (y.ShitfId == ShitfAssignment.ShitfId)
                     ).ToList();
                     //existingShift.FromDate = Convert.ToDateTime(ShitfAssignment.strFromDate);
                     //existingShift.ToDate = Convert.ToDateTime(ShitfAssignment.strToDate);
