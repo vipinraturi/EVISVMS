@@ -284,7 +284,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     && y.ToDate >= ShitfAssignment.FromDate)
                     && (y.UserId == ShitfAssignment.UserId) && (y.ShitfId == ShitfAssignment.ShitfId) && y.IsActive
                     ).AsQueryable();
-                   
+
                     if (result.Count() == 0)
                     {
 
@@ -310,7 +310,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
                 };
             }
-           
+
             return new ReturnResult { Message = Message, Success = success };
         }
         [Route("~/Api/ShiftAssignment/DeleteShift")]
@@ -325,13 +325,21 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     updateShiftAssignment.IsActive = false;
                     _genericService.ShitfAssignment.Update(updateShiftAssignment);
 
-                    var shiftDetails = _genericService.ShiftDetails.GetAll().Where(item_db => item_db.ShiftID == updateShiftAssignment.ShitfId);
-
-                    foreach (var shiftDetail in shiftDetails)
+                    var shiftDetails = _genericService.ShiftDetails.GetAll().Where(item_db => item_db.ShiftID == updateShiftAssignment.ShitfId &&item_db.IsActive );
+                    for (DateTime shiftDate = updateShiftAssignment.FromDate; shiftDate <= updateShiftAssignment.ToDate; shiftDate = shiftDate.AddDays(1))
                     {
-                        shiftDetail.IsActive = false;
-                        _genericService.ShiftDetails.Update(shiftDetail);
+                        foreach (var shiftDetail in shiftDetails)
+                        {
+                            if (shiftDetail.ShiftDate == shiftDate && shiftDetail.IsActive)
+                            {
+                                shiftDetail.IsActive = false;
+                                _genericService.ShiftDetails.Update(shiftDetail);
+                            }
+                        }
                     }
+
+
+
 
 
                     _genericService.Commit();

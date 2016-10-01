@@ -6,20 +6,26 @@
  * Description  : 
  *******************************************************************************/
 
+using Evis.VMS.Business;
 using Evis.VMS.UI.HelperClasses;
 using Evis.VMS.UI.ViewModel;
 using Microsoft.Reporting.WebForms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using System.Web.Http;
+using System.Net;
+using System.Net.Http;
 
 namespace Evis.VMS.UI.Controllers
 {
     public partial class ReportController : Controller
     {
-        
+        private readonly UserService _userService = null;
 
         public ActionResult _ShiftDetailsReport()
         {
@@ -27,11 +33,16 @@ namespace Evis.VMS.UI.Controllers
         }
 
 
-        public ActionResult ShiftReportExcelDownload(string searchData)
+        public async Task<ActionResult> ShiftReportExcelDownload(string searchData)
         {
             Reports.DataSet.ShiftDetailReportDataSet shiftDetailDataset = new Reports.DataSet.ShiftDetailReportDataSet();
-
-            var result = _ShiftDetailsReportHelper.GetShiftDataPrint(searchData);
+            var user = (await _userService.GetAllAsync()).Where(x => x.Id == System.Web.HttpContext.Current.User.Identity.GetUserId() && x.IsActive == true).FirstOrDefault();
+            int? orgId = 0;
+            if(user!=null)
+            {
+                orgId = user.OrganizationId;
+            }
+            var result = _ShiftDetailsReportHelper.GetShiftDataPrint(searchData,orgId);
 
             foreach (var item in result)
             {
@@ -64,11 +75,16 @@ namespace Evis.VMS.UI.Controllers
             return new EmptyResult();
         }
 
-        public ActionResult PrintShiftDetailReport(string searchData)
+        public async Task<ActionResult> PrintShiftDetailReport(string searchData)
         {
             Reports.DataSet.ShiftDetailReportDataSet shiftDetailDataset = new Reports.DataSet.ShiftDetailReportDataSet();
-
-            var result = _ShiftDetailsReportHelper.GetShiftDataPrint(searchData);
+            var user = (await _userService.GetAllAsync()).Where(x => x.Id == System.Web.HttpContext.Current.User.Identity.GetUserId() && x.IsActive == true).FirstOrDefault();
+            int? orgId = 0;
+            if (user != null)
+            {
+                orgId = user.OrganizationId;
+            }
+            var result = _ShiftDetailsReportHelper.GetShiftDataPrint(searchData, orgId);
 
             foreach (var item in result)
             {

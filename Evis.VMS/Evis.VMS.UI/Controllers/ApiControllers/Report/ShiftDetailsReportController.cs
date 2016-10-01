@@ -118,13 +118,18 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
         [Route("~/Api/Report/GetShiftDetailsGrid")]
         [HttpPost]
-        public string GetShiftDataGrid(string search, int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC", string globalSearch = "")
+        public async Task<string> GetShiftDataGrid(string search, int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC", string globalSearch = "")
         {
-           
 
+            var user = (await _userService.GetAllAsync()).Where(x => x.Id == System.Web.HttpContext.Current.User.Identity.GetUserId() && x.IsActive == true).FirstOrDefault();
+            int? orgId = 0;
+            if (user != null)
+            {
+                orgId = user.OrganizationId;
+            }
             int totalCount = 0;
-          
-            var result = _ShiftDetailsReportHelper.GetShiftData(search, pageIndex, pageSize, sortField, sortOrder, out totalCount);
+
+            var result = _ShiftDetailsReportHelper.GetShiftData(search, pageIndex, pageSize, sortField, sortOrder, orgId, out totalCount);
 
             var jsonData = JsonConvert.SerializeObject(result);
             //.OrderBy(x => x.FromDate)
