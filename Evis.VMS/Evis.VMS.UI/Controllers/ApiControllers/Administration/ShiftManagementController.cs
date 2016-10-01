@@ -41,5 +41,13 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             return new ShiftManagementResponseVM { Header = header, Body = body };
         }
 
+
+        [Route("~/Api/ShiftAssignment/ApplyShiftAssignmentChanges")]
+        [HttpPost]
+        public ReturnResult ApplyShiftAssignmentChanges(IList<ShiftAssignmentChanges> request)
+        {
+            return _shiftManagemetHelper.ApplyShiftAssignmentChanges(request);
+        }
+
     }
 }

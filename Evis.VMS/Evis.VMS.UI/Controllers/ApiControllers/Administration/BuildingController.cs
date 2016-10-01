@@ -104,7 +104,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                         existingOrg.OtherState = (buildingMaster.CityId == null) ? buildingMaster.txtstate.Trim() : null;
                         existingOrg.OtherCity = (buildingMaster.CityId == null) ? buildingMaster.txtcity.Trim() : null;
                         _genericService.BuildingMaster.Update(existingOrg);
-                        message = "Building update successfully!!";
+                        message = "Building updated successfully!!";
                         success = true;
                     }
                     else

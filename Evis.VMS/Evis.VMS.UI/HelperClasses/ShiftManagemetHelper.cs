@@ -1,4 +1,5 @@
 ﻿using Evis.VMS.Business;
+using Evis.VMS.Data.Model.Entities;
 using Evis.VMS.UI.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -36,7 +37,7 @@ namespace Evis.VMS.UI.HelperClasses
         }
         public IList<ShiftManagementVM> GetShiftData(DateTime fromDate, DateTime toDate, int buldingId, int gateId)
         {
-            var userDataWithShift = _genericService.ShiftDetails.GetAll().Where(x => (x.GateID == gateId || gateId == -1))
+            var userDataWithShift = _genericService.ShiftDetails.GetAll().Where(x => (x.GateID == gateId || gateId == -1) && x.IsActive)
                 .Select(x => new ShiftManagementVM
                 {
                     Securityname = x.ApplicationUser.FullName,
@@ -69,37 +70,48 @@ namespace Evis.VMS.UI.HelperClasses
 
             var lstDates = new List<string>();
             var lstShiftsAssigned = new List<bool>();
+            var lstShiftsAssignedCell = new List<ShiftsAssignedCell>();
+
+
+            int counter = new Random().Next(1, 9999);//This should be unique number for checking or unchecking the checkboxed based on id
 
             foreach (int shiftId in GetAllShiftIds(-1))
             {
                  lstDates = new List<string>();
                  lstShiftsAssigned = new List<bool>();
+                 lstShiftsAssignedCell = new List<ShiftsAssignedCell>();
+                 var shift = _genericService.ShitfMaster.GetById(shiftId);
 
+                 counter = counter + 1;
 
+                 DateTime tempShiftAssignmentDate = DateTime.MinValue;
                 for (DateTime startDate = shiftDate; startDate <= toDate; startDate = startDate.AddDays(1))
                 {
+                    counter = counter + 1;
+                    var isShiftAssignsed = _genericService.ShiftDetails.GetAll()
+                                       .Where(item => item.GateID == gateId && item.SecurityID == userId && item.ShiftID == shiftId
+                                       && item.IsActive)
+                                       .AsQueryable();
 
-
-                    var isShiftAssigned = _genericService.ShitfAssignment.GetAll()
-                                       .Where(item => item.GateId == gateId && item.UserId == userId && item.ShitfId == shiftId)
-                                       .FirstOrDefault();
-
-                    // && item.FromDate >= shiftDate && item.ToDate <= shiftDate
+                    var isShiftAssigned = isShiftAssignsed.Where(item => item.ShiftDate == startDate).FirstOrDefault();
+                    //TODO vipin
+                    // 
 
                     if (isShiftAssigned != null)
                     {
                         lstShiftsAssigned.Add(true);
+                        lstShiftsAssignedCell.Add(new ShiftsAssignedCell { Id = new Random().Next(10000, 99999) + counter, IsAssigned = true, ShiftDate = startDate, ShiftId = shiftId, ShiftName = shift.ShitfName, UserId = userId, GateId = gateId });
                     }
                     else
                     {
+                        lstShiftsAssignedCell.Add(new ShiftsAssignedCell { Id = new Random().Next(100000, 999999) + counter, IsAssigned = false, ShiftDate = startDate, ShiftId = shiftId, ShiftName = shift.ShitfName, UserId = userId, GateId = gateId });
                         lstShiftsAssigned.Add(false);
                     }
 
                     lstDates.Add(startDate.ToString("ddd MMM dd"));
                 }
 
-                var shift = _genericService.ShitfMaster.GetById(shiftId);
-                lstShiftDetails.Add(new ShiftDetails_Shift { ShiftName = shift.ShitfName, ShiftDates = lstDates, ShiftsAssigned = lstShiftsAssigned });
+                lstShiftDetails.Add(new ShiftDetails_Shift { ShiftName = shift.ShitfName, ShiftDates = lstDates, ShiftsAssigned = lstShiftsAssigned, ShiftsAssignedCells= lstShiftsAssignedCell });
             }
 
             return lstShiftDetails;
@@ -133,7 +145,7 @@ namespace Evis.VMS.UI.HelperClasses
         {
             var datesWithShift =
                 _genericService.ShiftDetails.GetAll()
-                .Where(x => x.ApplicationUser.UserName == securityUserName && x.ShiftDate >= fromDate && x.ShiftDate <= toDate)
+                .Where(x => x.ApplicationUser.UserName == securityUserName && x.ShiftDate >= fromDate && x.ShiftDate <= toDate && x.IsActive)
                 .Select(x => new ShiftDetails_PerShift
             {
                 ShiftDate = x.ShiftDate
@@ -161,6 +173,38 @@ namespace Evis.VMS.UI.HelperClasses
                     ShiftName = x.Shitfs.ShitfName
                 }).Distinct().ToList();
             return listAllShiftsOneDay;
+        }
+
+        public ReturnResult ApplyShiftAssignmentChanges(IList<ShiftAssignmentChanges> request)
+        {
+            var returnResult = new ReturnResult();
+            request.ToList().ForEach(item =>
+            {
+                if (item.IsAssigned)
+                {
+                    var shiftAssignmentChange = new ShiftDetails { Id = 0, IsActive = true, GateID = item.GateId, ShiftDate = item.ShiftDate, ShiftID = item.ShiftId, SecurityID = item.UserId };
+                    _genericService.ShiftDetails.Insert(shiftAssignmentChange);
+                }
+                else
+                {
+                    var shiftAssignmentChange = _genericService.ShiftDetails.GetAll()
+                         .FirstOrDefault(item_db => item_db.ShiftID == item.ShiftId && item.UserId == item.UserId
+                             && item_db.ShiftDate == item.ShiftDate
+                        );
+                    //TODO vipin
+                     //
+                    if (shiftAssignmentChange != null)
+                    {
+                        shiftAssignmentChange.IsActive = false;
+                        _genericService.ShiftDetails.Update(shiftAssignmentChange);
+                    }
+                }
+            });
+
+            _genericService.Commit();
+            returnResult.Success = true;
+            return returnResult; 
+
         }
     }
 }
