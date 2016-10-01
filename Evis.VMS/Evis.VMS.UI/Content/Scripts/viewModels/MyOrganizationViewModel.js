@@ -159,6 +159,7 @@
 
             formData.append("avatarInput", file);
         }
+        
         //
         $.ajax({
             type: "POST",
@@ -168,22 +169,21 @@
             contentType: false,
             processData: false,
             success: function (response) {
-                // alert('succes!!');
-
+                RefreshImage(response.ImagePath);
             },
             error: function (error) {
                 //  alert("errror");
             }
 
         });
-        RefreshImage(ImagePath);
+       
     }
 
 }
 
 RefreshImage = function (Imagepath) {
+    debugger;
     
-
     setTimeout(function () {
         var d = new Date();
         $("#myLogo").attr('src', '#');

@@ -1074,13 +1074,13 @@
 }
 /* BASE */
 
-body {
+/*body {
     margin: 0px;
     padding: 0px;
     font-size: 12px;
-    font-family: "Roboto", tahoma, arial, Verdana;
+    font-family: Roboto, tahoma, "arial", Verdana;
     background-color: #ffffff;
-}
+}*/
 
 td {
     font-size: 13px;
@@ -1179,10 +1179,10 @@ h1 {
         padding: 0;
     }
 
-input, input[type="submit"], submit, select, textarea, button {
+/*input, input[type="submit"], submit, select, textarea, button {
     font-family: "Roboto", tahoma,arial;
     font-size: 12px;
-}
+}*/
 
     button span {
         font-size: 20px;
@@ -1192,7 +1192,7 @@ input, input[type="submit"], submit, select, textarea, button {
         background-color: #888888;
     }
 
-    input[type="submit"], button, submit {
+    /*input[type="submit"], button, submit {
         border: 1px solid #2b8ead;
         color: white;
         font-size: 13px;
@@ -1212,18 +1212,18 @@ input, input[type="submit"], submit, select, textarea, button {
 
     input[type=checkbox], input[type=radio], label {
         cursor: pointer;
-    }
+    }*/
 
 textarea {
     line-height: 16px;
     padding: 5px !important;
 }
 
-input[type=text], input[type=password], textarea, select {
+/*input[type=text], input[type=password], textarea, select {
     border-radius: 2px;
     color: #333;
     outline: none;
-    font-family: "Roboto","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: Roboto,"Helvetica Neue",Helvetica,Arial,sans-serif;
     font-weight: 300;
     padding: 0px 5px 0px 5px;
     height: 30px;
@@ -1231,7 +1231,7 @@ input[type=text], input[type=password], textarea, select {
     background-color: #FFF;
     cursor: pointer;
     font-size: 13px;
-}
+}*/
 
     input[type=text]:hover, input[type=password]:hover, textarea:hover, select:hover {
         border: 1px solid #a7a7a7;
@@ -2169,7 +2169,7 @@ div.spanButtonPlaceholder {
     padding: 12px;
     font-size: 14px;
     text-align: center;
-    font-family: "Roboto";
+    /*font-family: "Roboto";*/
     background-color: white;
     z-index: 9999999;
     position: absolute;
@@ -2191,7 +2191,7 @@ div.spanButtonPlaceholder {
     z-index: 9999;
     overflow: hidden;
     min-height: 550px;
-    font-family: 'Roboto', sans-serif;
+    font-family:  sans-serif;
     font-size: 14px;
     font-weight: 100;
 }
@@ -2207,7 +2207,7 @@ div.spanButtonPlaceholder {
     padding-left: 240px;
     height: 59px;
     border-bottom: 1px solid #e1e1e1;
-    font-family: 'Roboto', sans-serif;
+    font-family:  sans-serif;
     font-size: 18px;
     font-weight: 400;
     text-transform: capitalize;
@@ -2272,7 +2272,7 @@ div.spanButtonPlaceholder {
 
 .qtip-pnav {
     font-size: 13px !important;
-    font-family: Roboto !important;
+    /*font-family: Roboto !important;*/
     font-weight: 300 !important;
     padding: 5px !important;
     color: white !important;
@@ -2519,7 +2519,7 @@ div#loading {
     -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
     font-weight: 300;
-    font-family: "Roboto";
+    /*font-family: "Roboto";*/
 }
     /*  text-shadow: 1px 1px 0px #5E1010; filter: dropshadow(color=#5E1010, offx=1, offy=1); text-shadow: 1px 1px #000; */
 
@@ -7494,7 +7494,7 @@ div._tc_notice {
             border-color: #e5e5e5;
             color: #888;
             font-size: 13px;
-            font-family: "Roboto", tahoma, arial, Verdana;
+            font-family:  tahoma, arial, Verdana;
         }
 /* Table head actions */ /*#_cd_timeclock table .table_actions { float: right; margin: 0; font-size: 13px; color: #888; width: 100%; text-align: right; position: relative; position: absolute; right: 10px; top: 14px; }*/
 

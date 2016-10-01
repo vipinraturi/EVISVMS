@@ -77,14 +77,14 @@ namespace Evis.VMS.UI.HelperClasses
 
             foreach (int shiftId in GetAllShiftIds(-1))
             {
-                 lstDates = new List<string>();
-                 lstShiftsAssigned = new List<bool>();
-                 lstShiftsAssignedCell = new List<ShiftsAssignedCell>();
-                 var shift = _genericService.ShitfMaster.GetById(shiftId);
+                lstDates = new List<string>();
+                lstShiftsAssigned = new List<bool>();
+                lstShiftsAssignedCell = new List<ShiftsAssignedCell>();
+                var shift = _genericService.ShitfMaster.GetById(shiftId);
 
-                 counter = counter + 1;
+                counter = counter + 1;
 
-                 DateTime tempShiftAssignmentDate = DateTime.MinValue;
+                DateTime tempShiftAssignmentDate = DateTime.MinValue;
                 for (DateTime startDate = shiftDate; startDate <= toDate; startDate = startDate.AddDays(1))
                 {
                     counter = counter + 1;
@@ -111,7 +111,7 @@ namespace Evis.VMS.UI.HelperClasses
                     lstDates.Add(startDate.ToString("ddd MMM dd"));
                 }
 
-                lstShiftDetails.Add(new ShiftDetails_Shift { ShiftName = shift.ShitfName, ShiftDates = lstDates, ShiftsAssigned = lstShiftsAssigned, ShiftsAssignedCells= lstShiftsAssignedCell });
+                lstShiftDetails.Add(new ShiftDetails_Shift { ShiftName = shift.ShitfName, ShiftDates = lstDates, ShiftsAssigned = lstShiftsAssigned, ShiftsAssignedCells = lstShiftsAssignedCell });
             }
 
             return lstShiftDetails;
@@ -188,11 +188,30 @@ namespace Evis.VMS.UI.HelperClasses
                 else
                 {
                     var shiftAssignmentChange = _genericService.ShiftDetails.GetAll()
-                         .FirstOrDefault(item_db => item_db.ShiftID == item.ShiftId && item.UserId == item.UserId
-                             && item_db.ShiftDate == item.ShiftDate
+                         .FirstOrDefault(item_db => item_db.ShiftID == item.ShiftId && item_db.SecurityID == item.UserId
+                             && item_db.ShiftDate == item.ShiftDate && item_db.IsActive
                         );
-                    //TODO vipin
-                     //
+
+                    var shiftAssignmentChangeLst = _genericService.ShiftDetails.GetAll()
+                     .Where(item_db => item_db.ShiftID == item.ShiftId && item_db.SecurityID == item.UserId && item_db.IsActive
+                    );
+
+                    if (shiftAssignmentChangeLst != null)
+                    {
+                        if (shiftAssignmentChangeLst.Count() == 1)
+                        {
+                            var shiftAssignmentObj = _genericService.ShitfAssignment.GetAll().FirstOrDefault(item_db => item_db.ShitfId == shiftAssignmentChange.ShiftID
+                                && item_db.UserId == shiftAssignmentChange.SecurityID && item_db.IsActive);
+
+                            if (shiftAssignmentObj != null)
+                            {
+                                shiftAssignmentObj.IsActive = false;
+                                _genericService.ShitfAssignment.Update(shiftAssignmentObj);
+                            }
+                        }
+                    }
+
+
                     if (shiftAssignmentChange != null)
                     {
                         shiftAssignmentChange.IsActive = false;
@@ -203,7 +222,7 @@ namespace Evis.VMS.UI.HelperClasses
 
             _genericService.Commit();
             returnResult.Success = true;
-            return returnResult; 
+            return returnResult;
 
         }
     }
