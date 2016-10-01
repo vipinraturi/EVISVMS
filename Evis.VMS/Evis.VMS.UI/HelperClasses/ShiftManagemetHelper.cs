@@ -47,6 +47,7 @@ namespace Evis.VMS.UI.HelperClasses
                     GateId = x.GateID,
                     BuldingName = x.Gates.BuildingMaster.BuildingName,
                     UserProfilePicPath = x.ApplicationUser.ProfilePicturePath
+                    
                 }).Distinct().ToList();
 
             var result = userDataWithShift.AsEnumerable().Select(x => new ShiftManagementVM
@@ -57,7 +58,8 @@ namespace Evis.VMS.UI.HelperClasses
                     BuldingName = x.BuldingName,
                     Shifts = GetAllShifts(x.GateId),
                     ShiftDetails_Shift = GetShiftDetails_Shift(fromDate, toDate, x.UserId, x.GateId),
-                    UserProfilePicPath = x.UserProfilePicPath
+                    UserProfilePicPath = x.UserProfilePicPath,
+                    IsImageAvailable = System.IO.File.Exists(HttpContext.Current.Server.MapPath("\\") + "" + x.UserProfilePicPath.Replace("/", "\\"))
                 }).ToList();
 
 

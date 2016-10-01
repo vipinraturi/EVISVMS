@@ -26,6 +26,7 @@ namespace Evis.VMS.UI.ViewModel
         public string UserId { get; set; }
         public string UserName { get; set; }
         public string UserProfilePicPath { get; set; }
+        public bool IsImageAvailable { get; set; }
         public string BuldingName { get; set; }
         public string GateName { get; set; }
         public int GateId { get; set; }

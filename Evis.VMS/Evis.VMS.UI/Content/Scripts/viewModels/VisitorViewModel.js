@@ -32,12 +32,10 @@
         }
     });
 
-
-
     setTimeout(function () {
+
         if (typeOfCard != undefined) {
             TypeOfCardValue = ko.observable(typeOfCard).extend({ required: true });
-
         }
 
         if (nationality != undefined) {
@@ -46,10 +44,8 @@
 
         if (gender != undefined) {
             Gender = ko.observable(gender).extend({ required: true });
-
         }
-
-    }, 500);
+    }, 2000);
 
     //self.ContactNo = ko.observable('').extend({
     //    required: true,

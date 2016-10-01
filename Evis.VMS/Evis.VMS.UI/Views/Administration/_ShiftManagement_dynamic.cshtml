@@ -121,7 +121,7 @@
                         <td class="wemp" id="e_2893422">
                             <div class="udrag ui-draggable" alt="2893422">
                                 <!-- ko if: $data.UserProfilePicPath != null  -->
-                                <img data-bind="attr: { src : $data.UserProfilePicPath }" class="usr tti"><span class="jump" data-bind="text: Securityname"></span>
+                                <img data-bind="attr: { src : ($data.IsImageAvailable ? $data.UserProfilePicPath : '/images/avatar.jpg') }" class="usr tti"><span class="jump" data-bind="text: Securityname"></span>
                                 <!-- /ko -->
                                 <!-- ko if: $data.UserProfilePicPath == null  -->
                                 <img src="/images/avatar.jpg" class="usr tti"><span class="jump" data-bind="text: Securityname"></span>
