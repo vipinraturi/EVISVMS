@@ -50,6 +50,7 @@ namespace Evis.VMS.UI.HelperClasses
         }
 
         public VisitorDataVM GetVisitorCheckInHistory(long visitorId, string userId)
+        
         {
             var result = new VisitorDataVM();
             var visitorData = _genericService.VisitorMaster.GetAll().Where(item => item.Id == visitorId).FirstOrDefault();

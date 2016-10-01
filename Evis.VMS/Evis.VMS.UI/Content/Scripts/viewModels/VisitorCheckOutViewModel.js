@@ -16,18 +16,19 @@
     self.TotalDuration = ko.observable('');
     self.TotalDuration = ko.observable('');
 
-
-    self.CompanyName = ko.observable('');
-    self.VahicleNumber = ko.observable('');
-    self.Floor = ko.observable('');
-    self.ContactPerson = ko.observable('');
-    self.NoOfPerson = ko.observable('');
-    self.Purpose_Remark = ko.observable('');
+    self.CompanyName = ko.observable('[Company Name]');
+    self.VahicleNumber = ko.observable('[Vehicle Number]');
+    self.Floor = ko.observable('[Floor]');
+    self.ContactPerson = ko.observable('[Contact Person]');
+    self.NoOfPerson = ko.observable('[No. of Person]');
+    self.Purpose_Remark = ko.observable('[Purpose Remark]');
 
     self.GetVisitorCheckInHistoryData = function (visitorId, logoURL) {
+        
         AjaxCall('/Api/VisitorManagement/GetVisitorCheckInHistory?visitorId=' + visitorId, null, 'POST', function (data) {
             $('.visitorImageUnique').attr('src', logoURL);
             self.logoURL(logoURL);
+            debugger;
             self.VisitorId(data.VisitorId);
             self.VisitorName(data.VisitorName);
             self.Gender(data.Gender);
@@ -40,15 +41,14 @@
             self.VisitorHiostory(data.VisitorHiostory);
             self.IsAlreadyCheckIn(data.IsAlreadyCheckIn);
             self.TotalDuration(data.TotalDuration);
-
-            
+           // self.VahicleNumber(data.VahicleNumber);
 
             self.CompanyName(data.CompanyName);
-            self.VahicleNumber(data.VahicleNumber);
-            self.Floor(data.Floor);
-            self.ContactPerson(data.ContactPerson);
-            self.NoOfPerson(data.NoOfPerson);
-            self.Purpose_Remark(data.Purpose);
+            self.VahicleNumber(data.VisitorHiostory[0].VahicleNumber);
+            self.Floor(data.VisitorHiostory[0].Floor);
+            self.ContactPerson(data.VisitorHiostory[0].ContactPerson);
+            self.NoOfPerson(data.VisitorHiostory[0].NoOfPerson);
+            self.Purpose_Remark(data.VisitorHiostory[0].Purpose);
 
 
             $('.searchVisitor').val('');
@@ -68,7 +68,6 @@
             return;
         }
 
-
         var data = new Object();
         data.VisitorId = self.VisitorId();
 
@@ -79,7 +78,6 @@
             //self.ResetCheckInData();
         })
     }
-
 
     self.ViewHistory = function (tableItem) {
         
@@ -103,6 +101,14 @@
         self.ContactPerson('');
         self.NoOfPerson('');
         self.Purpose_Remark('');
+
+        self.CompanyName('[Company Name]');
+        self.VahicleNumber('[Vehicle Number]');
+        self.Floor('[Floor]');
+        self.ContactPerson('[Contact Person]');
+        self.NoOfPerson('[No. of Person]');
+        self.Purpose_Remark('[Purpose Remark]');
+
         self.VisitorHiostory([]);
         $('.searchVisitor').val('');
     }
