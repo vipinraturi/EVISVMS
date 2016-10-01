@@ -128,8 +128,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 int orgId = user.Organization.Id;
                 if (orgId != null)
                 {
-                    var data = _genericService.BuildingMaster.GetAll().Where(x => x.OrganizationId == orgId).FirstOrDefault();
-                    LSTShiftAssignmentVM = _genericService.ShitfAssignment.GetAll().Where(x => x.IsActive == true && x.BuildingId == data.Id).ToList()
+                    //var data = _genericService.BuildingMaster.GetAll().Where(x => x.OrganizationId == orgId).FirstOrDefault();
+                    LSTShiftAssignmentVM = _genericService.ShitfAssignment.GetAll().Where(x => x.IsActive == true && x.BuildingMaster.OrganizationId == orgId).ToList()
                             .Select(x => new ShiftAssignmentVM
                             {
                                 BuildingId = x.BuildingId,
