@@ -44,6 +44,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         [HttpGet]
         public IEnumerable<GeneralDropDownVM> GetAllShift()
         {
+            //TODO-- organization check needed
             var result = _genericService.ShitfMaster.GetAll().Where(x => x.IsActive == true).AsEnumerable()
                 .Select(y => new GeneralDropDownVM { Id = y.Id, Name = y.ShitfName + " (" + y.FromTime.ToString("hh:mm tt") + " - " + y.ToTime.ToString("hh:mm tt") + ")" });////y.ShitfName + '(' + ' ' + y.FromTime + ' ' + y.ToTime + ')'
 
@@ -203,7 +204,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 if (data.Count() == 0)
                 {
                     ShitfAssignment obj = new Data.Model.Entities.ShitfAssignment();
-                    ShiftDetails ShiftDetails = new Data.Model.Entities.ShiftDetails();
+                    ShiftDetails _shiftDetails = null;
                     //ShitfAssignment.IsActive = true;
                     //var ToDate = ShitfAssignment.ToDate.ToShortDateString();
                     //ShitfAssignment.ToDate = Convert.ToDateTime(ToDate);
@@ -219,27 +220,36 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     obj.FromDate = DateTime.ParseExact(ShitfAssignment.strFromDate, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture); //Convert.ToDateTime(ShitfAssignment.strFromDate);
                     obj.ToDate = DateTime.ParseExact(ShitfAssignment.strToDate, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);//Convert.ToDateTime(ShitfAssignment.strToDate);
                     obj.IsActive = true;
-                   //TODO
+                    _genericService.ShitfAssignment.Insert(obj);
 
 
-                    var currentDate = new DateTime();
-                    for (int i = 0; i < (ShitfAssignment.ToDate.Date - ShitfAssignment.FromDate.Date).TotalDays; i++)
+
+                    for (DateTime startDate = ShitfAssignment.FromDate.Date; startDate <= ShitfAssignment.ToDate.Date; startDate = startDate.AddDays(1))
                     {
-                        currentDate = ShitfAssignment.ToDate.Date;
-                        ShiftDetails.ShiftID = ShitfAssignment.ShitfId;
-                        ShiftDetails.SecurityID = ShitfAssignment.UserId;
-                        ShiftDetails.ShiftDate = currentDate;
-                        ShiftDetails.GateID = ShitfAssignment.GateId;
-                        currentDate.AddDays(1);
+                        _shiftDetails = new Data.Model.Entities.ShiftDetails();
+                        _shiftDetails.ShiftID = ShitfAssignment.ShitfId;
+                        _shiftDetails.SecurityID = ShitfAssignment.UserId;
+                        _shiftDetails.ShiftDate = startDate;
+                        _shiftDetails.GateID = ShitfAssignment.GateId;
+                        _genericService.ShiftDetails.Insert(_shiftDetails);
                     }
 
+                    _genericService.Commit();
 
-                    //for (DateTime frDate = ShitfAssignment.FromDate.Date; frDate > ShitfAssignment.ToDate.Date; frDate.AddDays(1))
+                    //var currentDate = new DateTime();
+                    //for (int i = 0; i < (ShitfAssignment.ToDate.Date - ShitfAssignment.FromDate.Date).TotalDays; i++)
                     //{
-                       
+                    //    currentDate = ShitfAssignment.FromDate.Date;
+
+
+                    //    ShiftDetails.ShiftID = ShitfAssignment.ShitfId;
+                    //    ShiftDetails.SecurityID = ShitfAssignment.UserId;
+                    //    ShiftDetails.ShiftDate = currentDate;
+                    //    ShiftDetails.GateID = ShitfAssignment.GateId;
+                    //    currentDate.AddDays(1);
+                    //    _genericService.ShiftDetails.Insert(ShiftDetails);
                     //}
-                    _genericService.ShiftDetails.Insert(ShiftDetails);
-                    _genericService.ShitfAssignment.Insert(obj);
+
                     Message = "Shift saved successfully!!";
                     success = true;
                 }
@@ -293,6 +303,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                         _genericService.ShitfAssignment.Update(existingShift);
                         Message = "Shift update successfully!!";
                         success = true;
+                        _genericService.Commit();
                     }
                     else
                     {
@@ -302,7 +313,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
                 };
             }
-            _genericService.Commit();
+           
             return new ReturnResult { Message = Message, Success = success };
         }
         [Route("~/Api/ShiftAssignment/DeleteShift")]

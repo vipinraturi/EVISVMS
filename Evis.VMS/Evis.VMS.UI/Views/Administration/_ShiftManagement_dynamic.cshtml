@@ -1,5 +1,4 @@
 ﻿@Styles.Render("~/Content/shift_management")
-
 <ol class="breadcrumb">
     <li><a href="#" class="a-color">Administration</a></li>
     <li><a href="#" class="a-color">Shifts Management</a></li>
@@ -7,77 +6,60 @@
 <div class="row">
     <div id="ccanvas">
         <div id="top">
-
             <div class="row">
                 <div class="col-md-12 col-xs-12">
                     <div class="form-group col-md-2 col-sm-2 col-xs-12">
-
                         <div class="col-xs-12">
                             <select class="form-control Fieldfocus" data-bind="options: Buildings, optionsText: 'Name' ,optionsValue: 'Id', value: BuildingId, optionsCaption: '-- Select Building --',event:{ change: GetGates.bind()()}"></select>
                         </div>
                     </div>
                     <div class="form-group col-md-2 col-sm-2 col-xs-12">
-
                         <div class="col-xs-12">
                             <select class="form-control Fieldfocus" data-bind="options: Gates, optionsText: 'Name' ,optionsValue: 'Id', value: GateId, optionsCaption: '-- Select Gate --',event:{ change: GetUsers()}"></select>
                         </div>
                     </div>
                     <div class="form-group col-md-2 col-sm-2 col-xs-12">
-
                         <div class="col-xs-12">
                             <input id="txtShiftDate" type="text" class="form-control Fieldfocus" placeholder="dd/mm/yyyy" />
                         </div>
                     </div>
                     <div class="form-group col-md-1 col-sm-1 col-xs-12" style="margin-top:5px;">
-
                         <div class="col-xs-12">
-                            <button type="submit" class="btn btn-success">
+                            <button type="submit" class="btn btn-success" data-bind="click: GeShiftsData.bind()">
                                 <i class="fa fa-search"></i>
                             </button>
                         </div>
                     </div>
 
+
                     <div class="form-group col-md-5 col-sm-5 col-xs-12 pull-right" style="">
                         <div class="col-xs-12">
                             <div class="timelines" id="">
-                                <div id="tls_day" title="Day">Day</div>
-                                <div id="tls_week" title="Week" class="selected">Week</div>
-                                <div id="tls_twoweek" title="Two Weeks">2 Week</div>
-                                <div id="tls_month" title="Month" class="last">4 Week</div>
-
-                                <div onclick="prev();">&lt;</div>
-                                <div onclick="today();" id="tls_today" title="Today">Today</div>
-                                <div onclick="next();" style="margin-right: -1px;">&gt;</div>
+                                <div id="tls_day" title="Day" data-bind="click: DayClick.bind()">Day</div>
+                                <div id="tls_week" title="Week" class="selected" data-bind="click: WeekClick.bind()">Week</div>
+                                <div id="tls_twoweek" title="Two Weeks" data-bind="click: TwoWeekClick.bind()">2 Week</div>
+                                <div id="tls_month" title="Month" class="last" data-bind="click: FourWeekClick.bind()">4 Week</div>
+                                <div data-bind="click: PrevClick.bind()">&lt;</div>
+                                <div id="tls_today" title="Today" data-bind="click: TodayClick.bind()">Today</div>
+                                <div style="margin-right: -1px;" data-bind="click: NextClick.bind()">&gt;</div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
-
             <div id="_s_chart" class="hide" style="width: calc(100% - 190px); height: 65px; margin-left: 190px; display: none;"></div>
             <div class="date">
                 <table class="timeline" id="tweek" style="display: table; overflow:scroll; overflow-x:scroll;  ">
                     <tbody>
                         <tr>
-                            <td class="daterange jump" id="_wdr" title="Sep 4, 2016">Sep 4 2016 - Sep 10 2016</td>
-                            <td class="shiftname jump" id="_wdr">Shift Name</td>
-                            <td class="jump" id="wtl1" title="Sep 4, 2016">Sun, Sep 4</td>
-                            <td class="jump" id="wtl2" title="Sep 5, 2016">Mon, Sep 5</td>
-                            <td class="jump" id="wtl3" title="Sep 6, 2016">Tue, Sep 6</td>
-                            <td class="jump" id="wtl4" title="Sep 7, 2016">Wed, Sep 7</td>
-                            <td class="jump" id="wtl5" title="Sep 8, 2016">Thu, Sep 8</td>
-                            <td class="jump" id="wtl6" title="Sep 9, 2016">Fri, Sep 9</td>
-                            <td class="jump" id="wtl7" title="Sep 10, 2016">Sat, Sep 10</td>
-                            <td class="jump" id="wtl7" title="Sep 10, 2016">Sat, Sep 10</td>
-                            <td class="jump" id="wtl7" title="Sep 10, 2016">Sat, Sep 10</td>
-                            <td class="jump" id="wtl7" title="Sep 10, 2016">Sat, Sep 10</td>
-                            <td class="jump" id="wtl1" title="Sep 4, 2016">Sun, Sep 4</td>
-                            <td class="jump" id="wtl2" title="Sep 5, 2016">Mon, Sep 5</td>
-                            <td class="jump" id="wtl3" title="Sep 6, 2016">Tue, Sep 6</td>
-                            <td class="jump" id="wtl4" title="Sep 7, 2016">Wed, Sep 7</td>
 
+                            <td class="daterange jump" id="_wdr" title="Sep 4, 2016" data-bind="text: Header().ShiftMainDates"></td>
+                            <td class="shiftname jump" id="_wdr">Shift Name</td>
+                            <!-- ko foreach: Header().ListAllDates -->
+                            <td class="jump" id="wtl1" title="Sep 4, 2016" data-bind="text: $data"></td>
+                            <!-- /ko -->
                         </tr>
+
                     </tbody>
                 </table>
             </div>
@@ -85,807 +67,60 @@
         <div id="scheduler" class="emp_view" style="margin-right: 0px; height: 402px;">
             <table id="weeklist" class="weeklist tbl">
                 <tbody>
-
-                    <tr id="employee_2893422">
+                    <!-- ko if: self.Body().length > 0 -->
+                    <!-- ko foreach: self.Body() -->
+                    <tr>
                         <td class="wemp" id="e_2893422">
                             <div class="udrag ui-draggable" alt="2893422">
-                                <img src="/images/avatar.jpg" class="usr tti" title="Drag to a shift"><span class="jump" alt="user" uid="2893422">Anith Raj</span>
-                                <div id="cost_2893422" class="costs"></div>
+                                <!-- ko if: $data.UserProfilePicPath != null  -->
+                                    <img data-bind="attr: { src : $data.UserProfilePicPath }" class="usr tti"><span class="jump" data-bind="text: Securityname"></span>
+                                <!-- /ko -->
+                                <!-- ko if: $data.UserProfilePicPath == null  -->
+                                    <img src="/images/avatar.jpg" class="usr tti"><span class="jump" data-bind="text: Securityname"></span>
+                                <!-- /ko -->
                             </div>
                         </td>
-
-
                         <td class="shiftNameCol" id="w_2893422_Sep_4__2016">
                             <table class="weeklist tbl">
-                                <tr>
-                                    <td class="shiftCell" id="1">
-                                        Morning
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="2">
-                                        Afternoon
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="3">
-                                        Evening
-                                    </td>
-                                </tr>
+                                <tbody data-bind="foreach:$data.Shifts">
+                                    <tr>
+                                        <td class="shiftCell" id="1" data-bind="text: $data"></td>
+                                    </tr>
+                                </tbody>
                             </table>
                         </td>
-                        <td class="day wk dcol0" id="w_2893422_Sep_4__2016">
+                        <td class="day wk dcol0">
                             <table class="weeklist tbl">
-                                <tr>
-                                    <td class="shiftCell" id="4">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="5">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="6"></td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td class="day wk dcol1" id="w_2893422_Sep_5__2016">
-                            <table class="weeklist tbl">
-                                <tr>
-                                    <td class="shiftCell" id="7"></td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="8">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="9"></td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td class="day wk dcol2 " id="w_2893422_Sep_6__2016">
-                            <table class="weeklist tbl">
-                                <tr>
-                                    <td class="shiftCell" id="10"></td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="11">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="12"></td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td class="day wk dcol3" id="w_2893422_Sep_7__2016">
-                            <table class="weeklist tbl">
-                                <tr>
-                                    <td class="day wk" id="w_2893422_Sep_5__2016"></td>
-                                </tr>
-                                <tr>
-                                    <td class="day wk" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="day wk" id="w_2893422_Sep_5__2016"></td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td class="day wk dcol0" id="w_2893422_Sep_4__2016">
-                            <table class="weeklist tbl">
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016"></td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td class="day wk dcol0" id="w_2893422_Sep_4__2016">
-                            <table class="weeklist tbl">
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016"></td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td class="day wk dcol0" id="w_2893422_Sep_4__2016">
-                            <table class="weeklist tbl">
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016"></td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td class="day wk dcol0" id="w_2893422_Sep_4__2016">
-                            <table class="weeklist tbl">
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016"></td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td class="day wk dcol0" id="w_2893422_Sep_4__2016">
-                            <table class="weeklist tbl">
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016"></td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td class="day wk dcol0" id="w_2893422_Sep_4__2016">
-                            <table class="weeklist tbl">
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016"></td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td class="day wk dcol0" id="w_2893422_Sep_4__2016">
-                            <table class="weeklist tbl">
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016"></td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td class="day wk dcol0" id="w_2893422_Sep_4__2016">
-                            <table class="weeklist tbl">
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016"></td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td class="day wk dcol0" id="w_2893422_Sep_4__2016">
-                            <table class="weeklist tbl">
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016"></td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td class="day wk dcol0" id="w_2893422_Sep_4__2016">
-                            <table class="weeklist tbl">
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016"></td>
-                                </tr>
-                            </table>
-                        </td>
+                                <tbody data-bind="foreach:$data.ShiftDetails_Shift">
+                                    <tr>
+                                        <!-- ko foreach: $data.ShiftsAssigned -->
+                                        <td class="shiftCell" id="4">
+                                            @*<span data-bind="text:  $data"></span>*@
 
-
-
-
-
-
-
-
-
-                    </tr>
-                    <tr id="employee_2893422">
-                        <td class="wemp" id="e_2893422">
-                            <div class="udrag ui-draggable" alt="2893422">
-                                <img src="/images/avatar.jpg" class="usr tti" title="Drag to a shift"><span class="jump" alt="user" uid="2893422">Vipin Raturi</span>
-                                <div id="cost_2893422" class="costs"></div>
-                            </div>
-                        </td>
-
-
-                        <td class="shiftNameCol" id="w_2893422_Sep_4__2016">
-                            <table class="weeklist tbl">
-                                <tr>
-                                    <td class="shiftCell" id="1">
-                                        Morning
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="2">
-                                        Afternoon
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="3">
-                                        Evening
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td class="day wk dcol0" id="w_2893422_Sep_4__2016">
-                            <table class="weeklist tbl">
-                                <tr>
-                                    <td class="shiftCell" id="4">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="5">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="6"></td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td class="day wk dcol1" id="w_2893422_Sep_5__2016">
-                            <table class="weeklist tbl">
-                                <tr>
-                                    <td class="shiftCell" id="7"></td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="8">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="9"></td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td class="day wk dcol2 " id="w_2893422_Sep_6__2016">
-                            <table class="weeklist tbl">
-                                <tr>
-                                    <td class="shiftCell" id="10"></td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="11">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="12"></td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td class="day wk dcol3" id="w_2893422_Sep_7__2016">
-                            <table class="weeklist tbl">
-                                <tr>
-                                    <td class="day wk" id="w_2893422_Sep_5__2016"></td>
-                                </tr>
-                                <tr>
-                                    <td class="day wk" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="day wk" id="w_2893422_Sep_5__2016"></td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td class="day wk dcol0" id="w_2893422_Sep_4__2016">
-                            <table class="weeklist tbl">
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016"></td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td class="day wk dcol0" id="w_2893422_Sep_4__2016">
-                            <table class="weeklist tbl">
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016"></td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td class="day wk dcol0" id="w_2893422_Sep_4__2016">
-                            <table class="weeklist tbl">
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016"></td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td class="day wk dcol0" id="w_2893422_Sep_4__2016">
-                            <table class="weeklist tbl">
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016"></td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td class="day wk dcol0" id="w_2893422_Sep_4__2016">
-                            <table class="weeklist tbl">
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016"></td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td class="day wk dcol0" id="w_2893422_Sep_4__2016">
-                            <table class="weeklist tbl">
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016"></td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td class="day wk dcol0" id="w_2893422_Sep_4__2016">
-                            <table class="weeklist tbl">
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016"></td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td class="day wk dcol0" id="w_2893422_Sep_4__2016">
-                            <table class="weeklist tbl">
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016"></td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td class="day wk dcol0" id="w_2893422_Sep_4__2016">
-                            <table class="weeklist tbl">
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016"></td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td class="day wk dcol0" id="w_2893422_Sep_4__2016">
-                            <table class="weeklist tbl">
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016"></td>
-                                </tr>
-                            </table>
-                        </td>
-
-                    </tr>
-                    <tr id="employee_2893422">
-                        <td class="wemp" id="e_2893422">
-                            <div class="udrag ui-draggable" alt="2893422">
-                                <img src="/images/avatar.jpg" class="usr tti" title="Drag to a shift"><span class="jump" alt="user" uid="2893422">Charles Peter</span>
-                                <div id="cost_2893422" class="costs"></div>
-                            </div>
-                        </td>
-
-
-
-                        <td class="shiftNameCol" id="w_2893422_Sep_4__2016">
-                            <table class="weeklist tbl">
-                                <tr>
-                                    <td class="shiftCell" id="1">
-                                        Morning
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="2">
-                                        Afternoon
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="3">
-                                        Evening
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td class="day wk dcol0" id="w_2893422_Sep_4__2016">
-                            <table class="weeklist tbl">
-                                <tr>
-                                    <td class="shiftCell" id="4">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="5">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="6"></td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td class="day wk dcol1" id="w_2893422_Sep_5__2016">
-                            <table class="weeklist tbl">
-                                <tr>
-                                    <td class="shiftCell" id="7"></td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="8">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="9"></td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td class="day wk dcol2 " id="w_2893422_Sep_6__2016">
-                            <table class="weeklist tbl">
-                                <tr>
-                                    <td class="shiftCell" id="10"></td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="11">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="12"></td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td class="day wk dcol3" id="w_2893422_Sep_7__2016">
-                            <table class="weeklist tbl">
-                                <tr>
-                                    <td class="day wk" id="w_2893422_Sep_5__2016"></td>
-                                </tr>
-                                <tr>
-                                    <td class="day wk" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="day wk" id="w_2893422_Sep_5__2016"></td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td class="day wk dcol0" id="w_2893422_Sep_4__2016">
-                            <table class="weeklist tbl">
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016"></td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td class="day wk dcol0" id="w_2893422_Sep_4__2016">
-                            <table class="weeklist tbl">
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016"></td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td class="day wk dcol0" id="w_2893422_Sep_4__2016">
-                            <table class="weeklist tbl">
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016"></td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td class="day wk dcol0" id="w_2893422_Sep_4__2016">
-                            <table class="weeklist tbl">
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016"></td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td class="day wk dcol0" id="w_2893422_Sep_4__2016">
-                            <table class="weeklist tbl">
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016"></td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td class="day wk dcol0" id="w_2893422_Sep_4__2016">
-                            <table class="weeklist tbl">
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016"></td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td class="day wk dcol0" id="w_2893422_Sep_4__2016">
-                            <table class="weeklist tbl">
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016"></td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td class="day wk dcol0" id="w_2893422_Sep_4__2016">
-                            <table class="weeklist tbl">
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016"></td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td class="day wk dcol0" id="w_2893422_Sep_4__2016">
-                            <table class="weeklist tbl">
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016"></td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td class="day wk dcol0" id="w_2893422_Sep_4__2016">
-                            <table class="weeklist tbl">
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016">
-                                        <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shiftCell" id="w_2893422_Sep_5__2016"></td>
-                                </tr>
+                                            <!-- ko if: $data == true -->
+                                            <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
+                                            <!-- /ko -->
+                                        </td>
+                                        <!-- /ko -->
+                                    </tr>
+                                </tbody>
                             </table>
                         </td>
                     </tr>
-
+                    <!-- /ko -->
+                    <!-- /ko -->
+                    <!-- ko if: self.Body().length == 0 -->
+                    <tr>
+                        <td class="jump" id="wtl1" data-bind="attr: { colspan : Header().length }"
+                            style="text-align:center; ">
+                            No Shift Available. Please apply filter and try again.
+                        </td>
+                    </tr>
+                    <!-- /ko -->
                 </tbody>
             </table>
         </div>
     </div>
-
     <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog">
             <!-- Modal content-->
@@ -905,4 +140,3 @@
         </div>
     </div>
 </div>
-
