@@ -147,7 +147,7 @@
             if (self.NationalityId() != undefined && self.NationalityId() != 0) {
                 AjaxCall('/Api/Administration/GetAllStateOrCity?id=' + self.NationalityId(), null, 'GET', function (data) {
                     if (data.length > 0) {
-                        
+                 
                         self.State(data);
                         self.StateId(stateId);
                         $('#dropcountry').hide();
@@ -302,7 +302,7 @@
                     self.Countrydlltxt('');
                     self.statedlltxt('');
                     self.citydlltxt('');
-                    self.CityId('');
+                  //  self.CityId('');
                     toastr.error('Building name alreday exists!!')
                 }
                 self.IsInsert(true);
