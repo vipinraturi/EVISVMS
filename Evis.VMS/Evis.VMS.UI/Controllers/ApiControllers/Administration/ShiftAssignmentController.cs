@@ -231,6 +231,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                         _shiftDetails.SecurityID = ShitfAssignment.UserId;
                         _shiftDetails.ShiftDate = startDate;
                         _shiftDetails.GateID = ShitfAssignment.GateId;
+                        _shiftDetails.IsActive = true;
                         _genericService.ShiftDetails.Insert(_shiftDetails);
                     }
 

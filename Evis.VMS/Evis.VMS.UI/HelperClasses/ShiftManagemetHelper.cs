@@ -37,7 +37,7 @@ namespace Evis.VMS.UI.HelperClasses
         }
         public IList<ShiftManagementVM> GetShiftData(DateTime fromDate, DateTime toDate, int buldingId, int gateId)
         {
-            var userDataWithShift = _genericService.ShiftDetails.GetAll().Where(x => (x.GateID == gateId || gateId == -1))
+            var userDataWithShift = _genericService.ShiftDetails.GetAll().Where(x => (x.GateID == gateId || gateId == -1) && x.IsActive)
                 .Select(x => new ShiftManagementVM
                 {
                     Securityname = x.ApplicationUser.FullName,
@@ -83,17 +83,19 @@ namespace Evis.VMS.UI.HelperClasses
                  var shift = _genericService.ShitfMaster.GetById(shiftId);
 
                  counter = counter + 1;
-              
 
+                 DateTime tempShiftAssignmentDate = DateTime.MinValue;
                 for (DateTime startDate = shiftDate; startDate <= toDate; startDate = startDate.AddDays(1))
                 {
                     counter = counter + 1;
+                    var isShiftAssignsed = _genericService.ShiftDetails.GetAll()
+                                       .Where(item => item.GateID == gateId && item.SecurityID == userId && item.ShiftID == shiftId
+                                       && item.IsActive)
+                                       .AsQueryable();
 
-                    var isShiftAssigned = _genericService.ShitfAssignment.GetAll()
-                                       .Where(item => item.GateId == gateId && item.UserId == userId && item.ShitfId == shiftId)
-                                       .FirstOrDefault();
+                    var isShiftAssigned = isShiftAssignsed.Where(item => item.ShiftDate == startDate).FirstOrDefault();
                     //TODO vipin
-                    // && item.FromDate >= shiftDate && item.ToDate <= shiftDate
+                    // 
 
                     if (isShiftAssigned != null)
                     {
@@ -143,7 +145,7 @@ namespace Evis.VMS.UI.HelperClasses
         {
             var datesWithShift =
                 _genericService.ShiftDetails.GetAll()
-                .Where(x => x.ApplicationUser.UserName == securityUserName && x.ShiftDate >= fromDate && x.ShiftDate <= toDate)
+                .Where(x => x.ApplicationUser.UserName == securityUserName && x.ShiftDate >= fromDate && x.ShiftDate <= toDate && x.IsActive)
                 .Select(x => new ShiftDetails_PerShift
             {
                 ShiftDate = x.ShiftDate
@@ -187,9 +189,10 @@ namespace Evis.VMS.UI.HelperClasses
                 {
                     var shiftAssignmentChange = _genericService.ShiftDetails.GetAll()
                          .FirstOrDefault(item_db => item_db.ShiftID == item.ShiftId && item.UserId == item.UserId
+                             && item_db.ShiftDate == item.ShiftDate
                         );
                     //TODO vipin
-                     //&& item_db.ShiftDate == item.ShiftDate
+                     //
                     if (shiftAssignmentChange != null)
                     {
                         shiftAssignmentChange.IsActive = false;
