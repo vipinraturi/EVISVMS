@@ -162,14 +162,14 @@ namespace Evis.VMS.UI.Controllers
                 if (isSavedSuccessfully)
                 {
                     _genericService.Commit();
-                    return Json(new { Message = fName });
+                    return Json(new { Message = fName, ImagePath = imageLocation });
                 }
                 else
                 {
-                    return Json(new { Message = "Error in saving file" });
+                    return Json(new { Message = "Error in saving file", ImagePath = imageLocation });
                 }
             }
-            return Json(new { Message = "No file to upload" });
+            return Json(new { Message = "No file to upload", ImagePath = imageLocation });
             
         }
 

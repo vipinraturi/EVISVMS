@@ -23,136 +23,148 @@
                             <label></label>
                         </div>
                     </div>
-                    <div class="form-group col-md-1 col-sm-1 col-xs-12" style="margin-top:5px;">
+                    <div class="form-group col-md-1 col-sm-1 col-xs-12">
                         <div class="col-xs-12">
                             <label></label>
                         </div>
                     </div>
-                    <div class="form-group col-md-5 col-sm-5 col-xs-12 pull-right" style="">
+                    <div class="form-group col-md-5 col-sm-5 col-xs-12 pull-right" style="margin-top:13px; margin-bottom:-19px;">
                         <div class="col-xs-12">
                             <button class="btn btn-primary pull-right" alt="Click here to reset the changes" data-bind="click: ResetChanges.bind($data)">Reset</button>
                             <button class="btn btn-success pull-right" alt="Click here to apply shift changes" data-bind="click: ApplyChanges.bind($data)">Apply</button>
                         </div>
                     </div>
                 </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12 col-xs-12">
-                        <div class="form-group col-md-2 col-sm-2 col-xs-12">
-                            <div class="col-xs-12">
-                                <label class="control-label">Building</label>
-                                <select class="form-control Fieldfocus" data-bind="options: Buildings, optionsText: 'Name' ,optionsValue: 'Id', value: BuildingId, optionsCaption: '-- Select Building --',event:{ change: GetGates.bind()()}"></select>
-                            </div>
-                        </div>
-                        <div class="form-group col-md-2 col-sm-2 col-xs-12">
-                            <div class="col-xs-12">
-                                <label class="control-label">Gate</label>
-                                <select class="form-control Fieldfocus" data-bind="options: Gates, optionsText: 'Name' ,optionsValue: 'Id', value: GateId, optionsCaption: '-- Select Gate --',event:{ change: GetUsers()}"></select>
-                            </div>
-                        </div>
-                        <div class="form-group col-md-2 col-sm-2 col-xs-12">
-                            <div class="col-xs-12">
-                                <label class="control-label">Shift Date</label>
-                                <input id="txtShiftDate" type="text" class="form-control Fieldfocus" placeholder="dd/mm/yyyy" />
-                            </div>
-                        </div>
-                        <div class="form-group col-md-1 col-sm-1 col-xs-12" style="margin-top:5px;">
-                            <div class="col-xs-12">
-                                <button type="submit" class="btn btn-success" data-bind="click: GeShiftsData.bind()">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="form-group col-md-5 col-sm-5 col-xs-12 pull-right" style="">
-                            <div class="col-xs-12">
-                                <div class="timelines" id="">
-                                    <div id="tls_day" title="Day" data-bind="click: DayClick.bind()">Day</div>
-                                    <div id="tls_week" title="Week" class="selected" data-bind="click: WeekClick.bind()">Week</div>
-                                    <div id="tls_twoweek" title="Two Weeks" data-bind="click: TwoWeekClick.bind()">2 Week</div>
-                                    <div id="tls_month" title="Month" class="last" data-bind="click: FourWeekClick.bind()">4 Week</div>
-                                    <div data-bind="click: PrevClick.bind()">&lt;</div>
-                                    <div id="tls_today" title="Today" data-bind="click: TodayClick.bind()">Today</div>
-                                    <div style="margin-right: -1px;" data-bind="click: NextClick.bind()">&gt;</div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-xs-12">
+                    <div class="col-md-7 col-xs-7">
+                        <div class="col-md-11 col-xs-11">
+                            <div class="form-group col-md-4 col-sm-4 col-xs-12">
+                                <div class="col-xs-12">
+                                    <label class="control-label ">Building</label>
+                                    <select class="form-control Fieldfocus" data-bind="options: Buildings, optionsText: 'Name' ,optionsValue: 'Id', value: BuildingId, optionsCaption: '-- Select Building --',event:{ change: GetGates.bind()()}"></select>
                                 </div>
+                            </div>
+                            <div class="form-group col-md-4 col-sm-4 col-xs-12">
+                                <div class="col-xs-12">
+                                    <label class="control-label ">Gate</label>
+                                    <select class="form-control Fieldfocus" data-bind="options: Gates, optionsText: 'Name' ,optionsValue: 'Id', value: GateId, optionsCaption: '-- Select Gate --',event:{ change: GetUsers()}"></select>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4 col-sm-4 col-xs-12">
+                                <div class="col-xs-12">
+                                    <label class="control-label ">Shift Date</label>
+                                    <input id="txtShiftDate" type="text" class="form-control Fieldfocus" placeholder="dd/mm/yyyy" />
+                                </div>
+                            </div>
+                            </div>
+                        <div class="col-md-1 col-xs-1 ">
+                            <div class="form-group col-md-1 col-sm-1 col-xs-12" style="margin-top: 5px; margin-left: -30px">
+                                <div class="col-xs-12">
+                                    <label class="control-label " style="visibility:hidden">Search</label>
+                                    <button type="submit" class="btn btn-success" data-bind="click: GeShiftsData.bind()">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    <div class="col-md-5 col-xs-5">
+                        <div class="form-group col-md-12 col-sm-12 col-xs-12 " style="">
+
+                            <div class="col-xs-12" style="margin-top: 21px;">
+
+                                <div class=" timelines" id="">
+
+                                <div id="tls_day" title="Day" data-bind="click: DayClick.bind()">Day</div>
+                                <div id="tls_week" title="Week" class="selected" data-bind="click: WeekClick.bind()">Week</div>
+                                <div id="tls_twoweek" title="Two Weeks" data-bind="click: TwoWeekClick.bind()">2 Week</div>
+                                <div id="tls_month" title="Month" class="last" data-bind="click: FourWeekClick.bind()">1 Month</div>
+                                <div data-bind="click: PrevClick.bind()">&lt;</div>
+                                <div id="tls_today" title="Today" data-bind="click: TodayClick.bind()">Today</div>
+                                <div style="margin-right: -1px;" data-bind="click: NextClick.bind()">&gt;</div>
+                            </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div id="_s_chart" class="hide" style="width: calc(100% - 190px); height: 65px; margin-left: 190px; display: none;"></div>
-                <div class="date">
-                    <table class="timeline" id="tweek" style="display: table; overflow:scroll; overflow-x:scroll;  ">
-                        <tbody>
-                            <tr>
-                                <!-- ko if: self.Header().length > 0 -->
-                                <td class="daterange jump" id="_wdr" title="Sep 4, 2016" data-bind="text: Header().ShiftMainDates"></td>
-                                <td class="shiftname jump" id="_wdr">Shift Name</td>
-                                <!-- ko foreach: Header().ListAllDates -->
-                                <td class="jump" id="wtl1" title="Sep 4, 2016" data-bind="text: $data"></td>
-                                <!-- /ko -->
-                                <!-- /ko -->
-                                <!-- ko if: self.Header().length == 0 -->
-                                <td class="shiftname jump" id="_wdr">Shifts</td>
-                                <!-- /ko -->
-                            </tr>
-
-                        </tbody>
-                    </table>
-                </div>
             </div>
-            <div id="scheduler" class="emp_view" style="margin-right: 0px; height: 402px;">
-                <table id="weeklist" class="weeklist tbl">
+            <div id="_s_chart" class="hide" style="width: calc(100% - 190px); height: 65px; margin-left: 190px; display: none;"></div>
+            <div class="date">
+                <table class="timeline" id="tweek" style="display: table; overflow:scroll; overflow-x:scroll;  ">
                     <tbody>
-                        <!-- ko if: self.Body().length > 0 -->
-                        <!-- ko foreach: self.Body() -->
                         <tr>
-                            <td class="wemp" id="e_2893422">
-                                <div class="udrag ui-draggable" alt="2893422">
-                                    <!-- ko if: $data.UserProfilePicPath != null  -->
-                                    <img data-bind="attr: { src : $data.UserProfilePicPath }" class="usr tti"><span class="jump" data-bind="text: Securityname"></span>
-                                    <!-- /ko -->
-                                    <!-- ko if: $data.UserProfilePicPath == null  -->
-                                    <img src="/images/avatar.jpg" class="usr tti"><span class="jump" data-bind="text: Securityname"></span>
-                                    <!-- /ko -->
-                                </div>
-                            </td>
-                            <td class="shiftNameCol" id="w_2893422_Sep_4__2016">
-                                <table class="weeklist tbl">
-                                    <tbody data-bind="foreach:$data.Shifts">
-                                        <tr>
-                                            <td class="shiftCell" id="1" data-bind="text: $data"></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </td>
-                            <td class="day wk dcol0">
-                                <table class="weeklist tbl">
-                                    <tbody data-bind="foreach:$data.ShiftDetails_Shift">
-                                        <tr>
-                                            <!-- ko foreach: $data.ShiftsAssignedCells -->
+                            <!-- ko if: self.Header().length > 0 -->
+                            <td class="daterange jump" id="_wdr" title="Sep 4, 2016" data-bind="text: Header().ShiftMainDates"></td>
+                            <td class="shiftname jump" id="_wdr">Shift Name</td>
+                            <!-- ko foreach: Header().ListAllDates -->
+                            <td class="jump" id="wtl1" title="Sep 4, 2016" data-bind="text: $data"></td>
+                            <!-- /ko -->
+                            <!-- /ko -->
+                            <!-- ko if: self.Header().length == 0 -->
+                            <td class="shiftname jump" id="_wdr">Shifts</td>
+                            <!-- /ko -->
+                        </tr>
 
-                                            <td class="shiftCell" data-bind="attr:{id: 'shiftCell_'+$data.Id}, click: ChangeShiftAssignment.bind($data)">
-                                                <!-- ko if: $data.IsAssigned == true -->
-                                                <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
-                                                <!-- /ko -->
-                                            </td>
-                                            <!-- /ko -->
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </td>
-                        </tr>
-                        <!-- /ko -->
-                        <!-- /ko -->
-                        <!-- ko if: self.Body().length == 0 -->
-                        <tr>
-                            <td class="jump" id="wtl1" data-bind="attr: { colspan : Header().length }"
-                                style="text-align:center; ">
-                                No Shift Available. Please apply filter and try again.
-                            </td>
-                        </tr>
-                        <!-- /ko -->
                     </tbody>
                 </table>
             </div>
         </div>
+        <div id="scheduler" class="emp_view" style="margin-right: 0px; height: 402px;">
+            <table id="weeklist" class="weeklist tbl">
+                <tbody>
+                    <!-- ko if: self.Body().length > 0 -->
+                    <!-- ko foreach: self.Body() -->
+                    <tr>
+                        <td class="wemp" id="e_2893422">
+                            <div class="udrag ui-draggable" alt="2893422">
+                                <!-- ko if: $data.UserProfilePicPath != null  -->
+                                <img data-bind="attr: { src : $data.UserProfilePicPath }" class="usr tti"><span class="jump" data-bind="text: Securityname"></span>
+                                <!-- /ko -->
+                                <!-- ko if: $data.UserProfilePicPath == null  -->
+                                <img src="/images/avatar.jpg" class="usr tti"><span class="jump" data-bind="text: Securityname"></span>
+                                <!-- /ko -->
+                            </div>
+                        </td>
+                        <td class="shiftNameCol" id="w_2893422_Sep_4__2016">
+                            <table class="weeklist tbl">
+                                <tbody data-bind="foreach:$data.Shifts">
+                                    <tr>
+                                        <td class="shiftCell" id="1" data-bind="text: $data"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td class="day wk dcol0">
+                            <table class="weeklist tbl">
+                                <tbody data-bind="foreach:$data.ShiftDetails_Shift">
+                                    <tr>
+                                        <!-- ko foreach: $data.ShiftsAssignedCells -->
+
+                                        <td class="shiftCell" data-bind="attr:{id: 'shiftCell_'+$data.Id}, click: ChangeShiftAssignment.bind($data)">
+                                            <!-- ko if: $data.IsAssigned == true -->
+                                            <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>
+                                            <!-- /ko -->
+                                        </td>
+                                        <!-- /ko -->
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <!-- /ko -->
+                    <!-- /ko -->
+                    <!-- ko if: self.Body().length == 0 -->
+                    <tr>
+                        <td class="jump" id="wtl1" data-bind="attr: { colspan : Header().length }"
+                            style="text-align:center; ">
+                            No Shift Available. Please apply filter and try again.
+                        </td>
+                    </tr>
+                    <!-- /ko -->
+                </tbody>
+            </table>
+        </div>
     </div>
+</div>
