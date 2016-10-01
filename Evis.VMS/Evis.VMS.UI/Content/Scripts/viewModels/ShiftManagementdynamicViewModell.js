@@ -1,8 +1,7 @@
 ﻿var glbData1 = [];
 var glbData2Unique = [];
-
 var todayDate = GetTodayDate();
-
+var shiftAssinedLst = [];
 
 function ShiftManagementdynamicViewModell() {
     var self = this;
@@ -13,9 +12,61 @@ function ShiftManagementdynamicViewModell() {
     self.BuildingId = ko.observable(-1);
     self.GateId = ko.observable(-1);
     self.NoOfDays = ko.observable(7);
+    shiftAssinedLst = [];
 
     //GetShiftDetails(todayDate);
 
+    self.ChangeShiftAssignment = function (data) {
+        var checked = true;
+        var isExist = false;
+
+        for (var i = 0; i < shiftAssinedLst.length; i++) {
+            if (shiftAssinedLst[i].Id == data.Id) {
+                {
+                    isExist = true;
+                    shiftAssinedLst.splice(i, 1);
+                }
+            }
+        }
+
+        if ($('#shiftCell_' + data.Id).html().indexOf('fa-check-unique') != -1) {
+            $('#shiftCell_' + data.Id).html('');
+            checked = false;
+        }
+        else {
+            checked = true;
+            $('#shiftCell_' + data.Id).html(' <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>')
+        }
+
+        if (!isExist) {
+            var shiftAssinedObj = new Object();
+            shiftAssinedObj.Id = data.Id;
+            shiftAssinedObj.ShiftId = data.ShiftId;
+            shiftAssinedObj.IsAssigned = checked;
+            shiftAssinedObj.ShiftDate = data.ShiftDate;
+            shiftAssinedObj.ShiftName = data.ShiftName;
+            shiftAssinedObj.UserId = data.UserId;
+            shiftAssinedObj.GateId = data.GateId;
+            shiftAssinedLst.push(shiftAssinedObj);
+        }
+        //debugger;
+        //console.log('click..' + data.Id + '  ' + data.IsAssigned + '  ' + data.ShiftDate + '  ' + data.ShiftName + '  ' + data.UserId);
+    }
+
+    self.ApplyChanges = function (data) {
+        //shiftAssinedLst
+        AjaxCall('/Api/ShiftAssignment/ApplyShiftAssignmentChanges', shiftAssinedLst, 'POST', function (data) {
+            //debugger;
+            shiftAssinedLst = [];
+            if (data.Success) {
+                toastr.success('Shift changed successfully!!')
+            }
+        });
+    }
+
+    self.ResetChanges = function (data) {
+        ApplyCustomBinding('shiftmanagementdynamic');
+    }
 
     self.GeShiftsData = function () {
         GetShiftDetails(todayDate);
@@ -38,20 +89,6 @@ function ShiftManagementdynamicViewModell() {
     self.GetUsers = function () {
     }
 
-    self.ChangeShift = function () {
-        if (gblTableId != '' && gblTableId != undefined) {
-            if ($('#' + gblTableId).html().indexOf('fa-check-unique') != -1) {
-                $('#' + gblTableId).html('');
-            }
-            else {
-                $('#' + gblTableId).html(' <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>')
-            }
-
-            $('#myModal').modal('hide');
-            toastr.success('Shift changed successfully!!');
-        }
-
-    }
 
 
     self.DayClick = function () {
