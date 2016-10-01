@@ -30,7 +30,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
     public partial class AdministrationController
     {
 
-        IQueryable<ShiftAssignmentVM> LSTShiftAssignmentVM;
+        IList<ShiftAssignmentVM> LSTShiftAssignmentVM;
         [Route("~/Api/ShiftAssignment/GetAllGates")]
         [HttpGet]
         public IEnumerable<GeneralDropDownVM> GetAllGates(int BuildingId)
@@ -99,10 +99,13 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         [HttpPost]
         public async Task<string> GetAllShiftAssignment(string globalSearch, int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC")
         {
+            IList<ShiftAssignmentVM> LSTShiftAssignmentVMTemp = null;
+            LSTShiftAssignmentVM = new List<ShiftAssignmentVM>();
+
             var user = (await _userService.GetAllAsync()).Where(x => x.Id == HttpContext.Current.User.Identity.GetUserId() && x.IsActive == true).FirstOrDefault();
             if (user == null)
             {
-                LSTShiftAssignmentVM = _genericService.ShitfAssignment.GetAll().Where(x => x.IsActive == true).ToList()
+                LSTShiftAssignmentVMTemp = _genericService.ShitfAssignment.GetAll().Where(x => x.IsActive == true).ToList()
                         .Select(x => new ShiftAssignmentVM
                         {
                             BuildingId = x.BuildingId,
@@ -120,7 +123,17 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                             Id = x.Id,
                             City = (x.BuildingMaster.CityId == null) ? x.BuildingMaster.OtherCity : x.BuildingMaster.CityMaster.LookUpValue,
                             OtherCity = x.BuildingMaster.OtherCity
-                        }).AsQueryable();
+                        }).ToList();
+
+                LSTShiftAssignmentVMTemp.ToList().ForEach(item =>
+                {
+                    var shiftDetails = _genericService.ShiftDetails.GetAll().FirstOrDefault(item_db => item_db.ShiftID == item.ShitfId && item_db.SecurityID == item.UserId && item_db.IsActive);
+
+                    if (shiftDetails != null)
+                    {
+                        LSTShiftAssignmentVM.Add(item);
+                    }
+                });
 
             }
             else
@@ -129,7 +142,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 if (orgId != null)
                 {
                     //var data = _genericService.BuildingMaster.GetAll().Where(x => x.OrganizationId == orgId).FirstOrDefault();
-                    LSTShiftAssignmentVM = _genericService.ShitfAssignment.GetAll().Where(x => x.IsActive == true && x.BuildingMaster.OrganizationId == orgId).ToList()
+                    LSTShiftAssignmentVMTemp = _genericService.ShitfAssignment.GetAll().Where(x => x.IsActive == true && x.BuildingMaster.OrganizationId == orgId).ToList()
                             .Select(x => new ShiftAssignmentVM
                             {
                                 BuildingId = x.BuildingId,
@@ -146,7 +159,17 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                                 strToDate = x.ToDate.ToString("dd/MM/yyyy"),
                                 Id = x.Id,
                                 City = x.BuildingMaster.CityMaster.LookUpValue
-                            }).AsQueryable();
+                            }).ToList();
+
+                    LSTShiftAssignmentVMTemp.ToList().ForEach(item =>
+                    {
+                        var shiftDetails = _genericService.ShiftDetails.GetAll().FirstOrDefault(item_db => item_db.ShiftID == item.ShitfId && item_db.SecurityID == item.UserId && item_db.IsActive);
+
+                        if (shiftDetails != null)
+                        {
+                            LSTShiftAssignmentVM.Add(item);
+                        }
+                    });
                 }
             }
             if (LSTShiftAssignmentVM.Count() > 0)
@@ -158,7 +181,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                         item.BuildingName.ToLower().Contains(globalSearch.ToLower()) ||
                          item.GateName.ToLower().Contains(globalSearch.ToLower()) ||
                         item.ShiftName.ToLower().Contains(globalSearch.ToLower())
-                        ).AsQueryable();
+                        ).ToList();
                 }
                 if (string.IsNullOrEmpty(sortField))
                 {
@@ -174,7 +197,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
                 int totalCount = 0;
                 IList<ShiftAssignmentVM> result =
-                   GenericSorterPager.GetSortedPagedList<ShiftAssignmentVM>(LSTShiftAssignmentVM, paginationRequest, out totalCount);
+                   GenericSorterPager.GetSortedPagedList<ShiftAssignmentVM>(LSTShiftAssignmentVM.AsQueryable(), paginationRequest, out totalCount);
 
                 var jsonData = JsonConvert.SerializeObject(result.OrderByDescending(x => x.Id));
                 return JsonConvert.SerializeObject(new { totalRows = totalCount, result = jsonData });
@@ -200,16 +223,12 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     || x.ToDate >= ShitfAssignment.FromDate
                     && x.ToDate <= ShitfAssignment.ToDate
                     || x.FromDate <= ShitfAssignment.ToDate
-                    && x.ToDate >= ShitfAssignment.FromDate) && (x.UserId == ShitfAssignment.UserId) && (x.ShitfId == ShitfAssignment.ShitfId)).ToList();
+                    && x.ToDate >= ShitfAssignment.FromDate) && (x.UserId == ShitfAssignment.UserId) && x.IsActive && (x.ShitfId == ShitfAssignment.ShitfId)).AsQueryable();
+
                 if (data.Count() == 0)
                 {
                     ShitfAssignment obj = new Data.Model.Entities.ShitfAssignment();
                     ShiftDetails _shiftDetails = null;
-                    //ShitfAssignment.IsActive = true;
-                    //var ToDate = ShitfAssignment.ToDate.ToShortDateString();
-                    //ShitfAssignment.ToDate = Convert.ToDateTime(ToDate);
-                    //var FromDate = ShitfAssignment.FromDate.ToShortDateString();
-                    //ShitfAssignment.FromDate = Convert.ToDateTime(FromDate);
 
                     obj.ShitfId = ShitfAssignment.ShitfId;
                     obj.UserId = ShitfAssignment.UserId;
@@ -237,19 +256,6 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
                     _genericService.Commit();
 
-                    //var currentDate = new DateTime();
-                    //for (int i = 0; i < (ShitfAssignment.ToDate.Date - ShitfAssignment.FromDate.Date).TotalDays; i++)
-                    //{
-                    //    currentDate = ShitfAssignment.FromDate.Date;
-
-
-                    //    ShiftDetails.ShiftID = ShitfAssignment.ShitfId;
-                    //    ShiftDetails.SecurityID = ShitfAssignment.UserId;
-                    //    ShiftDetails.ShiftDate = currentDate;
-                    //    ShiftDetails.GateID = ShitfAssignment.GateId;
-                    //    currentDate.AddDays(1);
-                    //    _genericService.ShiftDetails.Insert(ShiftDetails);
-                    //}
 
                     Message = "Shift saved successfully!!";
                     success = true;
@@ -276,19 +282,9 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     && y.ToDate <= ShitfAssignment.ToDate
                     || y.FromDate <= ShitfAssignment.ToDate
                     && y.ToDate >= ShitfAssignment.FromDate)
-                    && (y.UserId == ShitfAssignment.UserId) && (y.ShitfId == ShitfAssignment.ShitfId)
-                    ).ToList();
-                    //existingShift.FromDate = Convert.ToDateTime(ShitfAssignment.strFromDate);
-                    //existingShift.ToDate = Convert.ToDateTime(ShitfAssignment.strToDate);
-                    //var data = _genericService.ShitfAssignment.GetAll().Where(x => x.Id != ShitfAssignment.Id && x.FromDate >= existingShift.FromDate
-
-                    //&& x.ToDate <= existingShift.ToDate
-                    //|| x.FromDate >= existingShift.FromDate
-                    //&& x.FromDate <= existingShift.ToDate
-                    //|| x.ToDate >= existingShift.FromDate
-                    //&& x.ToDate <= existingShift.ToDate
-                    //|| x.FromDate <= existingShift.ToDate
-                    //&& x.ToDate >= existingShift.FromDate).ToList();
+                    && (y.UserId == ShitfAssignment.UserId) && (y.ShitfId == ShitfAssignment.ShitfId) && y.IsActive
+                    ).AsQueryable();
+                   
                     if (result.Count() == 0)
                     {
 
@@ -323,11 +319,21 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         {
             if (ShitfAssignment != null)
             {
-                var Delete = _genericService.ShitfAssignment.GetAll().Where(x => x.Id == ShitfAssignment.Id).FirstOrDefault();
-                if (Delete != null)
+                var updateShiftAssignment = _genericService.ShitfAssignment.GetAll().Where(x => x.Id == ShitfAssignment.Id).FirstOrDefault();
+                if (updateShiftAssignment != null)
                 {
-                    Delete.IsActive = false;
-                    _genericService.ShitfAssignment.Delete(Delete);
+                    updateShiftAssignment.IsActive = false;
+                    _genericService.ShitfAssignment.Update(updateShiftAssignment);
+
+                    var shiftDetails = _genericService.ShiftDetails.GetAll().Where(item_db => item_db.ShiftID == updateShiftAssignment.ShitfId);
+
+                    foreach (var shiftDetail in shiftDetails)
+                    {
+                        shiftDetail.IsActive = false;
+                        _genericService.ShiftDetails.Update(shiftDetail);
+                    }
+
+
                     _genericService.Commit();
                     return new ReturnResult { Message = "Success", Success = true };
                 }
