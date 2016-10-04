@@ -164,7 +164,9 @@ namespace Evis.VMS.Data.Migrations
                 LockoutEnabled = false,
                 AccessFailedCount = 0,
                 SecurityStamp = System.Guid.NewGuid().ToString(),
-                ThemeName = "theme1"
+                ThemeName = "theme1",
+                ProfilePicturePath = null,
+                IsImageAvailable = false
             };
 
             var passwordHash = new Microsoft.AspNet.Identity.PasswordHasher();
