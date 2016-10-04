@@ -56,15 +56,18 @@ function ShiftManagementdynamicViewModell() {
     self.ApplyChanges = function (data) {
         //shiftAssinedLst
         if (shiftAssinedLst.length > 0) {
+            ShowLoader();
             AjaxCall('/Api/ShiftAssignment/ApplyShiftAssignmentChanges', shiftAssinedLst, 'POST', function (data) {
                 //debugger;
                 shiftAssinedLst = [];
                 if (data.Success) {
                     toastr.success('Shift changed successfully!!');
+                    HideLoader();
                 }
             });
         }
         else {
+            HideLoader();
             toastr.warning('No data available to save.');
         }
         

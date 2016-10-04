@@ -28,11 +28,10 @@
                             <label></label>
                         </div>
                     </div>
-                    <div class="form-group col-md-5 col-sm-5 col-xs-12 pull-right" style="margin-top:13px; margin-bottom:-19px;">
-                        <div class="col-xs-12">
+                    <div class="form-group col-md-5 col-sm-5 col-xs-12 " style="margin-top:13px; margin-bottom:-19px;">
+                        
                             <button class="btn btn-primary pull-right" alt="Click here to reset the changes" data-bind="click: ResetChanges.bind($data)">Reset</button>
                             <button class="btn btn-success pull-right" alt="Click here to apply shift changes" data-bind="click: ApplyChanges.bind($data)">Apply</button>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -84,9 +83,10 @@
                                                 <div id="tls_week" title="Week" class="selected" data-bind="click: WeekClick.bind()">Week</div>
                                                 <div id="tls_twoweek" title="Two Weeks" data-bind="click: TwoWeekClick.bind()">2 Week</div>
                                                 <div id="tls_month" title="Month" class="last" data-bind="click: FourWeekClick.bind()">1 Month</div>
-                                                <div data-bind="click: PrevClick.bind()">&lt;</div>
-                                                <div id="tls_today" title="Today" data-bind="click: TodayClick.bind()">Today</div>
-                                                <div style="margin-right: -1px;" data-bind="click: NextClick.bind()">&gt;</div>
+                                                @*<div data-bind="click: PrevClick.bind()">&lt;</div>*@
+                                                @*<div id="tls_today" title="Today" data-bind="click: TodayClick.bind()">Today</div>*@
+                                                @*<div style="margin-right: -1px;" data-bind="click: NextClick.bind()">&gt;</div>*@
+                                              
                                             </div>
                                         </div>
                                     </div>
@@ -96,17 +96,18 @@
                     </div>
                 </div>
             </div>
-            <div id="_s_chart" class="hide" style="width: calc(100% - 190px); height: 65px; margin-left: 190px; display: none;"></div>
+            @*<div id="_s_chart" class="hide" style="width: calc(100% - 190px); height: 65px; margin-left: 190px; display: none;"></div>*@
             <div class="date">
-                <table class="timeline" id="tweek" style="display: table; overflow:scroll; overflow-x:scroll;  ">
+                <table class="timeline tbl" id="tweek" style="display: table; overflow:scroll; overflow-x:scroll;  ">
                     <tbody>
                         <tr>
-                            <td class="daterange jump" id="_wdr" title="Sep 4, 2016" data-bind="text: Header().ShiftMainDates">Shift Date</td>
-                            <td class="shiftname jump" id="_wdr">Shift Name</td>
+
+                            <td class="daterange" id="_wdr" title="Sep 4, 2016" data-bind="text: (Header().ShiftMainDates == '' || Header().ShiftMainDates == undefined  ? 'Shift Date':Header().ShiftMainDates)"></td>
+                            <td class="shiftname" id="_wdr">Shift Name</td>
                             <!-- ko foreach: Header().ListAllDates -->
-                            <td class="jump" id="wtl1" title="Sep 4, 2016" data-bind="text: $data"></td>
+                            <td class="shiftCell" id="wtl1" title="Sep 4, 2016" data-bind="text: $data"></td>
                             <!-- /ko -->
-                           
+
                         </tr>
                     </tbody>
                 </table>
@@ -142,7 +143,6 @@
                                 <tbody data-bind="foreach:$data.ShiftDetails_Shift">
                                     <tr>
                                         <!-- ko foreach: $data.ShiftsAssignedCells -->
-
                                         <td class="shiftCell" data-bind="attr:{id: 'shiftCell_'+$data.Id}, click: ChangeShiftAssignment.bind($data)">
                                             <!-- ko if: $data.IsAssigned == true -->
                                             <i class="fa fa-check fa-check-unique" aria-hidden="true"></i>

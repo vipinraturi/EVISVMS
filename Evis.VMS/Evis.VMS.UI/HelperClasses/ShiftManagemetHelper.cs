@@ -66,6 +66,15 @@ namespace Evis.VMS.UI.HelperClasses
             return result;
         }
 
+        private string GetShiftName(string shiftName)
+        {
+            if (shiftName.Length >= 10)
+            {
+                return shiftName.Substring(0, 8) + "..";
+            }
+            return shiftName;
+        }
+
         private List<ShiftDetails_Shift> GetShiftDetails_Shift(DateTime shiftDate, DateTime toDate, string userId, int gateId)
         {
             var lstShiftDetails = new List<ShiftDetails_Shift>();
@@ -125,7 +134,7 @@ namespace Evis.VMS.UI.HelperClasses
 
             _genericService.ShitfMaster.GetAll().ToList().ForEach(item =>
             {
-                shifts.Add(item.ShitfName + " (" + item.FromTime.ToString("h:mm tt") + "-" + item.ToTime.ToString("h:mm tt") + ")");
+                shifts.Add(GetShiftName(item.ShitfName) + " (" + item.FromTime.ToString("h:mm tt") + "-" + item.ToTime.ToString("h:mm tt") + ")");
             });
 
             return shifts;

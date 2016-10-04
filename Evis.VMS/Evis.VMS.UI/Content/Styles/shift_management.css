@@ -9570,7 +9570,7 @@ div.timelines {
 
 #ccanvas .date #tweek td {
     font-size: 12px !important;
-    border: 1px solid #d7d7d7;
+    /*border: 1px solid #d7d7d7;*/
 }
 
 #ccanvas .date #tday td div {

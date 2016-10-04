@@ -57,8 +57,6 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             int orgId = (user == null) ? 0 : (int)user.OrganizationId;
 
             IQueryable<GeneralDropDownVM> organizations;
-
-
             organizations = _genericService.Organization.GetAll()
                                 .Where(x => x.IsActive == true && (orgId == 0 || x.Id == orgId))
                                 .Select(x => new GeneralDropDownVM { Id = x.Id, Name = x.CompanyName });
@@ -99,16 +97,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 role = await _applicationRoleService.FindByIdAsync(user.Roles.FirstOrDefault().RoleId);
             }
 
-            IQueryable<ApplicationRole> getRoles;
-            if (role != null && role.Name == "Supervisor")
-            {
-                getRoles = (await _applicationRoleService.GetAllAsync()).Where(x => x.Name == "Security").AsQueryable();
-            }
-            else
-            {
-                getRoles = (await _applicationRoleService.GetAllAsync()).AsQueryable();
-            }
-
+            IQueryable<ApplicationRole> getRoles = (await _applicationRoleService.GetAllAsync()).AsQueryable();
             var temp = (from users in getUsers
                         join roles in getRoles on users.Roles.First().RoleId equals roles.Id
                         into new_roles
@@ -124,6 +113,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                             RoleId = roles.Id,
                             RoleName = roles.Name,
                             OrganizationId = users.OrganizationId,
+                            OrganizationName = users.Organization.CompanyName,
                             Nationality = users.Nationality,
                             ProfilePicturePath = users.ProfilePicturePath,
                             CreatedOn = users.CreatedOn,

@@ -50,7 +50,7 @@ namespace Evis.VMS.Data.Model.Entities
         [ForeignKey("OrganizationId")]
         public virtual Organization Organization { get; set; }
 
-        public virtual ApplicationRole ApplicationRole { get; set; }
+        //public virtual ApplicationRole ApplicationRole { get; set; }
 
         [ForeignKey("Nationality")]
         public virtual LookUpValues CountryMaster { get; set; }

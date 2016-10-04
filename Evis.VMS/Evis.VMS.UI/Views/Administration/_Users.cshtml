@@ -117,9 +117,10 @@
                             <tr>
                                 <th style="width: 1%">#</th>
                                 <th style="width: 20%"><a href="#" onclick="DataGrid.Sort('FullName')" class="FullName">Full Name</a> </th>
-                                <th style="width: 20%"><a href="#" onclick="DataGrid.Sort('EmailAddress')" class="EmailAddress">Email Address</a> </th>
-                                <th style="width: 20%"><a href="#" onclick="DataGrid.Sort('ContactNumber')" class="ContactNumber">Contact No</a></th>
-                                <th style="width: 25%"><a href="#" onclick="DataGrid.Sort('RoleName')" class="RoleName">Role Name</a></th>
+                                <th style="width: 15%"><a href="#" onclick="DataGrid.Sort('EmailAddress')" class="EmailAddress">Email Address</a> </th>
+                                <th style="width: 15%"><a href="#" onclick="DataGrid.Sort('ContactNumber')" class="ContactNumber">Contact No</a></th>
+                                <th style="width: 20%"><a href="#" onclick="DataGrid.Sort('RoleName')" class="RoleName">Role</a></th>
+                                <th style="width: 15%"><a href="#" onclick="DataGrid.Sort('OrganizationName')" class="OrganizationName">Organization</a></th>
                                 <th style="width: 14%"></th>
                             </tr>
                         </thead>
@@ -130,6 +131,7 @@
                                 <td data-bind="text: Email"></td>
                                 <td data-bind="text: ContactNumber"></td>
                                 <td data-bind="text: RoleName"></td>
+                                <td data-bind="text: OrganizationName"></td>
                                 <td>
                                     <a href="#" data-bind="click: EditUser.bind($data)" title="click here to view or edit record."><i class="fa fa-pencil"></i></a>
                                     <a href="#myModal" data-toggle="modal" data-bind="click: DeleteUser.bind($data)" title="click here to delete record."><i class="fa fa-trash-o"></i></a>
