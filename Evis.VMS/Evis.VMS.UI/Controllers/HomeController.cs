@@ -59,11 +59,14 @@ namespace Evis.VMS.UI.Controllers
                                     UserRole = roleType,
                                     ProfilePicPath = user.ProfilePicturePath,
                                     FullName = user.FullName,
-                                    IsImageAvailable = System.IO.File.Exists( Server.MapPath("\\") + "" + user.ProfilePicturePath.Replace("/", "\\"))
+                                    IsImageAvailable = System.IO.File.Exists( Server.MapPath("\\") + "" +(!string.IsNullOrEmpty(user.ProfilePicturePath)? user.ProfilePicturePath.Replace("/", "\\"):Server.MapPath("~/images/avatar.jpg")))
+
+                                    //user.ProfilePicturePath.Replace("/", "\\"))
                                 };
             Session["UserSession"] = userSessionData;
 
             return View();
+            // IsImageAvailable = System.IO.File.Exists( Server.MapPath("\\") + "" + user.ProfilePicturePath.Replace("/", "\\"))
         }
 
     }
