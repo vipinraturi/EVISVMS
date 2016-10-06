@@ -81,7 +81,8 @@ namespace Evis.VMS.UI.HelperClasses
                      UserName = x.ApplicationUser.FullName,
                      FromDate = x.ShiftDate,
                      ToDate = x.ShiftDate,
-                     OrganizationId = x.ApplicationUser.OrganizationId
+                     OrganizationId = x.ApplicationUser.OrganizationId,
+                     CompanyName=x.Gates.BuildingMaster.Organization.CompanyName
                  }).AsQueryable();
 
             return shiftQueryable;

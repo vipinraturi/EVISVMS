@@ -26,7 +26,7 @@
                 <Label>Company Name</Label>
                 <Value>=Parameters!CompanyName.Value</Value>
                 <Style>
-                  <FontSize>12pt</FontSize>
+                  <FontSize>14pt</FontSize>
                   <FontWeight>Bold</FontWeight>
                 </Style>
               </TextRun>
@@ -38,7 +38,7 @@
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
         <Top>0.32292in</Top>
-        <Left>1.2118in</Left>
+        <Left>2.00347in</Left>
         <Height>0.29167in</Height>
         <Width>3.19791in</Width>
         <ZIndex>1</ZIndex>
@@ -56,7 +56,7 @@
     <Height>2.48707cm</Height>
     <Style />
   </Body>
-  <Width>11.98561cm</Width>
+  <Width>14.84311cm</Width>
   <Page>
     <PageHeight>29.7cm</PageHeight>
     <PageWidth>21cm</PageWidth>

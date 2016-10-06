@@ -11,7 +11,7 @@
               <TextRun>
                 <Value>Visitors Details Report</Value>
                 <Style>
-                  <FontSize>12pt</FontSize>
+                  <FontSize>11pt</FontSize>
                   <FontWeight>Bold</FontWeight>
                 </Style>
               </TextRun>
@@ -639,7 +639,7 @@
         <Top>1.23834in</Top>
         <Left>0.10119in</Left>
         <Height>0.58334in</Height>
-        <Width>7.30821in</Width>
+        <Width>7.30819in</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
