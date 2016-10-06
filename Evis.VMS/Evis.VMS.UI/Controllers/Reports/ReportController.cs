@@ -1,4 +1,5 @@
-﻿using Evis.VMS.UI.HelperClasses;
+﻿using Evis.VMS.Business;
+using Evis.VMS.UI.HelperClasses;
 using Evis.VMS.UI.ViewModel;
 using Microsoft.Reporting.WebForms;
 using System;
@@ -13,11 +14,13 @@ namespace Evis.VMS.UI.Controllers
     {
         public readonly VisitorDetailsReportHelper _visitorDetailsReportHelper = null;
         public readonly ShiftDetailsReportHelper _ShiftDetailsReportHelper = null;
+        private readonly UserService _userService = null;
 
         public ReportController()
         {
             _visitorDetailsReportHelper = new VisitorDetailsReportHelper();
             _ShiftDetailsReportHelper = new ShiftDetailsReportHelper();
+            _userService = new UserService();
         }
 
         private string GetReportPath()

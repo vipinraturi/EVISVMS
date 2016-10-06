@@ -27,15 +27,6 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 {
     public partial class ReportController
     {
-        //public readonly VisitorDetailsReportHelper _visitorDetailsReportHelper = null;
-        //public readonly UserService _userService = null;
-
-        //public ReportController()
-        //{
-        //    _visitorDetailsReportHelper = new VisitorDetailsReportHelper();
-        //    _userService = new UserService();
-        //}
-
         [Route("~/Api/VisitorsDetails/GetVisitorsDetails")]
         [HttpPost]
         public string GetVisitorData(string search, int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC", string globalSearch = "")

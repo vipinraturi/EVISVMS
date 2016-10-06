@@ -53,7 +53,7 @@
             AjaxCall('/Api/ShiftAssignment/GetAllGates?BuildingId=' + self.BuildingId(), null, 'GET', function (data) {
                 self.Gates(new Object());
                 self.Gates(data);
-                self.GateId(Id);
+                //self.GateId(Id);
 
             });
         }
@@ -62,7 +62,7 @@
             AjaxCall('/Api/Report/GetGates?id=' + self.organisationId, null, 'GET', function (data) {
                 self.Gates(new Object());
                 self.Gates(data);
-                self.GateId(GateId);
+                //self.GateId(GateId);
             });
         }
     }

@@ -27,8 +27,6 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 {
     public partial class ReportController
     {
-
-
         [Route("~/Api/Report/Getorganisation")]
         [HttpGet]
         public async Task<ApplicationUser> GetOrganisation()
@@ -84,11 +82,13 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         [HttpGet]
         public async Task<IEnumerable<DropDownVM>> GetUsers()
         {
+            var user = (await _userService.GetAllAsync())
+                        .Where(x => x.Id == System.Web.HttpContext.Current.User.Identity.GetUserId() && x.IsActive == true)
+                        .FirstOrDefault();
 
-            var user = (await _userService.GetAllAsync()).FirstOrDefault();
-
-            var getUsers = (await _userService.GetAllAsync()).Where(x => x.Organization.IsActive == true &&
-                           (user == null || (user != null && x.OrganizationId == user.OrganizationId))).AsQueryable();
+            var getUsers = (await _userService.GetAllAsync()).Where(x => x.Organization.IsActive &&
+                           (user == null || (user != null && x.OrganizationId == user.OrganizationId)))
+                           .AsQueryable();
 
             var getRoles = (await _applicationRoleService.GetAllAsync()).AsQueryable();
             var result = (from users in getUsers
@@ -106,10 +106,6 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         [HttpGet]
         public IEnumerable<GeneralDropDownVM> GetShifts()
         {
-
-            //var result = _genericService.ShitfMaster.GetAll().Where(x => x.IsActive == true)
-            // .Select(y => new GeneralDropDownVM { Id = y.Id, Name = y.ShitfName });
-            //return result;
             var result = _genericService.ShitfMaster.GetAll().Where(x => x.IsActive == true).AsEnumerable()
                .Select(y => new GeneralDropDownVM { Id = y.Id, Name = y.ShitfName + " (" + y.FromTime.ToString("hh:mm tt") + " - " + y.ToTime.ToString("hh:mm tt") + ")" });
             return result;
@@ -135,11 +131,5 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             //.OrderBy(x => x.FromDate)
             return JsonConvert.SerializeObject(new { totalRows = totalCount, result = jsonData });
         }
-
-
-
     }
-
-
-
 }

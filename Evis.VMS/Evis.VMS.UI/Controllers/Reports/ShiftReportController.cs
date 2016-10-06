@@ -23,15 +23,12 @@ using System.Net.Http;
 
 namespace Evis.VMS.UI.Controllers
 {
-    public partial class ReportController : Controller
+    public partial class ReportController 
     {
-        private readonly UserService _userService = null;
-
         public ActionResult _ShiftDetailsReport()
         {
             return View();
         }
-
 
         public async Task<ActionResult> ShiftReportExcelDownload(string searchData)
         {
