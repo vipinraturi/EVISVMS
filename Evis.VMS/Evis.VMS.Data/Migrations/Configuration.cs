@@ -152,9 +152,9 @@ namespace Evis.VMS.Data.Migrations
             var newSystemAdminUser = new ApplicationUser
             {
                 FullName = "Super Admin",
-                Email = "superadmin@evisuae.com",
+                Email = "superadmin@ceenexglobal.com",
                 PhoneNumber = "1234567890",
-                UserName = "superadmin@evisuae.com",
+                UserName = "superadmin@ceenexglobal.com",
                 GenderId = 1,
                 Nationality = 3,
                 IsActive = true,
