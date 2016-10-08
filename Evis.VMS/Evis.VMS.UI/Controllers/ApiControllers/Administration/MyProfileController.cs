@@ -69,8 +69,16 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
 
             if (currentUser != null)
             {
-                var filePath = HttpContext.Current.Server.MapPath("\\") + "" + currentUser.ProfilePicturePath.Replace("/", "\\");
-                currentUser.IsImageAvailable = System.IO.File.Exists(filePath);      
+                try
+                {
+                    //var filePath = HttpContext.Current.Server.MapPath("\\") + "" + currentUser.ProfilePicturePath.Replace("/", "\\");
+
+                    var filePath = HttpContext.Current.Server.MapPath("\\") + "" +(!string.IsNullOrEmpty(currentUser.ProfilePicturePath) ? currentUser.ProfilePicturePath.Replace("/", "\\") : HttpContext.Current.Server.MapPath("~/images/avatar.jpg"));
+
+                    currentUser.IsImageAvailable = System.IO.File.Exists(filePath);
+                }
+                catch (Exception e)
+                { }
             }
 
             return currentUser;
