@@ -155,9 +155,10 @@
 
     var editUser = new Object();
     self.EditUser = function (tableItem) {
+        debugger;
         if (tableItem != undefined) {
             editUser = tableItem;
-            $('#viewImageUnique').show();
+           // $('#viewImageUnique').show();
             self.UserId(tableItem.UserId);
             self.OrganizationId(tableItem.OrganizationId);
             self.FullName(tableItem.FullName);
@@ -171,6 +172,7 @@
             $('.dz-image-preview').empty();
 
             if (tableItem.IsImageAvailable) {
+                $('#viewImageUnique').show();
                 if (tableItem.ProfilePicturePath != undefined && tableItem.ProfilePicturePath != "") {
                     //debugger;
                     var imagePath = tableItem.ProfilePicturePath;

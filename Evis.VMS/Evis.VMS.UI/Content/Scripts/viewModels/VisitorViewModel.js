@@ -318,8 +318,10 @@
     }
 
     self.LoadIdentityImage = function (identityImages) {
-
-
+        debugger;
+        if (identityImages != "")
+            {
+            $("#viewimageunique").show();
         $('#dropzoneForm .dz-image-preview').remove();
         var MultipleImagePath = [];
 
@@ -356,6 +358,10 @@
                 $("#dropzoneForm .dz-progress").remove();
             });
         }
+
+
+        }
+      
     }
 
     self.ViewVisitorImage = function () {
