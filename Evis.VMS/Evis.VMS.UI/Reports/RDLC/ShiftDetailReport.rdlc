@@ -9,19 +9,16 @@
               <Width>0.99805in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.92515in</Width>
+              <Width>0.99807in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.88346in</Width>
+              <Width>1.01888in</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>1.37305in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.88346in</Width>
-            </TablixColumn>
-            <TablixColumn>
-              <Width>0.88346in</Width>
+              <Width>1.47528in</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -181,7 +178,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>From Date</Value>
+                              <Value>Assigned Date</Value>
                               <Style>
                                 <FontStyle>Normal</FontStyle>
                                 <FontSize>9pt</FontSize>
@@ -195,42 +192,6 @@
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox9</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Color>LightGrey</Color>
-                          <Style>Solid</Style>
-                        </Border>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="Textbox11">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>To Date</Value>
-                              <Style>
-                                <FontStyle>Normal</FontStyle>
-                                <FontSize>9pt</FontSize>
-                                <FontWeight>Bold</FontWeight>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                          <Style>
-                            <TextAlign>Center</TextAlign>
-                          </Style>
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>Textbox11</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -419,47 +380,12 @@
                     </Textbox>
                   </CellContents>
                 </TablixCell>
-                <TablixCell>
-                  <CellContents>
-                    <Textbox Name="ToDate">
-                      <CanGrow>true</CanGrow>
-                      <KeepTogether>true</KeepTogether>
-                      <Paragraphs>
-                        <Paragraph>
-                          <TextRuns>
-                            <TextRun>
-                              <Value>=Fields!ToDate.Value</Value>
-                              <Style>
-                                <FontStyle>Normal</FontStyle>
-                                <FontSize>9pt</FontSize>
-                                <FontWeight>Normal</FontWeight>
-                              </Style>
-                            </TextRun>
-                          </TextRuns>
-                          <Style />
-                        </Paragraph>
-                      </Paragraphs>
-                      <rd:DefaultName>ToDate</rd:DefaultName>
-                      <Style>
-                        <Border>
-                          <Color>LightGrey</Color>
-                          <Style>Solid</Style>
-                        </Border>
-                        <PaddingLeft>2pt</PaddingLeft>
-                        <PaddingRight>2pt</PaddingRight>
-                        <PaddingTop>2pt</PaddingTop>
-                        <PaddingBottom>2pt</PaddingBottom>
-                      </Style>
-                    </Textbox>
-                  </CellContents>
-                </TablixCell>
               </TablixCells>
             </TablixRow>
           </TablixRows>
         </TablixBody>
         <TablixColumnHierarchy>
           <TablixMembers>
-            <TablixMember />
             <TablixMember />
             <TablixMember />
             <TablixMember />
@@ -481,7 +407,7 @@
         <Top>0.67708in</Top>
         <Left>0.08335in</Left>
         <Height>0.46875in</Height>
-        <Width>5.94663in</Width>
+        <Width>5.86332in</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -512,7 +438,7 @@
         <Top>0.34375in</Top>
         <Left>0.14583in</Left>
         <Height>0.26388in</Height>
-        <Width>5.67584in</Width>
+        <Width>5.80084in</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
@@ -533,7 +459,7 @@
         </Parameters>
         <Left>0.14583in</Left>
         <Height>0.27431in</Height>
-        <Width>5.67584in</Width>
+        <Width>5.80084in</Width>
         <ZIndex>2</ZIndex>
         <Style>
           <Border>

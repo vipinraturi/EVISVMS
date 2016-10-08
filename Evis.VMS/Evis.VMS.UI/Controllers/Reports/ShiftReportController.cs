@@ -47,9 +47,9 @@ namespace Evis.VMS.UI.Controllers
                 TabledataRow.FullName = item.UserName;
                 TabledataRow.BuildingName = item.BuildingName;
                 TabledataRow.GateNumber = item.GateName;
-                TabledataRow.ShiftName = item.ShiftName;
-                TabledataRow.FromDate = item.FromDate.ToString();
-                TabledataRow.ToDate = item.ToDate.ToString();
+                TabledataRow.ShiftName = item.ShiftName + " (" + item.FromDate.ToString("hh:mm tt") + " - " + item.ToDate.ToString("hh:mm tt") + ")";
+                TabledataRow.FromDate = item.FromDate.ToString("dd/MM/yyyy"); 
+                //TabledataRow.ToDate = item.ToDate.ToString();
                 TabledataRow.CompanyName = item.CompanyName;
                 shiftDetailDataset.ShiftDetailDatatable.AddShiftDetailDatatableRow(TabledataRow);
             }
@@ -89,9 +89,9 @@ namespace Evis.VMS.UI.Controllers
                 TabledataRow.FullName = item.UserName;
                 TabledataRow.BuildingName = item.BuildingName;
                 TabledataRow.GateNumber = item.GateName;
-                TabledataRow.ShiftName = item.ShiftName;
+                TabledataRow.ShiftName = item.ShiftName + " (" + item.FromDate.ToString("hh:mm tt") + " - " + item.ToDate.ToString("hh:mm tt") + ")";
                 TabledataRow.FromDate = item.FromDate.ToString("dd/MM/yyyy");
-                TabledataRow.ToDate = item.ToDate.ToString("dd/MM/yyyy");
+                //TabledataRow.ToDate = item.ToDate.ToString("dd/MM/yyyy");
                 TabledataRow.CompanyName = item.CompanyName;
 
                 shiftDetailDataset.ShiftDetailDatatable.AddShiftDetailDatatableRow(TabledataRow);

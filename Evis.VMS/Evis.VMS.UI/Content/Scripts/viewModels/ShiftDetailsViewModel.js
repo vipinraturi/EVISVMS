@@ -87,6 +87,7 @@
         data.ToDate = $('#txtToDate').val();
 
         self.DataGrid.UpdateSearchParam('?search=' + JSON.stringify(data));
+     
         self.DataGrid.GetData();
     }
     self.ResetDetails = function () {
@@ -122,7 +123,7 @@
         data.SecurityId = self.SecurityId();
         data.ShiftName = self.ShiftId();
         data.FromDate = $('#txtFromDate').val();
-        data.ToDate = $('#txtFromDate').val();
+        data.ToDate = $('#txtToDate').val();
         window.open('../Report/ShiftReportExcelDownload?searchData=' + JSON.stringify(data), '_blankl');
     }
 

@@ -61,6 +61,24 @@ namespace Evis.VMS.UI.HelperClasses
 
         private IQueryable<ShiftAssignmentVM> GetShiftQueryable(int? orgId, SearchShiftReport searchDetails)
         {
+
+            if ((string.IsNullOrEmpty(searchDetails.FromDate)))
+            {
+                searchDetails.FromDate = null;
+
+            }
+            if ((string.IsNullOrEmpty(searchDetails.ToDate)))
+            {
+                searchDetails.ToDate = null;
+            }
+            DateTime fromdat = Convert.ToDateTime(searchDetails.FromDate);
+            DateTime Todat = Convert.ToDateTime(searchDetails.ToDate);
+            if (Todat.Date == DateTime.MinValue || Todat == null)
+            {
+                Todat = DateTime.MaxValue;
+            }
+
+
             IQueryable<ShiftAssignmentVM> shiftQueryable = _genericService.ShiftDetails.GetAll()
                 .Where(x => x.IsActive
                     && orgId != 0 ? x.ApplicationUser.OrganizationId == orgId : true
@@ -68,7 +86,11 @@ namespace Evis.VMS.UI.HelperClasses
                     && (searchDetails.GateId == 0 || searchDetails.GateId == x.GateID)
                     && (string.IsNullOrEmpty(searchDetails.SecurityId) || x.ApplicationUser.Id == searchDetails.SecurityId)
                     && (searchDetails.ShiftID == 0 || x.ShiftID == searchDetails.ShiftID)
+                   && ((fromdat == null) || fromdat <= x.ShiftDate)
+                  && ((Todat == null) || Todat >= x.ShiftDate)
                     )
+                //.GroupBy(x => x.ShiftID)
+
                  .Select(x => new ShiftAssignmentVM
                  {
                      BuildingId = x.Gates.BuildingId,
@@ -82,7 +104,8 @@ namespace Evis.VMS.UI.HelperClasses
                      FromDate = x.ShiftDate,
                      ToDate = x.ShiftDate,
                      OrganizationId = x.ApplicationUser.OrganizationId,
-                     CompanyName=x.Gates.BuildingMaster.Organization.CompanyName
+                     CompanyName = x.Gates.BuildingMaster.Organization.CompanyName
+
                  }).AsQueryable();
 
             return shiftQueryable;
