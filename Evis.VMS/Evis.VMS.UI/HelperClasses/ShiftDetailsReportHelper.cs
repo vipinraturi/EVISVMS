@@ -52,7 +52,7 @@ namespace Evis.VMS.UI.HelperClasses
             {
                 item.strFromDate = item.FromDate.ToString("dd/MM/yyyy");
                 item.strToDate = item.ToDate.ToString("dd/MM/yyyy");
-                item.ShiftName = item.ShiftName + " (" + item.FromDate.ToString("hh:mm tt") + " - " + item.ToDate.ToString("hh:mm tt") + ")";
+                item.ShiftName = item.ShiftName + " (" + item.Fromtime.ToString("hh:mm tt") + " - " + item.Totime.ToString("hh:mm tt") + ")";
 
             });
             return result;
@@ -88,8 +88,8 @@ namespace Evis.VMS.UI.HelperClasses
                     && (searchDetails.ShiftID == 0 || x.ShiftID == searchDetails.ShiftID)
                    && ((fromdat == null) || fromdat <= x.ShiftDate)
                   && ((Todat == null) || Todat >= x.ShiftDate)
-                    )
-                //.GroupBy(x => x.ShiftID)
+                 
+                     )
 
                  .Select(x => new ShiftAssignmentVM
                  {
@@ -103,6 +103,8 @@ namespace Evis.VMS.UI.HelperClasses
                      UserName = x.ApplicationUser.FullName,
                      FromDate = x.ShiftDate,
                      ToDate = x.ShiftDate,
+                     Fromtime=x.Shitfs.FromTime,
+                     Totime=x.Shitfs.ToTime,
                      OrganizationId = x.ApplicationUser.OrganizationId,
                      CompanyName = x.Gates.BuildingMaster.Organization.CompanyName
 

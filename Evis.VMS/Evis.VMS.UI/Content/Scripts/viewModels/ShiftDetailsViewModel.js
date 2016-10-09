@@ -85,7 +85,7 @@
         data.ShiftID = self.ShiftId();
         data.FromDate = $('#txtFromDate').val();
         data.ToDate = $('#txtToDate').val();
-
+    
         self.DataGrid.UpdateSearchParam('?search=' + JSON.stringify(data));
      
         self.DataGrid.GetData();
@@ -109,7 +109,7 @@
         data.BuildingId = self.BuildingId();
         data.GateId = self.GateId();
         data.SecurityId = self.SecurityId();
-        data.ShiftName = self.ShiftId();
+        data.ShiftID = self.ShiftId();
         data.FromDate = $('#txtFromDate').val();
         data.ToDate = $('#txtToDate').val();
         window.open('../Report/PrintShiftDetailReport?searchData=' + JSON.stringify(data), '_blankl');
@@ -121,7 +121,7 @@
         data.BuildingId = self.BuildingId();
         data.GateId = self.GateId();
         data.SecurityId = self.SecurityId();
-        data.ShiftName = self.ShiftId();
+        data.ShiftID = self.ShiftId();
         data.FromDate = $('#txtFromDate').val();
         data.ToDate = $('#txtToDate').val();
         window.open('../Report/ShiftReportExcelDownload?searchData=' + JSON.stringify(data), '_blankl');

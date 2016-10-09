@@ -31,6 +31,8 @@ namespace Evis.VMS.UI.ViewModel
         public string CompanyName { get; set; }
         public string OtherCity { get; set; }
         public int? OrganizationId { get; set; }
+        public DateTime Fromtime { get; set; }
+        public DateTime Totime { get; set; }
 
     }
 }
