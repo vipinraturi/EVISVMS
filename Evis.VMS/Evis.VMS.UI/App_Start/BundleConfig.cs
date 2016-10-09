@@ -17,14 +17,12 @@ namespace Evis.VMS.UI
                "~/Content/Styles/font-awesome.min.css",
                "~/Content/Styles/bootstrap-progressbar-3.3.4.min.css",
                "~/Content/Styles/jquery-jvectormap-2.0.3.css",
-               "~/Content/Styles/jquery.timepicker.css"
+               "~/Content/Styles/jquery.timepicker.css",
+                "~/Content/Styles/shift_management.css"
 
                  ));
 
-            bundles.Add(new StyleBundle("~/Content/shift_management").Include(
-                "~/Content/Styles/shift_management.css"
-            ));
-
+          
             bundles.Add(new StyleBundle("~/Content/theme1").Include(
                   "~/Content/Styles/jquery-ui.css",
                "~/Content/Styles/green.css",
