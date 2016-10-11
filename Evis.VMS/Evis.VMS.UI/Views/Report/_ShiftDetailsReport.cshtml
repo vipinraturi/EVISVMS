@@ -131,7 +131,7 @@
                             <th style="width: 12%"> <a href="#" onclick="DataGrid.Sort('BuildingName')" class="BuildingName">Building</a></th>
                             <th style="width: 12%"> <a href="#" onclick="DataGrid.Sort('GateName')" class="GateName">Gate</a></th>
                             <th style="width: 12%"> <a href="#" onclick="DataGrid.Sort('ShiftName')" class="ShiftName">Shift Name</a></th>
-                            <th style="width: 12%"><a href="#" onclick="DataGrid.Sort('FromDate')" class="strFromDate">Assigned Date<i class="fa fa-chevron-up icons"></i></a></th>
+                            <th style="width: 12%"><a href="#" onclick="DataGrid.Sort('FromDate')" class="ShiftDates">Assigned Date<i class="fa fa-chevron-up icons"></i></a></th>
                           @*<th style="width: 12%"><a href="#" onclick="DataGrid.Sort('strToDate')" class="strToDate">To Date</a></th>*@
 
                         </tr>
@@ -139,11 +139,11 @@
                     <tbody data-bind="foreach:DataGrid.DataRows">
                         <tr>
                             <td scope="row" data-bind="text: $index() +1"></td>
-                            <td data-bind="text: UserName"></td>
+                            <td data-bind="text: SecurityName"></td>
                             <td data-bind="text: BuildingName"></td>
-                            <td data-bind="text: GateName"></td>
+                            <td data-bind="text: Gate"></td>
                             <td data-bind="text: ShiftName"></td>
-                            <td data-bind="text: strFromDate"></td>
+                            <td data-bind="text: ShiftDates"></td>
                           @*  <td data-bind="text: strToDate"></td>*@
 
                         </tr>

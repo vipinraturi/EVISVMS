@@ -256,6 +256,7 @@
     <Compile Include="ViewModel\ResetPasswordVM.cs" />
     <Compile Include="ViewModel\SearchShiftReport.cs" />
     <Compile Include="ViewModel\ShiftManagementVM.cs" />
+    <Compile Include="ViewModel\ShiftReportGridVM.cs" />
     <Compile Include="ViewModel\UserSessionDataVM.cs" />
     <Compile Include="ViewModel\VisitorCheckInViewModel.cs" />
     <Compile Include="ViewModel\VisitorDetailsVM.cs" />
@@ -576,7 +577,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>63864</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:62557/</IISUrl>
+          <IISUrl>http://localhost:61234/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
