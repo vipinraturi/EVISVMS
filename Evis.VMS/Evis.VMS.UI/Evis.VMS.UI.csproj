@@ -387,6 +387,7 @@
     <Content Include="images\back_enabled.png" />
     <Content Include="images\back_enabled_hover.png" />
     <Content Include="images\blur-bg-login2.jpg" />
+    <Content Include="images\blur-bg-login3.jpg" />
     <Content Include="images\bootstrap-colorpicker\alpha-horizontal.png" />
     <Content Include="images\bootstrap-colorpicker\alpha.png" />
     <Content Include="images\bootstrap-colorpicker\hue-horizontal.png" />
@@ -409,6 +410,7 @@
     <Content Include="images\next-item-icon.png" />
     <Content Include="images\next-item-icon1.png" />
     <Content Include="images\prev-item-icon.png" />
+    <Content Include="images\split.png" />
     <Content Include="images\sprite-skin-flat.png" />
     <Content Include="images\sprite-skin-modern.png" />
     <Content Include="images\sprite-skin-nice.png" />
