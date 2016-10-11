@@ -95,11 +95,9 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                        BuildingId = x.BuildingId,
                        GateNumber = x.GateNumber,
                        BuildingName = x.BuildingMaster.BuildingName,
-                       State = x.BuildingMaster.CityMaster.ParentValues.LookUpValue == null ? x.BuildingMaster.OtherCountry : x.BuildingMaster.CityMaster.ParentValues.LookUpValue,
-                       Country = x.BuildingMaster.CityMaster.ParentValues.ParentValues.LookUpValue == null ? x.BuildingMaster.OtherState : x.BuildingMaster.CityMaster.ParentValues.ParentValues.LookUpValue,
-                       City = x.BuildingMaster.CityMaster.LookUpValue == null ? x.BuildingMaster.OtherCity : x.BuildingMaster.CityMaster.LookUpValue,
-                       otherCountry = x.BuildingMaster.OtherCountry,
-                       OtherState = x.BuildingMaster.OtherState,
+                       State = x.BuildingMaster.StateMaster.LookUpValue,
+                       Country = x.BuildingMaster.CountryMaster.LookUpValue,
+                       City = x.BuildingMaster.CityMaster.LookUpValue,
                        OtherCity = x.BuildingMaster.OtherCity
                    });
             }
@@ -116,11 +114,9 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                                       BuildingId = x.BuildingId,
                                       GateNumber = x.GateNumber,
                                       BuildingName = x.BuildingMaster.BuildingName,
-                                      Country = x.BuildingMaster.CityMaster.ParentValues.LookUpValue == null ? x.BuildingMaster.OtherCountry : x.BuildingMaster.CityMaster.ParentValues.LookUpValue,
-                                      State = x.BuildingMaster.CityMaster.ParentValues.ParentValues.LookUpValue == null ? x.BuildingMaster.OtherState : x.BuildingMaster.CityMaster.ParentValues.ParentValues.LookUpValue,
-                                      City = x.BuildingMaster.CityMaster.LookUpValue == null ? x.BuildingMaster.OtherCity : x.BuildingMaster.CityMaster.LookUpValue,
-                                      otherCountry = x.BuildingMaster.OtherCountry,
-                                      OtherState = x.BuildingMaster.OtherState,
+                                      State = x.BuildingMaster.StateMaster.LookUpValue,
+                                      Country = x.BuildingMaster.CountryMaster.LookUpValue,
+                                      City = x.BuildingMaster.CityMaster.LookUpValue,
                                       OtherCity = x.BuildingMaster.OtherCity
                                   });
 
@@ -151,6 +147,15 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 int totalCount = 0;
                 IList<GatesVM> result =
                     GenericSorterPager.GetSortedPagedList<GatesVM>(lstgateVM, paginationRequest, out totalCount);
+
+
+                result.ToList().ForEach(item =>
+                {
+                    if (item.City == "Others")
+                    {
+                        item.City = item.OtherCity;
+                    }
+                });
 
                 var jsonData = JsonConvert.SerializeObject(result);
                 return JsonConvert.SerializeObject(new { totalRows = totalCount, result = jsonData });

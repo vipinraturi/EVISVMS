@@ -26,8 +26,8 @@
             params: /^([0-9\(\)\/\+ \-\.]*)$/
         },
         minLength: {
-            params: 6,
-            message: 'Enter minimum of 6-length number'
+            params: 4,
+            message: 'Enter minimum of 4-length number'
         }
     });
     self.EmailId = ko.observable('').extend({ minLength: 2, maxLength: 40, email: { message: "Invalid email" } });

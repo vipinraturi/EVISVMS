@@ -18,7 +18,6 @@
     });
     self.Buildings = ko.observableArray();
     AjaxCall('/Api/Gates/GetAllBuilding', null, 'GET', function (data) {
-        ;
         self.Buildings(data);
     })
     self.BuildingName = ko.observable('').extend({ required: true });
@@ -48,28 +47,23 @@
         //  debugger;
         if (self.BuildingId() != undefined && self.BuildingId() != 0) {
             AjaxCall('/Api/Gates/GetAllBuildingDetails?id=' + self.BuildingId(), null, 'GET', function (data) {
-                debugger;
+                //debugger;
                 if (data[0].CityId != null) {
                     self.CityName(data[0].CityMaster.LookUpValue);
-                    self.CityId(data[0].CityMaster.Id);
-                    self.StateName(data[0].CityMaster.ParentValues.LookUpValue);
-                    self.StateId(data[0].CityMaster.ParentId);
-                    self.CountryName(data[0].CityMaster.ParentValues.ParentValues.LookUpValue);
-                    self.CountryId(data[0].CityMaster.ParentValues.ParentId);
+                    if (self.CityName() == "Others") {
+                        self.CityName(data[0].OtherCity);
+                    }
+                    self.CountryName(data[0].CountryMaster.LookUpValue);
+                    self.StateName(data[0].StateMaster.LookUpValue);
                 }
-                else {
-                    self.CityName(data[0].OtherCity);
-                    self.StateName(data[0].OtherState);
-                    self.CountryName(data[0].OtherCountry);
-
-                }
+              
             })
         }
     }
 
 
     self.EditGate = function (tableItem) {
-        ;
+        
         if (tableItem != undefined) {
             self.Id(tableItem.Id);
             self.GateNumber(tableItem.GateNumber);
@@ -77,6 +71,30 @@
             self.CityId(tableItem.CityId);
             self.CountryId(tableItem.CountryId);
             self.StateId(tableItem.StateId);
+
+
+            if (self.BuildingId() != undefined && self.BuildingId() != 0) {
+                AjaxCall('/Api/Gates/GetAllBuildingDetails?id=' + self.BuildingId(), null, 'GET', function (data) {
+                   // debugger;
+                    if (data[0].CityId != null) {
+                        self.CityName(data[0].CityMaster.LookUpValue);
+                        if (self.CityName() == "Others") {
+                            self.CityName(data[0].OtherCity);
+                        }
+                        self.CountryName(data[0].CountryMaster.LookUpValue);
+                        self.StateName(data[0].StateMaster.LookUpValue);
+
+                       
+                        //self.CityId(data[0].CityMaster.Id);
+                        //self.StateId(data[0].CityMaster.ParentId);
+                        //self.StateId(data[0].CityMaster.ParentId);
+                        
+                    }
+                    
+                })
+            }
+
+
             $("#btnSave").text("Update");
         }
     }
@@ -119,20 +137,7 @@
             }
         });
     }
-    //self.DeleteConfirmed = function () {
-    //    $('#myModal').modal('hide');
-    //    $('.modal-backdrop').modal('show');
-    //    $('.modal-backdrop').modal('hide');
-    //    AjaxCall('/Api/Gates/DeleteGate', recordToDelete, 'POST', function (data) {
-    //        if (data.Success == true) {
-    //            toastr.success(data.Message);
-    //            ApplyCustomBinding('gates');
-    //        }
-    //        else if (data.Success == false) {
-    //            toastr.warning(data.Message);
-    //        }
-    //    });
-    //}
+
     self.ResetGates = function () {
         self.GlobalSearch('');
         self.GateNumber('');
@@ -170,7 +175,6 @@
             })
         }
     }
-    //}
     self.GlobalSearchEnter = function (data) {
         
         self.GetAllGateData();
