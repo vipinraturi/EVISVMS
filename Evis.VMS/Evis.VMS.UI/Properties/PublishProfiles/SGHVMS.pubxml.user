@@ -31,7 +31,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/11/2016 14:44:02</publishTime>
     </File>
     <File Include="bin/Evis.VMS.UI.dll">
-      <publishTime>10/11/2016 14:44:07</publishTime>
+      <publishTime>10/11/2016 15:46:29</publishTime>
     </File>
     <File Include="bin/Evis.VMS.Utilities.dll">
       <publishTime>10/11/2016 14:44:03</publishTime>
@@ -313,7 +313,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/15/2016 11:34:26</publishTime>
     </File>
     <File Include="Content/Scripts/viewModels/BuildingViewModel.js">
-      <publishTime>10/11/2016 13:35:17</publishTime>
+      <publishTime>10/11/2016 15:46:15</publishTime>
     </File>
     <File Include="Content/Scripts/viewModels/ChangePasswordViewModel.js">
       <publishTime>09/29/2016 09:19:47</publishTime>
@@ -322,7 +322,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/06/2016 14:40:23</publishTime>
     </File>
     <File Include="Content/Scripts/viewModels/GatesViewModel.js">
-      <publishTime>10/06/2016 14:40:23</publishTime>
+      <publishTime>10/11/2016 15:32:23</publishTime>
     </File>
     <File Include="Content/Scripts/viewModels/MyOrganizationViewModel.js">
       <publishTime>10/01/2016 16:52:24</publishTime>
@@ -436,7 +436,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/15/2016 11:34:26</publishTime>
     </File>
     <File Include="Content/Styles/Logincustom.min.css">
-      <publishTime>09/15/2016 11:34:26</publishTime>
+      <publishTime>10/11/2016 15:00:00</publishTime>
     </File>
     <File Include="Content/Styles/pager.css">
       <publishTime>09/15/2016 11:34:26</publishTime>
@@ -763,13 +763,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/18/2016 08:18:46</publishTime>
     </File>
     <File Include="Views/Administration/_Building.cshtml">
-      <publishTime>10/11/2016 13:14:17</publishTime>
+      <publishTime>10/11/2016 15:45:56</publishTime>
     </File>
     <File Include="Views/Administration/_ChangePassword.cshtml">
       <publishTime>09/15/2016 11:34:27</publishTime>
     </File>
     <File Include="Views/Administration/_Gates.cshtml">
-      <publishTime>10/03/2016 09:16:33</publishTime>
+      <publishTime>10/11/2016 15:15:46</publishTime>
     </File>
     <File Include="Views/Administration/_MyOrganization.cshtml">
       <publishTime>10/01/2016 16:52:24</publishTime>
@@ -814,7 +814,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/15/2016 11:34:27</publishTime>
     </File>
     <File Include="Views/Report/_ShiftDetailsReport.cshtml">
-      <publishTime>10/09/2016 08:27:09</publishTime>
+      <publishTime>10/11/2016 15:42:37</publishTime>
     </File>
     <File Include="Views/Report/_VisitorDetailsReport.cshtml">
       <publishTime>10/03/2016 09:16:33</publishTime>
@@ -847,7 +847,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/15/2016 11:34:27</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>10/11/2016 14:44:08</publishTime>
+      <publishTime>10/11/2016 15:46:30</publishTime>
     </File>
   </ItemGroup>
 </Project>
