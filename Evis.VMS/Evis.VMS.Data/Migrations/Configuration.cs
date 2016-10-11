@@ -19,6 +19,7 @@ namespace Evis.VMS.Data.Migrations
     {
         public Configuration()
         {
+            AutomaticMigrationDataLossAllowed = true;
             AutomaticMigrationsEnabled = true;
         }
 

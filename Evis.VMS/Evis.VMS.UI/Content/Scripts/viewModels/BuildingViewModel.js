@@ -18,7 +18,6 @@
         deferValidation: true
     });
     self.BuildingName = ko.observable('').extend({ required: true });
-    //self.StateName = ko.observable('').extend({ required: true });
     self.Address = ko.observable('').extend({ required: true });
     self.ZipCode = ko.observable('').extend({
         required: true,
@@ -69,16 +68,20 @@
         },
         message: 'This field has to be a valid URL'
     };
-    ko.validation.registerExtenders();
 
-    //self.Nationality = ko.observable('').extend({ required: true });
+    self.StateId = ko.observable('');
+    self.CityId = ko.observable('');
+    self.CountryId = ko.observable('');
+
+
+    ko.validation.registerExtenders();
     self.Countrydlltxt = ko.observable();
     self.statedlltxt = ko.observable();
     self.citydlltxt = ko.observable();
     self.StateId = ko.observable();
     self.CityId = ko.observable();
     self.OrganizationName = ko.observable();
-    self.NationalityId = ko.observable(undefined);
+    self.CountryId = ko.observable(undefined);
     self.OrganizationId = ko.observable(undefined).extend({ required: true });
     self.GlobalSearch = ko.observable('');
     self.IsInsert = ko.observable(true);
@@ -86,68 +89,67 @@
     self.errors = ko.validation.group(
         {
             BuildingName: this.BuildingName,
-            //StateName: this.StateName,
             Address: this.Address,
             ZipCode: this.ZipCode,
-            //Nationality: this.Nationality,
             StateId: this.StateId,
             CityId: this.CityId,
-            NationalityId: this.NationalityId,
+            CountryId: this.CountryId,
+
             OrganizationId: this.OrganizationId,
             EmailId: this.EmailId,
             ContactNumber: this.ContactNumber,
             FaxNumber: this.FaxNumber,
             statedlltxt: this.statedlltxt,
             citydlltxt: this.citydlltxt
-            //  WebSite: this.WebSite
         });
     self.Organizations = ko.observableArray();
     AjaxCall('/Api/User/GetAllOrganizations', null, 'GET', function (data) {
-        //console.log(data);
-        
-        // alert(data.length);
+
         self.Organizations(data);
         if (data.length == 1) {
-            // alert(data[0].Name);
             self.OrganizationId(data[0].Id);
             $("#Org").attr('disabled', false);
         }
     });
     self.DataGrid = new RIT.eW.DataGridAjax('/Api/Administration/GetBuildingData', 7);
     self.GetAllBuildingData = function () {
-        
+
         self.DataGrid.UpdateSearchParam('?globalSearch=' + self.GlobalSearch());
         self.DataGrid.GetData();
     }
     self.Countries = ko.observableArray();
     AjaxCall('/Api/Users/GetAllCountries', null, 'GET', function (data) {
         self.Countries(data);
+
     })
     self.City = ko.observableArray();
-    self.LoadCities = function () {
+
+    self.ChangeState = function () {
         if (self.StateId() != undefined && self.StateId() != 0) {
-            AjaxCall('/Api/Administration/GetAllStateOrCity?id=' + self.StateId(), null, 'GET', function (data) {
-                if (data.length > 0) {
+            AjaxCall('/Api/Administration/GetAllCity?id=' + self.StateId(), null, 'GET', function (data) {
+
+                if (data.length == 1 && data[0].Name == "Others") {
+                    $("#dropcity").show();
                     self.City(data);
                     self.CityId(cityId);
+
                 }
                 else {
-                    document.getElementById('dropcity').style.visibility = 'visible';
-                    $('#dropcountry').hide();
                     $('#dropcity').hide();
-                    $('#dropstate').hide();
+                    self.City(data);
+                    self.CityId(cityId);
                 }
             })
         }
     }
-
     self.LoadStates = function () {
-        // alert(self.NationalityId());
-        if (self.NationalityId() != 11) {
-            if (self.NationalityId() != undefined && self.NationalityId() != 0) {
-                AjaxCall('/Api/Administration/GetAllStateOrCity?id=' + self.NationalityId(), null, 'GET', function (data) {
+
+
+        if (self.CountryId() != 11) {
+            if (self.CountryId() != undefined && self.CountryId() != 0) {
+                AjaxCall('/Api/Administration/GetAllStateOrCity?id=' + self.CountryId(), null, 'GET', function (data) {
+
                     if (data.length > 0) {
-                 
                         self.State(data);
                         self.StateId(stateId);
                         $('#dropcountry').hide();
@@ -158,6 +160,7 @@
                         $(".ErrorCountryd").hide();
                     }
                     else {
+
                         $('#state').hide();
                         $('#city').hide();
                         self.Countrydlltxt('');
@@ -168,9 +171,24 @@
                         $('#dropcountry').show();
                         $('#dropcity').show();
                         $('#dropstate').show();
+
                     }
                 })
             }
+        }
+
+
+
+        else {
+
+        }
+    }
+    self.InsertCity = function () {
+        if (self.CityId() == 11) {
+            $("#dropcity").show();
+        }
+        else {
+            $("#dropcity").hide();
         }
     }
     self.SaveBuilding = function () {
@@ -178,10 +196,11 @@
         abc = self.WebSite();
         abc = self.Address();
         abc = self.ZipCode();
-        //abc = self.Nationality();
         abc = self.StateId();
         abc = self.CityId();
-        abc = self.NationalityId();
+        abc = self.CountryId();
+
+
         abc = self.OrganizationId();
         abc = self.EmailId;
         abc = self.Countrydlltxt;
@@ -193,7 +212,6 @@
         if (a == "Others") {
             var txtcountry = $("#txtcountry").val();
             if (txtcountry == "") {
-                //  alert('Fill this field');
                 $(".loginErrorCountrydlltxt").show();
                 return false;
             }
@@ -202,7 +220,6 @@
             }
             var txtstatedl = $("#txtstatedl").val();
             if (txtstatedl == "") {
-                //alert('Fill this field');
                 $(".loginErrorstatedlltxt").show();
                 return false;
             }
@@ -211,7 +228,6 @@
             }
             var txtcitydl = $("#txtcitydl").val();
             if (txtcitydl == "") {
-                //  alert('Fill this field');
                 $(".loginErrorcitydlltxt").show();
                 return false;
             }
@@ -219,10 +235,10 @@
                 $(".loginErrorcitydlltxt").hide();
             }
         }
-        
+
         var a = $("#selectCountries option:selected").text();
         if (a != "Others") {
-            
+
             if (document.getElementById("selectCountries").selectedIndex != 0) {
                 var selectState = document.getElementById("selectState").selectedIndex;
                 if (selectState == 0) {
@@ -234,7 +250,6 @@
                 }
                 var txtcity = $("#selectcity").val();
                 if (txtcity == "") {
-                    //alert('Fill this field');
                     $(".City").show();
                     return false;
                 }
@@ -264,11 +279,9 @@
             self.errors.showAllMessages(true);
             if (a == "-- Select Country --") {
                 $('.ErrorCountryd').show();
-                //   document.getElementById('ErrorCountryd').style.visibility = 'visible';
             }
             else {
                 $('ErrorCountryd').hide();
-                // document.getElementById('ErrorCountryd').style.visibility = 'none';
             }
             this.errors().forEach(function (data) {
             });
@@ -280,18 +293,21 @@
             data.BuildingName = self.BuildingName(),
             data.Address = self.Address(),
             data.ZipCode = self.ZipCode(),
-             data.EmailId = self.EmailId(),
+            data.EmailId = self.EmailId(),
             data.ContactNumber = self.ContactNumber(),
             data.FaxNumber = self.FaxNumber(),
             data.WebSite = self.WebSite();
-            data.CityId = self.NationalityId() == 11 ? null : self.CityId(),
-            //alert(self.NationalityId());
+            data.CityId = self.CountryId == 11 ? null : self.CityId(),
+            data.CountryId = self.CountryId(),
+
+            data.StateId = self.StateId(),
             data.txtcountry = self.Countrydlltxt();
             data.txtstate = self.statedlltxt();
             data.txtcity = self.citydlltxt();
+
             //// display any error messages if we have them
             AjaxCall('/Api/Administration/SaveBuilding', data, 'POST', function (data) {
-                
+
                 if (data.Success == true) {
                     toastr.clear();
                     toastr.success(data.Message)
@@ -302,7 +318,7 @@
                     self.Countrydlltxt('');
                     self.statedlltxt('');
                     self.citydlltxt('');
-                  //  self.CityId('');
+                    //  self.CityId('');
                     toastr.error('Building name alreday exists!!')
                 }
                 self.IsInsert(true);
@@ -324,7 +340,9 @@
 
     }
     self.EditBuilding = function (tableItem) {
+
         if (tableItem != undefined) {
+
             $('.ErrorCountryd').hide();
             self.Id(tableItem.Id);
             self.EmailId(tableItem.EmailId);
@@ -334,39 +352,17 @@
             self.BuildingName(tableItem.BuildingName);
             self.Address(tableItem.Address);
             self.ZipCode(tableItem.ZipCode);
-            self.OrganizationId(tableItem.OrganizationId);
-            self.NationalityId((tableItem.NationalityId == 'undefined' || null) ? 11 : tableItem.NationalityId);
+
+            self.CountryId(tableItem.CountryId);
             stateId = (tableItem.StateId);
             cityId = (tableItem.CityId);
-            if (tableItem.txtcountry != null) {
-                $("#Country").show();
-                $("#dropcountry").show();
-                self.Countrydlltxt(tableItem.txtcountry);
-                //console.log(tableItem.txtcountry);
-                self.NationalityId(11);
-                self.CityId(0);
-                tableItem.CityId = 0;
 
-            }
-            else {
-                $("#Country").show();
-                $("#dropcountry").hide();
-            }
-            if (tableItem.txtstate != null) {
-                $("#state").hide();
-                $("#dropstate").show();
-                self.statedlltxt(tableItem.txtstate);
-                //console.log(tableItem.txtstate);
-            }
-            else {
-                $("#state").show();
-                $("#dropstate").hide();
-            }
-            if (tableItem.txtcity != null) {
-                $("#city").hide();
+            if (tableItem.txtcity != null && tableItem.CityId == 11) {
+
+                $("#city").show();
                 $("#dropcity").show();
                 self.citydlltxt(tableItem.txtcity);
-                //console.log(tableItem.txtcity);
+
             }
             else {
                 $("#city").show();
@@ -376,6 +372,57 @@
             $("#btnSaveBuilding").text("Update");
             $('#Org').attr('disabled', true);
 
+
+            //state loadcode
+            if (self.CountryId() != 11) {
+                if (self.CountryId() != undefined && self.CountryId() != 0) {
+                    AjaxCall('/Api/Administration/GetAllStateOrCity?id=' + self.CountryId(), null, 'GET', function (data) {
+
+                        if (data.length > 0) {
+
+                            self.State(data);
+                            self.StateId(stateId);
+                            $('#dropcountry').hide();
+                            $('#dropcity').hide();
+                            $('#dropstate').hide();
+                            $('#state').show();
+                            $('#city').show();
+                            $(".ErrorCountryd").hide();
+
+                            //city load code
+                            if (self.StateId() != undefined && self.StateId() != 0) {
+                                AjaxCall('/Api/Administration/GetAllCity?id=' + self.StateId(), null, 'GET', function (data) {
+                                    if (data.length == 1 && data[0].Name == "Others") {
+                                        $("#dropcity").show();
+                                        self.City(data);
+                                        self.CityId(cityId);
+                                    }
+                                    else {
+                                        $('#dropcity').hide();
+                                        self.City(data);
+                                        self.CityId(cityId);
+                                    }
+                                    self.InsertCity();
+                                })
+                            }
+
+                        }
+                        else {
+
+                            $('#state').hide();
+                            $('#city').hide();
+                            self.Countrydlltxt('');
+                            self.statedlltxt('');
+                            self.citydlltxt('');
+                            self.StateId(undefined);
+                            self.CityId(undefined);
+                            $('#dropcountry').show();
+                            $('#dropcity').show();
+                            $('#dropstate').show();
+                        }
+                    })
+                }
+            }
         }
     }
     self.DeleteBuilding = function (tableItem) {
@@ -406,7 +453,7 @@
         });
     }
     self.GlobalSearchEnter = function (data) {
-        
+
         self.GetAllBuildingData();
         //console.log(event);
     }

@@ -412,6 +412,13 @@
     <Content Include="images\sprite-skin-modern.png" />
     <Content Include="images\sprite-skin-nice.png" />
     <Content Include="images\sprite-skin-simple.png" />
+    <Content Include="images\testingImages\dl-back.png" />
+    <Content Include="images\testingImages\dl1.jpg" />
+    <Content Include="images\testingImages\dl_front.jpg" />
+    <Content Include="images\testingImages\emirate-front.jpg" />
+    <Content Include="images\testingImages\emirateid3.jpg" />
+    <Content Include="images\testingImages\emirates-back.jpg" />
+    <Content Include="images\testingImages\visiting-card1.jpg" />
     <Content Include="images\test\logo\logo.png" />
     <Content Include="images\ui-bg_glass_75_dadada_1x400.png" />
     <Content Include="images\ui-icons_222222_256x240.png" />
@@ -486,7 +493,9 @@
     <Content Include="Views\Administration\_ShiftManagement_dynamic.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="App_Data\MigrationScript\" />
+    <Folder Include="images\UserImages\" />
+    <Folder Include="images\VisitorImages\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -567,7 +576,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>63864</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:63457/</IISUrl>
+          <IISUrl>http://localhost:62557/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

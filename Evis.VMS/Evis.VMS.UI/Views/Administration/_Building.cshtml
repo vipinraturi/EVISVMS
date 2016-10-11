@@ -60,43 +60,35 @@
                     <div class="form-group" id="Country">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Country <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <select class="form-control Fieldfocus" id="selectCountries" data-bind="options: Countries, optionsText: 'Name', optionsValue: 'Id', value: NationalityId, optionsCaption: '-- Select Country --', event:{ change: LoadStates()}"></select>
-                            <span class="ErrorCountryd" style="display: none; color: red">This field is required.</span>
+                            
+                           
+                            <select class="form-control Fieldfocus" id="selectCountries"
+                                    data-bind="options: Countries, optionsText: 'Name', optionsValue: 'Id', value: CountryId, optionsCaption: '-- Select Country --', event:{ change: LoadStates.bind()}"></select>
+                            
+                            
+                             <span class="ErrorCountryd" style="display: none; color: red">This field is required.</span>
                         </div>
                     </div>
-                    <div class="form-group" id="dropcountry" style="display: none;">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Country <span class="mandatoryField">*</span></label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtcountry" type="text" class="form-control Fieldfocus" maxlength="50" placeholder="[Country]" data-bind="value:Countrydlltxt" />@**@
-                            <span class="fa fa-globe favwhite form-control-feedback right" aria-hidden="true"></span>
-                            <span class="loginErrorCountrydlltxt" style="display: none; color: red">This field is required.</span>
-                        </div>
-                    </div>
+                  
                     <div class="form-group" id="state">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">State <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12" id="state">
-                            <select class="form-control Fieldfocus" id="selectState" data-bind="options: State, optionsText: 'Name', optionsValue: 'Id', value: StateId, optionsCaption: '-- Select State --', event:{ change: LoadCities()}"></select>
+                            <select class="form-control Fieldfocus" id="selectState"
+                                    data-bind="options: State, optionsText: 'Name', optionsValue: 'Id',  value: StateId, optionsCaption: '-- Select State --', event:{ change: ChangeState.bind()}"></select>
 
                             <span class="State" style="display: none; color: red">This field is required.</span>
                         </div>
                     </div>
-                    <div class="form-group" id="dropstate" style="display: none;">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">State <span class="mandatoryField">*</span></label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input id="txtstatedl" type="text" class="form-control Fieldfocus" maxlength="50" placeholder="[State]" data-bind="value: statedlltxt" />@**@
-                            <span class="fa fa-globe favwhite form-control-feedback right" aria-hidden="true"></span>
-                            <span class="loginErrorstatedlltxt" style="display:none;color:red">This field is required.</span>
-                        </div>
-                    </div>
+                 
                     <div class="form-group" id="city">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">City <span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <select class="form-control Fieldfocus" id="selectcity" data-bind="options: City, optionsText: 'Name', optionsValue: 'Id', value: CityId, optionsCaption: '-- Select City --'"></select>
+                            <select class="form-control Fieldfocus" id="selectcity" data-bind="options: City, optionsText: 'Name', optionsValue: 'Id', value: CityId, optionsCaption: '-- Select City --',event:{change: InsertCity.bind()}"></select>
                             <span class="City" style="display: none; color: red">This field is required.</span>
                         </div>
                     </div>
                     <div class="form-group" id="dropcity" style="display: none;">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">City<span class="mandatoryField">*</span></label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Other<span class="mandatoryField">*</span></label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
                             <input id="txtcitydl" type="text" class="form-control Fieldfocus" maxlength="50" placeholder="[City]" data-bind="value: citydlltxt" /> @*data-bind="value: WebSite.extend({ url: false })"*@
                             <span class="fa fa-globe favwhite form-control-feedback right" aria-hidden="true"></span>

@@ -23,6 +23,7 @@ namespace Evis.VMS.Data.DBContext
         public VMSContext()
             : base("VMSContext")
         {
+            
             Database.SetInitializer<VMSContext>(null);
         }
 

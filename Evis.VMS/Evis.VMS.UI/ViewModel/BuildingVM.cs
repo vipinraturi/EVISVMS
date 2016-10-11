@@ -43,6 +43,16 @@ namespace Evis.VMS.UI.ViewModel
         public string txtstate { get; set; }
         public string txtcity { get; set; }
         public string Country { get; set; }
+
+        public int? CountryId { get; set; }
+
+        [ForeignKey("CountryId")]
+        public virtual LookUpValues CountryMaster { get; set; }
+        [ForeignKey("StateId")]
+        public virtual LookUpValues StateMaster { get; set; }
+
+        //public int? StateIdnew { get; set; }
+      //  public int? StateId { get; set; }
         //public string OtherState { get; set; }
         //public string OtherCity { get; set; }
     }

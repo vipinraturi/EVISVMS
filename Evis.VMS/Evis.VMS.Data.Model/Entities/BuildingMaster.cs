@@ -50,6 +50,7 @@ namespace Evis.VMS.Data.Model.Entities
         [ForeignKey("OrganizationId")]
         public virtual Organization Organization { get; set; }
 
+
         [ForeignKey("CityId")]
         public virtual LookUpValues CityMaster { get; set; }
 
@@ -64,5 +65,15 @@ namespace Evis.VMS.Data.Model.Entities
         public string OtherCountry { get; set; }
         public string OtherState { get; set; }
         public string OtherCity { get; set; }
+
+        //newly added
+        public int? CountryId { get; set; }
+        public int? StateId { get; set; }
+
+        [ForeignKey("CountryId")]
+        public virtual LookUpValues CountryMaster { get; set; }
+        [ForeignKey("StateId")]
+        public virtual LookUpValues StateMaster { get; set; }
+
     }
 }

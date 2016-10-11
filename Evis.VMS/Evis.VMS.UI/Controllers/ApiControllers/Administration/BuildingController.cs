@@ -70,7 +70,13 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     obj.CreatedBy = currentUserId;
                     obj.OtherCountry = (buildingMaster.CityId == null) ? buildingMaster.txtcountry.Trim() : null;
                     obj.OtherState = (buildingMaster.CityId == null) ? buildingMaster.txtstate.Trim() : null;
-                    obj.OtherCity = (buildingMaster.CityId == null) ? buildingMaster.txtcity.Trim() : null;
+                    //  obj.OtherCity = (buildingMaster.CityId == null) ? buildingMaster.txtcity.Trim() : null;
+                    if (buildingMaster.CityId == 11)
+                    {
+                        obj.OtherCity = buildingMaster.txtcity.Trim();
+                    }
+                    obj.CountryId = buildingMaster.CountryId;
+                    obj.StateId = buildingMaster.StateId;
                     _genericService.BuildingMaster.Insert(obj);
                     message = "Building saved successfully!!";
                     success = true;
@@ -102,7 +108,13 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                         existingOrg.UpdatedOn = DateTime.UtcNow;
                         existingOrg.OtherCountry = (buildingMaster.CityId == null) ? buildingMaster.txtcountry.Trim() : null;
                         existingOrg.OtherState = (buildingMaster.CityId == null) ? buildingMaster.txtstate.Trim() : null;
-                        existingOrg.OtherCity = (buildingMaster.CityId == null) ? buildingMaster.txtcity.Trim() : null;
+                        //    existingOrg.OtherCity = (buildingMaster.CityId == null) ? buildingMaster.txtcity.Trim() : null;
+                        if (buildingMaster.CityId == 11)
+                        {
+                            existingOrg.OtherCity = buildingMaster.txtcity.Trim();
+                        }
+                        existingOrg.CountryId = buildingMaster.CountryId;
+                        existingOrg.StateId = buildingMaster.StateId;
                         _genericService.BuildingMaster.Update(existingOrg);
                         message = "Building updated successfully!!";
                         success = true;
@@ -125,16 +137,20 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             if (user == null)
             {
                 lstBuildingVM = _genericService.BuildingMaster.GetAll().Where(x => x.IsActive == true)
+                    // var d = _genericService.BuildingMaster.GetAll().Where(x => x.IsActive == true)
              .Select(x => new BuildingVM
              {
                  Id = x.Id,
                  BuildingName = x.BuildingName,
                  OrganizationId = x.OrganizationId,
-                 CityId = x.CityId,
                  Address = x.Address,
                  ZipCode = x.ZipCode,
-                 NationalityId = x.CityMaster.ParentValues.ParentId,
-                 StateId = x.CityMaster.ParentId,
+
+                 CityId = x.CityId,
+                 //NationalityId = x.CountryId,//x.CityMaster.ParentValues.ParentId,
+                 CountryId = x.CountryId,
+                 StateId = x.StateId,//x.CityMaster.ParentId,
+
                  OrganizationName = x.Organization.CompanyName,
                  EmailId = x.EmailId,
                  ContactNumber = x.ContactNumber,
@@ -144,7 +160,12 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                  txtstate = x.OtherState,
                  txtcity = x.OtherCity,
                  CreatedOn = x.CreatedOn.ToString(),
-                 Country = x.CityMaster.ParentValues.ParentValues.LookUpValue
+                 Country =x.CountryMaster.LookUpValue
+
+                 //Country=x.CityMaster.ParentValues.ParentValues.LookUpValue
+
+
+
              });
             }
             else
@@ -161,8 +182,13 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                      CityId = x.CityId,
                      Address = x.Address,
                      ZipCode = x.ZipCode,
-                     NationalityId = x.CityMaster.ParentValues.ParentId,
-                     StateId = x.CityMaster.ParentId,
+
+                     //NationalityId = x.CityMaster.ParentValues.ParentId,
+                     //StateId = x.CityMaster.ParentId,
+                     CountryId = x.CountryId,
+                     StateId = x.StateId,
+
+
                      OrganizationName = x.Organization.CompanyName,
                      EmailId = x.EmailId,
                      ContactNumber = x.ContactNumber,
@@ -172,7 +198,8 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                      txtstate = x.OtherState,
                      txtcity = x.OtherCity,
                      CreatedOn = x.CreatedOn.ToString(),
-                     Country = x.CityMaster.ParentValues.ParentValues.LookUpValue
+                     Country=x.CountryMaster.LookUpValue
+                    // Country = x.CityMaster.ParentValues.ParentValues.LookUpValue
 
                  });
                 }
@@ -247,9 +274,27 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
             IEnumerable<GeneralDropDownVM> result;
             result = _genericService.LookUpValues.GetAll().Where(x => x.ParentId == Id && x.IsActive == true && x.LookUpType.IsActive == true)
                              .Select(y => new GeneralDropDownVM { Id = y.Id, Name = y.LookUpValue });
+
             return result.OrderByDescending(x => x.Id);
+
         }
 
+
+
+        [Route("~/Api/Administration/GetAllCity")]
+        [HttpGet]
+        public IEnumerable<GeneralDropDownVM> GetAllCity(int Id)
+        {
+
+            IEnumerable<GeneralDropDownVM> result;
+            result = _genericService.LookUpValues.GetAll().Where(x => x.ParentId == Id && x.IsActive == true && x.LookUpType.IsActive == true || x.Id == 11)
+                             .Select(y => new GeneralDropDownVM { Id = y.Id, Name = y.LookUpValue });
+
+            return result.OrderByDescending(x => x.Id);
+
+        }
+
+        // public IEnumerable<GeneralDropDownVM> CheckCity;
 
     }
 }

@@ -69,7 +69,7 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         [HttpGet]
         public IEnumerable<GeneralDropDownVM> GetAllCountries()
         {
-            var result = _genericService.LookUpValues.GetAll().Where(x => x.LookUpType.TypeName == "Country" && x.IsActive == true && x.LookUpType.IsActive == true)
+            var result = _genericService.LookUpValues.GetAll().Where(x => x.LookUpType.TypeName == "Country" && x.IsActive == true && x.LookUpType.IsActive == true && x.LookUpValue != "Others")
                 .Select(y => new GeneralDropDownVM { Id = y.Id, Name = y.LookUpValue });
             return result;
         }
