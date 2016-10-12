@@ -32,11 +32,11 @@ namespace Evis.VMS.UI.HelperClasses
 
             if (string.IsNullOrEmpty(sortField))
             {
-                sortField = "FromDate";
+                sortField = "UserName";
                 sortOrder = "ASC";
             }
             var searchDetails = JsonConvert.DeserializeObject<SearchShiftReport>(search);
-            shiftQueryable = GetShiftDetails(orgId,searchDetails);
+            shiftQueryable = GetShiftDetails(orgId, searchDetails);
 
             var paginationRequest = new PaginationRequest
             {
@@ -51,7 +51,7 @@ namespace Evis.VMS.UI.HelperClasses
 
             result.ToList().ForEach(item =>
             {
-               // item.strFromDate = item.FromDate.ToString("dd/MM/yyyy");
+                //  item.ShiftDates = item.FromDate.ToString("dd/MM/yyyy");
                 //item.strToDate = item.ToDate.ToString("dd/MM/yyyy");
                 item.ShiftName = item.ShiftName + " (" + item.Fromtime.ToString("hh:mm tt") + " - " + item.Totime.ToString("hh:mm tt") + ")";
 
@@ -60,7 +60,7 @@ namespace Evis.VMS.UI.HelperClasses
 
         }
 
-        
+
 
         private IQueryable<ShiftReportGridVM> GetShiftDetails(int? orgId, SearchShiftReport searchDetails)
         {
@@ -68,38 +68,32 @@ namespace Evis.VMS.UI.HelperClasses
                          join _shiftMaster in _genericService.ShitfMaster.GetAll() on _shiftDetails.ShiftID equals _shiftMaster.Id
                          join _gateMaster in _genericService.GateMaster.GetAll() on _shiftDetails.GateID equals _gateMaster.Id
                          join _buildingMaster in _genericService.BuildingMaster.GetAll() on _gateMaster.BuildingId equals _buildingMaster.Id
-                         where (
-                       ((searchDetails.BuildingID == 0) || (searchDetails.BuildingID == _shiftDetails.Gates.BuildingId)) &&
-                             ((searchDetails.SecurityId == null) || (searchDetails.SecurityId == _shiftDetails.SecurityID)) &&
-                            ((searchDetails.GateId == 0) || (searchDetails.GateId == _shiftDetails.GateID)) &&
-                             ((searchDetails.ShiftID == 0) || (searchDetails.ShiftID == _shiftDetails.ShiftID))&&
-                             ((searchDetails.FromDate == null) || (searchDetails.FromDate <= _shiftDetails.ShiftDate)) &&
-                             ((searchDetails.ToDate == null) || (searchDetails.ToDate >= _shiftDetails.ShiftDate))
-                             )
-                                           
-
+                         where ((orgId == 0) || (_shiftDetails.ApplicationUser.OrganizationId == orgId))
+                         &&
+                         (((searchDetails.BuildingID == 0) || (searchDetails.BuildingID == _shiftDetails.Gates.BuildingId))
+                         && ((searchDetails.SecurityId == null) || (searchDetails.SecurityId == _shiftDetails.SecurityID))
+                         && ((searchDetails.GateId == 0) || (searchDetails.GateId == _shiftDetails.GateID))
+                         && ((searchDetails.ShiftID == 0) || (searchDetails.ShiftID == _shiftDetails.ShiftID))
+                         && ((searchDetails.FromDate == DateTime.MinValue)  || (_shiftDetails.ShiftDate >= searchDetails.FromDate))
+                         && ((searchDetails.ToDate == DateTime.MinValue) || (_shiftDetails.ShiftDate <= searchDetails.ToDate)))
                          group new
                          {
-                            
                              _shiftDetails.ShiftDate
-
                          }
-                          by new
-                          {
-                              _shiftMaster.ShitfName,
-                              _gateMaster.GateNumber,
-                              _buildingMaster.BuildingName,
-                              _shiftDetails.ApplicationUser.Id,
-                              _shiftDetails.ApplicationUser.UserName,
-                              _shiftMaster.FromTime,
-                              _shiftMaster.ToTime,
-                             // _shiftDetails.ShiftDate,
-                              _shiftDetails.Gates.BuildingMaster.Organization.CompanyName
-
-                          }
-                             into g
-                             select new 
-                             {
+                         by new
+                         {
+                             _shiftMaster.ShitfName,
+                             _gateMaster.GateNumber,
+                             _buildingMaster.BuildingName,
+                             _shiftDetails.ApplicationUser.Id,
+                             _shiftDetails.ApplicationUser.UserName,
+                             _shiftMaster.FromTime,
+                             _shiftMaster.ToTime,
+                             _shiftDetails.Gates.BuildingMaster.Organization.CompanyName
+                         }
+                         into g
+                         select new
+                         {
                                  g.Key.ShitfName,
                                  g.Key.GateNumber,
                                  g.Key.BuildingName,
@@ -107,24 +101,24 @@ namespace Evis.VMS.UI.HelperClasses
                                  g.Key.FromTime,
                                  g.Key.ToTime,
                                  g.Key.CompanyName,
-                                // g.Key.ShiftDate,
-
-
                                  ShiftDates = g.Select(st => st.ShiftDate).Distinct()
-                             }).ToList().Select(l =>
-                                        new ShiftReportGridVM
-                                        {
-                                          
-                                           SecurityName=l.UserName,
-                                           BuildingName = l.BuildingName,
-                                           Gate = l.GateNumber,
-                                           Fromtime=l.FromTime,
-                                           Totime=l.ToTime,
-                                           CompanyName=l.CompanyName,
-                                           ShiftName=l.ShitfName,
-                                          ShiftDates =string.Join(", ", l.ShiftDates.ToList())
-                                        }
-                                   ).AsQueryable();
+                         }).ToList()
+                         .Select(l =>
+                            new ShiftReportGridVM
+                            {
+                                SecurityName = l.UserName,
+                                BuildingName = l.BuildingName,
+                                Gate = l.GateNumber,
+                                Fromtime = l.FromTime,
+                                Totime = l.ToTime,
+                                CompanyName = l.CompanyName,
+                                ShiftName = l.ShitfName,
+                                ShiftDates =
+                                    (string.Join(", ", l.ShiftDates.ToList()))
+                                    .Replace("12:00:00 AM", string.Empty)
+                                    .Replace("12:00:00 PM", string.Empty)
+                             })
+                             .AsQueryable();
 
             return query;
 
@@ -133,7 +127,17 @@ namespace Evis.VMS.UI.HelperClasses
         public IList<ShiftReportGridVM> GetShiftDataPrint(string search, int? orgId)
         {
             IQueryable<ShiftReportGridVM> shiftQueryable = null;
-            var searchDetails = JsonConvert.DeserializeObject<SearchShiftReport>(search);
+             var searchDetails = JsonConvert.DeserializeObject<SearchShiftReport>(search);
+             //if (searchDetails.FromDate =)
+             //{
+             //    searchDetails.FromDate = DateTime.MinValue;
+             //    searchDetails.ToDate = DateTime.MaxValue;
+             //}
+             //if (searchDetails.ToDate == DateTime.MinValue)
+             //{
+                
+             //    searchDetails.ToDate = DateTime.MaxValue;
+             //}
             shiftQueryable = GetShiftDetails(orgId, searchDetails);
             return shiftQueryable.ToList();
         }

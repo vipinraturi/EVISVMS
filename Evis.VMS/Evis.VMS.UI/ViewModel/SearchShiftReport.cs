@@ -11,8 +11,8 @@ namespace Evis.VMS.UI.ViewModel
         public int BuildingID { get; set; }
         public int GateId { get; set; }
         public int ShiftID { get; set; }
-        public DateTime? FromDate { get; set; }
-        public DateTime? ToDate { get; set; }
+        public DateTime FromDate { get; set; }
+        public DateTime ToDate { get; set; }
 
     }
 }

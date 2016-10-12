@@ -15,7 +15,7 @@ namespace Evis.VMS.UI.ViewModel
         public DateTime FromDate { get; set; }
        // public DateTime ToDate { get; set; }
         public string strFromDate { get; set; }
-        //public string strToDate { get; set; }
+        public string strToDate { get; set; }
         public DateTime Fromtime { get; set; }
         public DateTime Totime { get; set; }
         public string UserName { get; set; }

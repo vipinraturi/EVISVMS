@@ -83,8 +83,20 @@
         data.GateId = self.GateId();
         data.SecurityId = self.SecurityId();
         data.ShiftID = self.ShiftId();
-        data.FromDate = $('#txtFromDate').val();
-        data.ToDate = $('#txtToDate').val();
+
+       
+
+        if ($('#txtFromDate').val() != "") {
+            var from = $('#txtFromDate').val().split('/');
+            var fromdate = from[1] + '/' + from[0] + '/' + from[2];
+        }
+        if ($('#txtToDate').val() != "") {
+            var TO = $('#txtToDate').val().split('/');
+            var toDate = TO[1] + '/' + TO[0] + '/' + TO[2];
+        }
+
+        data.FromDate = fromdate;
+        data.ToDate = toDate;
     
         self.DataGrid.UpdateSearchParam('?search=' + JSON.stringify(data));
      
@@ -110,8 +122,18 @@
         data.GateId = self.GateId();
         data.SecurityId = self.SecurityId();
         data.ShiftID = self.ShiftId();
-        data.FromDate = $('#txtFromDate').val();
-        data.ToDate = $('#txtToDate').val();
+        if ($('#txtFromDate').val() != "") {
+            var from = $('#txtFromDate').val().split('/');
+            var fromdate = from[1] + '/' + from[0] + '/' + from[2];
+        }
+        if ($('#txtToDate').val() !="") {
+            var TO = $('#txtToDate').val().split('/');
+            var toDate = TO[1] + '/' + TO[0] + '/' + TO[2];
+        }
+        data.FromDate = fromdate;
+        data.ToDate = toDate;
+       // data.FromDate = $('#txtFromDate').val();
+        //data.ToDate = $('#txtToDate').val();
         window.open('../Report/PrintShiftDetailReport?searchData=' + JSON.stringify(data), '_blankl');
 
     }
@@ -122,8 +144,18 @@
         data.GateId = self.GateId();
         data.SecurityId = self.SecurityId();
         data.ShiftID = self.ShiftId();
-        data.FromDate = $('#txtFromDate').val();
-        data.ToDate = $('#txtToDate').val();
+        if ($('#txtFromDate').val() != "") {
+            var from = $('#txtFromDate').val().split('/');
+            var fromdate = from[1] + '/' + from[0] + '/' + from[2];
+        }
+        if ($('#txtToDate').val() != "") {
+            var TO = $('#txtToDate').val().split('/');
+            var toDate = TO[1] + '/' + TO[0] + '/' + TO[2];
+        }
+        data.FromDate = fromdate;
+        data.ToDate = toDate;
+            // data.FromDate = $('#ShiftIDShiftIDShiftID').val();
+        //data.ToDate = $('#txtToDate').val();
         window.open('../Report/ShiftReportExcelDownload?searchData=' + JSON.stringify(data), '_blankl');
     }
 
