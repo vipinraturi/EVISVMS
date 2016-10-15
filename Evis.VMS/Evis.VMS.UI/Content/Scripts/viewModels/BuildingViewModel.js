@@ -113,7 +113,7 @@
     });
     self.DataGrid = new RIT.eW.DataGridAjax('/Api/Administration/GetBuildingData', 7);
     self.GetAllBuildingData = function () {
-
+   
         self.DataGrid.UpdateSearchParam('?globalSearch=' + self.GlobalSearch());
         self.DataGrid.GetData();
     }
@@ -123,7 +123,6 @@
 
     })
     self.City = ko.observableArray();
-
     self.ChangeState = function () {
         if (self.StateId() != undefined && self.StateId() != 0) {
             AjaxCall('/Api/Administration/GetAllCity?id=' + self.StateId(), null, 'GET', function (data) {
@@ -177,12 +176,11 @@
             }
         }
 
-
-
         else {
 
         }
     }
+ //   citydlltxt
     self.InsertCity = function () {
         if (self.CityId() == 11) {
             $("#dropcity").show();
@@ -340,10 +338,11 @@
 
     }
     self.EditBuilding = function (tableItem) {
-
+        
         if (tableItem != undefined) {
 
             $('.ErrorCountryd').hide();
+            self.OrganizationId(tableItem.OrganizationId);
             self.Id(tableItem.Id);
             self.EmailId(tableItem.EmailId);
             self.ContactNumber(tableItem.ContactNumber);
@@ -352,7 +351,6 @@
             self.BuildingName(tableItem.BuildingName);
             self.Address(tableItem.Address);
             self.ZipCode(tableItem.ZipCode);
-
             self.CountryId(tableItem.CountryId);
             stateId = (tableItem.StateId);
             cityId = (tableItem.CityId);
@@ -453,7 +451,7 @@
         });
     }
     self.GlobalSearchEnter = function (data) {
-
+        
         self.GetAllBuildingData();
         //console.log(event);
     }

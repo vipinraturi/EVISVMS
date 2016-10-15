@@ -216,7 +216,9 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                     lstBuildingVM = lstBuildingVM.Where(item =>
                         item.Address.ToLower().Contains(globalSearch.ToLower()) ||
                         item.BuildingName.ToLower().Contains(globalSearch.ToLower()) ||
-                        item.ZipCode.ToLower().Contains(globalSearch.ToLower())
+                        //item.ZipCode.ToLower().Contains(globalSearch.ToLower())||
+                        item.OrganizationName.ToLower().Contains(globalSearch.ToLower())||
+                        item.Country.ToLower().Contains(globalSearch.ToLower())
                         ).AsQueryable();
                 }
 

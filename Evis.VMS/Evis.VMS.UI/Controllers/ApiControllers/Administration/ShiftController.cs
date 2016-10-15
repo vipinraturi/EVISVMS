@@ -174,8 +174,11 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 if (!string.IsNullOrEmpty(globalSearch))
                 {
                     LstShiftDetailsVM = LstShiftDetailsVM.Where(item =>
-                        item.ShitfName.ToLower().Contains(globalSearch.ToLower()) || item.strFromTime.ToLower().Contains(globalSearch.ToLower()) ||
-                        item.strToTime.ToLower().Contains(globalSearch.ToLower())).AsQueryable();
+                        item.ShitfName.ToLower().Contains(globalSearch.ToLower()) || 
+                        item.strFromTime.ToLower().Contains(globalSearch.ToLower()) ||
+                        item.strToTime.ToLower().Contains(globalSearch.ToLower())||
+                        item.CreatedOn.ToLower().Contains(globalSearch.ToLower()))
+                        .AsQueryable();
                 }
                 if (string.IsNullOrEmpty(sortField))
                 {

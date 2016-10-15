@@ -123,14 +123,17 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
                 }
             }
             if (lstgateVM.Count() > 0)
-            {
+           {
                 if (!string.IsNullOrEmpty(globalSearch))
                 {
                     lstgateVM = lstgateVM.Where(item =>
                         item.GateNumber.ToLower().Contains(globalSearch.ToLower()) ||
                          item.BuildingName.ToLower().Contains(globalSearch.ToLower()) ||
                          item.Country.ToLower().Contains(globalSearch.ToLower()) ||
-                         item.State.ToLower().Contains(globalSearch.ToLower()) || item.City.ToLower().Contains(globalSearch.ToLower())).AsQueryable();
+                         item.State.ToLower().Contains(globalSearch.ToLower()) || 
+                         item.City.ToLower().Contains(globalSearch.ToLower())||
+                         item.OtherCity.ToLower().Contains(globalSearch.ToLower()))
+                         .AsQueryable();
                 }
                 if (string.IsNullOrEmpty(sortField))
                 {
