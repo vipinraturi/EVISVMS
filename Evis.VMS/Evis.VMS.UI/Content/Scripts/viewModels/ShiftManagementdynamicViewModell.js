@@ -17,6 +17,10 @@ function ShiftManagementdynamicViewModell() {
     //GetShiftDetails(todayDate);
 
     self.ChangeShiftAssignment = function (data) {
+        if (self.MessageToSecurity()) {
+            return;
+        }
+
         var checked = true;
         var isExist = false;
 
@@ -53,7 +57,20 @@ function ShiftManagementdynamicViewModell() {
         //console.log('click..' + data.Id + '  ' + data.IsAssigned + '  ' + data.ShiftDate + '  ' + data.ShiftName + '  ' + data.UserId);
     }
 
+    self.MessageToSecurity = function () {
+        if ($('#hidRoleType').val() == "Security") {
+            toastr.clear();
+            toastr.warning("Security role cannot do shift assignment.");
+            return true;
+        }
+        return false;
+    }
     self.ApplyChanges = function (data) {
+
+        if (self.MessageToSecurity()) {
+            return;
+        }
+
         //shiftAssinedLst
         if (shiftAssinedLst.length > 0) {
             ShowLoader();

@@ -13,6 +13,7 @@
     @if (@Session["UserSession"] != null)
     {
         var userSessionData = (Evis.VMS.UI.ViewModel.UserSessionDataVM)Session["UserSession"];
+       
         <link rel="Stylesheet" href="@Url.Content("~/Content/" + userSessionData.ThemeName)" id="styleTheme" />
     }
 </head>
@@ -34,7 +35,9 @@
                                 @if (@Session["UserSession"] != null)
                                 {
                                     var userSessionData = (Evis.VMS.UI.ViewModel.UserSessionDataVM)Session["UserSession"];
+                                    <input type="hidden" value="@userSessionData.UserRole.ToString()" id="hidRoleType" />
                                     <img class="logoimg img-responsive" style="width:auto; height:auto;" id="mainLogo" src="@Url.Content(userSessionData.ImageLogoPath)" /><br />
+                                    
                                 }
                                 <span class="companyName-Span"></span>
                             </a>
