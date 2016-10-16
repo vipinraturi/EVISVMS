@@ -90,37 +90,27 @@ namespace Evis.VMS.UI.Controllers.ApiControllers
         [HttpPost]
         public string DisplayAllShift(string globalSearch, int pageIndex, int pageSize, string sortField = "", string sortOrder = "ASC")
         {
-           // .Where(t => t.ExpirationDate == null || (t.ExpirationDate != null && DbFunctions.TruncateTime(t.ExpirationDate.Value) > DbFunctions.TruncateTime(DateTime.Now)))
-            //.Where(x => x.IsActive == true && x.FromDate <= DateTime.Now && x.ToDate >= DateTime.Now)
+          
         
-            var ShiftDisplay = _genericService.ShitfAssignment.GetAll().Where(x => x.IsActive == true && (EntityFunctions.TruncateTime(x.FromDate) >= EntityFunctions.TruncateTime(DateTime.Now))
-               || (EntityFunctions.TruncateTime(x.ToDate) >= EntityFunctions.TruncateTime(DateTime.Now) )).ToList()
+            var ShiftDisplay = _genericService.ShiftDetails.GetAll().Where(x => x.IsActive == true && ((EntityFunctions.TruncateTime(x.ShiftDate) ==EntityFunctions.TruncateTime(DateTime.Now))
+               || (EntityFunctions.TruncateTime(x.ShiftDate) == EntityFunctions.TruncateTime(DateTime.Now) ))).ToList()
                 .Select(x => new ShiftAssignmentVM
                 {
-                    UserId = x.UserId,
+                    UserId = x.SecurityID,
                     UserName = x.ApplicationUser.FullName,
-                    BuildingId = x.BuildingId,
+                    BuildingId = x.Gates.BuildingId,
                     BuildingName = x.Gates.BuildingMaster.BuildingName,
-                    GateId = x.GateId,
+                    GateId = x.GateID,
                     GateName = x.Gates.GateNumber,
-                    ShitfId = x.ShitfId,
+                    ShitfId = x.ShiftID,
                     ShiftName = x.Shitfs.ShitfName + " (" + x.Shitfs.FromTime.ToString("hh:mm tt") + " - " + x.Shitfs.ToTime.ToString("hh:mm tt") + ")",
-                    FromDate=x.FromDate,
-                    ToDate=x.ToDate
+                    FromDate=x.ShiftDate,
+                   // ToDate = x.ShiftDate
 
 
-                }).ToList().Where(x => x.FromDate.Date <= DateTime.Now.Date).ToList();
+                }).ToList().Where(x => x.FromDate.Date == DateTime.Now.Date).ToList();
             var searchDetails = JsonConvert.DeserializeObject<SearchShiftReport>(globalSearch);
            
-            //ShiftDisplay = ShiftDisplay.Where(
-            // x => (searchDetails == null ||
-            //      ((string.IsNullOrEmpty(searchDetails.SecurityId) || x.UserId == searchDetails.SecurityId) &&
-            //      (searchDetails.GateId == 0 || x.GateId == searchDetails.GateId) &&
-            //      (searchDetails.BuildingID == 0 || x.BuildingId == searchDetails.BuildingID) &&
-            //      (searchDetails.ShiftID == 0 || x.ShitfId == searchDetails.ShiftID) &&
-            //      (string.IsNullOrEmpty(searchDetails.FromDate) || x.FromDate.ToString().Contains(searchDetails.FromDate.ToString())) &&
-            //      (string.IsNullOrEmpty(searchDetails.ToDate) || x.ToDate.ToString().Contains(searchDetails.ToDate.ToString()))))).ToList();
-
 
             if (string.IsNullOrEmpty(sortField))
             {

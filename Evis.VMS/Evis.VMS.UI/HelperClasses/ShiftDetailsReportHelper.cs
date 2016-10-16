@@ -64,6 +64,12 @@ namespace Evis.VMS.UI.HelperClasses
 
         private IQueryable<ShiftReportGridVM> GetShiftDetails(int? orgId, SearchShiftReport searchDetails)
         {
+            //////string fromdat = searchDetails.FromDate.ToString();
+            //////DateTime fromdt = DateTime.ParseExact(fromdat, "dd/MM/YYYY", null);
+            //////string todat = searchDetails.ToDate.ToString();
+            //////DateTime todt = DateTime.ParseExact(todat, "dd/MM/YYYY", null);
+
+
             var query = (from _shiftDetails in _genericService.ShiftDetails.GetAll()
                          join _shiftMaster in _genericService.ShitfMaster.GetAll() on _shiftDetails.ShiftID equals _shiftMaster.Id
                          join _gateMaster in _genericService.GateMaster.GetAll() on _shiftDetails.GateID equals _gateMaster.Id
@@ -74,7 +80,11 @@ namespace Evis.VMS.UI.HelperClasses
                          && ((searchDetails.SecurityId == null) || (searchDetails.SecurityId == _shiftDetails.SecurityID))
                          && ((searchDetails.GateId == 0) || (searchDetails.GateId == _shiftDetails.GateID))
                          && ((searchDetails.ShiftID == 0) || (searchDetails.ShiftID == _shiftDetails.ShiftID))
-                         && ((searchDetails.FromDate == DateTime.MinValue)  || (_shiftDetails.ShiftDate >= searchDetails.FromDate))
+
+                         ////// && ((fromdt == DateTime.MinValue) || (_shiftDetails.ShiftDate >= fromdt))
+                         //////&& ((todt == DateTime.MinValue) || (_shiftDetails.ShiftDate <= todt)))
+
+                         && ((searchDetails.FromDate == DateTime.MinValue) || (_shiftDetails.ShiftDate >= searchDetails.FromDate))
                          && ((searchDetails.ToDate == DateTime.MinValue) || (_shiftDetails.ShiftDate <= searchDetails.ToDate)))
                          group new
                          {
@@ -128,16 +138,7 @@ namespace Evis.VMS.UI.HelperClasses
         {
             IQueryable<ShiftReportGridVM> shiftQueryable = null;
              var searchDetails = JsonConvert.DeserializeObject<SearchShiftReport>(search);
-             //if (searchDetails.FromDate =)
-             //{
-             //    searchDetails.FromDate = DateTime.MinValue;
-             //    searchDetails.ToDate = DateTime.MaxValue;
-             //}
-             //if (searchDetails.ToDate == DateTime.MinValue)
-             //{
-                
-             //    searchDetails.ToDate = DateTime.MaxValue;
-             //}
+            
             shiftQueryable = GetShiftDetails(orgId, searchDetails);
             return shiftQueryable.ToList();
         }
