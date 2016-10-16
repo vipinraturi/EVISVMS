@@ -40,8 +40,9 @@
         self.Roles(data);
     });
 
-    setTimeout(function () {
+  
 
+    LoadProfile = function () {
         AjaxCall('/Api/MyProfile/GetMyProfile', null, 'GET', function (data) {
             temp = data;
             self.UserId(data.Id);
@@ -56,7 +57,7 @@
             $('#viewImageUnique').show();
 
             $('.dz-image-preview').empty();
-            
+
             if (data.IsImageAvailable) {
                 if (data.ProfilePicturePath != null && data.ProfilePicturePath != "" && data.ProfilePicturePath != "/images/UserImages/VisitorImage") {
                     var imagePath = data.ProfilePicturePath;
@@ -93,8 +94,9 @@
                 }
             });
         });
+    }
 
-    }, 1000);
+   
 
     self.SaveMyProfile = function () {
         if (self.myProfileErrors().length > 0) {

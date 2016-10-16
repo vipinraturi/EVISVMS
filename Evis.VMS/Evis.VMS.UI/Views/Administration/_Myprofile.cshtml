@@ -91,7 +91,7 @@
                         <div class="form-group">
                             <div class="pull-right">
                                 <button type="button" class="btn btn-primary" data-bind="click: ResetMyProfile.bind()">Reset <i class="fa fa-refresh"></i></button>
-                                <button type="submit" class="btn btn-success" data-bind="click: SaveMyProfile">Update <i class="fa fa-save"></i> </button>
+                                <button id="updateMyProfile" type="submit" class="btn btn-success" data-bind="click: SaveMyProfile">Update <i class="fa fa-save"></i> </button>
                             </div>
                         </div>
                     </form>
@@ -107,6 +107,7 @@
     var myDropzoneUnique;
 
     $(function () {
+        LoadProfile();
         myDropzoneUnique = new Dropzone("#dropzoneMyProfileImageForm");
         myDropzoneUnique.maxFiles = 2;
         var imagePath = '/images/avatar.jpg';
@@ -140,6 +141,8 @@
         });
 
         myDropzoneUnique.on("sending", function (file, xhr, formData) {
+		ShowLoader();
+            $('#updateMyProfile').attr('readonly', 'readonly').attr('disabled', 'disabled').add('background-color', 'grey');
             var timeStamp = new Date().getTime();
             var $jQueryTest = $(file.previewElement.children[0].firstChild);
             $jQueryTest.attr('img-name-unique', (timeStamp + "_" + file.name));
@@ -147,6 +150,9 @@
         });
 
         myDropzoneUnique.on('success', function (file) {
+          HideLoader();
+		  toastr.success('Image uploaded successfully!!');
+		   $('#updateMyProfile').removeAttr('readonly').removeAttr('disabled').removeAttr('background-color', 'grey').addClass('btn-primary');
             $('.dz-image').addClass('dz-message');
         });
         myDropzoneUnique.on("init", function () {
