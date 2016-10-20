@@ -120,12 +120,15 @@
                     <!-- ko foreach: self.Body() -->
                     <tr>
                         <td class="wemp" id="e_2893422">
-                            <div class="udrag ui-draggable" alt="2893422">
+                            <div class="udrag ui-draggable" alt="2893422" style="width:150px;height:50px">
                                 <!-- ko if: $data.UserProfilePicPath != null  -->
-                                <img data-bind="attr: { src : ($data.IsImageAvailable ? $data.UserProfilePicPath : '/images/avatar.jpg') }" class="usr tti"><span class="jump" data-bind="text: Securityname"></span>
+                                <img data-bind="attr: { src : ($data.IsImageAvailable ? $data.UserProfilePicPath : '/images/avatar.jpg') }" class="usr tti">
+                                @*<span class="jump" data-bind="text: Securityname"></span>*@
+                                <span class="jump" data-bind="text:(Securityname.length<=10 ? $data.Securityname:$data.Securityname.substring(0,10)),attr:{title:Securityname}"></span>
                                 <!-- /ko -->
                                 <!-- ko if: $data.UserProfilePicPath == null  -->
-                                <img src="/images/avatar.jpg" class="usr tti"><span class="jump" data-bind="text: Securityname"></span>
+                                <img src="/images/avatar.jpg" class="usr tti">
+                                <span class="jump" data-bind="text: Securityname"></span>
                                 <!-- /ko -->
                             </div>
                         </td>
